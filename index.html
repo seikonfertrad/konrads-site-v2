@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Konrad Seifert — Design Chooser</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      background: #FAFAFA;
+      color: #1A1A1A;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+    }
+    .chooser {
+      text-align: center;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+      color: #777;
+      margin-bottom: 3rem;
+    }
+    .options {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+      padding: 2.5rem 3rem;
+      border: 1px solid #E0E0E0;
+      border-radius: 8px;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      min-width: 240px;
+    }
+    .option:hover {
+      border-color: #999;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+    .option-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: #999;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .option-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .option-desc {
+      font-size: 0.8rem;
+      color: #888;
+      line-height: 1.5;
+    }
+    .option-swiss { border-left: 3px solid #C75B3A; }
+    .option-wave { border-left: 3px solid #1A1A2E; }
+  </style>
+</head>
+<body>
+  <div class="chooser">
+    <h1>konrads.link</h1>
+    <p class="subtitle">Two design directions — pick one to preview.</p>
+    <div class="options">
+      <a href="swiss/" class="option option-swiss">
+        <span class="option-num">Design 01</span>
+        <span class="option-name">Swiss Topology</span>
+        <span class="option-desc">Warm cream, terracotta accent,<br>generative contour lines</span>
+      </a>
+      <a href="waveform/" class="option option-wave">
+        <span class="option-num">Design 02</span>
+        <span class="option-name">Waveform</span>
+        <span class="option-desc">Cool light, indigo signal,<br>oscilloscope canvas traces</span>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
