@@ -906,6 +906,7 @@ function initArchiveGallery() {
 
   let loaded = false;
   let allImages = []; // flat list for lightbox navigation
+  let captions = {};  // filename -> caption text
 
   // Load manifest when archive panel becomes visible
   const observer = new MutationObserver(() => {
@@ -920,11 +921,13 @@ function initArchiveGallery() {
   panels.forEach(p => observer.observe(p, { attributes: true, attributeFilter: ['class'] }));
 
   function loadArchive() {
-    fetch('archive/manifest.json')
-      .then(r => r.json())
-      .then(months => {
-        let idx = 0;
-        months.forEach(group => {
+    Promise.all([
+      fetch('archive/manifest.json').then(r => r.json()),
+      fetch('archive/captions.json').then(r => r.json()).catch(() => ({}))
+    ]).then(([months, captionData]) => {
+      captions = captionData;
+      let idx = 0;
+      months.forEach(group => {
           const section = document.createElement('div');
           section.className = 'archive-month';
 
@@ -963,6 +966,7 @@ function initArchiveGallery() {
   // Lightbox
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxCaption = document.getElementById('lightbox-caption');
   const lightboxCounter = document.getElementById('lightbox-counter');
   let currentIdx = 0;
 
@@ -978,6 +982,8 @@ function initArchiveGallery() {
 
   function updateLightbox() {
     lightboxImg.src = allImages[currentIdx];
+    const filename = allImages[currentIdx].split('/').pop();
+    lightboxCaption.textContent = captions[filename] || '';
     lightboxCounter.textContent = `${currentIdx + 1} / ${allImages.length}`;
   }
 
