@@ -104,6 +104,14 @@
       </div>
     </div>
 
+    <!-- Archive -->
+    <div class="village" data-map-x="85" data-map-y="80" data-rings="3" data-section="archive">
+      <svg class="village-rings" aria-hidden="true"></svg>
+      <div class="village-label">
+        <span class="village-num">08</span>
+        <span class="village-title">Archive</span>
+      </div>
+    </div>
 
   </div>
 
@@ -204,11 +212,28 @@
       <p>I have no mental imagery. No inner voice. My long-term memory is purely semantic. I can't picture my mother's face or replay a song in my head. It makes me an unusual thinker&mdash;I process the world in abstractions, not images.</p>
     </article>
 
+    <!-- Archive -->
+    <article class="drawer-panel" id="drawer-archive">
+      <div class="section-marker"><span class="marker-num">08</span> Archive</div>
+      <h2>Instagram Archive</h2>
+      <p class="detail">620 posts, 2014&ndash;2024. Deleted the account, kept the memories.</p>
+      <div class="archive-gallery" id="archive-gallery"></div>
+    </article>
+
     </div>
   </div>
 
   <!-- Drawer backdrop -->
   <div class="drawer-backdrop" aria-hidden="true"></div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close">[&times;] close</button>
+    <button class="lightbox-nav lightbox-prev">&lsaquo;</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="">
+    <button class="lightbox-nav lightbox-next">&rsaquo;</button>
+    <div class="lightbox-counter" id="lightbox-counter"></div>
+  </div>
 
   <!-- GSAP + Plugins via CDN -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/gsap.min.js"></script>

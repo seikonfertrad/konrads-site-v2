@@ -727,6 +727,7 @@ function initMobile() {
     'abundance':   { x: 55, y: 65 },
     'humans':      { x: 78, y: 75 },
     'aphantasia':  { x: 30, y: 82 },
+    'archive':     { x: 70, y: 92 },
   };
 
   villages.forEach(v => {
@@ -889,4 +890,129 @@ function handleResize(contourPathsRef, villagePositionsRef) {
   }
 
   window.addEventListener('resize', () => handleResize(contourPathsRef, villagePositionsRef));
+
+  // Archive gallery — lazy-load manifest when drawer first opens
+  initArchiveGallery();
 })();
+
+
+// ============================================
+// 12. ARCHIVE GALLERY
+// ============================================
+
+function initArchiveGallery() {
+  const gallery = document.getElementById('archive-gallery');
+  if (!gallery) return;
+
+  let loaded = false;
+  let allImages = []; // flat list for lightbox navigation
+
+  // Load manifest when archive panel becomes visible
+  const observer = new MutationObserver(() => {
+    const panel = document.getElementById('drawer-archive');
+    if (panel && panel.classList.contains('is-active') && !loaded) {
+      loaded = true;
+      loadArchive();
+    }
+  });
+
+  const panels = document.querySelectorAll('.drawer-panel');
+  panels.forEach(p => observer.observe(p, { attributes: true, attributeFilter: ['class'] }));
+
+  function loadArchive() {
+    fetch('archive/manifest.json')
+      .then(r => r.json())
+      .then(months => {
+        let idx = 0;
+        months.forEach(group => {
+          const section = document.createElement('div');
+          section.className = 'archive-month';
+
+          const label = document.createElement('div');
+          label.className = 'archive-month-label';
+          label.textContent = group.label;
+          section.appendChild(label);
+
+          const grid = document.createElement('div');
+          grid.className = 'archive-grid';
+
+          group.images.forEach(filename => {
+            const src = `archive/posts/${group.month}/${filename}`;
+            allImages.push(src);
+
+            const thumb = document.createElement('div');
+            thumb.className = 'archive-thumb';
+            const imgIdx = idx++;
+
+            const img = document.createElement('img');
+            img.loading = 'lazy';
+            img.alt = `Post from ${group.label}`;
+            img.src = src;
+
+            thumb.addEventListener('click', () => openLightbox(imgIdx));
+            thumb.appendChild(img);
+            grid.appendChild(thumb);
+          });
+
+          section.appendChild(grid);
+          gallery.appendChild(section);
+        });
+      });
+  }
+
+  // Lightbox
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxCounter = document.getElementById('lightbox-counter');
+  let currentIdx = 0;
+
+  function openLightbox(idx) {
+    currentIdx = idx;
+    updateLightbox();
+    lightbox.classList.add('is-active');
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('is-active');
+  }
+
+  function updateLightbox() {
+    lightboxImg.src = allImages[currentIdx];
+    lightboxCounter.textContent = `${currentIdx + 1} / ${allImages.length}`;
+  }
+
+  function navigate(dir) {
+    currentIdx = (currentIdx + dir + allImages.length) % allImages.length;
+    updateLightbox();
+  }
+
+  lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+  lightbox.querySelector('.lightbox-prev').addEventListener('click', () => navigate(-1));
+  lightbox.querySelector('.lightbox-next').addEventListener('click', () => navigate(1));
+
+  // Click backdrop to close
+  lightbox.addEventListener('click', e => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('is-active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navigate(-1);
+    if (e.key === 'ArrowRight') navigate(1);
+  });
+
+  // Swipe support for mobile
+  let touchStartX = 0;
+  lightbox.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+
+  lightbox.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) {
+      navigate(dx > 0 ? -1 : 1);
+    }
+  }, { passive: true });
+}
