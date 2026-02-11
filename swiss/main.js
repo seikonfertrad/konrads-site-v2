@@ -251,6 +251,7 @@ function initFlashlight() {
   const fog = document.querySelector('.fog');
   const villages = document.querySelectorAll('.village');
   const contourPaths = document.querySelectorAll('.contour-line');
+  let pathways = null; // lazy — queried after pathways are generated
   if (!fog || !villages.length) return;
 
   // Initial hidden state
@@ -266,9 +267,14 @@ function initFlashlight() {
     });
   });
 
-  let mouseX = -9999;
-  let mouseY = -9999;
+  // Start flashlight at viewport center (hero position)
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight * 0.48; // hero is at 48% y
+  let picked = false;
   let ticking = false;
+
+  // Apply initial center position immediately
+  requestAnimationFrame(updateFlashlight);
 
   function updateFlashlight() {
     document.documentElement.style.setProperty('--mouse-x', `${mouseX}px`);
@@ -322,10 +328,68 @@ function initFlashlight() {
       }
     });
 
+    // Pathway glow — light up when cursor is near the path's village endpoint
+    pathways = document.querySelectorAll('.pathway');
+    pathways.forEach(pw => {
+      const vx = parseFloat(pw.dataset.vx);
+      const vy = parseFloat(pw.dataset.vy);
+      const hx = parseFloat(pw.dataset.heroX);
+      const hy = parseFloat(pw.dataset.heroY);
+
+      // Distance from cursor to village end
+      const dvx = mouseX - vx;
+      const dvy = mouseY - vy;
+      const distV = Math.sqrt(dvx * dvx + dvy * dvy);
+
+      // Distance from cursor to hero end
+      const dhx = mouseX - hx;
+      const dhy = mouseY - hy;
+      const distH = Math.sqrt(dhx * dhx + dhy * dhy);
+
+      // Use whichever end is closer
+      const dist = Math.min(distV, distH);
+
+      if (dist < 350) {
+        const t = 1 - dist / 350;
+        pw.setAttribute('opacity', (0.04 + t * 0.35).toFixed(2));
+      } else {
+        pw.setAttribute('opacity', '0.04');
+      }
+    });
+
     ticking = false;
   }
 
   document.addEventListener('mousemove', e => {
+    if (!picked) {
+      // First mouse move: smoothly transition from center to cursor
+      picked = true;
+      const startX = mouseX;
+      const startY = mouseY;
+      const targetX = e.clientX;
+      const targetY = e.clientY;
+      gsap.to({ t: 0 }, {
+        t: 1,
+        duration: 0.5,
+        ease: 'power2.out',
+        onUpdate: function () {
+          const t = this.targets()[0].t;
+          mouseX = startX + (targetX - startX) * t;
+          mouseY = startY + (targetY - startY) * t;
+          if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(updateFlashlight);
+          }
+        },
+        onComplete: () => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+          requestAnimationFrame(updateFlashlight);
+        },
+      });
+      return;
+    }
+
     mouseX = e.clientX;
     mouseY = e.clientY;
     if (!ticking) {
@@ -335,13 +399,30 @@ function initFlashlight() {
   });
 
   document.addEventListener('mouseleave', () => {
-    mouseX = -9999;
-    mouseY = -9999;
-    document.documentElement.style.setProperty('--mouse-x', '-9999px');
-    document.documentElement.style.setProperty('--mouse-y', '-9999px');
-    villageQuickOps.forEach(({ quickOpacity }) => quickOpacity(0.03));
-    contourPaths.forEach(path => {
-      path.setAttribute('opacity', path.dataset.baseOpacity);
+    picked = false; // Reset so re-entering triggers smooth pickup again
+    // Animate flashlight back to center
+    const startX = mouseX;
+    const startY = mouseY;
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight * 0.48;
+    gsap.to({ t: 0 }, {
+      t: 1,
+      duration: 0.6,
+      ease: 'power2.inOut',
+      onUpdate: function () {
+        const t = this.targets()[0].t;
+        mouseX = startX + (centerX - startX) * t;
+        mouseY = startY + (centerY - startY) * t;
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(updateFlashlight);
+        }
+      },
+      onComplete: () => {
+        mouseX = centerX;
+        mouseY = centerY;
+        requestAnimationFrame(updateFlashlight);
+      },
     });
   });
 }
@@ -377,7 +458,7 @@ function initDrawer() {
     if (!isOpen) {
       isOpen = true;
       gsap.to(drawer, {
-        x: 0,
+        y: 0,
         duration: 0.45,
         ease: 'power3.out',
       });
@@ -398,7 +479,7 @@ function initDrawer() {
     currentSection = null;
 
     gsap.to(drawer, {
-      x: '100%',
+      y: '-100%',
       duration: 0.35,
       ease: 'power3.in',
       onComplete: () => {
@@ -438,7 +519,7 @@ function initDrawer() {
 
 
 // ============================================
-// 7. RING PULSE ANIMATION
+// 7. CONTINUOUS RING DRAW ANIMATION
 // ============================================
 
 function animateRings() {
@@ -446,16 +527,42 @@ function animateRings() {
   villages.forEach(village => {
     const rings = village.querySelectorAll('.village-rings circle');
     rings.forEach((ring, i) => {
-      gsap.to(ring, {
-        attr: { r: `+=${1.5 + i * 0.5}` },
-        duration: 3 + Math.random() * 2,
-        ease: 'sine.inOut',
-        repeat: -1,
-        yoyo: true,
-        delay: i * 0.3 + Math.random(),
-      });
+      const duration = 4 + i * 1.2 + Math.random() * 2;
+      const delay = i * 0.5 + Math.random() * 1.5;
+
+      // Continuous drawing loop: 0% → 100% → rotating start point
+      gsap.fromTo(ring,
+        { drawSVG: '0% 0%' },
+        {
+          drawSVG: '0% 100%',
+          duration: duration * 0.5,
+          ease: 'power1.inOut',
+          delay,
+          onComplete: function () {
+            // Start the perpetual cycle
+            loopRingDraw(ring, duration);
+          },
+        }
+      );
     });
   });
+}
+
+function loopRingDraw(ring, duration) {
+  const tl = gsap.timeline({ repeat: -1 });
+
+  // Full circle visible, then the tail catches up
+  tl.fromTo(ring,
+    { drawSVG: '0% 100%' },
+    { drawSVG: '100% 100%', duration: duration * 0.5, ease: 'power1.inOut' }
+  );
+
+  // Gap, then head starts drawing again
+  tl.fromTo(ring,
+    { drawSVG: '0% 0%' },
+    { drawSVG: '0% 100%', duration: duration * 0.5, ease: 'power1.inOut' },
+    '+=0.3'
+  );
 }
 
 
@@ -537,7 +644,73 @@ function initMobile() {
 
 
 // ============================================
-// 10. RESIZE HANDLER
+// 10. PATHWAYS — lines from hero to villages
+// ============================================
+
+function generatePathways(villagePositions) {
+  const svg = document.getElementById('contour-svg');
+  if (!svg || villagePositions.length < 2) return [];
+
+  // Find hero position (first entry, the one without data-section)
+  const hero = villagePositions.find(v => v.el.classList.contains('village--hero'));
+  if (!hero) return [];
+
+  const paths = [];
+
+  villagePositions.forEach(v => {
+    if (v.el === hero.el) return; // skip hero → hero
+
+    // Curved path from hero to village via a control point offset sideways
+    const dx = v.x - hero.x;
+    const dy = v.y - hero.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    // Perpendicular offset for the curve — gives it a nice arc
+    const nx = -dy / dist;
+    const ny = dx / dist;
+    const curvature = dist * 0.15 * (Math.random() > 0.5 ? 1 : -1);
+    const cpx = (hero.x + v.x) / 2 + nx * curvature;
+    const cpy = (hero.y + v.y) / 2 + ny * curvature;
+
+    const d = `M ${hero.x.toFixed(1)} ${hero.y.toFixed(1)} Q ${cpx.toFixed(1)} ${cpy.toFixed(1)}, ${v.x.toFixed(1)} ${v.y.toFixed(1)}`;
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', d);
+    path.setAttribute('class', 'pathway');
+    path.setAttribute('stroke', 'var(--accent)');
+    path.setAttribute('stroke-width', '0.8');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke-linecap', 'round');
+    path.setAttribute('stroke-dasharray', '4 6');
+    path.setAttribute('opacity', '0.04');
+    path.dataset.baseOpacity = '0.04';
+    // Store the village's pixel center for proximity checks
+    path.dataset.vx = v.x.toFixed(0);
+    path.dataset.vy = v.y.toFixed(0);
+    path.dataset.heroX = hero.x.toFixed(0);
+    path.dataset.heroY = hero.y.toFixed(0);
+
+    svg.appendChild(path);
+    paths.push(path);
+  });
+
+  // Entrance: draw in
+  paths.forEach((path, i) => {
+    gsap.set(path, { drawSVG: '0%' });
+    gsap.to(path, {
+      drawSVG: '100%',
+      duration: 1.5 + Math.random(),
+      delay: 1.5 + i * 0.1,
+      ease: 'power2.inOut',
+    });
+  });
+
+  return paths;
+}
+
+
+// ============================================
+// 11. RESIZE HANDLER
 // ============================================
 
 let resizeTimeout;
@@ -552,10 +725,11 @@ function handleResize(contourPathsRef, villagePositionsRef) {
       const newPositions = positionVillages();
       villagePositionsRef.current = newPositions;
 
-      // Regenerate contours
+      // Regenerate contours and pathways
       const newPaths = generateContours(newPositions);
       contourPathsRef.current = newPaths;
       animateContourOscillation(newPaths);
+      generatePathways(newPositions);
     }
   }, 300);
 }
@@ -582,6 +756,7 @@ function handleResize(contourPathsRef, villagePositionsRef) {
     contourPathsRef.current = contourPaths;
 
     animateContourOscillation(contourPaths);
+    generatePathways(positions);
     initFlashlight();
     initDrawer();
     heroEntrance();
