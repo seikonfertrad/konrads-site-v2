@@ -59,27 +59,116 @@ function positionVillages() {
   const villages = document.querySelectorAll('.village');
   const vw = window.innerWidth;
   const vh = window.innerHeight;
-  const positions = [];
 
+  // Build candidate positions with random drift
+  const candidates = [];
   villages.forEach(village => {
-    const px = parseFloat(village.dataset.mapX);
-    const py = parseFloat(village.dataset.mapY);
+    const basePx = parseFloat(village.dataset.mapX);
+    const basePy = parseFloat(village.dataset.mapY);
+    const isHero = village.classList.contains('village--hero');
+    const drift = isHero ? 0 : 10;
 
-    const x = (px / 100) * vw;
-    const y = (py / 100) * vh;
+    candidates.push({
+      el: village,
+      isHero,
+      basePx: basePx,
+      basePy: basePy,
+      px: basePx + (Math.random() - 0.5) * drift * 2,
+      py: basePy + (Math.random() - 0.5) * drift * 2,
+      radius: village._ringRadius || 50,
+    });
+  });
 
-    village.style.left = `${x}px`;
-    village.style.top = `${y}px`;
+  // Iterative repulsion — push overlapping villages apart
+  const minDist = 20; // minimum distance in % units
+  for (let iter = 0; iter < 20; iter++) {
+    let moved = false;
+    for (let i = 0; i < candidates.length; i++) {
+      for (let j = i + 1; j < candidates.length; j++) {
+        const a = candidates[i];
+        const b = candidates[j];
+        const dx = b.px - a.px;
+        const dy = b.py - a.py;
+        const dist = Math.sqrt(dx * dx + dy * dy) || 0.1;
+
+        if (dist < minDist) {
+          const overlap = (minDist - dist) / 2;
+          const nx = dx / dist;
+          const ny = dy / dist;
+
+          // Only push non-hero villages
+          if (!a.isHero) {
+            a.px -= nx * overlap;
+            a.py -= ny * overlap;
+          }
+          if (!b.isHero) {
+            b.px += nx * overlap;
+            b.py += ny * overlap;
+          }
+          moved = true;
+        }
+      }
+    }
+    if (!moved) break;
+  }
+
+  // Clamp to viewport bounds (5%-95%) and apply
+  const positions = [];
+  candidates.forEach(c => {
+    if (!c.isHero) {
+      c.px = Math.max(8, Math.min(92, c.px));
+      c.py = Math.max(8, Math.min(92, c.py));
+    }
+
+    const x = (c.px / 100) * vw;
+    const y = (c.py / 100) * vh;
+
+    c.el.style.left = `${x}px`;
+    c.el.style.top = `${y}px`;
 
     positions.push({
       x,
       y,
-      radius: village._ringRadius || 50,
-      el: village,
+      radius: c.radius,
+      el: c.el,
     });
   });
 
   return positions;
+}
+
+
+// ============================================
+// VILLAGE HOVER — continuous gentle float
+// ============================================
+
+function animateVillageHover() {
+  const villages = document.querySelectorAll('.village');
+  villages.forEach(village => {
+    const isHero = village.classList.contains('village--hero');
+    const range = isHero ? 4 : 6;
+    const baseDuration = isHero ? 5 : 4;
+
+    // Vertical bob
+    gsap.to(village, {
+      y: `+=${range}`,
+      duration: baseDuration + Math.random() * 3,
+      ease: 'sine.inOut',
+      repeat: -1,
+      yoyo: true,
+      delay: Math.random() * 2,
+    });
+
+    // Horizontal sway (slower, subtler)
+    gsap.to(village, {
+      x: `+=${range * 0.6}`,
+      duration: baseDuration + 2 + Math.random() * 4,
+      ease: 'sine.inOut',
+      repeat: -1,
+      yoyo: true,
+      delay: Math.random() * 3,
+    });
+  });
 }
 
 
@@ -436,6 +525,7 @@ function initDrawer() {
   const drawer = document.querySelector('.drawer');
   const backdrop = document.querySelector('.drawer-backdrop');
   const closeBtn = document.querySelector('.drawer-close');
+  const fog = document.querySelector('.fog');
   const panels = document.querySelectorAll('.drawer-panel');
   const villages = document.querySelectorAll('.village[data-section]');
   if (!drawer || !villages.length) return;
@@ -453,6 +543,7 @@ function initDrawer() {
 
     drawer.setAttribute('aria-hidden', 'false');
     backdrop.classList.add('is-active');
+    if (fog) fog.classList.add('fog--dimmed');
     currentSection = sectionId;
 
     if (!isOpen) {
@@ -470,13 +561,16 @@ function initDrawer() {
     }
 
     // Scroll drawer to top
-    drawer.scrollTop = 0;
+    const scrollArea = drawer.querySelector('.drawer-scroll');
+    if (scrollArea) scrollArea.scrollTop = 0;
   }
 
   function closeDrawer() {
     if (!isOpen) return;
     isOpen = false;
     currentSection = null;
+
+    if (fog) fog.classList.remove('fog--dimmed');
 
     gsap.to(drawer, {
       y: '-100%',
@@ -623,23 +717,47 @@ function heroEntrance() {
 function initMobile() {
   const villages = document.querySelectorAll('.village');
 
-  // Make all visible immediately
+  // Override coordinates for portrait layout — spread vertically, keep x variety
+  const mobileCoords = {
+    'about':       { x: 50, y: 12 },  // hero
+    'ai-diplomacy': { x: 72, y: 25 },
+    'fractalgva':  { x: 25, y: 35 },
+    'djing':       { x: 75, y: 45 },
+    'writing':     { x: 22, y: 55 },
+    'abundance':   { x: 55, y: 65 },
+    'humans':      { x: 78, y: 75 },
+    'aphantasia':  { x: 30, y: 82 },
+  };
+
   villages.forEach(v => {
-    gsap.set(v, { opacity: 0, y: 20 });
+    const section = v.dataset.section;
+    if (section && mobileCoords[section]) {
+      v.dataset.mapX = mobileCoords[section].x;
+      v.dataset.mapY = mobileCoords[section].y;
+    }
   });
 
-  // Stagger entrance
-  gsap.to(villages, {
-    opacity: 1,
-    y: 0,
-    duration: 0.6,
-    stagger: 0.1,
-    ease: 'swissReveal',
-    delay: 0.3,
+  // Position using the standard function
+  const positions = positionVillages();
+
+  // Generate contours (no obstacle avoidance on mobile)
+  const contourPaths = generateContours([]);
+  animateContourOscillation(contourPaths);
+
+  // Fade in villages
+  villages.forEach((v, i) => {
+    gsap.set(v, { opacity: 0 });
+    gsap.to(v, {
+      opacity: 1,
+      duration: 0.5,
+      delay: 0.2 + i * 0.08,
+      ease: 'power2.out',
+    });
   });
 
-  // Drawer still works via tap
+  // Drawer works via tap
   initDrawer();
+  animateVillageHover();
 }
 
 
@@ -761,6 +879,7 @@ function handleResize(contourPathsRef, villagePositionsRef) {
     initDrawer();
     heroEntrance();
     animateRings();
+    animateVillageHover();
   } else {
     // Mobile: simple layout
     const contourPaths = generateContours([]);

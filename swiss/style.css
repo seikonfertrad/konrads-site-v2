@@ -118,6 +118,7 @@ a:hover {
   pointer-events: none;
   background: var(--bg);
   opacity: 0.92;
+  transition: opacity 0.4s ease;
   -webkit-mask-image: radial-gradient(
     circle 420px at var(--mouse-x) var(--mouse-y),
     transparent 0%,
@@ -130,6 +131,10 @@ a:hover {
     transparent 45%,
     black 100%
   );
+}
+
+.fog.fog--dimmed {
+  opacity: 0.5;
 }
 
 /* ---- Terrain (single viewport map) ---- */
@@ -208,9 +213,9 @@ a:hover {
   text-transform: uppercase;
 }
 
-/* Hero peak — larger */
+/* Hero peak — larger, clickable */
 .village--hero {
-  cursor: default;
+  cursor: pointer;
 }
 
 .village--hero .village-title {
@@ -221,11 +226,11 @@ a:hover {
 }
 
 /* Village hover state */
-.village:not(.village--hero):hover .village-title {
+.village:hover .village-title {
   color: var(--accent);
 }
 
-/* ---- Drawer (drops from top, centered) ---- */
+/* ---- Drawer (retro digital window) ---- */
 .drawer {
   position: fixed;
   left: 50%;
@@ -234,41 +239,71 @@ a:hover {
   max-height: 80vh;
   z-index: 10;
   background: var(--bg);
-  border: 1px solid var(--border);
+  border: 1px solid rgba(199, 91, 58, 0.35);
   border-top: none;
-  border-radius: 0 0 6px 6px;
-  overflow-y: auto;
-  padding: var(--space-lg) var(--space-lg) var(--space-lg);
+  border-radius: 0;
+  overflow: hidden;
+  padding: 0;
   transform: translate(-50%, -100%);
   will-change: transform;
+  box-shadow: none;
 }
 
-.drawer-close {
+.drawer-scroll {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Scanline overlay */
+.drawer::after {
+  content: '';
   position: absolute;
-  top: var(--space-md);
-  right: var(--space-md);
-  width: 36px;
-  height: 36px;
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: 2px;
-  font-size: 1.4rem;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(199, 91, 58, 0.018) 2px,
+    rgba(199, 91, 58, 0.018) 4px
+  );
+  z-index: 1;
+}
+
+/* Drawer inner content area — padding applied via main rule below */
+
+.drawer-close {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  width: 100%;
+  height: auto;
+  background: rgba(199, 91, 58, 0.05);
+  border: none;
+  border-bottom: 1px solid rgba(199, 91, 58, 0.2);
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
   color: var(--text-muted);
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  justify-content: flex-end;
+  padding: var(--space-xs) var(--space-sm);
+  transition: color 0.2s ease, background 0.2s ease;
   line-height: 1;
+  letter-spacing: 0.05em;
 }
 
 .drawer-close:hover {
   color: var(--accent);
-  border-color: var(--accent);
+  background: rgba(199, 91, 58, 0.08);
 }
 
 .drawer-panel {
   display: none;
+  padding: var(--space-lg);
 }
 
 .drawer-panel.is-active {
@@ -280,7 +315,7 @@ a:hover {
   position: fixed;
   inset: 0;
   z-index: 9;
-  background: rgba(26, 26, 26, 0.15);
+  background: transparent;
   pointer-events: none;
   opacity: 0;
   will-change: opacity;
@@ -293,15 +328,28 @@ a:hover {
 /* ---- Drawer content styles ---- */
 .section-marker {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 500;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.12em;
   margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px dashed rgba(199, 91, 58, 0.2);
   display: flex;
   align-items: center;
   gap: 0.75rem;
+}
+
+.section-marker::before {
+  content: '>';
+  color: var(--accent);
+  font-weight: 500;
+  animation: blink 1.2s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
 }
 
 .marker-num {
@@ -340,19 +388,37 @@ a:hover {
 
 .region-link {
   display: inline-block;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  border-bottom: none;
+  transition: color 0.2s ease;
+}
+
+.region-link::before {
+  content: '→ ';
+  color: rgba(199, 91, 58, 0.4);
+}
+
+.region-link:hover {
+  color: var(--accent);
+}
+
+.region-link:hover::before {
+  color: var(--accent);
 }
 
 blockquote {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-style: italic;
   line-height: 1.6;
   color: var(--text);
   margin-bottom: 1.25rem;
-  padding-left: 1.5rem;
+  padding: 1rem 1.5rem;
   border-left: 2px solid var(--accent);
+  background: rgba(199, 91, 58, 0.03);
+  border-right: 1px dashed rgba(199, 91, 58, 0.12);
 }
 
 /* ---- SoundCloud ---- */
@@ -393,18 +459,27 @@ blockquote {
   gap: 0.5rem 1rem;
   margin-top: var(--space-md);
   padding-top: var(--space-md);
-  border-top: 1px solid var(--border);
+  border-top: 1px dashed rgba(199, 91, 58, 0.2);
 }
 
 .drawer-links a {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
   border-bottom: none;
   transition: color 0.2s ease;
 }
 
+.drawer-links a::before {
+  content: '→ ';
+  color: rgba(199, 91, 58, 0.4);
+}
+
 .drawer-links a:hover {
+  color: var(--accent);
+}
+
+.drawer-links a:hover::before {
   color: var(--accent);
 }
 
@@ -413,38 +488,37 @@ blockquote {
   opacity: 0;
 }
 
-/* ---- Responsive — Mobile ---- */
+/* ---- Responsive — Mobile (keep the map, shrink it) ---- */
 @media (max-width: 768px) {
-  body {
-    height: auto;
-    overflow: auto;
-  }
-
-  .terrain {
-    width: 100%;
-    height: auto;
-    overflow: visible;
-    padding: var(--space-lg) var(--space-md) 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-lg);
-  }
-
-  .village {
-    position: static !important;
-    transform: none !important;
-    opacity: 1 !important;
-    text-align: center;
-  }
-
-  .village-rings {
-    margin: 0 auto;
-  }
-
-  /* Fog off on mobile */
+  /* Fog off on mobile — no cursor */
   .fog {
     display: none;
+  }
+
+  /* Scale down ring sizes via CSS transform on the whole terrain */
+  .village-rings {
+    transform: scale(0.6);
+    transform-origin: center center;
+  }
+
+  .village-label {
+    transform: translate(-50%, -50%) scale(0.85);
+  }
+
+  .village-title {
+    font-size: 0.65rem;
+  }
+
+  .village-num {
+    font-size: 0.5rem;
+  }
+
+  .village--hero .village-title {
+    font-size: 0.72rem;
+  }
+
+  .coordinates span {
+    font-size: 0.55rem;
   }
 
   /* Drawer: full-width on mobile */
@@ -454,25 +528,47 @@ blockquote {
     transform: translateY(-100%);
     border-radius: 0;
     max-height: 85vh;
+    border-left: none;
+    border-right: none;
   }
 
-  .coordinates {
-    position: static;
-    text-align: right;
-    align-self: flex-end;
+  .drawer-scroll {
+    max-height: 85vh;
+  }
+
+  .drawer-panel {
+    padding: var(--space-md);
+  }
+
+  .drawer-panel h2 {
+    font-size: 1.3rem;
+  }
+
+  .drawer-panel p {
+    font-size: 0.95rem;
+  }
+
+  .drawer-panel .lead {
+    font-size: 1.05rem;
+  }
+
+  blockquote {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .soundcloud-embed iframe {
+    height: 100px;
+  }
+
+  .tags span {
+    font-size: 0.7rem;
+    padding: 0.35rem 0.7rem;
   }
 }
 
 @media (max-width: 480px) {
   .coordinates {
     display: none;
-  }
-
-  .village--hero .village-title {
-    font-size: 0.78rem;
-  }
-
-  blockquote {
-    font-size: 1.05rem;
   }
 }
