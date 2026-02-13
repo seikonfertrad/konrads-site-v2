@@ -1,0 +1,116 @@
+[
+
+  {
+    "category": "Human Nature",
+    "books": [
+      { "title": "Behave", "author": "Robert Sapolsky" },
+      { "title": "The Selfish Gene", "author": "Richard Dawkins" },
+      { "title": "The Mating Mind", "author": "Geoffrey Miller" },
+      { "title": "A Billion Wicked Thoughts", "author": "Ogi Ogas & Sai Gaddam" },
+      { "title": "Friends", "author": "Robin Dunbar" },
+      { "title": "The Edge of Sentience", "author": "Jonathan Birch" },
+      { "title": "Sense and Nonsense", "author": "Kevin Laland & Gillian Brown" },
+      { "title": "The Big Picture", "author": "Sean Carroll" },
+      { "title": "Surely You're Joking, Mr. Feynman!", "author": "Richard Feynman" },
+      { "title": "Hunt, Gather, Parent", "author": "Michaeleen Doucleff" },
+      { "title": "Hannah's Children", "author": "Catherine Pakaluk" },
+      { "title": "Family Unfriendly", "author": "Timothy P. Carney" },
+      { "title": "Drive", "author": "Daniel Pink" }
+
+    ]
+  },
+  {
+    "category": "Politics & Civilization",
+    "books": [
+      { "title": "The Dawn of Everything", "author": "David Graeber & David Wengrow" },
+      { "title": "Why Nations Fail", "author": "Acemoglu & Robinson" },
+      { "title": "The Collapse of Complex Societies", "author": "Joseph Tainter" },
+      { "title": "Albion's Seed", "author": "David Hackett Fischer" },
+      { "title": "America Against America", "author": "Wang Huning" },
+      { "title": "Two Paths to Prosperity", "author": "Greif, Mokyr & Tabellini" },
+      { "title": "The Listening Society", "author": "Hanzi Freinacht" },
+      { "title": "Trade Wars Are Class Wars", "author": "Klein & Pettis" },
+      { "title": "The Dictator's Handbook", "author": "Bueno de Mesquita & Smith" },
+      { "title": "How the World Really Works", "author": "Vaclav Smil" },
+      { "title": "Invisible Women", "author": "Caroline Criado Perez" },
+      { "title": "Elon Musk", "author": "Walter Isaacson" },
+      { "title": "Doomsday Machine", "author": "Daniel Ellsberg" },
+      { "title": "Sad Topographies", "author": "Damien Rudd" },
+      { "title": "Going Infinite", "author": "Michael Lewis" },
+      { "title": "The Strategy of Conflict", "author": "Thomas Schelling" },
+      { "title": "Governing the Commons", "author": "Elinor Ostrom" }
+    ]
+  },
+  {
+    "category": "Strategy & Craft",
+    "books": [
+      { "title": "Good Strategy Bad Strategy", "author": "Richard Rumelt" },
+      { "title": "Extreme Ownership", "author": "Jocko Willink & Leif Babin" },
+      { "title": "How to Measure Anything", "author": "Douglas Hubbard" },
+      { "title": "The 7 Habits of Highly Effective People", "author": "Stephen Covey" },
+      { "title": "Deep Work", "author": "Cal Newport" },
+      { "title": "Start with Why", "author": "Simon Sinek" },
+      { "title": "Difficult Conversations", "author": "Stone, Patton & Heen" },
+      { "title": "Presence", "author": "Patsy Rodenburg" },
+      { "title": "Organizing Genius", "author": "Warren Bennis" },
+      { "title": "Playing to Win", "author": "David Sirlin" },
+      { "title": "Zero to One", "author": "Peter Thiel" }
+    ]
+  },
+  {
+    "category": "(Science) Fiction",
+    "books": [
+      { "title": "There Is No Antimemetics Division", "author": "qntm" },
+      { "title": "Dune (series)", "author": "Frank Herbert" },
+      { "title": "The Three-Body Problem", "author": "Cixin Liu" },
+      { "title": "Foundation (series)", "author": "Isaac Asimov" },
+      { "title": "Altered Carbon", "author": "Richard Morgan" },
+      { "title": "The Silmarillion", "author": "J.R.R. Tolkien" },
+      { "title": "Superintelligence", "author": "Nick Bostrom" },
+      { "title": "Harry Potter and the Methods of Rationality", "author": "Eliezer Yudkowsky" },
+      { "title": "Momo", "author": "Michael Ende" },
+      { "title": "Jim Knopf und Lukas der Lokomotivführer", "author": "Michael Ende" },
+      { "title": "Tintenherz", "author": "Cornelia Funke" },
+      { "title": "Herr der Diebe", "author": "Cornelia Funke" },
+      { "title": "Die unendliche Geschichte", "author": "Michael Ende" },
+      { "title": "The Lord of the Rings", "author": "J.R.R. Tolkien" },
+      { "title": "Eragon (series)", "author": "Christopher Paolini" }
+    ]
+  },
+  {
+    "category": "Ethics & Philosophy",
+    "books": [
+      { "title": "Reasons and Persons", "author": "Derek Parfit" },
+      { "title": "On What Matters, Vol. 1", "author": "Derek Parfit" },
+      { "title": "On What Matters, Vol. 2", "author": "Derek Parfit" },
+      { "title": "Reading Parfit", "author": "ed. Simon Kirchin" },
+      { "title": "The Moral Landscape", "author": "Sam Harris" },
+      { "title": "Lying", "author": "Sam Harris" },
+      { "title": "Doing Good Better", "author": "William MacAskill" },
+      { "title": "Against Empathy", "author": "Paul Bloom" },
+      { "title": "Strangers Drowning", "author": "Larissa MacFarquhar" },
+      { "title": "Stubborn Attachments", "author": "Tyler Cowen" },
+      { "title": "Moral Tribes", "author": "Joshua Greene" },
+      { "title": "Inventing the Individual", "author": "Larry Siedentop" },
+      { "title": "The Precipice", "author": "Toby Ord" },
+      { "title": "Famine, Affluence, and Morality", "author": "Peter Singer" },
+      { "title": "The Beginning of Infinity", "author": "David Deutsch" }
+    ]
+  },
+  {
+    "category": "Rationality & Sensemaking",
+    "books": [
+      { "title": "Inadequate Equilibria", "author": "Eliezer Yudkowsky" },
+      { "title": "Map and Territory", "author": "Eliezer Yudkowsky" },
+      { "title": "How to Actually Change Your Mind", "author": "Eliezer Yudkowsky" },
+      { "title": "Competitive Sensemaking", "author": "John Nerst" },
+      { "title": "Thinking in Bets", "author": "Annie Duke" },
+      { "title": "Factfulness", "author": "Hans Rosling" },
+      { "title": "Skin in the Game", "author": "Nassim Nicholas Taleb" },
+      { "title": "The Revolt of the Public", "author": "Martin Gurri" },
+      { "title": "Optionality", "author": "Richard Meadows" },
+      { "title": "Not the End of the World", "author": "Hannah Ritchie" }
+
+    ]
+  }
+]

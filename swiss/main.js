@@ -725,9 +725,10 @@ function initMobile() {
     'djing':       { x: 75, y: 45 },
     'writing':     { x: 22, y: 55 },
     'abundance':   { x: 55, y: 65 },
-    'humans':      { x: 78, y: 75 },
-    'aphantasia':  { x: 30, y: 82 },
-    'archive':     { x: 70, y: 92 },
+'photoalbum':  { x: 70, y: 92 },
+    'bookshelf':   { x: 35, y: 18 },
+    'recommendations': { x: 65, y: 10 },
+    'funfacts':    { x: 15, y: 28 },
   };
 
   villages.forEach(v => {
@@ -893,6 +894,9 @@ function handleResize(contourPathsRef, villagePositionsRef) {
 
   // Archive gallery — lazy-load manifest when drawer first opens
   initArchiveGallery();
+  initBookshelf();
+  initRecommendations();
+  initFunFacts();
 })();
 
 
@@ -910,7 +914,7 @@ function initArchiveGallery() {
 
   // Load manifest when archive panel becomes visible
   const observer = new MutationObserver(() => {
-    const panel = document.getElementById('drawer-archive');
+    const panel = document.getElementById('drawer-photoalbum');
     if (panel && panel.classList.contains('is-active') && !loaded) {
       loaded = true;
       loadArchive();
@@ -1021,4 +1025,165 @@ function initArchiveGallery() {
       navigate(dx > 0 ? -1 : 1);
     }
   }, { passive: true });
+}
+
+
+// ============================================
+// 13. BOOKSHELF
+// ============================================
+
+function initBookshelf() {
+  const container = document.getElementById('bookshelf');
+  if (!container) return;
+
+  fetch('books.json')
+    .then(r => r.json())
+    .then(data => renderBookshelf(data, container))
+    .catch(() => {});
+}
+
+function renderBookshelf(data, container) {
+  data.forEach(cat => {
+    const section = document.createElement('div');
+    section.className = 'bookshelf-category';
+
+    const label = document.createElement('div');
+    label.className = 'bookshelf-category-label';
+    label.textContent = cat.category;
+    section.appendChild(label);
+
+    const grid = document.createElement('div');
+    grid.className = 'bookshelf-grid';
+
+    cat.books.forEach(book => {
+      const card = document.createElement('div');
+      card.className = 'book-card';
+
+      const cover = document.createElement('div');
+      cover.className = 'book-cover';
+
+      if (book.cover) {
+        const img = document.createElement('img');
+        img.src = book.cover;
+        img.alt = book.title;
+        img.loading = 'lazy';
+        cover.appendChild(img);
+      } else {
+        const ph = document.createElement('div');
+        ph.className = 'book-cover-placeholder';
+        ph.textContent = book.title;
+        cover.appendChild(ph);
+      }
+
+      const title = document.createElement('div');
+      title.className = 'book-title';
+      title.textContent = book.title;
+
+      const author = document.createElement('div');
+      author.className = 'book-author';
+      author.textContent = book.author;
+
+      card.appendChild(cover);
+      card.appendChild(title);
+      card.appendChild(author);
+      grid.appendChild(card);
+    });
+
+    section.appendChild(grid);
+    container.appendChild(section);
+  });
+}
+
+
+// ============================================
+// 14. RECOMMENDATIONS
+// ============================================
+
+function initRecommendations() {
+  const container = document.getElementById('recommendations');
+  if (!container) return;
+
+  fetch('recommendations.json')
+    .then(r => r.json())
+    .then(data => renderRecommendations(data, container))
+    .catch(() => {});
+}
+
+function renderRecommendations(data, container) {
+  data.forEach(cat => {
+    const section = document.createElement('div');
+    section.className = 'rec-category';
+
+    const label = document.createElement('div');
+    label.className = 'rec-category-label';
+    label.textContent = cat.category;
+    section.appendChild(label);
+
+    const list = document.createElement('div');
+    list.className = 'rec-list';
+
+    cat.items.forEach(item => {
+      const entry = document.createElement('a');
+      entry.className = 'rec-entry';
+      entry.href = item.url || '#';
+      if (item.url) {
+        entry.target = '_blank';
+        entry.rel = 'noopener';
+      }
+
+      const title = document.createElement('div');
+      title.className = 'rec-title';
+      title.textContent = item.title;
+
+      const byline = document.createElement('div');
+      byline.className = 'rec-byline';
+      byline.textContent = item.by || '';
+
+      const desc = document.createElement('div');
+      desc.className = 'rec-desc';
+      desc.textContent = item.desc || '';
+
+      entry.appendChild(title);
+      if (item.by) entry.appendChild(byline);
+      if (item.desc) entry.appendChild(desc);
+      list.appendChild(entry);
+    });
+
+    section.appendChild(list);
+    container.appendChild(section);
+  });
+}
+
+
+// ============================================
+// 15. FUN FACTS
+// ============================================
+
+function initFunFacts() {
+  const container = document.getElementById('funfacts');
+  if (!container) return;
+
+  fetch('funfacts.json')
+    .then(r => r.json())
+    .then(data => renderFunFacts(data, container))
+    .catch(() => {});
+}
+
+function renderFunFacts(data, container) {
+  data.forEach(fact => {
+    const card = document.createElement('div');
+    card.className = 'funfact-card';
+
+    const title = document.createElement('div');
+    title.className = 'funfact-title';
+    title.textContent = fact.title;
+    card.appendChild(title);
+
+    const text = document.createElement('div');
+    text.className = 'funfact-text';
+    text.textContent = fact.text;
+    card.appendChild(text);
+
+    container.appendChild(card);
+  });
 }
