@@ -729,6 +729,7 @@ function initMobile() {
     'bookshelf':   { x: 35, y: 18 },
     'recommendations': { x: 65, y: 10 },
     'funfacts':    { x: 15, y: 28 },
+    'hottakes':    { x: 45, y: 82 },
   };
 
   villages.forEach(v => {
@@ -897,6 +898,7 @@ function handleResize(contourPathsRef, villagePositionsRef) {
   initBookshelf();
   initRecommendations();
   initFunFacts();
+  initHotTakes();
 })();
 
 
@@ -1183,6 +1185,42 @@ function renderFunFacts(data, container) {
     text.className = 'funfact-text';
     text.textContent = fact.text;
     card.appendChild(text);
+
+    container.appendChild(card);
+  });
+}
+
+
+// ============================================
+// 16. HOT TAKES
+// ============================================
+
+function initHotTakes() {
+  const container = document.getElementById('hottakes');
+  if (!container) return;
+
+  fetch('hottakes.json')
+    .then(r => r.json())
+    .then(data => renderHotTakes(data, container))
+    .catch(() => {});
+}
+
+function renderHotTakes(data, container) {
+  data.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'hottake-card';
+
+    const text = document.createElement('div');
+    text.className = 'hottake-text';
+    text.textContent = item.take;
+    card.appendChild(text);
+
+    if (item.tag) {
+      const tag = document.createElement('span');
+      tag.className = 'hottake-tag';
+      tag.textContent = item.tag;
+      card.appendChild(tag);
+    }
 
     container.appendChild(card);
   });
