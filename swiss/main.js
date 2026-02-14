@@ -730,6 +730,7 @@ function initMobile() {
     'recommendations': { x: 65, y: 10 },
     'funfacts':    { x: 15, y: 28 },
     'hottakes':    { x: 45, y: 82 },
+    'keyideas':    { x: 78, y: 75 },
   };
 
   villages.forEach(v => {
@@ -899,6 +900,7 @@ function handleResize(contourPathsRef, villagePositionsRef) {
   initRecommendations();
   initFunFacts();
   initHotTakes();
+  initKeyIdeas();
 })();
 
 
@@ -1220,6 +1222,47 @@ function renderHotTakes(data, container) {
       tag.className = 'hottake-tag';
       tag.textContent = item.tag;
       card.appendChild(tag);
+    }
+
+    container.appendChild(card);
+  });
+}
+
+
+// ============================================
+// 17. KEY IDEAS
+// ============================================
+
+function initKeyIdeas() {
+  const container = document.getElementById('keyideas');
+  if (!container) return;
+
+  fetch('keyideas.json')
+    .then(r => r.json())
+    .then(data => renderKeyIdeas(data, container))
+    .catch(() => {});
+}
+
+function renderKeyIdeas(data, container) {
+  data.forEach(idea => {
+    const card = document.createElement('div');
+    card.className = 'keyidea-card';
+
+    const title = document.createElement('div');
+    title.className = 'keyidea-title';
+    title.textContent = idea.title;
+    card.appendChild(title);
+
+    const summary = document.createElement('div');
+    summary.className = 'keyidea-summary';
+    summary.textContent = idea.summary;
+    card.appendChild(summary);
+
+    if (idea.related && idea.related.length > 0) {
+      const related = document.createElement('div');
+      related.className = 'keyidea-related';
+      related.textContent = idea.related.join(' \u00b7 ');
+      card.appendChild(related);
     }
 
     container.appendChild(card);

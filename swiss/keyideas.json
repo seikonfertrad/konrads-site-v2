@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Bounded Rationality",
+    "summary": "Humans don't optimize — they satisfice. Herbert Simon's insight: we make decisions with limited information, limited time, and limited cognitive capacity. This isn't a bug; it's the operating condition. Most of policy, governance, and institutional design fails because it assumes rational actors with full information. Once you internalize bounded rationality, you stop asking \"why don't people just...\" and start designing for how people actually think.",
+    "related": ["Herbert Simon", "Daniel Kahneman", "Gerd Gigerenzer"]
+  },
+  {
+    "title": "The Need for Economic Growth",
+    "summary": "Growth isn't greed — it's the engine that funds everything we care about. Health systems, climate adaptation, scientific research, safety nets, space exploration. A world that stops growing is a world where every resource allocation becomes zero-sum, and zero-sum games breed conflict. The question isn't whether to grow, but how to grow in ways that are sustainable, inclusive, and directed at things that matter.",
+    "related": ["Tyler Cowen", "Dietrich Vollrath", "David Deutsch"]
+  },
+  {
+    "title": "Limits to Growth Rate & Maximum Scale",
+    "summary": "Every entity — company, community, institution, movement — has a natural growth rate it can sustain without losing coherence. Grow too fast and culture breaks, quality drops, trust erodes. There's also a maximum scale beyond which coordination costs exceed the value of coordination. This is why the right answer is often many small things, not one big thing. Networks over monoliths.",
+    "related": ["Robin Dunbar", "Elinor Ostrom", "Geoffrey West"]
+  },
+  {
+    "title": "Coordination Is the Bottleneck",
+    "summary": "Most problems that look like knowledge problems or resource problems are actually coordination problems. We often know what to do. We frequently have what we need. What's missing is the ability to get enough people aligned, trusting, and acting in concert. This is true at every scale: relationships, teams, organizations, nations, civilization.",
+    "related": ["Thomas Schelling", "Elinor Ostrom", "Scott Alexander"]
+  },
+  {
+    "title": "Comfort Reduces Agency",
+    "summary": "The more comfortable you are, the less likely you are to change anything — including things that desperately need changing. Comfort is an anaesthetic for ambition, curiosity, and moral urgency. This doesn't mean seek suffering. It means be suspicious of complacency, especially your own.",
+    "related": []
+  },
+  {
+    "title": "Everything Should Be Thinkable",
+    "summary": "No idea should be off-limits for consideration. The moment you declare a thought unthinkable, you lose the ability to reason about it — and reasoning about hard things is exactly how you avoid the worst outcomes. This is not the same as saying everything should be done. Thinking is not endorsing. The strongest taboos should be on actions, not thoughts.",
+    "related": ["John Stuart Mill", "Karl Popper"]
+  }
+]
