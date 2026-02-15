@@ -541,7 +541,14 @@ function initDrawer() {
     // Activate correct panel
     panels.forEach(p => p.classList.remove('is-active'));
     const target = document.getElementById(`drawer-${sectionId}`);
-    if (target) target.classList.add('is-active');
+    if (target) {
+      target.classList.add('is-active');
+      // Activate deferred iframes (e.g. SoundCloud embeds)
+      target.querySelectorAll('iframe[data-src]').forEach(iframe => {
+        iframe.src = iframe.dataset.src;
+        delete iframe.dataset.src;
+      });
+    }
 
     drawer.setAttribute('aria-hidden', 'false');
     backdrop.classList.add('is-active');
@@ -726,7 +733,6 @@ function initMobile() {
     'fractalgva':  { x: 25, y: 35 },
     'djing':       { x: 75, y: 45 },
     'writing':     { x: 22, y: 55 },
-    'abundance':   { x: 55, y: 65 },
 'photoalbum':  { x: 70, y: 92 },
     'bookshelf':   { x: 35, y: 18 },
     'recommendations': { x: 65, y: 10 },
