@@ -18,10 +18,20 @@ function generateRings(village) {
   const svg = village.querySelector('.village-rings');
   if (!svg) return;
 
-  const ringCount = parseInt(village.dataset.rings) || 3;
   const isHero = village.classList.contains('village--hero');
-  const innerRadius = isHero ? 28 : 20;
-  const ringStep = isHero ? 22 : 16;
+
+  // Hero rings are pre-rendered in HTML for instant display — skip generation
+  if (isHero) {
+    const ringCount = parseInt(village.dataset.rings) || 6;
+    const innerRadius = 28;
+    const ringStep = 22;
+    village._ringRadius = innerRadius + (ringCount - 1) * ringStep;
+    return;
+  }
+
+  const ringCount = parseInt(village.dataset.rings) || 3;
+  const innerRadius = 20;
+  const ringStep = 16;
 
   const outerRadius = innerRadius + (ringCount - 1) * ringStep;
   const size = (outerRadius + 4) * 2;
@@ -672,41 +682,27 @@ function heroEntrance() {
 
   const rings = hero.querySelectorAll('.village-rings circle');
   const title = hero.querySelector('.village-title');
-  const tl = gsap.timeline({ delay: 0.4 });
 
-  // Fade in hero first (bypass flashlight for entrance)
+  // Hero rings + title are already visible via CSS animation.
+  // GSAP just needs to ensure full draw state and settle opacities.
   if (IS_DESKTOP) {
-    tl.set(hero, { opacity: 1 });
+    gsap.set(hero, { opacity: 1 });
   }
 
-  // Draw rings concentrically
-  rings.forEach((ring, i) => {
-    ring.setAttribute('opacity', '0.3');
-    gsap.set(ring, { drawSVG: '0%' });
-    tl.to(ring, {
-      drawSVG: '100%',
-      duration: 0.8,
-      ease: 'power2.inOut',
-    }, i * 0.15);
+  // Snap rings to fully drawn (CSS animation may still be mid-draw)
+  rings.forEach(ring => {
+    gsap.set(ring, { drawSVG: '100%' });
   });
 
-  // Fade in title
-  gsap.set(title, { opacity: 0, y: 10 });
-  tl.to(title, {
-    opacity: 1,
-    y: 0,
-    duration: 0.6,
-    ease: 'swissReveal',
-  }, '-=0.3');
+  // Ensure title is visible
+  gsap.set(title, { opacity: 1, y: 0 });
 
-  // After hero entrance, settle ring opacities back to base values
-  tl.add(() => {
-    rings.forEach(ring => {
-      const baseOp = parseFloat(ring.dataset.baseOpacity) || 0.1;
-      gsap.to(ring, {
-        attr: { opacity: baseOp },
-        duration: 1,
-      });
+  // Settle ring opacities to base values
+  rings.forEach(ring => {
+    const baseOp = parseFloat(ring.dataset.baseOpacity) || 0.1;
+    gsap.to(ring, {
+      attr: { opacity: baseOp },
+      duration: 1,
     });
   });
 }
@@ -864,10 +860,12 @@ function handleResize(contourPathsRef, villagePositionsRef) {
 // ============================================
 
 (function init() {
+  document.body.classList.add('js-ready');
+
   const contourPathsRef = { current: [] };
   const villagePositionsRef = { current: [] };
 
-  // Generate rings for all villages
+  // Generate rings for non-hero villages (hero is pre-rendered in HTML)
   document.querySelectorAll('.village').forEach(generateRings);
 
   if (IS_DESKTOP) {

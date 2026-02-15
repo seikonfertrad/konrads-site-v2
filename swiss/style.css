@@ -213,9 +213,45 @@ a:hover {
   text-transform: uppercase;
 }
 
-/* Hero peak — larger, clickable */
+/* Hero pre-render: CSS-only animation before GSAP loads */
 .village--hero {
   cursor: pointer;
+  left: 50%;
+  top: 48%;
+}
+
+.hero-prering {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: hero-draw 1.8s ease-out forwards;
+}
+.hero-prering:nth-child(1) { animation-delay: 0s; }
+.hero-prering:nth-child(2) { animation-delay: 0.12s; }
+.hero-prering:nth-child(3) { animation-delay: 0.24s; }
+.hero-prering:nth-child(4) { animation-delay: 0.36s; }
+.hero-prering:nth-child(5) { animation-delay: 0.48s; }
+.hero-prering:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes hero-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Hero title fades in with CSS before GSAP loads */
+.village--hero .village-title {
+  animation: hero-title-in 0.6s ease-out 0.5s both;
+}
+
+@keyframes hero-title-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Once GSAP takes over, it sets inline styles that override these */
+.js-ready .hero-prering {
+  animation: none;
+}
+.js-ready .village--hero .village-title {
+  animation: none;
 }
 
 .village--hero .village-title {
