@@ -44,5 +44,10 @@
     "summary": "To get from a local optimum to a better one, things will temporarily get worse. The art is being fine with this. Moving from hare hunting (everyone fends for themselves, safe but mediocre) to stag hunting (coordinated trust, high payoff) means tolerating failed stag hunts along the way — coordination skills and infrastructure are a fail-forward exercise. Depending on the scale of change, the discomfort might last a good while. But with the right entourage and a shared compass, you can survive the valley.",
     "related": ["Jean-Jacques Rousseau", "Brian Skyrms", "Seth Godin"],
     "image": "images/uncanny-valley.svg"
+  },
+  {
+    "title": "Language as Coordination Infrastructure",
+    "summary": "Language is our highest-bandwidth coordination tool, and most people use it terribly. You can live in 'Distanzia' — believing words never mean just one thing, so every exchange requires hours of mutual excavation — or you can live in a world where precise language compresses information, bridges inferential gaps, and multiplies collective intelligence. Writing and programming both train the latter: forcing you to compress thoughts into scrutinizable form. The bottleneck of inter-brain communication isn't just a constraint — it's what made us smart in the first place. Use it well.",
+    "related": ["Eliezer Yudkowsky", "Ludwig Wittgenstein", "Luigi Acerbi"]
   }
 ]
