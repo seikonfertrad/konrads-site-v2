@@ -7,6 +7,7 @@ gsap.registerPlugin(DrawSVGPlugin, CustomEase);
 CustomEase.create("swissReveal", "M0,0 C0.25,0.1 0.25,1 1,1");
 
 const IS_DESKTOP = window.matchMedia('(min-width: 769px) and (pointer: fine)').matches;
+let fogDisabled = false;
 
 
 // ============================================
@@ -366,6 +367,7 @@ function initFlashlight() {
   requestAnimationFrame(updateFlashlight);
 
   function updateFlashlight() {
+    if (fogDisabled) { ticking = false; return; }
     document.documentElement.style.setProperty('--mouse-x', `${mouseX}px`);
     document.documentElement.style.setProperty('--mouse-y', `${mouseY}px`);
 
@@ -896,11 +898,9 @@ function handleResize(contourPathsRef, villagePositionsRef) {
 
   // Archive gallery — lazy-load manifest when drawer first opens
   initArchiveGallery();
-  initBookshelf();
-  initRecommendations();
-  initFunFacts();
-  initHotTakes();
-  initKeyIdeas();
+
+  // Lazy-load JSON data on first drawer open
+  initLazyPanels();
 })();
 
 
@@ -1036,14 +1036,37 @@ function initArchiveGallery() {
 // 13. BOOKSHELF
 // ============================================
 
-function initBookshelf() {
-  const container = document.getElementById('bookshelf');
-  if (!container) return;
+function initLazyPanels() {
+  const registry = {
+    'drawer-bookshelf':       { containerId: 'bookshelf',       json: 'books.json',           render: renderBookshelf },
+    'drawer-recommendations': { containerId: 'recommendations', json: 'recommendations.json', render: renderRecommendations },
+    'drawer-funfacts':        { containerId: 'funfacts',        json: 'funfacts.json',        render: renderFunFacts },
+    'drawer-hottakes':        { containerId: 'hottakes',        json: 'hottakes.json',        render: renderHotTakes },
+    'drawer-keyideas':        { containerId: 'keyideas',        json: 'keyideas.json',        render: renderKeyIdeas },
+  };
+  const loaded = new Set();
 
-  fetch('books.json')
-    .then(r => r.json())
-    .then(data => renderBookshelf(data, container))
-    .catch(() => {});
+  const observer = new MutationObserver(() => {
+    for (const [panelId, cfg] of Object.entries(registry)) {
+      if (loaded.has(panelId)) continue;
+      const panel = document.getElementById(panelId);
+      if (panel && panel.classList.contains('is-active')) {
+        loaded.add(panelId);
+        const container = document.getElementById(cfg.containerId);
+        if (container) {
+          fetch(cfg.json)
+            .then(r => r.json())
+            .then(data => cfg.render(data, container))
+            .catch(() => {});
+        }
+      }
+    }
+    if (loaded.size >= Object.keys(registry).length) observer.disconnect();
+  });
+
+  document.querySelectorAll('.drawer-panel').forEach(p =>
+    observer.observe(p, { attributes: true, attributeFilter: ['class'] })
+  );
 }
 
 function renderBookshelf(data, container) {
@@ -1060,8 +1083,11 @@ function renderBookshelf(data, container) {
     grid.className = 'bookshelf-grid';
 
     cat.books.forEach(book => {
-      const card = document.createElement('div');
+      const card = document.createElement('a');
       card.className = 'book-card';
+      card.href = 'https://www.goodreads.com/search?q=' + encodeURIComponent(book.title + ' ' + book.author);
+      card.target = '_blank';
+      card.rel = 'noopener';
 
       const cover = document.createElement('div');
       cover.className = 'book-cover';
@@ -1079,16 +1105,11 @@ function renderBookshelf(data, container) {
         cover.appendChild(ph);
       }
 
-      const title = document.createElement('div');
-      title.className = 'book-title';
-      title.textContent = book.title;
-
       const author = document.createElement('div');
       author.className = 'book-author';
       author.textContent = book.author;
 
       card.appendChild(cover);
-      card.appendChild(title);
       card.appendChild(author);
       grid.appendChild(card);
     });
@@ -1102,16 +1123,6 @@ function renderBookshelf(data, container) {
 // ============================================
 // 14. RECOMMENDATIONS
 // ============================================
-
-function initRecommendations() {
-  const container = document.getElementById('recommendations');
-  if (!container) return;
-
-  fetch('recommendations.json')
-    .then(r => r.json())
-    .then(data => renderRecommendations(data, container))
-    .catch(() => {});
-}
 
 function renderRecommendations(data, container) {
   data.forEach(cat => {
@@ -1163,16 +1174,6 @@ function renderRecommendations(data, container) {
 // 15. FUN FACTS
 // ============================================
 
-function initFunFacts() {
-  const container = document.getElementById('funfacts');
-  if (!container) return;
-
-  fetch('funfacts.json')
-    .then(r => r.json())
-    .then(data => renderFunFacts(data, container))
-    .catch(() => {});
-}
-
 function renderFunFacts(data, container) {
   data.forEach(fact => {
     const card = document.createElement('div');
@@ -1196,16 +1197,6 @@ function renderFunFacts(data, container) {
 // ============================================
 // 16. HOT TAKES
 // ============================================
-
-function initHotTakes() {
-  const container = document.getElementById('hottakes');
-  if (!container) return;
-
-  fetch('hottakes.json')
-    .then(r => r.json())
-    .then(data => renderHotTakes(data, container))
-    .catch(() => {});
-}
 
 function renderHotTakes(data, container) {
   data.forEach(item => {
@@ -1233,16 +1224,6 @@ function renderHotTakes(data, container) {
 // 17. KEY IDEAS
 // ============================================
 
-function initKeyIdeas() {
-  const container = document.getElementById('keyideas');
-  if (!container) return;
-
-  fetch('keyideas.json')
-    .then(r => r.json())
-    .then(data => renderKeyIdeas(data, container))
-    .catch(() => {});
-}
-
 function renderKeyIdeas(data, container) {
   data.forEach(idea => {
     const card = document.createElement('div');
@@ -1258,6 +1239,15 @@ function renderKeyIdeas(data, container) {
     summary.textContent = idea.summary;
     card.appendChild(summary);
 
+    if (idea.image) {
+      const img = document.createElement('img');
+      img.className = 'keyidea-image';
+      img.src = idea.image;
+      img.alt = idea.title;
+      img.loading = 'lazy';
+      card.appendChild(img);
+    }
+
     if (idea.related && idea.related.length > 0) {
       const related = document.createElement('div');
       related.className = 'keyidea-related';
@@ -1267,4 +1257,108 @@ function renderKeyIdeas(data, container) {
 
     container.appendChild(card);
   });
+}
+
+
+// ============================================
+// 18. EASTER EGG — FOG TOGGLE
+// ============================================
+
+(function initFogToggle() {
+  const toggle = document.getElementById('fog-toggle');
+  const modal = document.getElementById('agi-modal');
+  const btnLove = document.getElementById('agi-love');
+  const btnNope = document.getElementById('agi-nope');
+  const fog = document.querySelector('.fog');
+  if (!toggle || !modal || !fog) return;
+
+  // Position in a random corner each reload
+  const corners = [
+    { top: '20px', left: '20px' },
+    { top: '20px', right: '20px' },
+    { bottom: '50px', left: '20px' },
+    { bottom: '50px', right: '20px' },
+  ];
+  const corner = corners[Math.floor(Math.random() * 4)];
+  Object.assign(toggle.style, corner);
+
+  // Click: show modal
+  toggle.addEventListener('click', () => {
+    modal.classList.add('is-active');
+  });
+
+  // "Toward love too cheap to meter"
+  btnLove.addEventListener('click', () => {
+    modal.classList.remove('is-active');
+    fogDisabled = true;
+
+    // Dissolve the fog
+    fog.style.transition = 'opacity 2s ease';
+    fog.style.opacity = '0';
+    fog.style.pointerEvents = 'none';
+    setTimeout(() => { fog.style.display = 'none'; }, 2200);
+
+    // Show all villages fully
+    document.querySelectorAll('.village').forEach(v => {
+      gsap.to(v, { opacity: 1, duration: 1.5, ease: 'power2.out' });
+    });
+
+    // Reveal all contour lines and pathways
+    document.querySelectorAll('.contour-line').forEach(p => {
+      p.setAttribute('opacity', (parseFloat(p.dataset.baseOpacity) * 2.5).toFixed(2));
+    });
+    document.querySelectorAll('.pathway').forEach(p => {
+      gsap.to(p, { attr: { opacity: 0.25 }, duration: 1.5 });
+    });
+
+    // Paperclips!
+    spawnPaperclips();
+
+    // Hide the toggle
+    toggle.style.display = 'none';
+  });
+
+  // "No, I'm not ready"
+  btnNope.addEventListener('click', () => {
+    window.open('https://gradual-disempowerment.ai/', '_blank', 'noopener');
+  });
+
+  // Close modal on backdrop click
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.classList.remove('is-active');
+  });
+})();
+
+function spawnPaperclips() {
+  const clips = ['\u{1F4CE}', '\u{1F587}\uFE0F', '\u{1F4CE}', '\u{1F4CE}', '\u{1F587}\uFE0F'];
+  const count = 30;
+
+  for (let i = 0; i < count; i++) {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = 'paperclip';
+      el.textContent = clips[i % clips.length];
+
+      // Random start position
+      const startX = Math.random() * window.innerWidth;
+      const startY = Math.random() * window.innerHeight;
+      el.style.left = startX + 'px';
+      el.style.top = startY + 'px';
+
+      // Random drift direction
+      const dx = (Math.random() - 0.5) * 400;
+      const dy = -200 - Math.random() * 300;
+      const rot = (Math.random() - 0.5) * 720;
+      el.style.setProperty('--dx', dx + 'px');
+      el.style.setProperty('--dy', dy + 'px');
+      el.style.setProperty('--rot', rot + 'deg');
+      el.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+
+      document.body.appendChild(el);
+      el.style.animation = `paperclip-drift ${2 + Math.random() * 2}s ease-out forwards`;
+
+      // Clean up
+      setTimeout(() => el.remove(), 5000);
+    }, i * 120);
+  }
 }

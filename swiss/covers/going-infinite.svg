@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600">
+  <rect width="400" height="600" fill="#2D2D2D"/>
+  <g clip-path="url(#cover-clip)">
+    <rect x="6" y="43" width="28" height="112" fill="#C75B3A" opacity="0.12"/>
+<rect x="50" y="82" width="20" height="161" fill="#C75B3A" opacity="0.16"/>
+<rect x="94" y="122" width="12" height="210" fill="#C75B3A" opacity="0.20"/>
+<rect x="125" y="162" width="31" height="259" fill="#C75B3A" opacity="0.24"/>
+<rect x="169" y="202" width="23" height="308" fill="#C75B3A" opacity="0.08"/>
+<rect x="213" y="32" width="15" height="356" fill="#C75B3A" opacity="0.12"/>
+<rect x="243" y="72" width="33" height="405" fill="#C75B3A" opacity="0.16"/>
+<rect x="287" y="112" width="25" height="454" fill="#C75B3A" opacity="0.20"/>
+<rect x="331" y="152" width="17" height="128" fill="#C75B3A" opacity="0.24"/>
+<rect x="362" y="192" width="36" height="176" fill="#C75B3A" opacity="0.08"/>
+  </g>
+  <rect x="0" y="498" width="400" height="104" fill="#2D2D2D" opacity="0.6"/>
+<line x1="30" y1="503" x2="370" y2="503" stroke="#C75B3A" stroke-width="0.5" opacity="0.3"/>
+<text x="30" y="518" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="32" font-weight="700" fill="#C75B3A" letter-spacing="0.08em" opacity="0.9"><tspan  dy="0">GOING INFINITE</tspan></text>
+<text x="30" y="566" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#C75B3A" letter-spacing="0.04em" opacity="0.55">Michael Lewis</text>
+  <rect x="0" y="0" width="6" height="600" fill="#4A4A4A" opacity="0.25"/><line x1="6" y1="0" x2="6" y2="600" stroke="#C75B3A" stroke-width="0.5" opacity="0.15"/>
+  <clipPath id="cover-clip">
+    <rect width="400" height="600"/>
+  </clipPath>
+</svg>

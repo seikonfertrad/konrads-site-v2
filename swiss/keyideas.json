@@ -1,13 +1,23 @@
 [
   {
     "title": "Bounded Rationality",
-    "summary": "Humans don't optimize — they satisfice. Herbert Simon's insight: we make decisions with limited information, limited time, and limited cognitive capacity. This isn't a bug; it's the operating condition. Most of policy, governance, and institutional design fails because it assumes rational actors with full information. Once you internalize bounded rationality, you stop asking \"why don't people just...\" and start designing for how people actually think.",
+    "summary": "Herbert Simon's core insight: humans don't optimize, they satisfice. We decide with incomplete information, finite time, and limited cognition. This isn't a flaw — it's the operating condition. Two people with identical values will reach different conclusions simply because they're working from different slices of reality. Most institutional design fails because it assumes rational actors with full information. Stop asking \"why don't people just...\" and start designing for how people actually think.",
     "related": ["Herbert Simon", "Daniel Kahneman", "Gerd Gigerenzer"]
   },
   {
+    "title": "No Fundamental Value Differences",
+    "summary": "Most apparent value clashes aren't deep disagreements — they're artefacts of bounded rationality, polysemy (the same words meaning different things to different people), impatience to bridge inferential gaps, and two-level games where claiming incommensurable values is strategically useful for in-group cohesion. Strip away the noise and people want remarkably similar things: safety, dignity, agency, belonging. This applies at every scale — not just between nations, but between departments, subcultures, generations, any boundary where in-group and out-group form.",
+    "related": ["Robert Putnam", "Eliezer Yudkowsky", "Ludwig Wittgenstein"]
+  },
+  {
     "title": "The Need for Economic Growth",
-    "summary": "Growth isn't greed — it's the engine that funds everything we care about. Health systems, climate adaptation, scientific research, safety nets, space exploration. A world that stops growing is a world where every resource allocation becomes zero-sum, and zero-sum games breed conflict. The question isn't whether to grow, but how to grow in ways that are sustainable, inclusive, and directed at things that matter.",
+    "summary": "Growth isn't greed — it's the prerequisite for everything else. Health systems, climate adaptation, scientific research, safety nets, space exploration — all funded by surplus, and surplus requires growth. Global GDP needs to roughly 10x before redistribution alone can meaningfully close gaps; until then, making the pie bigger isn't optional, it's arithmetic. A world that stops growing turns every allocation into a zero-sum fight, and zero-sum games breed conflict. The question is how to grow sustainably, inclusively, and toward things that actually matter.",
     "related": ["Tyler Cowen", "Dietrich Vollrath", "David Deutsch"]
+  },
+  {
+    "title": "Good Faith & Hyperstitioning Abundance",
+    "summary": "We need to simultaneously pursue technological solutions and modify culture toward what actually matters — walking a tightrope between both. Hyperstition is the key mechanism: act as if a better world is already emerging, and the acting helps make it real. But this only works if grounded in good faith — assuming others share the goal even when their methods differ. Without good faith you get cynicism; without cultural realignment you get tech solutionism; without technology you get wishful thinking. The trick is holding all three at once.",
+    "related": ["Nick Land / CCRU", "David Deutsch", "Rutger Bregman"]
   },
   {
     "title": "Limits to Growth Rate & Maximum Scale",
@@ -28,5 +38,11 @@
     "title": "Everything Should Be Thinkable",
     "summary": "No idea should be off-limits for consideration. The moment you declare a thought unthinkable, you lose the ability to reason about it — and reasoning about hard things is exactly how you avoid the worst outcomes. This is not the same as saying everything should be done. Thinking is not endorsing. The strongest taboos should be on actions, not thoughts.",
     "related": ["John Stuart Mill", "Karl Popper"]
+  },
+  {
+    "title": "The Uncanny Valley of Improvement",
+    "summary": "To get from a local optimum to a better one, things will temporarily get worse. The art is being fine with this. Moving from hare hunting (everyone fends for themselves, safe but mediocre) to stag hunting (coordinated trust, high payoff) means tolerating failed stag hunts along the way — coordination skills and infrastructure are a fail-forward exercise. Depending on the scale of change, the discomfort might last a good while. But with the right entourage and a shared compass, you can survive the valley.",
+    "related": ["Jean-Jacques Rousseau", "Brian Skyrms", "Seth Godin"],
+    "image": "images/uncanny-valley.svg"
   }
 ]

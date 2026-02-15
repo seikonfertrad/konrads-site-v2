@@ -662,6 +662,9 @@ blockquote {
   padding: var(--space-sm);
   border: 1px solid rgba(199, 91, 58, 0.1);
   transition: border-color 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+  border-bottom: none;
 }
 
 .book-card:hover {
@@ -869,6 +872,12 @@ blockquote {
   line-height: 1.8;
 }
 
+.keyidea-image {
+  width: 100%;
+  margin-top: 12px;
+  border: 1px solid rgba(199, 91, 58, 0.1);
+}
+
 .keyidea-related {
   margin-top: 10px;
   font-family: var(--font-mono);
@@ -1023,4 +1032,114 @@ blockquote {
   .coordinates {
     display: none;
   }
+}
+
+/* ---- Easter egg: fog toggle ---- */
+.fog-toggle {
+  position: fixed;
+  z-index: 4;
+  font-size: 1.2rem;
+  opacity: 0.25;
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.3s ease;
+  padding: 10px;
+  line-height: 1;
+}
+
+.fog-toggle:hover {
+  opacity: 0.7;
+}
+
+/* ---- AGI modal ---- */
+.agi-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(26, 26, 26, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.agi-modal.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.agi-modal-box {
+  max-width: 480px;
+  padding: 48px 40px 40px;
+  background: var(--bg);
+  border: 1px solid rgba(199, 91, 58, 0.35);
+  text-align: center;
+}
+
+.agi-modal-text {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: var(--text);
+  margin-bottom: 32px;
+}
+
+.agi-modal-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.agi-btn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 12px 20px;
+  border: 1px solid rgba(199, 91, 58, 0.3);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.agi-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(199, 91, 58, 0.05);
+}
+
+.agi-btn--love {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ---- Paperclips ---- */
+.paperclip {
+  position: fixed;
+  z-index: 150;
+  font-size: 1.4rem;
+  pointer-events: none;
+  opacity: 0;
+  user-select: none;
+}
+
+@keyframes paperclip-drift {
+  0% { opacity: 0; transform: translate(0, 0) rotate(0deg); }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.6; }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); }
+}
+
+.last-updated {
+  position: fixed;
+  bottom: 1rem;
+  left: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  opacity: 0.5;
+  z-index: 1;
+  pointer-events: none;
 }

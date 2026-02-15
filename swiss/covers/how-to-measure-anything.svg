@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600">
+  <rect width="400" height="600" fill="#3A4A5A"/>
+  <g clip-path="url(#cover-clip)">
+    <polygon points="328,239 193,283 223,144" fill="none" stroke="#E8B84A" stroke-width="1.5" opacity="0.08"/>
+<polygon points="246,326 50,243 220,115" fill="none" stroke="#E8B84A" stroke-width="1.5" opacity="0.12"/>
+<polygon points="90,318 26,187 171,197" fill="none" stroke="#E8B84A" stroke-width="1.5" opacity="0.16"/>
+  </g>
+  <rect x="0" y="466" width="400" height="134" fill="#3A4A5A" opacity="0.6"/>
+<line x1="30" y1="471" x2="370" y2="471" stroke="#E8B84A" stroke-width="0.5" opacity="0.3"/>
+<text x="30" y="484" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="28" font-weight="700" fill="#E8B84A" letter-spacing="0.08em" opacity="0.9"><tspan  dy="0">HOW TO MEASURE</tspan><tspan x="30" dy="35">ANYTHING</tspan></text>
+<text x="30" y="562" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#E8B84A" letter-spacing="0.04em" opacity="0.55">Douglas Hubbard</text>
+  <rect x="0" y="0" width="6" height="600" fill="#5A7A9A" opacity="0.25"/><line x1="6" y1="0" x2="6" y2="600" stroke="#E8B84A" stroke-width="0.5" opacity="0.15"/>
+  <clipPath id="cover-clip">
+    <rect width="400" height="600"/>
+  </clipPath>
+</svg>

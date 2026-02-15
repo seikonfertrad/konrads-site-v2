@@ -8,6 +8,7 @@
   <title>Konrad Seifert</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -28,7 +29,7 @@
 
     <!-- Coordinates -->
     <div class="coordinates" aria-hidden="true">
-      <span>46.2044° N, 6.1432° E</span>
+      <a href="https://www.atlasobscura.com/things-to-do/geneva-switzerland/places" target="_blank" rel="noopener"><span>46.2044° N, 6.1432° E</span></a>
     </div>
 
     <!-- ============ VILLAGE MARKERS ============ -->
@@ -151,13 +152,10 @@
     <article class="drawer-panel" id="drawer-about">
       <div class="section-marker"><span class="marker-num">00</span> About</div>
       <p class="lead">
-        I spent the first two decades of my life doing whatever I thought was fun. No grand plan, no ambitions beyond becoming a lawyer and owning nice things. Then in my late teens, I realized I care deeply about life around me&mdash;and in fact, in the entire universe.
+        AI diplomacy from Geneva. Community building. Acid techno. Writing. Trying to be a better partner and friend. Co-founder of the <a href="https://simoninstitute.ch" target="_blank" rel="noopener">Simon Institute for Longterm Governance</a>.
       </p>
       <p>
-        That realization sent me down a rabbit hole through animal rights, effective altruism, biosecurity policy, and eventually to where I am now: working on frontier AI diplomacy from Geneva, trying to make sure the most powerful technology ever built doesn't go sideways. I co-founded the <a href="https://simoninstitute.ch" target="_blank" rel="noopener">Simon Institute for Longterm Governance</a> to do exactly that.
-      </p>
-      <p>
-        But work is only one thread. I'm also building a neighborhood community in Geneva, DJing acid techno, writing to sharpen my thinking, and trying to be a better partner and friend. I believe comfort reduces agency, that everything should be possible to say and think, and that if we play our cards right, the future will be buzzing with unfathomably rich experiences.
+        Explore the map &mdash; each peak is a thread of what I care about and who I am.
       </p>
       <nav class="drawer-links">
         <a href="mailto:konrad@simoninstitute.ch">Email</a>
@@ -367,6 +365,22 @@
     <button class="lightbox-nav lightbox-next">&rsaquo;</button>
     <div class="lightbox-counter" id="lightbox-counter"></div>
   </div>
+
+  <!-- Easter egg: hidden fog toggle -->
+  <div class="fog-toggle" id="fog-toggle" aria-hidden="true">&#x1F4CE;</div>
+
+  <!-- AGI modal -->
+  <div class="agi-modal" id="agi-modal">
+    <div class="agi-modal-box">
+      <p class="agi-modal-text">Congratulations, you have stumbled upon intelligence too cheap to meter.<br>Bounded rationality is over.<br><br>Are you actually prepared for AGI, anon?</p>
+      <div class="agi-modal-buttons">
+        <button id="agi-love" class="agi-btn agi-btn--love">Toward love too cheap to meter</button>
+        <button id="agi-nope" class="agi-btn agi-btn--nope">No, I&rsquo;m not ready</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="last-updated">Last updated on 15 February 2026</div>
 
   <!-- GSAP + Plugins via CDN -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/gsap.min.js"></script>

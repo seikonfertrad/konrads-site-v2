@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600">
+  <rect width="400" height="600" fill="#2D2D2D"/>
+  <g clip-path="url(#cover-clip)">
+    <path d="M 102 167 A 298 298 0 0 1 558 410" fill="none" stroke="#C75B3A" stroke-width="3" opacity="0.25"/>
+<path d="M 139 175 A 273 273 0 0 1 531 383" fill="none" stroke="#C75B3A" stroke-width="1.2" opacity="0.15"/>
+  </g>
+  <rect x="0" y="466" width="400" height="134" fill="#2D2D2D" opacity="0.6"/>
+<line x1="30" y1="471" x2="370" y2="471" stroke="#C75B3A" stroke-width="0.5" opacity="0.3"/>
+<text x="30" y="484" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="28" font-weight="700" fill="#C75B3A" letter-spacing="0.08em" opacity="0.9"><tspan  dy="0">NOT THE END OF</tspan><tspan x="30" dy="35">THE WORLD</tspan></text>
+<text x="30" y="562" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#C75B3A" letter-spacing="0.04em" opacity="0.55">Hannah Ritchie</text>
+  <rect x="0" y="0" width="6" height="600" fill="#4A4A4A" opacity="0.25"/><line x1="6" y1="0" x2="6" y2="600" stroke="#C75B3A" stroke-width="0.5" opacity="0.15"/>
+  <clipPath id="cover-clip">
+    <rect width="400" height="600"/>
+  </clipPath>
+</svg>

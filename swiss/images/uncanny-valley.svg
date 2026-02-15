@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="360" viewBox="0 0 720 360">
+  <style>
+    text { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    .label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+    .sublabel { font-size: 9.5px; font-weight: 400; fill: #9A9490; }
+    .axis-label { font-size: 9px; font-weight: 500; fill: #9A9490; letter-spacing: 0.08em; text-transform: uppercase; }
+    .annotation { font-size: 9px; font-weight: 400; fill: #6B6560; font-style: italic; }
+  </style>
+
+  <!-- Background -->
+  <rect width="720" height="360" fill="#FAF8F5"/>
+
+  <!-- Axes -->
+  <line x1="60" y1="300" x2="680" y2="300" stroke="#E0DAD0" stroke-width="1"/>
+  <line x1="60" y1="300" x2="60" y2="40" stroke="#E0DAD0" stroke-width="1"/>
+
+  <!-- Axis labels -->
+  <text x="370" y="340" text-anchor="middle" class="axis-label" fill="#9A9490">Coordination capacity</text>
+  <text x="20" y="170" text-anchor="middle" class="axis-label" fill="#9A9490" transform="rotate(-90, 20, 170)">Collective payoff</text>
+
+  <!-- Gridlines -->
+  <line x1="60" y1="100" x2="680" y2="100" stroke="#E0DAD0" stroke-width="0.5" stroke-dasharray="4 4" opacity="0.5"/>
+  <line x1="60" y1="200" x2="680" y2="200" stroke="#E0DAD0" stroke-width="0.5" stroke-dasharray="4 4" opacity="0.5"/>
+
+  <!-- The landscape curve: hare equilibrium → valley → stag equilibrium -->
+  <!-- Path: starts at left plateau (hare), dips through valley, rises to higher plateau (stag) -->
+  <path d="M 60,280 C 80,280 100,180 140,160 C 170,145 200,145 230,155 C 250,162 260,165 280,165
+           C 310,165 330,200 370,260 C 400,300 420,300 450,290
+           C 480,278 500,240 530,160 C 560,85 590,70 620,68
+           C 640,67 660,68 680,72"
+        fill="none" stroke="#C75B3A" stroke-width="2.5" opacity="0.8"/>
+
+  <!-- Fill under curve for depth -->
+  <path d="M 60,280 C 80,280 100,180 140,160 C 170,145 200,145 230,155 C 250,162 260,165 280,165
+           C 310,165 330,200 370,260 C 400,300 420,300 450,290
+           C 480,278 500,240 530,160 C 560,85 590,70 620,68
+           C 640,67 660,68 680,72 L 680,300 L 60,300 Z"
+        fill="url(#valleyGrad)" opacity="0.15"/>
+
+  <defs>
+    <linearGradient id="valleyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C75B3A"/>
+      <stop offset="100%" stop-color="#FAF8F5"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Hare equilibrium marker -->
+  <circle cx="200" cy="150" r="5" fill="#C75B3A" opacity="0.7"/>
+  <text x="200" y="130" text-anchor="middle" class="label" fill="#1A1A1A">Hare Hunt</text>
+  <text x="200" y="118" text-anchor="middle" class="sublabel">Local optimum</text>
+  <text x="200" y="108" text-anchor="middle" class="annotation">"Everyone hunts alone — safe, mediocre"</text>
+
+  <!-- Valley -->
+  <path d="M 310,195 L 310,300" stroke="#C75B3A" stroke-width="0.8" stroke-dasharray="3 3" opacity="0.35"/>
+  <path d="M 430,295 L 430,300" stroke="#C75B3A" stroke-width="0.8" stroke-dasharray="3 3" opacity="0.35"/>
+
+  <!-- Valley zone highlight -->
+  <rect x="310" y="235" width="130" height="65" rx="2" fill="#C75B3A" opacity="0.04"/>
+  <text x="375" y="258" text-anchor="middle" class="label" fill="#C75B3A" opacity="0.75" font-size="10">Uncanny Valley</text>
+  <text x="375" y="273" text-anchor="middle" class="sublabel">Failed stag hunts</text>
+  <text x="375" y="286" text-anchor="middle" class="annotation">"Worse before better — fail forward"</text>
+
+  <!-- Arrow through the valley -->
+  <path d="M 230,158 C 280,175 310,250 375,272 C 430,290 480,250 540,140"
+        fill="none" stroke="#C75B3A" stroke-width="1.2" stroke-dasharray="6 4" opacity="0.45"
+        marker-end="url(#arrowhead)"/>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#C75B3A" opacity="0.6"/>
+    </marker>
+  </defs>
+
+  <!-- Stag equilibrium marker -->
+  <circle cx="625" cy="68" r="5" fill="#C75B3A" opacity="0.7"/>
+  <text x="625" y="52" text-anchor="middle" class="label" fill="#1A1A1A">Stag Hunt</text>
+  <text x="625" y="40" text-anchor="middle" class="sublabel">Global optimum</text>
+  <text x="625" y="30" text-anchor="middle" class="annotation">"Coordinated trust — hard-won, worth it"</text>
+
+  <!-- Comfort zone bracket on left plateau -->
+  <line x1="120" y1="170" x2="270" y2="170" stroke="#9A9490" stroke-width="0.8" opacity="0.4"/>
+  <line x1="120" y1="167" x2="120" y2="173" stroke="#9A9490" stroke-width="0.8" opacity="0.4"/>
+  <line x1="270" y1="167" x2="270" y2="173" stroke="#9A9490" stroke-width="0.8" opacity="0.4"/>
+  <text x="195" y="183" text-anchor="middle" class="axis-label" fill="#9A9490" font-size="8">Comfort zone</text>
+</svg>

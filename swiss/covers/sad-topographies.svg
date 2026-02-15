@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600">
+  <rect width="400" height="600" fill="#2D2D2D"/>
+  <g clip-path="url(#cover-clip)">
+    <rect x="6" y="211" width="28" height="412" fill="#C75B3A" opacity="0.12"/>
+<rect x="50" y="40" width="20" height="461" fill="#C75B3A" opacity="0.16"/>
+<rect x="94" y="80" width="12" height="135" fill="#C75B3A" opacity="0.20"/>
+<rect x="125" y="120" width="31" height="184" fill="#C75B3A" opacity="0.24"/>
+<rect x="169" y="160" width="23" height="232" fill="#C75B3A" opacity="0.08"/>
+<rect x="213" y="200" width="15" height="281" fill="#C75B3A" opacity="0.12"/>
+<rect x="243" y="30" width="33" height="330" fill="#C75B3A" opacity="0.16"/>
+<rect x="287" y="70" width="25" height="379" fill="#C75B3A" opacity="0.20"/>
+<rect x="331" y="110" width="17" height="428" fill="#C75B3A" opacity="0.24"/>
+<rect x="362" y="150" width="36" height="101" fill="#C75B3A" opacity="0.08"/>
+  </g>
+  <rect x="0" y="458" width="400" height="144" fill="#2D2D2D" opacity="0.6"/>
+<line x1="30" y1="463" x2="370" y2="463" stroke="#C75B3A" stroke-width="0.5" opacity="0.3"/>
+<text x="30" y="478" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="32" font-weight="700" fill="#C75B3A" letter-spacing="0.08em" opacity="0.9"><tspan  dy="0">SAD</tspan><tspan x="30" dy="40">TOPOGRAPHIES</tspan></text>
+<text x="30" y="566" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#C75B3A" letter-spacing="0.04em" opacity="0.55">Damien Rudd</text>
+  <rect x="0" y="0" width="6" height="600" fill="#4A4A4A" opacity="0.25"/><line x1="6" y1="0" x2="6" y2="600" stroke="#C75B3A" stroke-width="0.5" opacity="0.15"/>
+  <clipPath id="cover-clip">
+    <rect width="400" height="600"/>
+  </clipPath>
+</svg>

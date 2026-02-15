@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600">
+  <rect width="400" height="600" fill="#1A1A1A"/>
+  <g clip-path="url(#cover-clip)">
+    <line x1="-300" y1="0" x2="-900" y2="600" stroke="#E07856" stroke-width="1.5" opacity="0.18"/>
+<line x1="-221" y1="0" x2="-821" y2="600" stroke="#E07856" stroke-width="2.3" opacity="0.17"/>
+<line x1="-143" y1="0" x2="-743" y2="600" stroke="#E07856" stroke-width="3.1" opacity="0.15"/>
+<line x1="-64" y1="0" x2="-664" y2="600" stroke="#E07856" stroke-width="1.5" opacity="0.14"/>
+<line x1="14" y1="0" x2="-586" y2="600" stroke="#E07856" stroke-width="2.3" opacity="0.12"/>
+<line x1="93" y1="0" x2="-507" y2="600" stroke="#E07856" stroke-width="3.1" opacity="0.11"/>
+<line x1="171" y1="0" x2="-429" y2="600" stroke="#E07856" stroke-width="1.5" opacity="0.09"/>
+<line x1="250" y1="0" x2="-350" y2="600" stroke="#E07856" stroke-width="2.3" opacity="0.08"/>
+<line x1="329" y1="0" x2="-271" y2="600" stroke="#E07856" stroke-width="3.1" opacity="0.09"/>
+<line x1="407" y1="0" x2="-193" y2="600" stroke="#E07856" stroke-width="1.5" opacity="0.11"/>
+<line x1="486" y1="0" x2="-114" y2="600" stroke="#E07856" stroke-width="2.3" opacity="0.12"/>
+<line x1="564" y1="0" x2="-36" y2="600" stroke="#E07856" stroke-width="3.1" opacity="0.14"/>
+<line x1="643" y1="0" x2="43" y2="600" stroke="#E07856" stroke-width="1.5" opacity="0.15"/>
+<line x1="721" y1="0" x2="121" y2="600" stroke="#E07856" stroke-width="2.3" opacity="0.17"/>
+<line x1="800" y1="0" x2="200" y2="600" stroke="#E07856" stroke-width="3.1" opacity="0.18"/>
+  </g>
+  <rect x="0" y="495" width="400" height="112" fill="#1A1A1A" opacity="0.6"/>
+<line x1="30" y1="500" x2="370" y2="500" stroke="#E07856" stroke-width="0.5" opacity="0.3"/>
+<text x="30" y="516" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="38" font-weight="700" fill="#E07856" letter-spacing="0.08em" opacity="0.9"><tspan  dy="0">MOMO</tspan></text>
+<text x="30" y="572" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#E07856" letter-spacing="0.04em" opacity="0.55">Michael Ende</text>
+  <rect x="0" y="0" width="6" height="600" fill="#3A3A3A" opacity="0.25"/><line x1="6" y1="0" x2="6" y2="600" stroke="#E07856" stroke-width="0.5" opacity="0.15"/>
+  <clipPath id="cover-clip">
+    <rect width="400" height="600"/>
+  </clipPath>
+</svg>

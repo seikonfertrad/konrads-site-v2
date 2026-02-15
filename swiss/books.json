@@ -1,116 +1,437 @@
 [
-
   {
     "category": "Human Nature",
     "books": [
-      { "title": "Behave", "author": "Robert Sapolsky" },
-      { "title": "The Selfish Gene", "author": "Richard Dawkins" },
-      { "title": "The Mating Mind", "author": "Geoffrey Miller" },
-      { "title": "A Billion Wicked Thoughts", "author": "Ogi Ogas & Sai Gaddam" },
-      { "title": "Friends", "author": "Robin Dunbar" },
-      { "title": "The Edge of Sentience", "author": "Jonathan Birch" },
-      { "title": "Sense and Nonsense", "author": "Kevin Laland & Gillian Brown" },
-      { "title": "The Big Picture", "author": "Sean Carroll" },
-      { "title": "Surely You're Joking, Mr. Feynman!", "author": "Richard Feynman" },
-      { "title": "Hunt, Gather, Parent", "author": "Michaeleen Doucleff" },
-      { "title": "Hannah's Children", "author": "Catherine Pakaluk" },
-      { "title": "Family Unfriendly", "author": "Timothy P. Carney" },
-      { "title": "Drive", "author": "Daniel Pink" }
-
+      {
+        "title": "Behave",
+        "author": "Robert Sapolsky",
+        "cover": "covers/behave.svg"
+      },
+      {
+        "title": "The Selfish Gene",
+        "author": "Richard Dawkins",
+        "cover": "covers/the-selfish-gene.svg"
+      },
+      {
+        "title": "The Mating Mind",
+        "author": "Geoffrey Miller",
+        "cover": "covers/the-mating-mind.svg"
+      },
+      {
+        "title": "A Billion Wicked Thoughts",
+        "author": "Ogi Ogas & Sai Gaddam",
+        "cover": "covers/a-billion-wicked-thoughts.svg"
+      },
+      {
+        "title": "Friends",
+        "author": "Robin Dunbar",
+        "cover": "covers/friends.svg"
+      },
+      {
+        "title": "The Edge of Sentience",
+        "author": "Jonathan Birch",
+        "cover": "covers/the-edge-of-sentience.svg"
+      },
+      {
+        "title": "Sense and Nonsense",
+        "author": "Kevin Laland & Gillian Brown",
+        "cover": "covers/sense-and-nonsense.svg"
+      },
+      {
+        "title": "The Big Picture",
+        "author": "Sean Carroll",
+        "cover": "covers/the-big-picture.svg"
+      },
+      {
+        "title": "Surely You're Joking, Mr. Feynman!",
+        "author": "Richard Feynman",
+        "cover": "covers/surely-you-re-joking-mr-feynman.svg"
+      },
+      {
+        "title": "Hunt, Gather, Parent",
+        "author": "Michaeleen Doucleff",
+        "cover": "covers/hunt-gather-parent.svg"
+      },
+      {
+        "title": "Hannah's Children",
+        "author": "Catherine Pakaluk",
+        "cover": "covers/hannah-s-children.svg"
+      },
+      {
+        "title": "Family Unfriendly",
+        "author": "Timothy P. Carney",
+        "cover": "covers/family-unfriendly.svg"
+      },
+      {
+        "title": "Drive",
+        "author": "Daniel Pink",
+        "cover": "covers/drive.svg"
+      }
     ]
   },
   {
     "category": "Politics & Civilization",
     "books": [
-      { "title": "The Dawn of Everything", "author": "David Graeber & David Wengrow" },
-      { "title": "Why Nations Fail", "author": "Acemoglu & Robinson" },
-      { "title": "The Collapse of Complex Societies", "author": "Joseph Tainter" },
-      { "title": "Albion's Seed", "author": "David Hackett Fischer" },
-      { "title": "America Against America", "author": "Wang Huning" },
-      { "title": "Two Paths to Prosperity", "author": "Greif, Mokyr & Tabellini" },
-      { "title": "The Listening Society", "author": "Hanzi Freinacht" },
-      { "title": "Trade Wars Are Class Wars", "author": "Klein & Pettis" },
-      { "title": "The Dictator's Handbook", "author": "Bueno de Mesquita & Smith" },
-      { "title": "How the World Really Works", "author": "Vaclav Smil" },
-      { "title": "Invisible Women", "author": "Caroline Criado Perez" },
-      { "title": "Elon Musk", "author": "Walter Isaacson" },
-      { "title": "Doomsday Machine", "author": "Daniel Ellsberg" },
-      { "title": "Sad Topographies", "author": "Damien Rudd" },
-      { "title": "Going Infinite", "author": "Michael Lewis" },
-      { "title": "The Strategy of Conflict", "author": "Thomas Schelling" },
-      { "title": "Governing the Commons", "author": "Elinor Ostrom" }
+      {
+        "title": "The Dawn of Everything",
+        "author": "David Graeber & David Wengrow",
+        "cover": "covers/the-dawn-of-everything.svg"
+      },
+      {
+        "title": "Why Nations Fail",
+        "author": "Acemoglu & Robinson",
+        "cover": "covers/why-nations-fail.svg"
+      },
+      {
+        "title": "The Collapse of Complex Societies",
+        "author": "Joseph Tainter",
+        "cover": "covers/the-collapse-of-complex-societies.svg"
+      },
+      {
+        "title": "Albion's Seed",
+        "author": "David Hackett Fischer",
+        "cover": "covers/albion-s-seed.svg"
+      },
+      {
+        "title": "America Against America",
+        "author": "Wang Huning",
+        "cover": "covers/america-against-america.svg"
+      },
+      {
+        "title": "Two Paths to Prosperity",
+        "author": "Greif, Mokyr & Tabellini",
+        "cover": "covers/two-paths-to-prosperity.svg"
+      },
+      {
+        "title": "The Listening Society",
+        "author": "Hanzi Freinacht",
+        "cover": "covers/the-listening-society.svg"
+      },
+      {
+        "title": "Trade Wars Are Class Wars",
+        "author": "Klein & Pettis",
+        "cover": "covers/trade-wars-are-class-wars.svg"
+      },
+      {
+        "title": "The Dictator's Handbook",
+        "author": "Bueno de Mesquita & Smith",
+        "cover": "covers/the-dictator-s-handbook.svg"
+      },
+      {
+        "title": "How the World Really Works",
+        "author": "Vaclav Smil",
+        "cover": "covers/how-the-world-really-works.svg"
+      },
+      {
+        "title": "Invisible Women",
+        "author": "Caroline Criado Perez",
+        "cover": "covers/invisible-women.svg"
+      },
+      {
+        "title": "Elon Musk",
+        "author": "Walter Isaacson",
+        "cover": "covers/elon-musk.svg"
+      },
+      {
+        "title": "Doomsday Machine",
+        "author": "Daniel Ellsberg",
+        "cover": "covers/doomsday-machine.svg"
+      },
+      {
+        "title": "Sad Topographies",
+        "author": "Damien Rudd",
+        "cover": "covers/sad-topographies.svg"
+      },
+      {
+        "title": "Going Infinite",
+        "author": "Michael Lewis",
+        "cover": "covers/going-infinite.svg"
+      },
+      {
+        "title": "The Strategy of Conflict",
+        "author": "Thomas Schelling",
+        "cover": "covers/the-strategy-of-conflict.svg"
+      },
+      {
+        "title": "Governing the Commons",
+        "author": "Elinor Ostrom",
+        "cover": "covers/governing-the-commons.svg"
+      }
     ]
   },
   {
     "category": "Strategy & Craft",
     "books": [
-      { "title": "Good Strategy Bad Strategy", "author": "Richard Rumelt" },
-      { "title": "Extreme Ownership", "author": "Jocko Willink & Leif Babin" },
-      { "title": "How to Measure Anything", "author": "Douglas Hubbard" },
-      { "title": "The 7 Habits of Highly Effective People", "author": "Stephen Covey" },
-      { "title": "Deep Work", "author": "Cal Newport" },
-      { "title": "Start with Why", "author": "Simon Sinek" },
-      { "title": "Difficult Conversations", "author": "Stone, Patton & Heen" },
-      { "title": "Presence", "author": "Patsy Rodenburg" },
-      { "title": "Organizing Genius", "author": "Warren Bennis" },
-      { "title": "Playing to Win", "author": "David Sirlin" },
-      { "title": "Zero to One", "author": "Peter Thiel" }
+      {
+        "title": "Good Strategy Bad Strategy",
+        "author": "Richard Rumelt",
+        "cover": "covers/good-strategy-bad-strategy.svg"
+      },
+      {
+        "title": "Extreme Ownership",
+        "author": "Jocko Willink & Leif Babin",
+        "cover": "covers/extreme-ownership.svg"
+      },
+      {
+        "title": "How to Measure Anything",
+        "author": "Douglas Hubbard",
+        "cover": "covers/how-to-measure-anything.svg"
+      },
+      {
+        "title": "The 7 Habits of Highly Effective People",
+        "author": "Stephen Covey",
+        "cover": "covers/the-7-habits-of-highly-effective-people.svg"
+      },
+      {
+        "title": "Deep Work",
+        "author": "Cal Newport",
+        "cover": "covers/deep-work.svg"
+      },
+      {
+        "title": "Start with Why",
+        "author": "Simon Sinek",
+        "cover": "covers/start-with-why.svg"
+      },
+      {
+        "title": "Difficult Conversations",
+        "author": "Stone, Patton & Heen",
+        "cover": "covers/difficult-conversations.svg"
+      },
+      {
+        "title": "Presence",
+        "author": "Patsy Rodenburg",
+        "cover": "covers/presence.svg"
+      },
+      {
+        "title": "Organizing Genius",
+        "author": "Warren Bennis",
+        "cover": "covers/organizing-genius.svg"
+      },
+      {
+        "title": "Playing to Win",
+        "author": "David Sirlin",
+        "cover": "covers/playing-to-win.svg"
+      },
+      {
+        "title": "Zero to One",
+        "author": "Peter Thiel",
+        "cover": "covers/zero-to-one.svg"
+      }
     ]
   },
   {
     "category": "(Science) Fiction",
     "books": [
-      { "title": "There Is No Antimemetics Division", "author": "qntm" },
-      { "title": "Dune (series)", "author": "Frank Herbert" },
-      { "title": "The Three-Body Problem", "author": "Cixin Liu" },
-      { "title": "Foundation (series)", "author": "Isaac Asimov" },
-      { "title": "Altered Carbon", "author": "Richard Morgan" },
-      { "title": "The Silmarillion", "author": "J.R.R. Tolkien" },
-      { "title": "Superintelligence", "author": "Nick Bostrom" },
-      { "title": "Harry Potter and the Methods of Rationality", "author": "Eliezer Yudkowsky" },
-      { "title": "Momo", "author": "Michael Ende" },
-      { "title": "Jim Knopf und Lukas der Lokomotivführer", "author": "Michael Ende" },
-      { "title": "Tintenherz", "author": "Cornelia Funke" },
-      { "title": "Herr der Diebe", "author": "Cornelia Funke" },
-      { "title": "Die unendliche Geschichte", "author": "Michael Ende" },
-      { "title": "The Lord of the Rings", "author": "J.R.R. Tolkien" },
-      { "title": "Eragon (series)", "author": "Christopher Paolini" }
+      {
+        "title": "There Is No Antimemetics Division",
+        "author": "qntm",
+        "cover": "covers/there-is-no-antimemetics-division.svg"
+      },
+      {
+        "title": "Dune (series)",
+        "author": "Frank Herbert",
+        "cover": "covers/dune-series.svg"
+      },
+      {
+        "title": "The Three-Body Problem",
+        "author": "Cixin Liu",
+        "cover": "covers/the-three-body-problem.svg"
+      },
+      {
+        "title": "Foundation (series)",
+        "author": "Isaac Asimov",
+        "cover": "covers/foundation-series.svg"
+      },
+      {
+        "title": "Altered Carbon",
+        "author": "Richard Morgan",
+        "cover": "covers/altered-carbon.svg"
+      },
+      {
+        "title": "The Silmarillion",
+        "author": "J.R.R. Tolkien",
+        "cover": "covers/the-silmarillion.svg"
+      },
+      {
+        "title": "Superintelligence",
+        "author": "Nick Bostrom",
+        "cover": "covers/superintelligence.svg"
+      },
+      {
+        "title": "Harry Potter and the Methods of Rationality",
+        "author": "Eliezer Yudkowsky",
+        "cover": "covers/harry-potter-and-the-methods-of-rationality.svg"
+      },
+      {
+        "title": "Momo",
+        "author": "Michael Ende",
+        "cover": "covers/momo.svg"
+      },
+      {
+        "title": "Jim Knopf und Lukas der Lokomotivführer",
+        "author": "Michael Ende",
+        "cover": "covers/jim-knopf-und-lukas-der-lokomotivf-hrer.svg"
+      },
+      {
+        "title": "Tintenherz",
+        "author": "Cornelia Funke",
+        "cover": "covers/tintenherz.svg"
+      },
+      {
+        "title": "Herr der Diebe",
+        "author": "Cornelia Funke",
+        "cover": "covers/herr-der-diebe.svg"
+      },
+      {
+        "title": "Die unendliche Geschichte",
+        "author": "Michael Ende",
+        "cover": "covers/die-unendliche-geschichte.svg"
+      },
+      {
+        "title": "The Lord of the Rings",
+        "author": "J.R.R. Tolkien",
+        "cover": "covers/the-lord-of-the-rings.svg"
+      },
+      {
+        "title": "Eragon (series)",
+        "author": "Christopher Paolini",
+        "cover": "covers/eragon-series.svg"
+      }
     ]
   },
   {
     "category": "Ethics & Philosophy",
     "books": [
-      { "title": "Reasons and Persons", "author": "Derek Parfit" },
-      { "title": "On What Matters, Vol. 1", "author": "Derek Parfit" },
-      { "title": "On What Matters, Vol. 2", "author": "Derek Parfit" },
-      { "title": "Reading Parfit", "author": "ed. Simon Kirchin" },
-      { "title": "The Moral Landscape", "author": "Sam Harris" },
-      { "title": "Lying", "author": "Sam Harris" },
-      { "title": "Doing Good Better", "author": "William MacAskill" },
-      { "title": "Against Empathy", "author": "Paul Bloom" },
-      { "title": "Strangers Drowning", "author": "Larissa MacFarquhar" },
-      { "title": "Stubborn Attachments", "author": "Tyler Cowen" },
-      { "title": "Moral Tribes", "author": "Joshua Greene" },
-      { "title": "Inventing the Individual", "author": "Larry Siedentop" },
-      { "title": "The Precipice", "author": "Toby Ord" },
-      { "title": "Famine, Affluence, and Morality", "author": "Peter Singer" },
-      { "title": "The Beginning of Infinity", "author": "David Deutsch" }
+      {
+        "title": "Reasons and Persons",
+        "author": "Derek Parfit",
+        "cover": "covers/reasons-and-persons.svg"
+      },
+      {
+        "title": "On What Matters, Vol. 1",
+        "author": "Derek Parfit",
+        "cover": "covers/on-what-matters-vol-1.svg"
+      },
+      {
+        "title": "On What Matters, Vol. 2",
+        "author": "Derek Parfit",
+        "cover": "covers/on-what-matters-vol-2.svg"
+      },
+      {
+        "title": "Reading Parfit",
+        "author": "ed. Simon Kirchin",
+        "cover": "covers/reading-parfit.svg"
+      },
+      {
+        "title": "The Moral Landscape",
+        "author": "Sam Harris",
+        "cover": "covers/the-moral-landscape.svg"
+      },
+      {
+        "title": "Lying",
+        "author": "Sam Harris",
+        "cover": "covers/lying.svg"
+      },
+      {
+        "title": "Doing Good Better",
+        "author": "William MacAskill",
+        "cover": "covers/doing-good-better.svg"
+      },
+      {
+        "title": "Against Empathy",
+        "author": "Paul Bloom",
+        "cover": "covers/against-empathy.svg"
+      },
+      {
+        "title": "Strangers Drowning",
+        "author": "Larissa MacFarquhar",
+        "cover": "covers/strangers-drowning.svg"
+      },
+      {
+        "title": "Stubborn Attachments",
+        "author": "Tyler Cowen",
+        "cover": "covers/stubborn-attachments.svg"
+      },
+      {
+        "title": "Moral Tribes",
+        "author": "Joshua Greene",
+        "cover": "covers/moral-tribes.svg"
+      },
+      {
+        "title": "Inventing the Individual",
+        "author": "Larry Siedentop",
+        "cover": "covers/inventing-the-individual.svg"
+      },
+      {
+        "title": "The Precipice",
+        "author": "Toby Ord",
+        "cover": "covers/the-precipice.svg"
+      },
+      {
+        "title": "Famine, Affluence, and Morality",
+        "author": "Peter Singer",
+        "cover": "covers/famine-affluence-and-morality.svg"
+      },
+      {
+        "title": "The Beginning of Infinity",
+        "author": "David Deutsch",
+        "cover": "covers/the-beginning-of-infinity.svg"
+      }
     ]
   },
   {
     "category": "Rationality & Sensemaking",
     "books": [
-      { "title": "Inadequate Equilibria", "author": "Eliezer Yudkowsky" },
-      { "title": "Map and Territory", "author": "Eliezer Yudkowsky" },
-      { "title": "How to Actually Change Your Mind", "author": "Eliezer Yudkowsky" },
-      { "title": "Competitive Sensemaking", "author": "John Nerst" },
-      { "title": "Thinking in Bets", "author": "Annie Duke" },
-      { "title": "Factfulness", "author": "Hans Rosling" },
-      { "title": "Skin in the Game", "author": "Nassim Nicholas Taleb" },
-      { "title": "The Revolt of the Public", "author": "Martin Gurri" },
-      { "title": "Optionality", "author": "Richard Meadows" },
-      { "title": "Not the End of the World", "author": "Hannah Ritchie" }
-
+      {
+        "title": "Inadequate Equilibria",
+        "author": "Eliezer Yudkowsky",
+        "cover": "covers/inadequate-equilibria.svg"
+      },
+      {
+        "title": "Map and Territory",
+        "author": "Eliezer Yudkowsky",
+        "cover": "covers/map-and-territory.svg"
+      },
+      {
+        "title": "How to Actually Change Your Mind",
+        "author": "Eliezer Yudkowsky",
+        "cover": "covers/how-to-actually-change-your-mind.svg"
+      },
+      {
+        "title": "Competitive Sensemaking",
+        "author": "John Nerst",
+        "cover": "covers/competitive-sensemaking.svg"
+      },
+      {
+        "title": "Thinking in Bets",
+        "author": "Annie Duke",
+        "cover": "covers/thinking-in-bets.svg"
+      },
+      {
+        "title": "Factfulness",
+        "author": "Hans Rosling",
+        "cover": "covers/factfulness.svg"
+      },
+      {
+        "title": "Skin in the Game",
+        "author": "Nassim Nicholas Taleb",
+        "cover": "covers/skin-in-the-game.svg"
+      },
+      {
+        "title": "The Revolt of the Public",
+        "author": "Martin Gurri",
+        "cover": "covers/the-revolt-of-the-public.svg"
+      },
+      {
+        "title": "Optionality",
+        "author": "Richard Meadows",
+        "cover": "covers/optionality.svg"
+      },
+      {
+        "title": "Not the End of the World",
+        "author": "Hannah Ritchie",
+        "cover": "covers/not-the-end-of-the-world.svg"
+      }
     ]
   }
 ]

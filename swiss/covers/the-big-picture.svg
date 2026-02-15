@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600">
+  <rect width="400" height="600" fill="#1A1A1A"/>
+  <g clip-path="url(#cover-clip)">
+    <line x1="184" y1="184" x2="664" y2="184" stroke="#E07856" stroke-width="0.8" opacity="0.06"/>
+<line x1="184" y1="184" x2="649" y2="303" stroke="#E07856" stroke-width="1.1" opacity="0.11"/>
+<line x1="184" y1="184" x2="605" y2="415" stroke="#E07856" stroke-width="1.4" opacity="0.16"/>
+<line x1="184" y1="184" x2="534" y2="513" stroke="#E07856" stroke-width="1.7" opacity="0.06"/>
+<line x1="184" y1="184" x2="441" y2="589" stroke="#E07856" stroke-width="0.8" opacity="0.11"/>
+<line x1="184" y1="184" x2="332" y2="641" stroke="#E07856" stroke-width="1.1" opacity="0.16"/>
+<line x1="184" y1="184" x2="214" y2="663" stroke="#E07856" stroke-width="1.4" opacity="0.06"/>
+<line x1="184" y1="184" x2="94" y2="655" stroke="#E07856" stroke-width="1.7" opacity="0.11"/>
+<line x1="184" y1="184" x2="-20" y2="618" stroke="#E07856" stroke-width="0.8" opacity="0.16"/>
+<line x1="184" y1="184" x2="-122" y2="554" stroke="#E07856" stroke-width="1.1" opacity="0.06"/>
+<line x1="184" y1="184" x2="-204" y2="466" stroke="#E07856" stroke-width="1.4" opacity="0.11"/>
+<line x1="184" y1="184" x2="-262" y2="361" stroke="#E07856" stroke-width="1.7" opacity="0.16"/>
+<line x1="184" y1="184" x2="-292" y2="244" stroke="#E07856" stroke-width="0.8" opacity="0.06"/>
+<line x1="184" y1="184" x2="-292" y2="124" stroke="#E07856" stroke-width="1.1" opacity="0.11"/>
+<line x1="184" y1="184" x2="-262" y2="7" stroke="#E07856" stroke-width="1.4" opacity="0.16"/>
+<line x1="184" y1="184" x2="-204" y2="-98" stroke="#E07856" stroke-width="1.7" opacity="0.06"/>
+<line x1="184" y1="184" x2="-122" y2="-186" stroke="#E07856" stroke-width="0.8" opacity="0.11"/>
+<line x1="184" y1="184" x2="-20" y2="-250" stroke="#E07856" stroke-width="1.1" opacity="0.16"/>
+<line x1="184" y1="184" x2="94" y2="-287" stroke="#E07856" stroke-width="1.4" opacity="0.06"/>
+<line x1="184" y1="184" x2="214" y2="-295" stroke="#E07856" stroke-width="1.7" opacity="0.11"/>
+<line x1="184" y1="184" x2="332" y2="-273" stroke="#E07856" stroke-width="0.8" opacity="0.16"/>
+<line x1="184" y1="184" x2="441" y2="-221" stroke="#E07856" stroke-width="1.1" opacity="0.06"/>
+<line x1="184" y1="184" x2="534" y2="-145" stroke="#E07856" stroke-width="1.4" opacity="0.11"/>
+<line x1="184" y1="184" x2="605" y2="-47" stroke="#E07856" stroke-width="1.7" opacity="0.16"/>
+<line x1="184" y1="184" x2="649" y2="65" stroke="#E07856" stroke-width="0.8" opacity="0.06"/>
+  </g>
+  <rect x="0" y="458" width="400" height="144" fill="#1A1A1A" opacity="0.6"/>
+<line x1="30" y1="463" x2="370" y2="463" stroke="#E07856" stroke-width="0.5" opacity="0.3"/>
+<text x="30" y="478" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="32" font-weight="700" fill="#E07856" letter-spacing="0.08em" opacity="0.9"><tspan  dy="0">THE BIG</tspan><tspan x="30" dy="40">PICTURE</tspan></text>
+<text x="30" y="566" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#E07856" letter-spacing="0.04em" opacity="0.55">Sean Carroll</text>
+  <rect x="0" y="0" width="6" height="600" fill="#3A3A3A" opacity="0.25"/><line x1="6" y1="0" x2="6" y2="600" stroke="#E07856" stroke-width="0.5" opacity="0.15"/>
+  <clipPath id="cover-clip">
+    <rect width="400" height="600"/>
+  </clipPath>
+</svg>

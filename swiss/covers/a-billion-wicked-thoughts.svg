@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600">
+  <rect width="400" height="600" fill="#FAF8F5"/>
+  <g clip-path="url(#cover-clip)">
+    <g transform="rotate(-16, 200.0, 180.00000000000003)"><rect x="0" y="180" width="400" height="50" fill="#1A1A1A" opacity="0.12"/><line x1="0" y1="180" x2="400" y2="180" stroke="#1A1A1A" stroke-width="1" opacity="0.2"/><line x1="0" y1="230" x2="400" y2="230" stroke="#1A1A1A" stroke-width="1" opacity="0.2"/></g>
+  </g>
+  <rect x="0" y="473" width="400" height="124" fill="#FAF8F5" opacity="0.6"/>
+<line x1="30" y1="478" x2="370" y2="478" stroke="#1A1A1A" stroke-width="0.5" opacity="0.3"/>
+<text x="30" y="490" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="24" font-weight="700" fill="#1A1A1A" letter-spacing="0.08em" opacity="0.9"><tspan  dy="0">A BILLION WICKED</tspan><tspan x="30" dy="30">THOUGHTS</tspan></text>
+<text x="30" y="558" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#1A1A1A" letter-spacing="0.04em" opacity="0.55">Ogi Ogas &amp; Sai Gaddam</text>
+  <rect x="0" y="0" width="6" height="600" fill="#E0DAD0" opacity="0.25"/><line x1="6" y1="0" x2="6" y2="600" stroke="#1A1A1A" stroke-width="0.5" opacity="0.15"/>
+  <clipPath id="cover-clip">
+    <rect width="400" height="600"/>
+  </clipPath>
+</svg>

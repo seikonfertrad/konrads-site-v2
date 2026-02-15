@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600">
+  <rect width="400" height="600" fill="#3A2A4A"/>
+  <g clip-path="url(#cover-clip)">
+    <rect x="5" y="148" width="23" height="300" fill="#F5F0E8" opacity="0.12"/>
+<rect x="42" y="188" width="17" height="349" fill="#F5F0E8" opacity="0.16"/>
+<rect x="78" y="227" width="10" height="398" fill="#F5F0E8" opacity="0.20"/>
+<rect x="104" y="57" width="26" height="446" fill="#F5F0E8" opacity="0.24"/>
+<rect x="141" y="97" width="19" height="120" fill="#F5F0E8" opacity="0.08"/>
+<rect x="177" y="137" width="12" height="169" fill="#F5F0E8" opacity="0.12"/>
+<rect x="203" y="177" width="28" height="218" fill="#F5F0E8" opacity="0.16"/>
+<rect x="239" y="217" width="21" height="266" fill="#F5F0E8" opacity="0.20"/>
+<rect x="276" y="47" width="14" height="315" fill="#F5F0E8" opacity="0.24"/>
+<rect x="302" y="87" width="30" height="364" fill="#F5F0E8" opacity="0.08"/>
+<rect x="338" y="127" width="23" height="412" fill="#F5F0E8" opacity="0.12"/>
+<rect x="375" y="166" width="17" height="461" fill="#F5F0E8" opacity="0.16"/>
+  </g>
+  <rect x="0" y="458" width="400" height="144" fill="#3A2A4A" opacity="0.6"/>
+<line x1="30" y1="463" x2="370" y2="463" stroke="#F5F0E8" stroke-width="0.5" opacity="0.3"/>
+<text x="30" y="478" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="32" font-weight="700" fill="#F5F0E8" letter-spacing="0.08em" opacity="0.9"><tspan  dy="0">AGAINST</tspan><tspan x="30" dy="40">EMPATHY</tspan></text>
+<text x="30" y="566" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#F5F0E8" letter-spacing="0.04em" opacity="0.55">Paul Bloom</text>
+  <rect x="0" y="0" width="6" height="600" fill="#6A4A8A" opacity="0.25"/><line x1="6" y1="0" x2="6" y2="600" stroke="#F5F0E8" stroke-width="0.5" opacity="0.15"/>
+  <clipPath id="cover-clip">
+    <rect width="400" height="600"/>
+  </clipPath>
+</svg>

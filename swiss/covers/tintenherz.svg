@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600">
+  <rect width="400" height="600" fill="#2D4A3E"/>
+  <g clip-path="url(#cover-clip)">
+    <path d="M 31 207 A 313 313 0 0 1 559 328" fill="none" stroke="#E8DFD0" stroke-width="3" opacity="0.25"/>
+<path d="M 70 204 A 288 288 0 0 1 526 309" fill="none" stroke="#E8DFD0" stroke-width="1.2" opacity="0.15"/>
+  </g>
+  <rect x="0" y="498" width="400" height="104" fill="#2D4A3E" opacity="0.6"/>
+<line x1="30" y1="503" x2="370" y2="503" stroke="#E8DFD0" stroke-width="0.5" opacity="0.3"/>
+<text x="30" y="518" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="32" font-weight="700" fill="#E8DFD0" letter-spacing="0.08em" opacity="0.9"><tspan  dy="0">TINTENHERZ</tspan></text>
+<text x="30" y="566" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#E8DFD0" letter-spacing="0.04em" opacity="0.55">Cornelia Funke</text>
+  <rect x="0" y="0" width="6" height="600" fill="#4A7A6A" opacity="0.25"/><line x1="6" y1="0" x2="6" y2="600" stroke="#E8DFD0" stroke-width="0.5" opacity="0.15"/>
+  <clipPath id="cover-clip">
+    <rect width="400" height="600"/>
+  </clipPath>
+</svg>

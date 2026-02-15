@@ -1,7 +1,123 @@
 [
   {
+    "category": "Communities & Movements",
+    "items": [
+      {
+        "title": "Effective Altruism",
+        "url": "https://effectivealtruism.org",
+        "desc": "The community that taught me to ask: what's actually the most impactful thing I can do? Rigorous, quantitative, and asking the right questions."
+      },
+      {
+        "title": "Simon Institute for Longterm Governance",
+        "url": "https://simoninstitute.ch",
+        "by": "The org I co-founded",
+        "desc": "Helping the international community navigate frontier AI. Where the rabbit hole from animal rights to EA to biosecurity eventually led."
+      }
+    ]
+  },
+  {
     "category": "Blogs",
     "items": [
+      {
+        "title": "Slate Star Codex / Astral Codex Ten",
+        "url": "https://www.astralcodexten.com",
+        "by": "Scott Alexander",
+        "desc": "The best blog on the internet. Psychiatry, prediction markets, coordination failures, and everything in between."
+      },
+      {
+        "title": "Cold Takes",
+        "url": "https://www.cold-takes.com",
+        "by": "Holden Karnofsky",
+        "desc": "Long-form thinking about the most important century, AI, and how to navigate transformative change."
+      },
+      {
+        "title": "Carl Shulman",
+        "url": "https://www.lesswrong.com/users/carl_shulman",
+        "by": "Carl Shulman",
+        "desc": "Possibly the most careful thinker alive on AI trajectories and their implications. Rarely writes, always worth reading."
+      },
+      {
+        "title": "LessWrong",
+        "url": "https://www.lesswrong.com",
+        "desc": "The rationalist community's home base. Epistemics, AI alignment, decision theory. Dense but rewarding."
+      }
+    ]
+  },
+  {
+    "category": "Artists & Music",
+    "items": [
+      {
+        "title": "Sonia Calico",
+        "url": "https://soundcloud.com/soniacalico",
+        "desc": "Taiwanese DJ/producer. Experimental club, deconstructed, relentless energy."
+      },
+      {
+        "title": "Acid Pauli",
+        "url": "https://soundcloud.com/acidpauli",
+        "desc": "Psychedelic electronic music. Organic, deeply textured, impossible to sit still to."
+      },
+      {
+        "title": "Tyler, the Creator",
+        "url": "https://music.apple.com/artist/tyler-the-creator/420368335",
+        "desc": "Genre-bending hip-hop auteur. From Goblin to CHROMAKOPIA — relentless creative evolution."
+      },
+      {
+        "title": "Donald Glover / Childish Gambino",
+        "url": "https://music.apple.com/artist/childish-gambino/358714030",
+        "desc": "Music, film, comedy, writing. The closest thing to a modern renaissance human in pop culture."
+      },
+      {
+        "title": "Zugezogen Maskulin",
+        "url": "https://open.spotify.com/artist/4bGbRMTFezcOvhv9XOJWhc",
+        "desc": "German rap with teeth. Political, sardonic, Berlin-raw."
+      }
+    ]
+  },
+  {
+    "category": "Movies & TV",
+    "items": [
+      {
+        "title": "Sense8",
+        "url": "https://www.imdb.com/title/tt2431438/",
+        "by": "The Wachowskis",
+        "desc": "Eight strangers across the world share consciousness. The most earnest show about human connection ever made."
+      },
+      {
+        "title": "Everything Everywhere All at Once",
+        "url": "https://www.imdb.com/title/tt6710474/",
+        "by": "Daniels",
+        "desc": "Multiverse absurdism that somehow becomes the most emotionally devastating film about kindness and laundry."
+      }
+    ]
+  },
+  {
+    "category": "Games",
+    "items": [
+      {
+        "title": "Hanabi",
+        "url": "https://boardgamegeek.com/boardgame/98778/hanabi",
+        "desc": "Cooperative card game where you can see everyone's hand but your own. Pure coordination problem. Reveals how you communicate."
+      },
+      {
+        "title": "Secret Hitler",
+        "url": "https://www.secrethitler.com",
+        "desc": "Social deduction at its best. Trust, betrayal, and watching your friends lie to your face. Uncomfortably good training for real-world politics."
+      }
+    ]
+  },
+  {
+    "category": "Purchases",
+    "items": [
+      {
+        "title": "SIGG Bottle",
+        "url": "https://www.sigg.com",
+        "desc": "Swiss-made, indestructible, beautiful. The only water bottle you'll ever need."
+      },
+      {
+        "title": "Mobility Car-Sharing",
+        "url": "https://www.mobility.ch",
+        "desc": "Switzerland's car-sharing network. 3,000+ vehicles, no ownership, works perfectly. The reason I don't own a car."
+      }
     ]
   },
   {
