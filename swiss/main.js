@@ -912,21 +912,16 @@ function initArchiveGallery() {
   const gallery = document.getElementById('archive-gallery');
   if (!gallery) return;
 
-  let loaded = false;
   let allImages = []; // flat list for lightbox navigation
   let captions = {};  // filename -> caption text
 
-  // Load manifest when archive panel becomes visible
-  const observer = new MutationObserver(() => {
-    const panel = document.getElementById('drawer-photoalbum');
-    if (panel && panel.classList.contains('is-active') && !loaded) {
-      loaded = true;
-      loadArchive();
-    }
-  });
-
-  const panels = document.querySelectorAll('.drawer-panel');
-  panels.forEach(p => observer.observe(p, { attributes: true, attributeFilter: ['class'] }));
+  // Prefetch archive in background after page is ready
+  const startLoad = () => loadArchive();
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(startLoad, { timeout: 3000 });
+  } else {
+    setTimeout(startLoad, 500);
+  }
 
   function loadArchive() {
     Promise.all([
@@ -1037,36 +1032,33 @@ function initArchiveGallery() {
 // ============================================
 
 function initLazyPanels() {
-  const registry = {
-    'drawer-bookshelf':       { containerId: 'bookshelf',       json: 'books.json',           render: renderBookshelf },
-    'drawer-recommendations': { containerId: 'recommendations', json: 'recommendations.json', render: renderRecommendations },
-    'drawer-funfacts':        { containerId: 'funfacts',        json: 'funfacts.json',        render: renderFunFacts },
-    'drawer-hottakes':        { containerId: 'hottakes',        json: 'hottakes.json',        render: renderHotTakes },
-    'drawer-keyideas':        { containerId: 'keyideas',        json: 'keyideas.json',        render: renderKeyIdeas },
-  };
-  const loaded = new Set();
+  const registry = [
+    { containerId: 'bookshelf',       json: 'books.json',           render: renderBookshelf },
+    { containerId: 'recommendations', json: 'recommendations.json', render: renderRecommendations },
+    { containerId: 'funfacts',        json: 'funfacts.json',        render: renderFunFacts },
+    { containerId: 'hottakes',        json: 'hottakes.json',        render: renderHotTakes },
+    { containerId: 'keyideas',        json: 'keyideas.json',        render: renderKeyIdeas },
+  ];
 
-  const observer = new MutationObserver(() => {
-    for (const [panelId, cfg] of Object.entries(registry)) {
-      if (loaded.has(panelId)) continue;
-      const panel = document.getElementById(panelId);
-      if (panel && panel.classList.contains('is-active')) {
-        loaded.add(panelId);
-        const container = document.getElementById(cfg.containerId);
-        if (container) {
-          fetch(cfg.json)
-            .then(r => r.json())
-            .then(data => cfg.render(data, container))
-            .catch(() => {});
-        }
+  // Prefetch all JSON and render panels in background after page is ready
+  const prefetch = () => {
+    registry.forEach(cfg => {
+      const container = document.getElementById(cfg.containerId);
+      if (container) {
+        fetch(cfg.json)
+          .then(r => r.json())
+          .then(data => cfg.render(data, container))
+          .catch(() => {});
       }
-    }
-    if (loaded.size >= Object.keys(registry).length) observer.disconnect();
-  });
+    });
+  };
 
-  document.querySelectorAll('.drawer-panel').forEach(p =>
-    observer.observe(p, { attributes: true, attributeFilter: ['class'] })
-  );
+  // Use requestIdleCallback (or setTimeout fallback) so we don't block initial render
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(prefetch, { timeout: 2000 });
+  } else {
+    setTimeout(prefetch, 200);
+  }
 }
 
 function renderBookshelf(data, container) {
