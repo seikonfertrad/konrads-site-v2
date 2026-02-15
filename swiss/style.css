@@ -229,6 +229,9 @@ a:hover {
 .village:hover .village-title {
   color: var(--accent);
 }
+.village--hero:hover .village-title {
+  color: var(--text);
+}
 
 /* ---- Drawer (retro digital window) ---- */
 .drawer {
