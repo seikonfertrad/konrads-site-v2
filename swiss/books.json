@@ -58,11 +58,6 @@
         "cover": "covers/hannah-s-children.svg"
       },
       {
-        "title": "Family Unfriendly",
-        "author": "Timothy P. Carney",
-        "cover": "covers/family-unfriendly.svg"
-      },
-      {
         "title": "Drive",
         "author": "Daniel Pink",
         "cover": "covers/drive.svg"
@@ -93,16 +88,6 @@
         "cover": "covers/albion-s-seed.svg"
       },
       {
-        "title": "America Against America",
-        "author": "Wang Huning",
-        "cover": "covers/america-against-america.svg"
-      },
-      {
-        "title": "Two Paths to Prosperity",
-        "author": "Greif, Mokyr & Tabellini",
-        "cover": "covers/two-paths-to-prosperity.svg"
-      },
-      {
         "title": "The Listening Society",
         "author": "Hanzi Freinacht",
         "cover": "covers/the-listening-society.svg"
@@ -121,16 +106,6 @@
         "title": "How the World Really Works",
         "author": "Vaclav Smil",
         "cover": "covers/how-the-world-really-works.svg"
-      },
-      {
-        "title": "Invisible Women",
-        "author": "Caroline Criado Perez",
-        "cover": "covers/invisible-women.svg"
-      },
-      {
-        "title": "Elon Musk",
-        "author": "Walter Isaacson",
-        "cover": "covers/elon-musk.svg"
       },
       {
         "title": "Doomsday Machine",
@@ -216,6 +191,11 @@
         "title": "Zero to One",
         "author": "Peter Thiel",
         "cover": "covers/zero-to-one.svg"
+      },
+      {
+        "title": "Superintelligence",
+        "author": "Nick Bostrom",
+        "cover": "covers/superintelligence.svg"
       }
     ]
   },
@@ -251,11 +231,6 @@
         "title": "The Silmarillion",
         "author": "J.R.R. Tolkien",
         "cover": "covers/the-silmarillion.svg"
-      },
-      {
-        "title": "Superintelligence",
-        "author": "Nick Bostrom",
-        "cover": "covers/superintelligence.svg"
       },
       {
         "title": "Harry Potter and the Methods of Rationality",
@@ -311,16 +286,6 @@
         "title": "On What Matters, Vol. 1",
         "author": "Derek Parfit",
         "cover": "covers/on-what-matters-vol-1.svg"
-      },
-      {
-        "title": "On What Matters, Vol. 2",
-        "author": "Derek Parfit",
-        "cover": "covers/on-what-matters-vol-2.svg"
-      },
-      {
-        "title": "Reading Parfit",
-        "author": "ed. Simon Kirchin",
-        "cover": "covers/reading-parfit.svg"
       },
       {
         "title": "The Moral Landscape",
