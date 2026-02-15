@@ -87,6 +87,7 @@ a:hover {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
+  opacity: 1;
 }
 
 .topo-bg svg {
@@ -152,6 +153,7 @@ a:hover {
   top: var(--space-md);
   right: var(--space-md);
   z-index: 2;
+  opacity: 1;
 }
 
 .coordinates span {
@@ -169,6 +171,7 @@ a:hover {
   transform: translate(-50%, -50%);
   z-index: 2;
   user-select: none;
+  opacity: 1;
 }
 
 .village-rings {
