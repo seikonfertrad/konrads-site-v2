@@ -1313,7 +1313,7 @@ function renderKeyIdeas(data, container) {
 
   // "No, I'm not ready"
   btnNope.addEventListener('click', () => {
-    window.open('https://gradual-disempowerment.ai/', '_blank', 'noopener');
+    window.open('https://intelligence-curse.ai/', '_blank', 'noopener');
   });
 
   // Close modal on backdrop click
