@@ -1,51 +1,24 @@
 [
   {
-    "category": "communities & movements",
-    "items": [
-      {
-        "title": "effective altruism",
-        "url": "https://effectivealtruism.org",
-        "desc": "the community that taught me to ask: what's actually the most impactful thing i can do? rigorous, quantitative, and asking the right questions."
-      },
-      {
-        "title": "ea switzerland",
-        "url": "https://effectivealtruism.ch/",
-        "by": "co-founded with max",
-        "desc": "we started ea geneva, it grew into a national association. now it's got great employees and we're just members of the club."
-      },
-      {
-        "title": "simon institute for longterm governance",
-        "url": "https://simoninstitute.ch",
-        "by": "the org i co-founded",
-        "desc": "helping the international community navigate frontier ai. where the rabbit hole from animal rights to ea to biosecurity eventually led."
-      }
-    ]
-  },
-  {
     "category": "blogs",
     "items": [
       {
         "title": "slate star codex / astral codex ten",
         "url": "https://www.astralcodexten.com",
         "by": "scott alexander",
-        "desc": "the best blog on the internet. psychiatry, prediction markets, coordination failures, and everything in between."
+        "desc": "the best blog on the internet. a psychiatrist who writes about coordination failures, truth-seeking, linguistics, medicine, and active inference — always with rigour and wit."
       },
       {
-        "title": "cold takes",
-        "url": "https://www.cold-takes.com",
-        "by": "holden karnofsky",
-        "desc": "long-form thinking about the most important century, ai, and how to navigate transformative change."
+        "title": "putanumonit",
+        "url": "https://putanumonit.com",
+        "by": "jacob falkovich",
+        "desc": "bayesian thinking applied to dating, politics, and life. rationality that's actually fun to read."
       },
       {
         "title": "carl shulman",
-        "url": "https://www.lesswrong.com/users/carl_shulman",
+        "url": "https://reflectivedisequilibrium.blogspot.com/",
         "by": "carl shulman",
         "desc": "possibly the most careful thinker alive on ai trajectories and their implications. rarely writes, always worth reading."
-      },
-      {
-        "title": "lesswrong",
-        "url": "https://www.lesswrong.com",
-        "desc": "the rationalist community's home base. epistemics, ai alignment, decision theory. dense but rewarding."
       }
     ]
   },
@@ -61,21 +34,6 @@
         "title": "acid pauli",
         "url": "https://soundcloud.com/acidpauli",
         "desc": "psychedelic electronic music. organic, deeply textured, impossible to sit still to."
-      },
-      {
-        "title": "tyler, the creator",
-        "url": "https://music.apple.com/artist/tyler-the-creator/420368335",
-        "desc": "genre-bending hip-hop auteur. from goblin to chromakopia — relentless creative evolution."
-      },
-      {
-        "title": "donald glover / childish gambino",
-        "url": "https://music.apple.com/artist/childish-gambino/358714030",
-        "desc": "music, film, comedy, writing. the closest thing to a modern renaissance human in pop culture."
-      },
-      {
-        "title": "zugezogen maskulin",
-        "url": "https://open.spotify.com/artist/4bGbRMTFezcOvhv9XOJWhc",
-        "desc": "german rap with teeth. political, sardonic, berlin-raw."
       }
     ]
   },
@@ -108,21 +66,6 @@
         "title": "secret hitler",
         "url": "https://www.secrethitler.com",
         "desc": "social deduction at its best. trust, betrayal, and watching your friends lie to your face. uncomfortably good training for real-world politics."
-      }
-    ]
-  },
-  {
-    "category": "purchases",
-    "items": [
-      {
-        "title": "sigg bottle",
-        "url": "https://www.sigg.com",
-        "desc": "swiss-made, indestructible, beautiful. the only water bottle you'll ever need."
-      },
-      {
-        "title": "mobility car-sharing",
-        "url": "https://www.mobility.ch",
-        "desc": "switzerland's car-sharing network. 3,000+ vehicles, no ownership, works perfectly. the reason i don't own a car."
       }
     ]
   },
@@ -204,46 +147,6 @@
         "url": "https://ourworldindata.org/poverty-growth-needed",
         "by": "max roser",
         "desc": "why redistribution alone can't solve poverty — the global average income is $16/day. the arithmetic case for growth."
-      }
-    ]
-  },
-  {
-    "category": "talks",
-    "items": [
-      {
-        "title": "shut up or share? three steps to combat misinformation",
-        "url": "https://www.youtube.com/watch?v=UpOTS0AJWxE",
-        "by": "tedxunigeneva, 2019",
-        "desc": "my tedx on our well of common knowledge — cognitive biases, pandemic preparedness, probabilistic thinking. too much for 17 minutes but i tried."
-      },
-      {
-        "title": "creating a voice for future generations in the multilateral system",
-        "url": "https://www.youtube.com/watch?v=O4oGOTyhdGg",
-        "by": "epfl, 2022",
-        "desc": "how to reduce existential risk via the un system. spoiler: it's mainly via international narratives and norms."
-      }
-    ]
-  },
-  {
-    "category": "publications",
-    "items": [
-      {
-        "title": "a computational turn in policy process studies",
-        "url": "https://www.hindawi.com/journals/complexity/2022/8210732/",
-        "by": "seifert, lenzhofer et al.",
-        "desc": "we modeled policy processes as coevolving networks. an actor's influence depends on their environment and on exogenous events facilitating dialogue."
-      },
-      {
-        "title": "policymaking for the long-term future: improving institutional fit",
-        "url": "https://www.simoninstitute.ch/project/public-policy-making-longterm-future/",
-        "by": "simon institute",
-        "desc": "introducing long-term institutional fit — spatial, temporal, functional, and representational — as a framework for future-proof governance."
-      },
-      {
-        "title": "a very short guide to decision-making on wicked problems",
-        "url": "https://drive.google.com/file/d/1DJGYeqiXN-CMooKoBECq7VOvP69tWuFL/view",
-        "by": "seifert & lenzhofer",
-        "desc": "a neat overview of state-of-the-art decision science. max and i wrote it, i edited and layouted it."
       }
     ]
   }
