@@ -1,249 +1,249 @@
 [
   {
-    "category": "Communities & Movements",
+    "category": "communities & movements",
     "items": [
       {
-        "title": "Effective Altruism",
+        "title": "effective altruism",
         "url": "https://effectivealtruism.org",
-        "desc": "The community that taught me to ask: what's actually the most impactful thing I can do? Rigorous, quantitative, and asking the right questions."
+        "desc": "the community that taught me to ask: what's actually the most impactful thing i can do? rigorous, quantitative, and asking the right questions."
       },
       {
-        "title": "EA Switzerland",
+        "title": "ea switzerland",
         "url": "https://effectivealtruism.ch/",
-        "by": "Co-founded with Max",
-        "desc": "We started EA Geneva, it grew into a national association. Now it's got great employees and we're just members of the club."
+        "by": "co-founded with max",
+        "desc": "we started ea geneva, it grew into a national association. now it's got great employees and we're just members of the club."
       },
       {
-        "title": "Simon Institute for Longterm Governance",
+        "title": "simon institute for longterm governance",
         "url": "https://simoninstitute.ch",
-        "by": "The org I co-founded",
-        "desc": "Helping the international community navigate frontier AI. Where the rabbit hole from animal rights to EA to biosecurity eventually led."
+        "by": "the org i co-founded",
+        "desc": "helping the international community navigate frontier ai. where the rabbit hole from animal rights to ea to biosecurity eventually led."
       }
     ]
   },
   {
-    "category": "Blogs",
+    "category": "blogs",
     "items": [
       {
-        "title": "Slate Star Codex / Astral Codex Ten",
+        "title": "slate star codex / astral codex ten",
         "url": "https://www.astralcodexten.com",
-        "by": "Scott Alexander",
-        "desc": "The best blog on the internet. Psychiatry, prediction markets, coordination failures, and everything in between."
+        "by": "scott alexander",
+        "desc": "the best blog on the internet. psychiatry, prediction markets, coordination failures, and everything in between."
       },
       {
-        "title": "Cold Takes",
+        "title": "cold takes",
         "url": "https://www.cold-takes.com",
-        "by": "Holden Karnofsky",
-        "desc": "Long-form thinking about the most important century, AI, and how to navigate transformative change."
+        "by": "holden karnofsky",
+        "desc": "long-form thinking about the most important century, ai, and how to navigate transformative change."
       },
       {
-        "title": "Carl Shulman",
+        "title": "carl shulman",
         "url": "https://www.lesswrong.com/users/carl_shulman",
-        "by": "Carl Shulman",
-        "desc": "Possibly the most careful thinker alive on AI trajectories and their implications. Rarely writes, always worth reading."
+        "by": "carl shulman",
+        "desc": "possibly the most careful thinker alive on ai trajectories and their implications. rarely writes, always worth reading."
       },
       {
-        "title": "LessWrong",
+        "title": "lesswrong",
         "url": "https://www.lesswrong.com",
-        "desc": "The rationalist community's home base. Epistemics, AI alignment, decision theory. Dense but rewarding."
+        "desc": "the rationalist community's home base. epistemics, ai alignment, decision theory. dense but rewarding."
       }
     ]
   },
   {
-    "category": "Artists & Music",
+    "category": "artists & music",
     "items": [
       {
-        "title": "Sonia Calico",
+        "title": "sonia calico",
         "url": "https://soundcloud.com/soniacalico",
-        "desc": "Taiwanese DJ/producer. Experimental club, deconstructed, relentless energy."
+        "desc": "taiwanese dj/producer. experimental club, deconstructed, relentless energy."
       },
       {
-        "title": "Acid Pauli",
+        "title": "acid pauli",
         "url": "https://soundcloud.com/acidpauli",
-        "desc": "Psychedelic electronic music. Organic, deeply textured, impossible to sit still to."
+        "desc": "psychedelic electronic music. organic, deeply textured, impossible to sit still to."
       },
       {
-        "title": "Tyler, the Creator",
+        "title": "tyler, the creator",
         "url": "https://music.apple.com/artist/tyler-the-creator/420368335",
-        "desc": "Genre-bending hip-hop auteur. From Goblin to CHROMAKOPIA — relentless creative evolution."
+        "desc": "genre-bending hip-hop auteur. from goblin to chromakopia — relentless creative evolution."
       },
       {
-        "title": "Donald Glover / Childish Gambino",
+        "title": "donald glover / childish gambino",
         "url": "https://music.apple.com/artist/childish-gambino/358714030",
-        "desc": "Music, film, comedy, writing. The closest thing to a modern renaissance human in pop culture."
+        "desc": "music, film, comedy, writing. the closest thing to a modern renaissance human in pop culture."
       },
       {
-        "title": "Zugezogen Maskulin",
+        "title": "zugezogen maskulin",
         "url": "https://open.spotify.com/artist/4bGbRMTFezcOvhv9XOJWhc",
-        "desc": "German rap with teeth. Political, sardonic, Berlin-raw."
+        "desc": "german rap with teeth. political, sardonic, berlin-raw."
       }
     ]
   },
   {
-    "category": "Movies & TV",
+    "category": "movies & tv",
     "items": [
       {
-        "title": "Sense8",
+        "title": "sense8",
         "url": "https://www.imdb.com/title/tt2431438/",
-        "by": "The Wachowskis",
-        "desc": "Eight strangers across the world share consciousness. The most earnest show about human connection ever made."
+        "by": "the wachowskis",
+        "desc": "eight strangers across the world share consciousness. the most earnest show about human connection ever made."
       },
       {
-        "title": "Everything Everywhere All at Once",
+        "title": "everything everywhere all at once",
         "url": "https://www.imdb.com/title/tt6710474/",
-        "by": "Daniels",
-        "desc": "Multiverse absurdism that somehow becomes the most emotionally devastating film about kindness and laundry."
+        "by": "daniels",
+        "desc": "multiverse absurdism that somehow becomes the most emotionally devastating film about kindness and laundry."
       }
     ]
   },
   {
-    "category": "Games",
+    "category": "games",
     "items": [
       {
-        "title": "Hanabi",
+        "title": "hanabi",
         "url": "https://boardgamegeek.com/boardgame/98778/hanabi",
-        "desc": "Cooperative card game where you can see everyone's hand but your own. Pure coordination problem. Reveals how you communicate."
+        "desc": "cooperative card game where you can see everyone's hand but your own. pure coordination problem. reveals how you communicate."
       },
       {
-        "title": "Secret Hitler",
+        "title": "secret hitler",
         "url": "https://www.secrethitler.com",
-        "desc": "Social deduction at its best. Trust, betrayal, and watching your friends lie to your face. Uncomfortably good training for real-world politics."
+        "desc": "social deduction at its best. trust, betrayal, and watching your friends lie to your face. uncomfortably good training for real-world politics."
       }
     ]
   },
   {
-    "category": "Purchases",
+    "category": "purchases",
     "items": [
       {
-        "title": "SIGG Bottle",
+        "title": "sigg bottle",
         "url": "https://www.sigg.com",
-        "desc": "Swiss-made, indestructible, beautiful. The only water bottle you'll ever need."
+        "desc": "swiss-made, indestructible, beautiful. the only water bottle you'll ever need."
       },
       {
-        "title": "Mobility Car-Sharing",
+        "title": "mobility car-sharing",
         "url": "https://www.mobility.ch",
-        "desc": "Switzerland's car-sharing network. 3,000+ vehicles, no ownership, works perfectly. The reason I don't own a car."
+        "desc": "switzerland's car-sharing network. 3,000+ vehicles, no ownership, works perfectly. the reason i don't own a car."
       }
     ]
   },
   {
-    "category": "Podcasts",
+    "category": "podcasts",
     "items": [
       {
-        "title": "80,000 Hours Podcast",
+        "title": "80,000 hours podcast",
         "url": "https://80000hours.org/podcast/",
-        "by": "Rob Wiblin",
-        "desc": "Three-hour deep dives on the world's most pressing problems and how to solve them. The most consistently excellent podcast on doing good."
+        "by": "rob wiblin",
+        "desc": "three-hour deep dives on the world's most pressing problems and how to solve them. the most consistently excellent podcast on doing good."
       },
       {
-        "title": "Rationally Speaking",
+        "title": "rationally speaking",
         "url": "http://rationallyspeakingpodcast.org/",
-        "by": "Julia Galef",
-        "desc": "Sharp, clear-headed conversations about rationality and science. Julia is the host I trust most to push back on guests."
+        "by": "julia galef",
+        "desc": "sharp, clear-headed conversations about rationality and science. julia is the host i trust most to push back on guests."
       },
       {
-        "title": "Sean Carroll's Mindscape",
+        "title": "sean carroll's mindscape",
         "url": "https://www.preposterousuniverse.com/podcast/",
-        "by": "Sean Carroll",
-        "desc": "A physicist with genuine range. Consciousness, morality, quantum mechanics, aliens — all treated with the same intellectual seriousness."
+        "by": "sean carroll",
+        "desc": "a physicist with genuine range. consciousness, morality, quantum mechanics, aliens — all treated with the same intellectual seriousness."
       },
       {
-        "title": "EconTalk",
+        "title": "econtalk",
         "url": "https://www.econtalk.org/",
-        "by": "Russ Roberts",
-        "desc": "Economics as a lens on everything. Russ models intellectual humility better than almost anyone in media."
+        "by": "russ roberts",
+        "desc": "economics as a lens on everything. russ models intellectual humility better than almost anyone in media."
       },
       {
-        "title": "The Knowledge Project",
+        "title": "the knowledge project",
         "url": "https://fs.blog/knowledge-project-podcast/",
-        "by": "Shane Parrish",
-        "desc": "Decision-making, mental models, and how to think clearly. The Barbara Coloroso episode is secretly a masterclass in human interaction."
+        "by": "shane parrish",
+        "desc": "decision-making, mental models, and how to think clearly. the barbara coloroso episode is secretly a masterclass in human interaction."
       },
       {
-        "title": "Making Sense",
+        "title": "making sense",
         "url": "https://www.samharris.org/podcasts",
-        "by": "Sam Harris",
-        "desc": "Consciousness, AI, morality. Hit or miss on politics, but the episodes on minds and meditation are unmatched."
+        "by": "sam harris",
+        "desc": "consciousness, ai, morality. hit or miss on politics, but the episodes on minds and meditation are unmatched."
       },
       {
-        "title": "You Are Not So Smart",
+        "title": "you are not so smart",
         "url": "https://youarenotsosmart.com/",
-        "by": "David McRaney",
-        "desc": "Cognitive biases, self-delusion, and why your brain lies to you. The ads are annoying but the content earns them."
+        "by": "david mcraney",
+        "desc": "cognitive biases, self-delusion, and why your brain lies to you. the ads are annoying but the content earns them."
       },
       {
-        "title": "Future of Life Podcast",
+        "title": "future of life podcast",
         "url": "https://futureoflife.org/project/future-of-life-institute-podcast/",
-        "desc": "Existential risk, AI safety, and paradise engineering. The Sam Barker & David Pearce episode on art and existential hope is a hidden gem."
+        "desc": "existential risk, ai safety, and paradise engineering. the sam barker & david pearce episode on art and existential hope is a hidden gem."
       }
     ]
   },
   {
-    "category": "Essays",
+    "category": "essays",
     "items": [
       {
-        "title": "Actually Possible: Thoughts on Utopia",
+        "title": "actually possible: thoughts on utopia",
         "url": "https://joecarlsmith.com/2021/01/18/actually-possible-thoughts-on-utopia",
-        "by": "Joe Carlsmith",
-        "desc": "The most beautiful thing I've read about what a good future could actually look like. Not sci-fi, not naive — just careful, honest hope."
+        "by": "joe carlsmith",
+        "desc": "the most beautiful thing i've read about what a good future could actually look like. not sci-fi, not naive — just careful, honest hope."
       },
       {
-        "title": "The Role of Tribes in Achieving Lasting Impact",
+        "title": "the role of tribes in achieving lasting impact",
         "url": "https://forum.effectivealtruism.org/posts/Z9zPJSszRifChQLdC/the-role-of-tribes-in-achieving-lasting-impact-and-how-to",
-        "by": "Konrad Seifert & Nora Ammann",
-        "desc": "Nora and I wrote up our models for collectively engineering your social circles for positive-sum games. Your tribe defines your impact."
+        "by": "konrad seifert & nora ammann",
+        "desc": "nora and i wrote up our models for collectively engineering your social circles for positive-sum games. your tribe defines your impact."
       },
       {
-        "title": "Our World in Data: Problems and Progress",
+        "title": "our world in data: problems and progress",
         "url": "https://ourworldindata.org/problems-and-progress",
-        "by": "Max Roser et al.",
-        "desc": "The single best antidote to doomerism. Rigorous, data-driven, and a reminder that humanism has come far in little time."
+        "by": "max roser et al.",
+        "desc": "the single best antidote to doomerism. rigorous, data-driven, and a reminder that humanism has come far in little time."
       },
       {
-        "title": "The economies that are home to the poorest billions need to grow",
+        "title": "the economies that are home to the poorest billions need to grow",
         "url": "https://ourworldindata.org/poverty-growth-needed",
-        "by": "Max Roser",
-        "desc": "Why redistribution alone can't solve poverty — the global average income is $16/day. The arithmetic case for growth."
+        "by": "max roser",
+        "desc": "why redistribution alone can't solve poverty — the global average income is $16/day. the arithmetic case for growth."
       }
     ]
   },
   {
-    "category": "Talks",
+    "category": "talks",
     "items": [
       {
-        "title": "Shut Up or Share? Three Steps to Combat Misinformation",
+        "title": "shut up or share? three steps to combat misinformation",
         "url": "https://www.youtube.com/watch?v=UpOTS0AJWxE",
-        "by": "TEDxUniGeneva, 2019",
-        "desc": "My TEDx on our well of common knowledge — cognitive biases, pandemic preparedness, probabilistic thinking. Too much for 17 minutes but I tried."
+        "by": "tedxunigeneva, 2019",
+        "desc": "my tedx on our well of common knowledge — cognitive biases, pandemic preparedness, probabilistic thinking. too much for 17 minutes but i tried."
       },
       {
-        "title": "Creating a Voice for Future Generations in the Multilateral System",
+        "title": "creating a voice for future generations in the multilateral system",
         "url": "https://www.youtube.com/watch?v=O4oGOTyhdGg",
-        "by": "EPFL, 2022",
-        "desc": "How to reduce existential risk via the UN system. Spoiler: it's mainly via international narratives and norms."
+        "by": "epfl, 2022",
+        "desc": "how to reduce existential risk via the un system. spoiler: it's mainly via international narratives and norms."
       }
     ]
   },
   {
-    "category": "Publications",
+    "category": "publications",
     "items": [
       {
-        "title": "A Computational Turn in Policy Process Studies",
+        "title": "a computational turn in policy process studies",
         "url": "https://www.hindawi.com/journals/complexity/2022/8210732/",
-        "by": "Seifert, Lenzhofer et al.",
-        "desc": "We modeled policy processes as coevolving networks. An actor's influence depends on their environment and on exogenous events facilitating dialogue."
+        "by": "seifert, lenzhofer et al.",
+        "desc": "we modeled policy processes as coevolving networks. an actor's influence depends on their environment and on exogenous events facilitating dialogue."
       },
       {
-        "title": "Policymaking for the Long-term Future: Improving Institutional Fit",
+        "title": "policymaking for the long-term future: improving institutional fit",
         "url": "https://www.simoninstitute.ch/project/public-policy-making-longterm-future/",
-        "by": "Simon Institute",
-        "desc": "Introducing long-term institutional fit — spatial, temporal, functional, and representational — as a framework for future-proof governance."
+        "by": "simon institute",
+        "desc": "introducing long-term institutional fit — spatial, temporal, functional, and representational — as a framework for future-proof governance."
       },
       {
-        "title": "A Very Short Guide to Decision-making on Wicked Problems",
+        "title": "a very short guide to decision-making on wicked problems",
         "url": "https://drive.google.com/file/d/1DJGYeqiXN-CMooKoBECq7VOvP69tWuFL/view",
-        "by": "Seifert & Lenzhofer",
-        "desc": "A neat overview of state-of-the-art decision science. Max and I wrote it, I edited and layouted it."
+        "by": "seifert & lenzhofer",
+        "desc": "a neat overview of state-of-the-art decision science. max and i wrote it, i edited and layouted it."
       }
     ]
   }
