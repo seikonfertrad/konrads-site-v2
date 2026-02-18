@@ -49,5 +49,15 @@
     "title": "language as coordination infrastructure",
     "summary": "language is our highest-bandwidth coordination tool, and most people use it terribly. you can live in 'distanzia' — believing words never mean just one thing, so every exchange requires hours of mutual excavation — or you can live in a world where precise language compresses information, bridges inferential gaps, and multiplies collective intelligence. writing and programming both train the latter: forcing you to compress thoughts into scrutinizable form. the bottleneck of inter-brain communication isn't just a constraint — it's what made us smart in the first place. use it well.",
     "related": ["eliezer yudkowsky", "ludwig wittgenstein", "luigi acerbi"]
+  },
+  {
+    "title": "most problems are engineering problems",
+    "summary": "while most problems are coordination problems — and those are framing problems born from inference gaps between boundedly rational agents with limited datasets — the way to actually solve coordination problems is technology. we cannot just correct our behavior. and in the age of claude code, everyone can easily work on these hard issues. build infra.",
+    "related": ["herbert simon", "claude shannon"]
+  },
+  {
+    "title": "focus on what you want to see more of",
+    "summary": "the simplest heuristic for shaping the world around you: reward what you like, rather than punishing what you don't. leave positive reviews. amplify good work. give attention to the things you value. energy flows where attention goes, and most people waste theirs on outrage.",
+    "related": []
   }
 ]
