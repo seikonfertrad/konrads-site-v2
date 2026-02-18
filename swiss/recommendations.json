@@ -6,19 +6,19 @@
         "title": "slate star codex / astral codex ten",
         "url": "https://www.astralcodexten.com",
         "by": "scott alexander",
-        "desc": "the best blog on the internet. a psychiatrist who writes about coordination failures, truth-seeking, linguistics, medicine, and active inference — always with rigour and wit."
+        "desc": "a psychiatrist who writes about coordination failures, truth-seeking, linguistics, medicine, and active inference — always with wit, sometimes with rigor."
       },
       {
         "title": "putanumonit",
         "url": "https://putanumonit.com",
         "by": "jacob falkovich",
-        "desc": "bayesian thinking applied to dating, politics, and life. rationality that's actually fun to read."
+        "desc": "bayesian thinking applied to dating, politics, and life. rationality that's fun to read."
       },
       {
         "title": "carl shulman",
         "url": "https://reflectivedisequilibrium.blogspot.com/",
         "by": "carl shulman",
-        "desc": "possibly the most careful thinker alive on ai trajectories and their implications. rarely writes, always worth reading."
+        "desc": "possibly the most careful thinker alive on tech trajectories and their implications. rarely writes in public, always worth reading."
       }
     ]
   },
@@ -34,23 +34,11 @@
         "title": "acid pauli",
         "url": "https://soundcloud.com/acidpauli",
         "desc": "psychedelic electronic music. organic, deeply textured, impossible to sit still to."
-      }
-    ]
-  },
-  {
-    "category": "movies & tv",
-    "items": [
-      {
-        "title": "sense8",
-        "url": "https://www.imdb.com/title/tt2431438/",
-        "by": "the wachowskis",
-        "desc": "eight strangers across the world share consciousness. the most earnest show about human connection ever made."
       },
       {
-        "title": "everything everywhere all at once",
-        "url": "https://www.imdb.com/title/tt6710474/",
-        "by": "daniels",
-        "desc": "multiverse absurdism that somehow becomes the most emotionally devastating film about kindness and laundry."
+        "title": "nils frahm",
+        "url": "https://soundcloud.com/aquilae-548399642/nils-frahm-live-montreux-jazz-festival-2015",
+        "desc": "intimate piano with electronic textures, ambient techno-influenced soundscapes."
       }
     ]
   },
@@ -60,12 +48,12 @@
       {
         "title": "hanabi",
         "url": "https://boardgamegeek.com/boardgame/98778/hanabi",
-        "desc": "cooperative card game where you can see everyone's hand but your own. pure coordination problem. reveals how you communicate."
+        "desc": "cooperative card game where you can see everyone's hand but your own. pure coordination problem."
       },
       {
         "title": "secret hitler",
         "url": "https://www.secrethitler.com",
-        "desc": "social deduction at its best. trust, betrayal, and watching your friends lie to your face. uncomfortably good training for real-world politics."
+        "desc": "watching your friends lie to your face is a great way to build trust."
       }
     ]
   },
@@ -73,51 +61,22 @@
     "category": "podcasts",
     "items": [
       {
-        "title": "80,000 hours podcast",
-        "url": "https://80000hours.org/podcast/",
-        "by": "rob wiblin",
-        "desc": "three-hour deep dives on the world's most pressing problems and how to solve them. the most consistently excellent podcast on doing good."
-      },
-      {
-        "title": "rationally speaking",
-        "url": "http://rationallyspeakingpodcast.org/",
-        "by": "julia galef",
-        "desc": "sharp, clear-headed conversations about rationality and science. julia is the host i trust most to push back on guests."
-      },
-      {
         "title": "sean carroll's mindscape",
         "url": "https://www.preposterousuniverse.com/podcast/",
         "by": "sean carroll",
-        "desc": "a physicist with genuine range. consciousness, morality, quantum mechanics, aliens — all treated with the same intellectual seriousness."
-      },
-      {
-        "title": "econtalk",
-        "url": "https://www.econtalk.org/",
-        "by": "russ roberts",
-        "desc": "economics as a lens on everything. russ models intellectual humility better than almost anyone in media."
+        "desc": "a physicist with range: consciousness, morality, quantum mechanics, aliens."
       },
       {
         "title": "the knowledge project",
         "url": "https://fs.blog/knowledge-project-podcast/",
         "by": "shane parrish",
-        "desc": "decision-making, mental models, and how to think clearly. the barbara coloroso episode is secretly a masterclass in human interaction."
-      },
-      {
-        "title": "making sense",
-        "url": "https://www.samharris.org/podcasts",
-        "by": "sam harris",
-        "desc": "consciousness, ai, morality. hit or miss on politics, but the episodes on minds and meditation are unmatched."
+        "desc": "decision-making and mental models. the barbara coloroso episode is secretly a masterclass in human interaction."
       },
       {
         "title": "you are not so smart",
         "url": "https://youarenotsosmart.com/",
         "by": "david mcraney",
         "desc": "cognitive biases, self-delusion, and why your brain lies to you. the ads are annoying but the content earns them."
-      },
-      {
-        "title": "future of life podcast",
-        "url": "https://futureoflife.org/project/future-of-life-institute-podcast/",
-        "desc": "existential risk, ai safety, and paradise engineering. the sam barker & david pearce episode on art and existential hope is a hidden gem."
       }
     ]
   },
@@ -131,12 +90,6 @@
         "desc": "the most beautiful thing i've read about what a good future could actually look like. not sci-fi, not naive — just careful, honest hope."
       },
       {
-        "title": "the role of tribes in achieving lasting impact",
-        "url": "https://forum.effectivealtruism.org/posts/Z9zPJSszRifChQLdC/the-role-of-tribes-in-achieving-lasting-impact-and-how-to",
-        "by": "konrad seifert & nora ammann",
-        "desc": "nora and i wrote up our models for collectively engineering your social circles for positive-sum games. in hindsight, \"tribes\" isn't the ideal handle — we should have focused on villages. i'm planning to write more on this in the context of civilizational sanity, national conservatism, and a new international order."
-      },
-      {
         "title": "the economies that are home to the poorest billions need to grow",
         "url": "https://ourworldindata.org/poverty-growth-needed",
         "by": "max roser",
@@ -146,7 +99,24 @@
         "title": "cfar handbook",
         "url": "https://www.rationality.org/files/CFAR_Handbook_2021-01.pdf",
         "by": "center for applied rationality",
-        "desc": "the most practical guide to applied rationality i've come across. not philosophy — actual techniques for noticing where your thinking breaks down and fixing it. murphyjitsu, inner simulator, double crux, trigger-action plans — tools that stick."
+        "desc": "the guide to applied rationality. techniques for noticing where your functioning breaks down and fixing it."
+      }
+    ]
+  },
+  {
+    "category": "movies & tv",
+    "items": [
+      {
+        "title": "sense8",
+        "url": "https://www.imdb.com/title/tt2431438/",
+        "by": "the wachowskis",
+        "desc": "eight strangers across the world share consciousness."
+      },
+      {
+        "title": "everything everywhere all at once",
+        "url": "https://www.imdb.com/title/tt6710474/",
+        "by": "daniels",
+        "desc": "multiverse absurdism that becomes the most moving film about love and laundry."
       }
     ]
   }
