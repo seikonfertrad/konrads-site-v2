@@ -1177,6 +1177,13 @@ function renderFunFacts(data, container) {
     const card = document.createElement('div');
     card.className = 'funfact-card';
 
+    if (fact.handle) {
+      const title = document.createElement('div');
+      title.className = 'funfact-title';
+      title.textContent = fact.handle;
+      card.appendChild(title);
+    }
+
     const text = document.createElement('div');
     text.className = 'funfact-text';
     text.textContent = fact.text;

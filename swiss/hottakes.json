@@ -1,9 +1,5 @@
 [
   {
-    "take": "most \"disagree\" is actually \"i haven't thought about this enough to have an opinion, but my tribe has.\"",
-    "tag": "social norms"
-  },
-  {
     "take": "comfort is the most underrated threat to human agency. not oppression, not poverty — comfort.",
     "tag": "agency"
   },
@@ -14,10 +10,6 @@
   {
     "take": "if your worldview doesn't change at least once a year, you're not paying attention.",
     "tag": "epistemics"
-  },
-  {
-    "take": "we don't have a technology problem. we have a coordination problem wearing a technology costume.",
-    "tag": "coordination"
   },
   {
     "take": "the people most worried about ai are often the ones who understand it best. that should tell you something.",
@@ -36,43 +28,23 @@
     "tag": "futures"
   },
   {
-    "take": "if we play our cards right, the future will be buzzing with unfathomably rich experiences. most people either can't or won't believe this, and that disbelief is the biggest brake on progress.",
-    "tag": "futures"
-  },
-  {
     "take": "work is just one thread. building your entire identity around a career is fragile — invest equally in community, art, relationships, and the body.",
     "tag": "life"
-  },
-  {
-    "take": "psychedelics taught me more about epistemology in 8 hours than philosophy did in 4 years.",
-    "tag": "epistemics"
   },
   {
     "take": "diplomacy without empathy is just negotiation. empathy without strategy is just vibes.",
     "tag": "diplomacy"
   },
   {
-    "take": "the rationalist community's biggest failure is not being fun enough. you can't coordinate the world from a blog post.",
-    "tag": "coordination"
-  },
-  {
     "take": "being explicit doesn't kill the magic — it deepens it. ambiguity is a cheap move to avoid vulnerability. transparency unlocks levels of connection most people never even thought possible.",
     "tag": "relationships"
   },
   {
-    "take": "\"none of my business\" is a cop-out. everything could be your business — you just lack the resources to engage with all of it. say that instead.",
-    "tag": "norms"
-  },
-  {
-    "take": "suspending judgment isn't wisdom, it's stagnation. have opinions. enter the arena. even losing a battle of ideas makes you sharper. the people who wait for insight to be bestowed upon them will wait forever.",
+    "take": "suspending judgment sounds wise but it's actually stagnation. shoot from the hip. having takes — even bad ones — gets you free lessons. you don't need to fight for your opinion; just putting it out there gets you feedback from people who know more. that's how you learn across many fields. you can disengage while still collecting data in the background at zero cost that'll inform future hunches and propel you forward subconsciously. just don't hold tightly onto your intuitive world model.",
     "tag": "epistemics"
   },
   {
     "take": "don't blame politicians for being self-serving — blame the incentive landscape that makes defensiveness rational. judge policymakers on their decision-making process, not outcomes. that's how science works; politics should too.",
     "tag": "policy"
-  },
-  {
-    "take": "it might be cheaper to get the privileged to realize there's infinite good for everyone than to reduce suffering directly. abundance unlocks altruism. scarcity breeds zero-sum games.",
-    "tag": "ethics"
   }
 ]
