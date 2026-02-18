@@ -141,6 +141,12 @@
         "url": "https://ourworldindata.org/poverty-growth-needed",
         "by": "max roser",
         "desc": "why redistribution alone can't solve poverty — the global average income is $16/day. the arithmetic case for growth."
+      },
+      {
+        "title": "cfar handbook",
+        "url": "https://www.rationality.org/files/CFAR_Handbook_2021-01.pdf",
+        "by": "center for applied rationality",
+        "desc": "the most practical guide to applied rationality i've come across. not philosophy — actual techniques for noticing where your thinking breaks down and fixing it. murphyjitsu, inner simulator, double crux, trigger-action plans — tools that stick."
       }
     ]
   }
