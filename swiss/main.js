@@ -1119,7 +1119,7 @@ function renderBookshelf(data, container) {
 
 
 // ============================================
-// 14. RECOMMENDATIONS
+// 14. GOOD STUFF
 // ============================================
 
 function renderRecommendations(data, container) {
