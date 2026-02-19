@@ -1195,7 +1195,7 @@ function renderFunFacts(data, container) {
 
 
 // ============================================
-// 16. SOAPBOX
+// 16. SOAP BOX
 // ============================================
 
 function renderHotTakes(data, container) {
