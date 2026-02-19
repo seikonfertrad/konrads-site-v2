@@ -1169,7 +1169,7 @@ function renderRecommendations(data, container) {
 
 
 // ============================================
-// 15. FUN FACTS
+// 15. FIELD NOTES
 // ============================================
 
 function renderFunFacts(data, container) {
@@ -1195,7 +1195,7 @@ function renderFunFacts(data, container) {
 
 
 // ============================================
-// 16. HOT TAKES
+// 16. SOAPBOX
 // ============================================
 
 function renderHotTakes(data, container) {
@@ -1221,7 +1221,7 @@ function renderHotTakes(data, container) {
 
 
 // ============================================
-// 17. KEY IDEAS
+// 17. COLD TAKES
 // ============================================
 
 function renderKeyIdeas(data, container) {
