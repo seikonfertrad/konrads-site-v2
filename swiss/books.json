@@ -196,6 +196,11 @@
         "title": "superintelligence",
         "author": "nick bostrom",
         "cover": "covers/superintelligence.svg"
+      },
+      {
+        "title": "impro",
+        "author": "keith johnstone",
+        "cover": "covers/impro.svg"
       }
     ]
   },
