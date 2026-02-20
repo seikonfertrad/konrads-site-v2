@@ -1,132 +1,22 @@
 [
-  {
-    "category": "human nature",
-    "books": [
-      {
-        "title": "behave",
-        "author": "robert sapolsky",
-        "cover": "https://covers.openlibrary.org/b/isbn/9780143110910-L.jpg"
-      },
-      {
-        "title": "a billion wicked thoughts",
-        "author": "ogi ogas & sai gaddam",
-        "cover": "https://covers.openlibrary.org/b/isbn/9780452297876-L.jpg"
-      },
-      {
-        "title": "friends",
-        "author": "robin dunbar",
-        "cover": "https://covers.openlibrary.org/b/isbn/9780316492164-L.jpg"
-      }
-    ]
-  },
-  {
-    "category": "politics & civilization",
-    "books": [
-      {
-        "title": "the listening society",
-        "author": "hanzi freinacht",
-        "cover": "https://covers.openlibrary.org/b/isbn/9788799973903-L.jpg"
-      },
-      {
-        "title": "trade wars are class wars",
-        "author": "klein & pettis",
-        "cover": "https://covers.openlibrary.org/b/isbn/9780300244175-L.jpg"
-      },
-      {
-        "title": "albion's seed",
-        "author": "david hackett fischer",
-        "cover": "https://covers.openlibrary.org/b/isbn/9780195069051-L.jpg"
-      }
-    ]
-  },
-  {
-    "category": "strategy & craft",
-    "books": [
-      {
-        "title": "the 7 habits of highly effective people",
-        "author": "stephen covey",
-        "cover": "https://covers.openlibrary.org/b/isbn/9780743269513-L.jpg"
-      },
-      {
-        "title": "playing to win",
-        "author": "david sirlin",
-        "cover": "https://covers.openlibrary.org/b/isbn/9781411666788-L.jpg"
-      },
-      {
-        "title": "impro",
-        "author": "keith johnstone",
-        "cover": "https://covers.openlibrary.org/b/isbn/9780878301171-L.jpg"
-      },
-      {
-        "title": "zero to one",
-        "author": "peter thiel",
-        "cover": "https://covers.openlibrary.org/b/isbn/9780804139298-L.jpg"
-      }
-    ]
-  },
-  {
-    "category": "(science) fiction",
-    "books": [
-      {
-        "title": "there is no antimemetics division",
-        "author": "qntm",
-        "cover": "https://covers.openlibrary.org/b/isbn/9798555246890-L.jpg"
-      },
-      {
-        "title": "altered carbon",
-        "author": "richard morgan",
-        "cover": "https://covers.openlibrary.org/b/isbn/9780345457684-L.jpg"
-      },
-      {
-        "title": "harry potter and the methods of rationality",
-        "author": "eliezer yudkowsky",
-        "cover": "covers/harry-potter-and-the-methods-of-rationality.svg"
-      }
-    ]
-  },
-  {
-    "category": "ethics & philosophy",
-    "books": [
-      {
-        "title": "reasons and persons",
-        "author": "derek parfit",
-        "cover": "https://covers.openlibrary.org/b/isbn/9780198249085-L.jpg"
-      },
-      {
-        "title": "lying",
-        "author": "sam harris",
-        "cover": "https://covers.openlibrary.org/b/isbn/9781940051000-L.jpg"
-      },
-      {
-        "title": "against empathy",
-        "author": "paul bloom",
-        "cover": "https://covers.openlibrary.org/b/isbn/9780062339348-L.jpg"
-      },
-      {
-        "title": "stubborn attachments",
-        "author": "tyler cowen",
-        "cover": "https://covers.openlibrary.org/b/isbn/9781732265134-L.jpg"
-      }
-    ]
-  },
-  {
-    "category": "rationality & sensemaking",
-    "books": [
-      {
-        "title": "inadequate equilibria",
-        "author": "eliezer yudkowsky",
-        "cover": "https://covers.openlibrary.org/b/isbn/9781939311184-L.jpg"
-      },
-      {
-        "title": "competitive sensemaking",
-        "author": "john nerst",
-        "cover": "covers/competitive-sensemaking.svg"
-      },
-      {
-        "title": "skin in the game",
-        "author": "nassim nicholas taleb",
-        "cover": "https://covers.openlibrary.org/b/isbn/9780425284629-L.jpg"
-      }
-    ]
-  }
+  { "title": "albion's seed", "author": "david hackett fischer" },
+  { "title": "playing to win", "author": "david sirlin" },
+  { "title": "reasons and persons", "author": "derek parfit" },
+  { "title": "harry potter and the methods of rationality", "author": "eliezer yudkowsky" },
+  { "title": "inadequate equilibria", "author": "eliezer yudkowsky" },
+  { "title": "the listening society", "author": "hanzi freinacht" },
+  { "title": "competitive sensemaking", "author": "john nerst" },
+  { "title": "impro", "author": "keith johnstone" },
+  { "title": "trade wars are class wars", "author": "klein & pettis" },
+  { "title": "skin in the game", "author": "nassim nicholas taleb" },
+  { "title": "a billion wicked thoughts", "author": "ogi ogas & sai gaddam" },
+  { "title": "against empathy", "author": "paul bloom" },
+  { "title": "zero to one", "author": "peter thiel" },
+  { "title": "there is no antimemetics division", "author": "qntm" },
+  { "title": "altered carbon", "author": "richard morgan" },
+  { "title": "behave", "author": "robert sapolsky" },
+  { "title": "friends", "author": "robin dunbar" },
+  { "title": "lying", "author": "sam harris" },
+  { "title": "the 7 habits of highly effective people", "author": "stephen covey" },
+  { "title": "stubborn attachments", "author": "tyler cowen" }
 ]

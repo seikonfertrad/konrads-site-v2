@@ -1068,53 +1068,34 @@ function initLazyPanels() {
 }
 
 function renderBookshelf(data, container) {
-  data.forEach(cat => {
-    const section = document.createElement('div');
-    section.className = 'bookshelf-category';
+  const grid = document.createElement('div');
+  grid.className = 'bookshelf-grid';
 
-    const label = document.createElement('div');
-    label.className = 'bookshelf-category-label';
-    label.textContent = cat.category;
-    section.appendChild(label);
+  data.forEach(book => {
+    const card = document.createElement('a');
+    card.className = 'book-card';
+    card.href = 'https://www.goodreads.com/search?q=' + encodeURIComponent(book.title + ' ' + book.author);
+    card.target = '_blank';
+    card.rel = 'noopener';
 
-    const grid = document.createElement('div');
-    grid.className = 'bookshelf-grid';
+    const cover = document.createElement('div');
+    cover.className = 'book-cover';
 
-    cat.books.forEach(book => {
-      const card = document.createElement('a');
-      card.className = 'book-card';
-      card.href = 'https://www.goodreads.com/search?q=' + encodeURIComponent(book.title + ' ' + book.author);
-      card.target = '_blank';
-      card.rel = 'noopener';
+    const ph = document.createElement('div');
+    ph.className = 'book-cover-placeholder';
+    ph.textContent = book.title;
+    cover.appendChild(ph);
 
-      const cover = document.createElement('div');
-      cover.className = 'book-cover';
+    const author = document.createElement('div');
+    author.className = 'book-author';
+    author.textContent = book.author;
 
-      if (book.cover) {
-        const img = document.createElement('img');
-        img.src = book.cover;
-        img.alt = book.title;
-        img.loading = 'lazy';
-        cover.appendChild(img);
-      } else {
-        const ph = document.createElement('div');
-        ph.className = 'book-cover-placeholder';
-        ph.textContent = book.title;
-        cover.appendChild(ph);
-      }
-
-      const author = document.createElement('div');
-      author.className = 'book-author';
-      author.textContent = book.author;
-
-      card.appendChild(cover);
-      card.appendChild(author);
-      grid.appendChild(card);
-    });
-
-    section.appendChild(grid);
-    container.appendChild(section);
+    card.appendChild(cover);
+    card.appendChild(author);
+    grid.appendChild(card);
   });
+
+  container.appendChild(grid);
 }
 
 
