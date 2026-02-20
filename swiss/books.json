@@ -5,62 +5,17 @@
       {
         "title": "behave",
         "author": "robert sapolsky",
-        "cover": "covers/behave.svg"
-      },
-      {
-        "title": "the selfish gene",
-        "author": "richard dawkins",
-        "cover": "covers/the-selfish-gene.svg"
-      },
-      {
-        "title": "the mating mind",
-        "author": "geoffrey miller",
-        "cover": "covers/the-mating-mind.svg"
+        "cover": "https://covers.openlibrary.org/b/isbn/9780143110910-L.jpg"
       },
       {
         "title": "a billion wicked thoughts",
         "author": "ogi ogas & sai gaddam",
-        "cover": "covers/a-billion-wicked-thoughts.svg"
+        "cover": "https://covers.openlibrary.org/b/isbn/9780452297876-L.jpg"
       },
       {
         "title": "friends",
         "author": "robin dunbar",
-        "cover": "covers/friends.svg"
-      },
-      {
-        "title": "the edge of sentience",
-        "author": "jonathan birch",
-        "cover": "covers/the-edge-of-sentience.svg"
-      },
-      {
-        "title": "sense and nonsense",
-        "author": "kevin laland & gillian brown",
-        "cover": "covers/sense-and-nonsense.svg"
-      },
-      {
-        "title": "the big picture",
-        "author": "sean carroll",
-        "cover": "covers/the-big-picture.svg"
-      },
-      {
-        "title": "surely you're joking, mr. feynman!",
-        "author": "richard feynman",
-        "cover": "covers/surely-you-re-joking-mr-feynman.svg"
-      },
-      {
-        "title": "hunt, gather, parent",
-        "author": "michaeleen doucleff",
-        "cover": "covers/hunt-gather-parent.svg"
-      },
-      {
-        "title": "hannah's children",
-        "author": "catherine pakaluk",
-        "cover": "covers/hannah-s-children.svg"
-      },
-      {
-        "title": "drive",
-        "author": "daniel pink",
-        "cover": "covers/drive.svg"
+        "cover": "https://covers.openlibrary.org/b/isbn/9780316492164-L.jpg"
       }
     ]
   },
@@ -68,69 +23,19 @@
     "category": "politics & civilization",
     "books": [
       {
-        "title": "the dawn of everything",
-        "author": "david graeber & david wengrow",
-        "cover": "covers/the-dawn-of-everything.svg"
-      },
-      {
-        "title": "why nations fail",
-        "author": "acemoglu & robinson",
-        "cover": "covers/why-nations-fail.svg"
-      },
-      {
-        "title": "the collapse of complex societies",
-        "author": "joseph tainter",
-        "cover": "covers/the-collapse-of-complex-societies.svg"
-      },
-      {
-        "title": "albion's seed",
-        "author": "david hackett fischer",
-        "cover": "covers/albion-s-seed.svg"
-      },
-      {
         "title": "the listening society",
         "author": "hanzi freinacht",
-        "cover": "covers/the-listening-society.svg"
+        "cover": "https://covers.openlibrary.org/b/isbn/9788799973903-L.jpg"
       },
       {
         "title": "trade wars are class wars",
         "author": "klein & pettis",
-        "cover": "covers/trade-wars-are-class-wars.svg"
+        "cover": "https://covers.openlibrary.org/b/isbn/9780300244175-L.jpg"
       },
       {
-        "title": "the dictator's handbook",
-        "author": "bueno de mesquita & smith",
-        "cover": "covers/the-dictator-s-handbook.svg"
-      },
-      {
-        "title": "how the world really works",
-        "author": "vaclav smil",
-        "cover": "covers/how-the-world-really-works.svg"
-      },
-      {
-        "title": "doomsday machine",
-        "author": "daniel ellsberg",
-        "cover": "covers/doomsday-machine.svg"
-      },
-      {
-        "title": "sad topographies",
-        "author": "damien rudd",
-        "cover": "covers/sad-topographies.svg"
-      },
-      {
-        "title": "going infinite",
-        "author": "michael lewis",
-        "cover": "covers/going-infinite.svg"
-      },
-      {
-        "title": "the strategy of conflict",
-        "author": "thomas schelling",
-        "cover": "covers/the-strategy-of-conflict.svg"
-      },
-      {
-        "title": "governing the commons",
-        "author": "elinor ostrom",
-        "cover": "covers/governing-the-commons.svg"
+        "title": "albion's seed",
+        "author": "david hackett fischer",
+        "cover": "https://covers.openlibrary.org/b/isbn/9780195069051-L.jpg"
       }
     ]
   },
@@ -138,69 +43,24 @@
     "category": "strategy & craft",
     "books": [
       {
-        "title": "good strategy bad strategy",
-        "author": "richard rumelt",
-        "cover": "covers/good-strategy-bad-strategy.svg"
-      },
-      {
-        "title": "extreme ownership",
-        "author": "jocko willink & leif babin",
-        "cover": "covers/extreme-ownership.svg"
-      },
-      {
-        "title": "how to measure anything",
-        "author": "douglas hubbard",
-        "cover": "covers/how-to-measure-anything.svg"
-      },
-      {
         "title": "the 7 habits of highly effective people",
         "author": "stephen covey",
-        "cover": "covers/the-7-habits-of-highly-effective-people.svg"
-      },
-      {
-        "title": "deep work",
-        "author": "cal newport",
-        "cover": "covers/deep-work.svg"
-      },
-      {
-        "title": "start with why",
-        "author": "simon sinek",
-        "cover": "covers/start-with-why.svg"
-      },
-      {
-        "title": "difficult conversations",
-        "author": "stone, patton & heen",
-        "cover": "covers/difficult-conversations.svg"
-      },
-      {
-        "title": "presence",
-        "author": "patsy rodenburg",
-        "cover": "covers/presence.svg"
-      },
-      {
-        "title": "organizing genius",
-        "author": "warren bennis",
-        "cover": "covers/organizing-genius.svg"
+        "cover": "https://covers.openlibrary.org/b/isbn/9780743269513-L.jpg"
       },
       {
         "title": "playing to win",
         "author": "david sirlin",
-        "cover": "covers/playing-to-win.svg"
-      },
-      {
-        "title": "zero to one",
-        "author": "peter thiel",
-        "cover": "covers/zero-to-one.svg"
-      },
-      {
-        "title": "superintelligence",
-        "author": "nick bostrom",
-        "cover": "covers/superintelligence.svg"
+        "cover": "https://covers.openlibrary.org/b/isbn/9781411666788-L.jpg"
       },
       {
         "title": "impro",
         "author": "keith johnstone",
-        "cover": "covers/impro.svg"
+        "cover": "https://covers.openlibrary.org/b/isbn/9780878301171-L.jpg"
+      },
+      {
+        "title": "zero to one",
+        "author": "peter thiel",
+        "cover": "https://covers.openlibrary.org/b/isbn/9780804139298-L.jpg"
       }
     ]
   },
@@ -210,72 +70,17 @@
       {
         "title": "there is no antimemetics division",
         "author": "qntm",
-        "cover": "covers/there-is-no-antimemetics-division.svg"
-      },
-      {
-        "title": "dune (series)",
-        "author": "frank herbert",
-        "cover": "covers/dune-series.svg"
-      },
-      {
-        "title": "the three-body problem",
-        "author": "cixin liu",
-        "cover": "covers/the-three-body-problem.svg"
-      },
-      {
-        "title": "foundation (series)",
-        "author": "isaac asimov",
-        "cover": "covers/foundation-series.svg"
+        "cover": "https://covers.openlibrary.org/b/isbn/9798555246890-L.jpg"
       },
       {
         "title": "altered carbon",
         "author": "richard morgan",
-        "cover": "covers/altered-carbon.svg"
-      },
-      {
-        "title": "the silmarillion",
-        "author": "j.r.r. tolkien",
-        "cover": "covers/the-silmarillion.svg"
+        "cover": "https://covers.openlibrary.org/b/isbn/9780345457684-L.jpg"
       },
       {
         "title": "harry potter and the methods of rationality",
         "author": "eliezer yudkowsky",
         "cover": "covers/harry-potter-and-the-methods-of-rationality.svg"
-      },
-      {
-        "title": "momo",
-        "author": "michael ende",
-        "cover": "covers/momo.svg"
-      },
-      {
-        "title": "jim knopf und lukas der lokomotivführer",
-        "author": "michael ende",
-        "cover": "covers/jim-knopf-und-lukas-der-lokomotivf-hrer.svg"
-      },
-      {
-        "title": "tintenherz",
-        "author": "cornelia funke",
-        "cover": "covers/tintenherz.svg"
-      },
-      {
-        "title": "herr der diebe",
-        "author": "cornelia funke",
-        "cover": "covers/herr-der-diebe.svg"
-      },
-      {
-        "title": "die unendliche geschichte",
-        "author": "michael ende",
-        "cover": "covers/die-unendliche-geschichte.svg"
-      },
-      {
-        "title": "the lord of the rings",
-        "author": "j.r.r. tolkien",
-        "cover": "covers/the-lord-of-the-rings.svg"
-      },
-      {
-        "title": "eragon (series)",
-        "author": "christopher paolini",
-        "cover": "covers/eragon-series.svg"
       }
     ]
   },
@@ -285,67 +90,22 @@
       {
         "title": "reasons and persons",
         "author": "derek parfit",
-        "cover": "covers/reasons-and-persons.svg"
-      },
-      {
-        "title": "on what matters, vol. 1",
-        "author": "derek parfit",
-        "cover": "covers/on-what-matters-vol-1.svg"
-      },
-      {
-        "title": "the moral landscape",
-        "author": "sam harris",
-        "cover": "covers/the-moral-landscape.svg"
+        "cover": "https://covers.openlibrary.org/b/isbn/9780198249085-L.jpg"
       },
       {
         "title": "lying",
         "author": "sam harris",
-        "cover": "covers/lying.svg"
-      },
-      {
-        "title": "doing good better",
-        "author": "william macaskill",
-        "cover": "covers/doing-good-better.svg"
+        "cover": "https://covers.openlibrary.org/b/isbn/9781940051000-L.jpg"
       },
       {
         "title": "against empathy",
         "author": "paul bloom",
-        "cover": "covers/against-empathy.svg"
-      },
-      {
-        "title": "strangers drowning",
-        "author": "larissa macfarquhar",
-        "cover": "covers/strangers-drowning.svg"
+        "cover": "https://covers.openlibrary.org/b/isbn/9780062339348-L.jpg"
       },
       {
         "title": "stubborn attachments",
         "author": "tyler cowen",
-        "cover": "covers/stubborn-attachments.svg"
-      },
-      {
-        "title": "moral tribes",
-        "author": "joshua greene",
-        "cover": "covers/moral-tribes.svg"
-      },
-      {
-        "title": "inventing the individual",
-        "author": "larry siedentop",
-        "cover": "covers/inventing-the-individual.svg"
-      },
-      {
-        "title": "the precipice",
-        "author": "toby ord",
-        "cover": "covers/the-precipice.svg"
-      },
-      {
-        "title": "famine, affluence, and morality",
-        "author": "peter singer",
-        "cover": "covers/famine-affluence-and-morality.svg"
-      },
-      {
-        "title": "the beginning of infinity",
-        "author": "david deutsch",
-        "cover": "covers/the-beginning-of-infinity.svg"
+        "cover": "https://covers.openlibrary.org/b/isbn/9781732265134-L.jpg"
       }
     ]
   },
@@ -355,17 +115,7 @@
       {
         "title": "inadequate equilibria",
         "author": "eliezer yudkowsky",
-        "cover": "covers/inadequate-equilibria.svg"
-      },
-      {
-        "title": "map and territory",
-        "author": "eliezer yudkowsky",
-        "cover": "covers/map-and-territory.svg"
-      },
-      {
-        "title": "how to actually change your mind",
-        "author": "eliezer yudkowsky",
-        "cover": "covers/how-to-actually-change-your-mind.svg"
+        "cover": "https://covers.openlibrary.org/b/isbn/9781939311184-L.jpg"
       },
       {
         "title": "competitive sensemaking",
@@ -373,34 +123,9 @@
         "cover": "covers/competitive-sensemaking.svg"
       },
       {
-        "title": "thinking in bets",
-        "author": "annie duke",
-        "cover": "covers/thinking-in-bets.svg"
-      },
-      {
-        "title": "factfulness",
-        "author": "hans rosling",
-        "cover": "covers/factfulness.svg"
-      },
-      {
         "title": "skin in the game",
         "author": "nassim nicholas taleb",
-        "cover": "covers/skin-in-the-game.svg"
-      },
-      {
-        "title": "the revolt of the public",
-        "author": "martin gurri",
-        "cover": "covers/the-revolt-of-the-public.svg"
-      },
-      {
-        "title": "optionality",
-        "author": "richard meadows",
-        "cover": "covers/optionality.svg"
-      },
-      {
-        "title": "not the end of the world",
-        "author": "hannah ritchie",
-        "cover": "covers/not-the-end-of-the-world.svg"
+        "cover": "https://covers.openlibrary.org/b/isbn/9780425284629-L.jpg"
       }
     ]
   }
