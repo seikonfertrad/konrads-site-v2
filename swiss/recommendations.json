@@ -100,6 +100,12 @@
         "url": "https://www.rationality.org/files/CFAR_Handbook_2021-01.pdf",
         "by": "center for applied rationality",
         "desc": "the guide to applied rationality. techniques for noticing where your functioning breaks down and fixing it."
+      },
+      {
+        "title": "the fragile world hypothesis",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0016328720300604",
+        "by": "david manheim",
+        "desc": "as systems grow more complex, they grow more fragile. a careful extension of bostrom's vulnerable world hypothesis — less about single catastrophic technologies, more about the inevitability of systemic brittleness."
       }
     ]
   },
