@@ -1081,10 +1081,18 @@ function renderBookshelf(data, container) {
     const cover = document.createElement('div');
     cover.className = 'book-cover';
 
-    const ph = document.createElement('div');
-    ph.className = 'book-cover-placeholder';
-    ph.textContent = book.title;
-    cover.appendChild(ph);
+    if (book.cover) {
+      const img = document.createElement('img');
+      img.src = book.cover;
+      img.alt = book.title;
+      img.loading = 'lazy';
+      cover.appendChild(img);
+    } else {
+      const ph = document.createElement('div');
+      ph.className = 'book-cover-placeholder';
+      ph.textContent = book.title;
+      cover.appendChild(ph);
+    }
 
     const author = document.createElement('div');
     author.className = 'book-author';
