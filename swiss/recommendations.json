@@ -100,6 +100,12 @@
         "url": "https://www.rationality.org/files/CFAR_Handbook_2021-01.pdf",
         "by": "center for applied rationality",
         "desc": "the guide to applied rationality. techniques for noticing where your functioning breaks down and fixing it."
+      },
+      {
+        "title": "the fragile world hypothesis",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0016328720300604",
+        "by": "david manheim",
+        "desc": "civilization is a tightrope walk — fragility isn't a bug, it's the natural state of complex systems. the point isn't to be scared or to clamp down with heavy-handed control. it's that staying on the rope requires thoughtful governance at every scale, and within those bounds, you go as hard as you can."
       }
     ]
   },
