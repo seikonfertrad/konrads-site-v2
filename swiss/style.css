@@ -213,9 +213,9 @@ a:hover {
   text-transform: none;
 }
 
-/* Hero peak — larger, clickable */
+/* Hero peak — larger, non-interactive */
 .village--hero {
-  cursor: pointer;
+  cursor: default;
 }
 
 .village--hero .village-title {
@@ -667,7 +667,6 @@ blockquote {
   transition: border-color 0.2s ease;
   text-decoration: none;
   color: inherit;
-  border-bottom: none;
 }
 
 .book-card:hover {
@@ -779,7 +778,6 @@ blockquote {
   display: block;
   padding: var(--space-sm);
   border: 1px solid rgba(199, 91, 58, 0.08);
-  border-bottom: none;
   transition: border-color 0.2s ease, background 0.2s ease;
   text-decoration: none;
 }

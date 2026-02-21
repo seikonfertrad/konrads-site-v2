@@ -16,7 +16,7 @@
       },
       {
         "title": "carl shulman",
-        "url": "https://reflectivedisequilibrium.blogspot.com/",
+        "url": "https://www.reflectivedisequilibrium.com/",
         "by": "carl shulman",
         "desc": "possibly the most careful thinker alive on tech trajectories and their implications. rarely writes in public, always worth reading."
       }
@@ -37,7 +37,7 @@
       },
       {
         "title": "nils frahm",
-        "url": "https://soundcloud.com/aquilae-548399642/nils-frahm-live-montreux-jazz-festival-2015",
+        "url": "https://www.nilsfrahm.com/works/live-at-montreux-jazz-festival-2015/",
         "desc": "intimate piano with electronic textures, ambient techno-influenced soundscapes."
       }
     ]
@@ -106,6 +106,18 @@
         "url": "https://www.sciencedirect.com/science/article/pii/S0016328720300604",
         "by": "david manheim",
         "desc": "civilization is a tightrope walk — fragility isn't a bug, it's the natural state of complex systems. the point isn't to be scared or to clamp down with heavy-handed control. it's that staying on the rope requires thoughtful governance at every scale, and within those bounds, you go as hard as you can."
+      },
+      {
+        "title": "coasean bargaining at scale",
+        "url": "https://blog.cosmos-institute.org/p/coasean-bargaining-at-scale",
+        "by": "séb krier",
+        "desc": "how ai agents could reduce transaction costs to near-zero, enabling the kind of decentralised negotiation that makes most political disagreements dissolve."
+      },
+      {
+        "title": "staring into the abyss as a core life skill",
+        "url": "https://www.benkuhn.net/abyss/",
+        "by": "ben kuhn",
+        "desc": "the practice of deeply examining the hard questions you'd rather avoid. short, practical, and quietly life-changing."
       }
     ]
   },

@@ -1,50 +1,38 @@
 [
   {
-    "take": "comfort is the most underrated threat to human agency. not oppression, not poverty — comfort.",
+    "take": "most people would rather be comfortably numb than stare into the abyss. the resistance isn't fear of failure — it's that not reaching lets you avoid the discomfort of honest self-assessment. build a culture where ambition is normal and you remove the excuse.",
     "tag": "agency"
-  },
-  {
-    "take": "the best governance systems will be designed by people who've actually run a group house, a community space, or a festival. not by political scientists.",
-    "tag": "coordination"
-  },
-  {
-    "take": "if your worldview doesn't change at least once a year, you're not paying attention.",
-    "tag": "epistemics"
   },
   {
     "take": "the people most worried about ai are often the ones who understand it best. that should tell you something.",
     "tag": "ai"
   },
   {
-    "take": "geneva is the best city in the world for people who care about the future of humanity and also want to ski on weekends.",
-    "tag": "geneva"
-  },
-  {
-    "take": "feedback is a gift. the fact that most people treat it like an insult is why most teams are mediocre.",
+    "take": "the bar for giving feedback should be low. it's on the receiver to sit with it, separate signal from noise, and grow. both sides have to be able to shoot from the hip — and then be grown up enough to work through the friction, do the three-way handshake, and come out wiser together.",
     "tag": "culture"
   },
   {
-    "take": "the future is not a thing that happens to us. it's a thing we're building right now, mostly by accident.",
+    "take": "the future isn't something that happens to us. everyone designs who devises courses of action aimed at changing existing situations into preferred ones — that's herbert simon. the question is whether we're designing deliberately or sleepwalking.",
     "tag": "futures"
   },
   {
-    "take": "work is just one thread. building your entire identity around a career is fragile — invest equally in community, art, relationships, and the body.",
+    "take": "work-life balance is the wrong frame. if your work is a labor of love, it should be deeply integrated with your life — there are massive economies of scope and scale when the same curiosity drives your work, your relationships, and your play.",
     "tag": "life"
   },
   {
-    "take": "diplomacy without empathy is just negotiation. empathy without strategy is just vibes.",
+    "take": "diplomats currently do too much vibes and not enough strategy. we need less empathy-as-performance and more specialization, confrontation, and hard discussions. the difficult conversations are the ones that actually move things.",
     "tag": "diplomacy"
   },
   {
-    "take": "being explicit doesn't kill the magic — it deepens it. ambiguity is a cheap move to avoid vulnerability. transparency unlocks levels of connection most people never even thought possible.",
+    "take": "being explicit doesn't kill the magic — it deepens it. passion gives you the irrational commitment to reason through hard things clearly. those who say mystery is necessary are putting the cart before the horse — both passionate intuition and explicit reason matter, and they compound each other.",
     "tag": "relationships"
   },
   {
-    "take": "suspending judgment sounds wise but it's actually stagnation. shoot from the hip. having takes — even bad ones — gets you free lessons. you don't need to fight for your opinion; just putting it out there gets you feedback from people who know more. that's how you learn across many fields. you can disengage while still collecting data in the background at zero cost that'll inform future hunches and propel you forward subconsciously. just don't hold tightly onto your intuitive world model.",
+    "take": "suspending judgment sounds wise but it's actually stagnation. shoot from the hip — even bad takes get you free lessons from people who know more. it's fine to be confidently wrong as long as you update fast. in high-stakes situations, checks and balances belong on the interaction, not the individual. hold your opinions loosely, but have them.",
     "tag": "epistemics"
   },
   {
-    "take": "don't blame politicians for being self-serving — blame the incentive landscape that makes defensiveness rational. judge policymakers on their decision-making process, not outcomes. that's how science works; politics should too.",
+    "take": "don't blame politicians for being self-serving — blame the incentive landscape that rewards it. we could incentivize them to admit mistakes and update their beliefs. judge them on whether they're good tinkerers with a strong moral compass — not on whether every bet paid off.",
     "tag": "policy"
   }
 ]

@@ -6,7 +6,9 @@
 gsap.registerPlugin(DrawSVGPlugin, CustomEase);
 CustomEase.create("swissReveal", "M0,0 C0.25,0.1 0.25,1 1,1");
 
-const IS_DESKTOP = window.matchMedia('(min-width: 769px) and (pointer: fine)').matches;
+const desktopQuery = window.matchMedia('(min-width: 769px) and (pointer: fine)');
+let IS_DESKTOP = desktopQuery.matches;
+desktopQuery.addEventListener('change', e => { IS_DESKTOP = e.matches; });
 let fogDisabled = false;
 
 
@@ -600,11 +602,18 @@ function initDrawer() {
     });
   }
 
-  // Click handlers on village markers
+  // Click + keyboard handlers on village markers
   villages.forEach(village => {
     village.addEventListener('click', () => {
       const sectionId = village.dataset.section;
       if (sectionId) openDrawer(sectionId);
+    });
+    village.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const sectionId = village.dataset.section;
+        if (sectionId) openDrawer(sectionId);
+      }
     });
   });
 
