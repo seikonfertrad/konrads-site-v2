@@ -742,10 +742,9 @@ function initMobile() {
     'fractalgva':  { x: 25, y: 35 },
     'djing':       { x: 75, y: 45 },
     'writing':     { x: 22, y: 55 },
-    'photoalbum':  { x: 70, y: 92 },
     'goodstuff':   { x: 45, y: 15 },
-    'funfacts':    { x: 15, y: 28 },
-    'soapbox':     { x: 65, y: 78 },
+    'history':     { x: 15, y: 70 },
+    'soapbox':     { x: 65, y: 82 },
   };
 
   villages.forEach(v => {
