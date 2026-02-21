@@ -843,6 +843,23 @@ blockquote {
   opacity: 0.7;
 }
 
+/* ---- Drawer divider (between merged sections) ---- */
+.drawer-divider {
+  margin: var(--space-lg) 0;
+  border: none;
+  border-top: 1px dashed rgba(199, 91, 58, 0.2);
+}
+
+.soapbox-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: none;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-sm);
+}
+
 /* ---- Cold Takes ---- */
 .keyideas-list {
   margin-top: var(--space-md);

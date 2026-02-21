@@ -95,20 +95,11 @@
       </div>
     </div>
 
-    <!-- Bookshelf -->
-    <div class="village" data-map-x="30" data-map-y="25" data-rings="3" data-section="bookshelf" role="button" tabindex="0">
+    <!-- Good Stuff (books + recommendations) -->
+    <div class="village" data-map-x="40" data-map-y="20" data-rings="4" data-section="goodstuff" role="button" tabindex="0">
       <svg class="village-rings" aria-hidden="true"></svg>
       <div class="village-label">
         <span class="village-num">06</span>
-        <span class="village-title">book shelf</span>
-      </div>
-    </div>
-
-    <!-- Good Stuff -->
-    <div class="village" data-map-x="55" data-map-y="15" data-rings="3" data-section="recommendations" role="button" tabindex="0">
-      <svg class="village-rings" aria-hidden="true"></svg>
-      <div class="village-label">
-        <span class="village-num">07</span>
         <span class="village-title">good stuff</span>
       </div>
     </div>
@@ -117,26 +108,17 @@
     <div class="village" data-map-x="10" data-map-y="30" data-rings="3" data-section="funfacts" role="button" tabindex="0">
       <svg class="village-rings" aria-hidden="true"></svg>
       <div class="village-label">
-        <span class="village-num">08</span>
+        <span class="village-num">07</span>
         <span class="village-title">field notes</span>
       </div>
     </div>
 
-    <!-- Soap Box -->
-    <div class="village" data-map-x="62" data-map-y="88" data-rings="3" data-section="hottakes" role="button" tabindex="0">
+    <!-- Soap Box (hot takes + cold takes) -->
+    <div class="village" data-map-x="45" data-map-y="75" data-rings="4" data-section="soapbox" role="button" tabindex="0">
       <svg class="village-rings" aria-hidden="true"></svg>
       <div class="village-label">
-        <span class="village-num">09</span>
+        <span class="village-num">08</span>
         <span class="village-title">soap box</span>
-      </div>
-    </div>
-
-    <!-- Cold Takes -->
-    <div class="village" data-map-x="38" data-map-y="38" data-rings="4" data-section="keyideas" role="button" tabindex="0">
-      <svg class="village-rings" aria-hidden="true"></svg>
-      <div class="village-label">
-        <span class="village-num">10</span>
-        <span class="village-title">cold takes</span>
       </div>
     </div>
 
@@ -234,44 +216,35 @@
       <div class="archive-gallery" id="archive-gallery"></div>
     </article>
 
-    <!-- Bookshelf -->
-    <article class="drawer-panel" id="drawer-bookshelf">
-      <div class="section-marker"><span class="marker-num">06</span> intellectual influences</div>
-      <h2>a reading redux</h2>
+    <!-- Good Stuff (books + recommendations) -->
+    <article class="drawer-panel" id="drawer-goodstuff">
+      <div class="section-marker"><span class="marker-num">06</span> things that shaped me</div>
+      <h2>focus on what you want to see more of</h2>
       <p>20 books i keep coming back to</p>
       <div class="bookshelf-shelves" id="bookshelf"></div>
+      <div class="drawer-divider"></div>
+      <p>blogs, podcasts, essays, and corners of the internet i keep returning to.</p>
+      <div class="recommendations-list" id="recommendations"></div>
     </article>
 
     <!-- Field Notes -->
     <article class="drawer-panel" id="drawer-funfacts">
-      <div class="section-marker"><span class="marker-num">08</span> personal lore</div>
+      <div class="section-marker"><span class="marker-num">07</span> personal lore</div>
       <h2>personal lore</h2>
       <p>some background facts on what might have made me me</p>
       <div class="funfacts-list" id="funfacts"></div>
     </article>
 
-    <!-- Good Stuff -->
-    <article class="drawer-panel" id="drawer-recommendations">
-      <div class="section-marker"><span class="marker-num">07</span> bits & bobs</div>
-      <h2>focus on what you want to see more of</h2>
-      <p>blogs, podcasts, essays, products, and corners of the internet that shaped me or that i simply enjoy.</p>
-      <div class="recommendations-list" id="recommendations"></div>
-    </article>
-
-    <!-- Soap Box -->
-    <article class="drawer-panel" id="drawer-hottakes">
-      <div class="section-marker"><span class="marker-num">09</span> soap box</div>
+    <!-- Soap Box (hot takes + cold takes) -->
+    <article class="drawer-panel" id="drawer-soapbox">
+      <div class="section-marker"><span class="marker-num">08</span> soap box</div>
       <h2>soap box</h2>
+      <p>ideas that won&rsquo;t leave me alone. things i repeat in conversations until people tell me to stop.</p>
+      <div class="keyideas-list" id="keyideas"></div>
+      <div class="drawer-divider"></div>
+      <h3 class="soapbox-subtitle">hot takes</h3>
       <p>opinions i hold with varying degrees of confidence. some are half-baked. all are sincerely meant.</p>
       <div class="hottakes-list" id="hottakes"></div>
-    </article>
-
-    <!-- Cold Takes -->
-    <article class="drawer-panel" id="drawer-keyideas">
-      <div class="section-marker"><span class="marker-num">10</span> cold takes</div>
-      <h2>cold takes</h2>
-      <p>ideas that won't leave me alone. things i repeat in conversations until people tell me to stop.</p>
-      <div class="keyideas-list" id="keyideas"></div>
     </article>
 
     </div>
