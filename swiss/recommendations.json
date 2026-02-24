@@ -85,48 +85,5 @@
         "desc": "cognitive biases, self-delusion, and why your brain lies to you. the ads are annoying but the content earns them."
       }
     ]
-  },
-  {
-    "category": "artists & music",
-    "items": [
-      {
-        "title": "sonia calico",
-        "url": "https://soundcloud.com/soniacalico",
-        "desc": "taiwanese dj/producer. experimental club, deconstructed, relentless energy."
-      },
-      {
-        "title": "acid pauli",
-        "url": "https://soundcloud.com/acidpauli",
-        "desc": "psychedelic electronic music. organic, deeply textured, impossible to sit still to."
-      },
-      {
-        "title": "nils frahm",
-        "url": "https://www.nilsfrahm.com/works/live-at-montreux-jazz-festival-2015/",
-        "desc": "intimate piano with electronic textures, ambient techno-influenced soundscapes."
-      }
-    ]
-  },
-  {
-    "category": "movies & tv",
-    "items": [
-      {
-        "title": "sense8",
-        "url": "https://www.imdb.com/title/tt2431438/",
-        "by": "the wachowskis",
-        "desc": "eight strangers across the world share consciousness."
-      },
-      {
-        "title": "everything everywhere all at once",
-        "url": "https://www.imdb.com/title/tt6710474/",
-        "by": "daniels",
-        "desc": "multiverse absurdism that becomes the most moving film about love and laundry."
-      },
-      {
-        "title": "altered carbon",
-        "url": "https://www.imdb.com/title/tt2261227/",
-        "by": "laeta kalogridis",
-        "desc": "consciousness is software, bodies are hardware, and immortality breaks society in ways that feel inevitable. cyberpunk noir at its most philosophical."
-      }
-    ]
   }
 ]
