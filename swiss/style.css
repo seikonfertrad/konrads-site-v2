@@ -227,6 +227,11 @@ a:hover {
   letter-spacing: 0.06em;
 }
 
+/* Remove default focus outline on villages */
+.village:focus {
+  outline: none;
+}
+
 /* Village hover state */
 .village:hover .village-title {
   color: var(--accent);

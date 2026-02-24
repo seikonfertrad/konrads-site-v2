@@ -608,7 +608,27 @@ function initDrawer() {
 
   function navigateToIndex(idx) {
     if (idx === currentIndex) return;
-    openDrawer(sectionOrder[idx].id);
+    // Smooth transition: zoom out to intermediate level, then zoom into new village
+    const targets = [terrain];
+    if (topoBg) targets.push(topoBg);
+    const midScale = IS_DESKTOP ? 1.25 : 1.05;
+
+    targets.forEach(el => {
+      gsap.to(el, {
+        scale: midScale,
+        x: 0,
+        y: 0,
+        duration: 0.4,
+        ease: 'power2.inOut',
+        overwrite: true,
+        onComplete: () => {
+          // Only trigger openDrawer once (from the first target)
+          if (el === targets[0]) {
+            openDrawer(sectionOrder[idx].id);
+          }
+        },
+      });
+    });
   }
 
   // --- Zoom helpers ---
@@ -641,8 +661,8 @@ function initDrawer() {
         scale: scale,
         x: tx,
         y: ty,
-        duration: 0.6,
-        ease: 'power3.out',
+        duration: 0.7,
+        ease: 'power2.out',
         overwrite: true,
       });
     });
@@ -719,6 +739,9 @@ function initDrawer() {
     isOpen = false;
     currentSection = null;
     currentIndex = -1;
+
+    // Remove lingering focus outline from village buttons
+    if (document.activeElement) document.activeElement.blur();
 
     if (fog) fog.classList.remove('fog--dimmed');
 
