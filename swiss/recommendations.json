@@ -128,20 +128,5 @@
         "desc": "consciousness is software, bodies are hardware, and immortality breaks society in ways that feel inevitable. cyberpunk noir at its most philosophical."
       }
     ]
-  },
-  {
-    "category": "games",
-    "items": [
-      {
-        "title": "hanabi",
-        "url": "https://boardgamegeek.com/boardgame/98778/hanabi",
-        "desc": "cooperative card game where you can see everyone's hand but your own. pure coordination problem."
-      },
-      {
-        "title": "secret hitler",
-        "url": "https://www.secrethitler.com",
-        "desc": "watching your friends lie to your face is a great way to build trust."
-      }
-    ]
   }
 ]

@@ -934,7 +934,7 @@ function initMobile() {
     'about':        { x: 50, y: 12 },  // hero
     'bridging':     { x: 72, y: 25 },
     'building':     { x: 25, y: 35 },
-    'mixing':       { x: 75, y: 45 },
+    'attuning':       { x: 75, y: 45 },
     'thinking':     { x: 65, y: 82 },
     'reading':      { x: 45, y: 15 },
     'discovering':  { x: 22, y: 55 },
