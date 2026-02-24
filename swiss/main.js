@@ -563,25 +563,65 @@ function initDrawer() {
 
   function navigateToIndex(idx) {
     if (idx === currentIndex) return;
-    // Smooth transition: zoom out to intermediate level, then zoom into new village
+
+    // --- Instantly switch drawer content ---
+    const sectionId = sectionOrder[idx].id;
+    currentIndex = idx;
+    currentSection = sectionId;
+
+    panels.forEach(p => p.classList.remove('is-active'));
+    const panel = document.getElementById(`drawer-${sectionId}`);
+    if (panel) {
+      panel.classList.add('is-active');
+      panel.querySelectorAll('iframe[data-src]').forEach(iframe => {
+        iframe.src = iframe.dataset.src;
+        delete iframe.dataset.src;
+      });
+    }
+    if (scrollArea) scrollArea.scrollTop = 0;
+
+    // --- Slow arc animation on the map ---
     const targets = [terrain];
     if (topoBg) targets.push(topoBg);
+
+    const village = sectionOrder[idx].el;
+    const pos = getVillagePixelCenter(village);
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const finalScale = IS_DESKTOP ? 1.8 : 1.4;
     const midScale = IS_DESKTOP ? 1.25 : 1.05;
+    const endX = (vw / 2 - pos.x) * finalScale;
+    const endY = (vh / 2 - pos.y) * finalScale;
 
     targets.forEach(el => {
-      gsap.to(el, {
+      gsap.killTweensOf(el);
+      const startX = gsap.getProperty(el, 'x') || 0;
+      const startY = gsap.getProperty(el, 'y') || 0;
+
+      // Arc midpoint: halfway between start and end, offset perpendicular
+      const dx = endX - startX;
+      const dy = endY - startY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const arcStrength = 0.15;
+      const perpX = dist > 0 ? (-dy / dist) * dist * arcStrength : 0;
+      const perpY = dist > 0 ? (dx / dist) * dist * arcStrength : 0;
+      const arcX = (startX + endX) / 2 + perpX;
+      const arcY = (startY + endY) / 2 + perpY;
+
+      const tl = gsap.timeline();
+      tl.to(el, {
         scale: midScale,
-        x: 0,
-        y: 0,
-        duration: 0.4,
-        ease: 'power2.inOut',
-        overwrite: true,
-        onComplete: () => {
-          // Only trigger openDrawer once (from the first target)
-          if (el === targets[0]) {
-            openDrawer(sectionOrder[idx].id);
-          }
-        },
+        x: arcX,
+        y: arcY,
+        duration: 1.8,
+        ease: 'sine.inOut',
+      });
+      tl.to(el, {
+        scale: finalScale,
+        x: endX,
+        y: endY,
+        duration: 2.4,
+        ease: 'sine.inOut',
       });
     });
   }
