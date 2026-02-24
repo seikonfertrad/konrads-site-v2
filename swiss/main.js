@@ -751,16 +751,18 @@ function initDrawer() {
     if (e.key === 'ArrowRight') { e.preventDefault(); navigateNext(); }
   });
 
-  // --- Touch swipe on drawer ---
+  // --- Touch swipe on full screen ---
   let touchStartX = 0;
   let touchStartY = 0;
 
-  drawer.addEventListener('touchstart', e => {
+  document.addEventListener('touchstart', e => {
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
   }, { passive: true });
 
-  drawer.addEventListener('touchend', e => {
+  document.addEventListener('touchend', e => {
+    if (!isOpen) return;
+    if (lightbox && lightbox.classList.contains('is-active')) return;
     const dx = e.changedTouches[0].clientX - touchStartX;
     const dy = e.changedTouches[0].clientY - touchStartY;
     // Horizontal swipe must be dominant and significant
