@@ -1439,6 +1439,13 @@ function renderKeyIdeas(data, container) {
       card.appendChild(img);
     }
 
+    if (idea.grounded) {
+      const grounded = document.createElement('div');
+      grounded.className = 'keyidea-grounded';
+      grounded.textContent = idea.grounded;
+      card.appendChild(grounded);
+    }
+
     if (idea.related && idea.related.length > 0) {
       const related = document.createElement('div');
       related.className = 'keyidea-related';
