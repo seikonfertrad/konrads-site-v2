@@ -522,7 +522,7 @@ function initFlashlight() {
 
 
 // ============================================
-// 6. DRAWER
+// 6. DRAWER (with zoom + swipe navigation)
 // ============================================
 
 function initDrawer() {
@@ -530,15 +530,148 @@ function initDrawer() {
   const backdrop = document.querySelector('.drawer-backdrop');
   const closeBtn = document.querySelector('.drawer-close');
   const fog = document.querySelector('.fog');
+  const terrain = document.querySelector('.terrain');
+  const topoBg = document.querySelector('.topo-bg');
+  const scrollArea = drawer ? drawer.querySelector('.drawer-scroll') : null;
   const panels = document.querySelectorAll('.drawer-panel');
   const villages = document.querySelectorAll('.village[data-section]');
   if (!drawer || !villages.length) return;
 
   let isOpen = false;
   let currentSection = null;
+  let currentIndex = -1;
 
+  // Build ordered list of navigable village sections
+  const sectionOrder = [];
+  villages.forEach(v => {
+    sectionOrder.push({
+      id: v.dataset.section,
+      el: v,
+      title: v.querySelector('.village-title')?.textContent || '',
+    });
+  });
+
+  // --- Navigation bar (prev / dots / next) ---
+  const drawerNav = document.createElement('div');
+  drawerNav.className = 'drawer-nav';
+  drawerNav.innerHTML =
+    '<button class="drawer-nav-prev" aria-label="Previous section">' +
+      '<span class="drawer-nav-arrow">&larr;</span>' +
+      '<span class="drawer-nav-label"></span>' +
+    '</button>' +
+    '<div class="drawer-nav-dots"></div>' +
+    '<button class="drawer-nav-next" aria-label="Next section">' +
+      '<span class="drawer-nav-label"></span>' +
+      '<span class="drawer-nav-arrow">&rarr;</span>' +
+    '</button>';
+  drawer.appendChild(drawerNav);
+
+  // Build dots
+  const dotsContainer = drawerNav.querySelector('.drawer-nav-dots');
+  const dotEls = [];
+  sectionOrder.forEach((_, i) => {
+    const dot = document.createElement('span');
+    dot.className = 'drawer-nav-dot';
+    dot.addEventListener('click', () => navigateToIndex(i));
+    dotsContainer.appendChild(dot);
+    dotEls.push(dot);
+  });
+
+  // Cache nav label references
+  const prevLabelEl = drawerNav.querySelector('.drawer-nav-prev .drawer-nav-label');
+  const nextLabelEl = drawerNav.querySelector('.drawer-nav-next .drawer-nav-label');
+
+  function updateNav() {
+    const prevIdx = (currentIndex - 1 + sectionOrder.length) % sectionOrder.length;
+    const nextIdx = (currentIndex + 1) % sectionOrder.length;
+
+    prevLabelEl.textContent = sectionOrder[prevIdx].title;
+    nextLabelEl.textContent = sectionOrder[nextIdx].title;
+
+    for (let i = 0; i < dotEls.length; i++) {
+      dotEls[i].classList.toggle('is-active', i === currentIndex);
+    }
+  }
+
+  drawerNav.querySelector('.drawer-nav-prev').addEventListener('click', navigatePrev);
+  drawerNav.querySelector('.drawer-nav-next').addEventListener('click', navigateNext);
+
+  function navigatePrev() {
+    if (!isOpen) return;
+    navigateToIndex((currentIndex - 1 + sectionOrder.length) % sectionOrder.length);
+  }
+
+  function navigateNext() {
+    if (!isOpen) return;
+    navigateToIndex((currentIndex + 1) % sectionOrder.length);
+  }
+
+  function navigateToIndex(idx) {
+    if (idx === currentIndex) return;
+    openDrawer(sectionOrder[idx].id);
+  }
+
+  // --- Zoom helpers ---
+  function getVillagePixelCenter(village) {
+    const x = parseFloat(village.style.left);
+    const y = parseFloat(village.style.top);
+    if (!isNaN(x) && !isNaN(y)) return { x, y };
+    // Fallback to data attributes
+    return {
+      x: (parseFloat(village.dataset.mapX) / 100) * window.innerWidth,
+      y: (parseFloat(village.dataset.mapY) / 100) * window.innerHeight,
+    };
+  }
+
+  function zoomToVillage(village) {
+    const pos = getVillagePixelCenter(village);
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const scale = IS_DESKTOP ? 1.8 : 1.4;
+
+    // Translate so village ends up at viewport center after scale
+    const tx = (vw / 2 - pos.x) * scale;
+    const ty = (vh / 2 - pos.y) * scale;
+
+    const targets = [terrain];
+    if (topoBg) targets.push(topoBg);
+
+    targets.forEach(el => {
+      gsap.to(el, {
+        scale: scale,
+        x: tx,
+        y: ty,
+        duration: 0.6,
+        ease: 'power3.out',
+        overwrite: true,
+      });
+    });
+  }
+
+  function zoomOut() {
+    const targets = [terrain];
+    if (topoBg) targets.push(topoBg);
+
+    targets.forEach(el => {
+      gsap.to(el, {
+        scale: 1,
+        x: 0,
+        y: 0,
+        duration: 0.45,
+        ease: 'power3.inOut',
+        overwrite: true,
+      });
+    });
+  }
+
+  // --- Drawer open / close ---
   function openDrawer(sectionId) {
+    const newIndex = sectionOrder.findIndex(s => s.id === sectionId);
+    if (newIndex === -1) return;
     if (isOpen && currentSection === sectionId) return;
+
+    currentIndex = newIndex;
+    currentSection = sectionId;
 
     // Activate correct panel
     panels.forEach(p => p.classList.remove('is-active'));
@@ -555,7 +688,12 @@ function initDrawer() {
     drawer.setAttribute('aria-hidden', 'false');
     backdrop.classList.add('is-active');
     if (fog) fog.classList.add('fog--dimmed');
-    currentSection = sectionId;
+
+    // Zoom terrain to selected village
+    zoomToVillage(sectionOrder[newIndex].el);
+
+    // Update navigation bar
+    updateNav();
 
     if (!isOpen) {
       isOpen = true;
@@ -563,6 +701,7 @@ function initDrawer() {
         y: 0,
         duration: 0.45,
         ease: 'power3.out',
+        delay: 0.08,
       });
       gsap.to(backdrop, {
         opacity: 1,
@@ -571,8 +710,7 @@ function initDrawer() {
       });
     }
 
-    // Scroll drawer to top
-    const scrollArea = drawer.querySelector('.drawer-scroll');
+    // Scroll drawer content to top
     if (scrollArea) scrollArea.scrollTop = 0;
   }
 
@@ -580,8 +718,12 @@ function initDrawer() {
     if (!isOpen) return;
     isOpen = false;
     currentSection = null;
+    currentIndex = -1;
 
     if (fog) fog.classList.remove('fog--dimmed');
+
+    // Zoom terrain back out
+    zoomOut();
 
     gsap.to(drawer, {
       y: '-100%',
@@ -602,7 +744,7 @@ function initDrawer() {
     });
   }
 
-  // Click + keyboard handlers on village markers
+  // --- Click + keyboard handlers on village markers ---
   villages.forEach(village => {
     village.addEventListener('click', () => {
       const sectionId = village.dataset.section;
@@ -623,10 +765,35 @@ function initDrawer() {
   // Click outside (backdrop)
   if (backdrop) backdrop.addEventListener('click', closeDrawer);
 
-  // Escape key
+  // --- Keyboard: Escape + Left/Right arrows ---
+  const lightbox = document.getElementById('lightbox');
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && isOpen) closeDrawer();
+    if (!isOpen) return;
+    // Don't interfere with lightbox navigation
+    if (lightbox && lightbox.classList.contains('is-active')) return;
+    if (e.key === 'Escape') closeDrawer();
+    if (e.key === 'ArrowLeft') { e.preventDefault(); navigatePrev(); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); navigateNext(); }
   });
+
+  // --- Touch swipe on drawer ---
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  drawer.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  drawer.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    // Horizontal swipe must be dominant and significant
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      if (dx > 0) navigatePrev();
+      else navigateNext();
+    }
+  }, { passive: true });
 }
 
 
