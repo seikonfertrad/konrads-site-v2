@@ -551,51 +551,6 @@ function initDrawer() {
     });
   });
 
-  // --- Navigation bar (prev / dots / next) ---
-  const drawerNav = document.createElement('div');
-  drawerNav.className = 'drawer-nav';
-  drawerNav.innerHTML =
-    '<button class="drawer-nav-prev" aria-label="Previous section">' +
-      '<span class="drawer-nav-arrow">&larr;</span>' +
-      '<span class="drawer-nav-label"></span>' +
-    '</button>' +
-    '<div class="drawer-nav-dots"></div>' +
-    '<button class="drawer-nav-next" aria-label="Next section">' +
-      '<span class="drawer-nav-label"></span>' +
-      '<span class="drawer-nav-arrow">&rarr;</span>' +
-    '</button>';
-  drawer.appendChild(drawerNav);
-
-  // Build dots
-  const dotsContainer = drawerNav.querySelector('.drawer-nav-dots');
-  const dotEls = [];
-  sectionOrder.forEach((_, i) => {
-    const dot = document.createElement('span');
-    dot.className = 'drawer-nav-dot';
-    dot.addEventListener('click', () => navigateToIndex(i));
-    dotsContainer.appendChild(dot);
-    dotEls.push(dot);
-  });
-
-  // Cache nav label references
-  const prevLabelEl = drawerNav.querySelector('.drawer-nav-prev .drawer-nav-label');
-  const nextLabelEl = drawerNav.querySelector('.drawer-nav-next .drawer-nav-label');
-
-  function updateNav() {
-    const prevIdx = (currentIndex - 1 + sectionOrder.length) % sectionOrder.length;
-    const nextIdx = (currentIndex + 1) % sectionOrder.length;
-
-    prevLabelEl.textContent = sectionOrder[prevIdx].title;
-    nextLabelEl.textContent = sectionOrder[nextIdx].title;
-
-    for (let i = 0; i < dotEls.length; i++) {
-      dotEls[i].classList.toggle('is-active', i === currentIndex);
-    }
-  }
-
-  drawerNav.querySelector('.drawer-nav-prev').addEventListener('click', navigatePrev);
-  drawerNav.querySelector('.drawer-nav-next').addEventListener('click', navigateNext);
-
   function navigatePrev() {
     if (!isOpen) return;
     navigateToIndex((currentIndex - 1 + sectionOrder.length) % sectionOrder.length);
@@ -608,7 +563,27 @@ function initDrawer() {
 
   function navigateToIndex(idx) {
     if (idx === currentIndex) return;
-    openDrawer(sectionOrder[idx].id);
+    // Smooth transition: zoom out to intermediate level, then zoom into new village
+    const targets = [terrain];
+    if (topoBg) targets.push(topoBg);
+    const midScale = IS_DESKTOP ? 1.25 : 1.05;
+
+    targets.forEach(el => {
+      gsap.to(el, {
+        scale: midScale,
+        x: 0,
+        y: 0,
+        duration: 0.4,
+        ease: 'power2.inOut',
+        overwrite: true,
+        onComplete: () => {
+          // Only trigger openDrawer once (from the first target)
+          if (el === targets[0]) {
+            openDrawer(sectionOrder[idx].id);
+          }
+        },
+      });
+    });
   }
 
   // --- Zoom helpers ---
@@ -641,8 +616,8 @@ function initDrawer() {
         scale: scale,
         x: tx,
         y: ty,
-        duration: 0.6,
-        ease: 'power3.out',
+        duration: 0.7,
+        ease: 'power2.out',
         overwrite: true,
       });
     });
@@ -692,9 +667,6 @@ function initDrawer() {
     // Zoom terrain to selected village
     zoomToVillage(sectionOrder[newIndex].el);
 
-    // Update navigation bar
-    updateNav();
-
     if (!isOpen) {
       isOpen = true;
       gsap.to(drawer, {
@@ -719,6 +691,9 @@ function initDrawer() {
     isOpen = false;
     currentSection = null;
     currentIndex = -1;
+
+    // Remove lingering focus outline from village buttons
+    if (document.activeElement) document.activeElement.blur();
 
     if (fog) fog.classList.remove('fog--dimmed');
 
@@ -789,7 +764,7 @@ function initDrawer() {
     const dx = e.changedTouches[0].clientX - touchStartX;
     const dy = e.changedTouches[0].clientY - touchStartY;
     // Horizontal swipe must be dominant and significant
-    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
       if (dx > 0) navigatePrev();
       else navigateNext();
     }
