@@ -568,6 +568,7 @@ function initDrawer() {
     const sectionId = sectionOrder[idx].id;
     currentIndex = idx;
     currentSection = sectionId;
+    history.replaceState(null, '', '#' + sectionId);
 
     panels.forEach(p => p.classList.remove('is-active'));
     const panel = document.getElementById(`drawer-${sectionId}`);
@@ -687,6 +688,7 @@ function initDrawer() {
 
     currentIndex = newIndex;
     currentSection = sectionId;
+    history.replaceState(null, '', '#' + sectionId);
 
     // Activate correct panel
     panels.forEach(p => p.classList.remove('is-active'));
@@ -731,6 +733,7 @@ function initDrawer() {
     isOpen = false;
     currentSection = null;
     currentIndex = -1;
+    history.replaceState(null, '', location.pathname + location.search);
 
     // Remove lingering focus outline from village buttons
     if (document.activeElement) document.activeElement.blur();
@@ -811,6 +814,13 @@ function initDrawer() {
       else navigateNext();
     }
   }, { passive: true });
+
+  // --- Deep-link: open drawer from URL hash on load ---
+  const initialHash = location.hash.replace('#', '');
+  if (initialHash && sectionOrder.some(s => s.id === initialHash)) {
+    // Small delay so the page finishes rendering before animating
+    requestAnimationFrame(() => openDrawer(initialHash));
+  }
 }
 
 
