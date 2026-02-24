@@ -185,10 +185,12 @@ function generateContours(villagePositions) {
 
   svg.innerHTML = '';
 
-  const width = window.innerWidth * 3;
-  const height = window.innerHeight * 3;
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const width = vw * 4;
+  const height = vh * 4;
 
-  svg.setAttribute('viewBox', `${-window.innerWidth} ${-window.innerHeight} ${width} ${height}`);
+  svg.setAttribute('viewBox', `${-1.5 * vw} ${-1.5 * vh} ${width} ${height}`);
 
   // Build obstacle list from village positions
   const obstacles = villagePositions.map(v => ({
@@ -213,27 +215,27 @@ function generateContours(villagePositions) {
   }
 
   const contourPaths = [];
-  const groupSpacing = window.innerHeight / 6;
-  const groupCount = 21;
+  const groupSpacing = vh / 6;
+  const groupCount = 28;
 
   for (let g = 0; g < groupCount; g++) {
-    const baseY = -window.innerHeight + g * groupSpacing + (Math.random() - 0.5) * 30;
+    const baseY = -1.5 * vh + g * groupSpacing + (Math.random() - 0.5) * 30;
     const lineCount = 3 + Math.floor(Math.random() * 3);
 
     for (let i = 0; i < lineCount; i++) {
       const y = baseY + i * 28;
       const frequency = 1.5 + Math.random() * 2;
-      const amplitude = 12 + Math.random() * 20;
+      const amplitude = 25 + Math.random() * 35;
       const phase = Math.random() * Math.PI * 2;
       const opacity = 0.12 + (1 - i / lineCount) * 0.28;
       const strokeWidth = 1.0 - i * 0.15;
 
-      const segments = 36;
+      const segments = 48;
       const segWidth = (width + 200) / segments;
       const points = [];
 
       for (let s = 0; s <= segments; s++) {
-        const rawX = -window.innerWidth - 100 + s * segWidth;
+        const rawX = -1.5 * vw - 100 + s * segWidth;
         const rawY = y
           + Math.sin(s * frequency * 0.5 + phase) * amplitude
           + Math.sin(s * frequency * 0.3 + phase * 1.7) * amplitude * 0.4;
