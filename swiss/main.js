@@ -737,14 +737,14 @@ function initMobile() {
 
   // Override coordinates for portrait layout — spread vertically, keep x variety
   const mobileCoords = {
-    'about':       { x: 50, y: 12 },  // hero
+    'about':        { x: 50, y: 12 },  // hero
     'ai-diplomacy': { x: 72, y: 25 },
-    'fractalgva':  { x: 25, y: 35 },
-    'djing':       { x: 75, y: 45 },
-    'writing':     { x: 22, y: 55 },
-    'goodstuff':   { x: 45, y: 15 },
-    'history':     { x: 15, y: 70 },
-    'soapbox':     { x: 65, y: 82 },
+    'fractalgva':   { x: 25, y: 35 },
+    'djing':        { x: 75, y: 45 },
+    'thinking':     { x: 65, y: 82 },
+    'reading':      { x: 45, y: 15 },
+    'discovering':  { x: 22, y: 55 },
+    'remembering':  { x: 15, y: 70 },
   };
 
   villages.forEach(v => {
