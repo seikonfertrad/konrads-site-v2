@@ -37,6 +37,7 @@
 html {
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
+  overflow: hidden;
 }
 
 body {
@@ -265,6 +266,7 @@ a:hover {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* Scanline overlay */
@@ -317,6 +319,9 @@ a:hover {
 .drawer-panel {
   display: none;
   padding: var(--space-lg);
+  overflow-wrap: break-word;
+  word-break: break-word;
+  min-width: 0;
 }
 
 .drawer-panel.is-active {
@@ -828,6 +833,7 @@ blockquote {
 /* ---- Good Stuff ---- */
 .recommendations-list {
   margin-top: var(--space-md);
+  min-width: 0;
 }
 
 .rec-category {
@@ -850,6 +856,7 @@ blockquote {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  min-width: 0;
 }
 
 .rec-entry {
@@ -858,6 +865,7 @@ blockquote {
   border: 1px solid rgba(199, 91, 58, 0.08);
   transition: border-color 0.2s ease, background 0.2s ease;
   text-decoration: none;
+  min-width: 0;
 }
 
 .rec-entry:hover {
