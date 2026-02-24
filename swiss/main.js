@@ -563,25 +563,66 @@ function initDrawer() {
 
   function navigateToIndex(idx) {
     if (idx === currentIndex) return;
-    // Smooth transition: zoom out to intermediate level, then zoom into new village
+
+    // --- Instantly switch drawer content ---
+    const sectionId = sectionOrder[idx].id;
+    currentIndex = idx;
+    currentSection = sectionId;
+    history.replaceState(null, '', '#' + sectionId);
+
+    panels.forEach(p => p.classList.remove('is-active'));
+    const panel = document.getElementById(`drawer-${sectionId}`);
+    if (panel) {
+      panel.classList.add('is-active');
+      panel.querySelectorAll('iframe[data-src]').forEach(iframe => {
+        iframe.src = iframe.dataset.src;
+        delete iframe.dataset.src;
+      });
+    }
+    if (scrollArea) scrollArea.scrollTop = 0;
+
+    // --- Slow arc animation on the map ---
     const targets = [terrain];
     if (topoBg) targets.push(topoBg);
+
+    const village = sectionOrder[idx].el;
+    const pos = getVillagePixelCenter(village);
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const finalScale = IS_DESKTOP ? 1.8 : 1.4;
     const midScale = IS_DESKTOP ? 1.25 : 1.05;
+    const endX = (vw / 2 - pos.x) * finalScale;
+    const endY = (vh / 2 - pos.y) * finalScale;
 
     targets.forEach(el => {
-      gsap.to(el, {
+      gsap.killTweensOf(el);
+      const startX = gsap.getProperty(el, 'x') || 0;
+      const startY = gsap.getProperty(el, 'y') || 0;
+
+      // Arc midpoint: halfway between start and end, offset perpendicular
+      const dx = endX - startX;
+      const dy = endY - startY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const arcStrength = 0.15;
+      const perpX = dist > 0 ? (-dy / dist) * dist * arcStrength : 0;
+      const perpY = dist > 0 ? (dx / dist) * dist * arcStrength : 0;
+      const arcX = (startX + endX) / 2 + perpX;
+      const arcY = (startY + endY) / 2 + perpY;
+
+      const tl = gsap.timeline();
+      tl.to(el, {
         scale: midScale,
-        x: 0,
-        y: 0,
-        duration: 0.4,
-        ease: 'power2.inOut',
-        overwrite: true,
-        onComplete: () => {
-          // Only trigger openDrawer once (from the first target)
-          if (el === targets[0]) {
-            openDrawer(sectionOrder[idx].id);
-          }
-        },
+        x: arcX,
+        y: arcY,
+        duration: 1.8,
+        ease: 'sine.inOut',
+      });
+      tl.to(el, {
+        scale: finalScale,
+        x: endX,
+        y: endY,
+        duration: 2.4,
+        ease: 'sine.inOut',
       });
     });
   }
@@ -647,6 +688,7 @@ function initDrawer() {
 
     currentIndex = newIndex;
     currentSection = sectionId;
+    history.replaceState(null, '', '#' + sectionId);
 
     // Activate correct panel
     panels.forEach(p => p.classList.remove('is-active'));
@@ -691,6 +733,7 @@ function initDrawer() {
     isOpen = false;
     currentSection = null;
     currentIndex = -1;
+    history.replaceState(null, '', location.pathname + location.search);
 
     // Remove lingering focus outline from village buttons
     if (document.activeElement) document.activeElement.blur();
@@ -751,16 +794,18 @@ function initDrawer() {
     if (e.key === 'ArrowRight') { e.preventDefault(); navigateNext(); }
   });
 
-  // --- Touch swipe on drawer ---
+  // --- Touch swipe on full screen ---
   let touchStartX = 0;
   let touchStartY = 0;
 
-  drawer.addEventListener('touchstart', e => {
+  document.addEventListener('touchstart', e => {
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
   }, { passive: true });
 
-  drawer.addEventListener('touchend', e => {
+  document.addEventListener('touchend', e => {
+    if (!isOpen) return;
+    if (lightbox && lightbox.classList.contains('is-active')) return;
     const dx = e.changedTouches[0].clientX - touchStartX;
     const dy = e.changedTouches[0].clientY - touchStartY;
     // Horizontal swipe must be dominant and significant
@@ -769,6 +814,13 @@ function initDrawer() {
       else navigateNext();
     }
   }, { passive: true });
+
+  // --- Deep-link: open drawer from URL hash on load ---
+  const initialHash = location.hash.replace('#', '');
+  if (initialHash && sectionOrder.some(s => s.id === initialHash)) {
+    // Small delay so the page finishes rendering before animating
+    requestAnimationFrame(() => openDrawer(initialHash));
+  }
 }
 
 
@@ -880,9 +932,9 @@ function initMobile() {
   // Override coordinates for portrait layout — spread vertically, keep x variety
   const mobileCoords = {
     'about':        { x: 50, y: 12 },  // hero
-    'ai-diplomacy': { x: 72, y: 25 },
-    'fractalgva':   { x: 25, y: 35 },
-    'djing':        { x: 75, y: 45 },
+    'bridging':     { x: 72, y: 25 },
+    'building':     { x: 25, y: 35 },
+    'mixing':       { x: 75, y: 45 },
     'thinking':     { x: 65, y: 82 },
     'reading':      { x: 45, y: 15 },
     'discovering':  { x: 22, y: 55 },
