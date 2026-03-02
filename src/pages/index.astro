@@ -1,0 +1,319 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import bridging from '../../public/village-bridging.json';
+import building from '../../public/village-building.json';
+import attuning from '../../public/village-attuning.json';
+import thinking from '../../public/village-thinking.json';
+import reading from '../../public/village-reading.json';
+import discovering from '../../public/village-discovering.json';
+import remembering from '../../public/village-remembering.json';
+---
+
+<BaseLayout title="konrad seifert">
+  <link slot="head" rel="stylesheet" href="/style.css" is:inline>
+  <script slot="head" type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Konrad Seifert",
+    "url": "https://konrads.link",
+    "image": "https://konrads.link/og-image.png",
+    "jobTitle": "Co-Founder",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Simon Institute for Longterm Governance",
+      "url": "https://simoninstitute.ch"
+    },
+    "sameAs": [
+      "https://twitter.com/praeterproptr",
+      "https://substack.com/@konradseifert",
+      "https://soundcloud.com/kontrab4nd"
+    ]
+  }
+  </script>
+
+  <!-- Generative contour lines — injected by JS -->
+  <div class="topo-bg" aria-hidden="true">
+    <svg id="contour-svg" preserveAspectRatio="none"></svg>
+  </div>
+
+  <!-- Noise texture overlay -->
+  <div class="noise" aria-hidden="true"></div>
+
+  <!-- Fog-of-war overlay — flashlight punches through -->
+  <div class="fog" aria-hidden="true"></div>
+
+  <div class="terrain">
+
+    <!-- Coordinates -->
+    <div class="coordinates" aria-hidden="true">
+      <a href="https://www.atlasobscura.com/things-to-do/geneva-switzerland/places" target="_blank" rel="noopener"><span>46.2044° n, 6.1432° e</span></a>
+    </div>
+
+    <!-- ============ VILLAGE MARKERS ============ -->
+
+    <!-- Hero — central peak (opens About) -->
+    <div class="village village--hero" data-map-x="50" data-map-y="48" data-rings="6">
+      <svg class="village-rings" aria-hidden="true"></svg>
+      <div class="village-label">
+        <span class="village-title">hi i'm konrad</span>
+      </div>
+    </div>
+
+    <!-- Bridging (AI governance) -->
+    <div class="village" data-map-x="72" data-map-y="30" data-rings="5" data-section="bridging" role="button" tabindex="0">
+      <svg class="village-rings" aria-hidden="true"></svg>
+      <div class="village-label">
+        <span class="village-num">01</span>
+        <span class="village-title">bridging</span>
+      </div>
+    </div>
+
+    <!-- Building (community) -->
+    <div class="village" data-map-x="20" data-map-y="55" data-rings="5" data-section="building" role="button" tabindex="0">
+      <svg class="village-rings" aria-hidden="true"></svg>
+      <div class="village-label">
+        <span class="village-num">02</span>
+        <span class="village-title">building</span>
+      </div>
+    </div>
+
+    <!-- Vibing (music + games) -->
+    <div class="village" data-map-x="80" data-map-y="55" data-rings="3" data-section="attuning" role="button" tabindex="0">
+      <svg class="village-rings" aria-hidden="true"></svg>
+      <div class="village-label">
+        <span class="village-num">03</span>
+        <span class="village-title">attuning</span>
+      </div>
+    </div>
+
+    <!-- Thinking (ideas + publications) -->
+    <div class="village" data-map-x="45" data-map-y="75" data-rings="5" data-section="thinking" role="button" tabindex="0">
+      <svg class="village-rings" aria-hidden="true"></svg>
+      <div class="village-label">
+        <span class="village-num">04</span>
+        <span class="village-title">thinking</span>
+      </div>
+    </div>
+
+    <!-- Reading (books) -->
+    <div class="village" data-map-x="40" data-map-y="20" data-rings="4" data-section="reading" role="button" tabindex="0">
+      <svg class="village-rings" aria-hidden="true"></svg>
+      <div class="village-label">
+        <span class="village-num">05</span>
+        <span class="village-title">reading</span>
+      </div>
+    </div>
+
+    <!-- Discovering (recommendations) -->
+    <div class="village" data-map-x="15" data-map-y="78" data-rings="3" data-section="discovering" role="button" tabindex="0">
+      <svg class="village-rings" aria-hidden="true"></svg>
+      <div class="village-label">
+        <span class="village-num">06</span>
+        <span class="village-title">discovering</span>
+      </div>
+    </div>
+
+    <!-- Remembering (personal lore + photos) -->
+    <div class="village" data-map-x="10" data-map-y="30" data-rings="3" data-section="remembering" role="button" tabindex="0">
+      <svg class="village-rings" aria-hidden="true"></svg>
+      <div class="village-label">
+        <span class="village-num">07</span>
+        <span class="village-title">remembering</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ DRAWER ============ -->
+  <div class="drawer" aria-hidden="true">
+    <div class="drawer-scroll">
+    <button class="drawer-close" aria-label="Close">[&times;] close</button>
+
+    <!-- Bridging -->
+    <article class="drawer-panel" id="drawer-bridging">
+      <div class="section-marker"><span class="marker-num">{bridging.marker_num}</span> {bridging.marker_label}</div>
+      <h2>{bridging.heading}</h2>
+      <p set:html={bridging.intro} />
+      {bridging.details.map(d => <p class="detail" set:html={d} />)}
+      <div class="drawer-divider"></div>
+      <h3 class="soapbox-subtitle">the path here</h3>
+      <p class="detail" set:html={bridging.path_here} />
+      <div class="drawer-divider"></div>
+      <h3 class="soapbox-subtitle">writing &amp; talks</h3>
+      <div class="rec-list">
+        {bridging.publications.map(p => (
+          <a class="rec-entry" href={p.url} target="_blank" rel="noopener">
+            <div class="rec-title">{p.title}</div>
+            <div class="rec-byline">{p.byline}</div>
+            <div class="rec-desc">{p.desc}</div>
+          </a>
+        ))}
+      </div>
+      <nav class="drawer-links">
+        {bridging.nav_links.map(l => <a href={l.url} target="_blank" rel="noopener">{l.label}</a>)}
+      </nav>
+    </article>
+
+    <!-- Building -->
+    <article class="drawer-panel" id="drawer-building">
+      <div class="section-marker"><span class="marker-num">{building.marker_num}</span> {building.marker_label}</div>
+      <h2>{building.heading}</h2>
+      <p set:html={building.intro} />
+      <p class="detail" set:html={building.detail} />
+      <div class="drawer-divider"></div>
+      <h3 class="soapbox-subtitle">what we run</h3>
+      <div class="rec-list">
+        {building.programs.map(p => (
+          <div class="rec-entry">
+            <div class="rec-title">{p.title}</div>
+            <div class="rec-desc">{p.desc}</div>
+          </div>
+        ))}
+      </div>
+      <p class="detail" style="margin-top: var(--space-md);">{building.extra_detail}</p>
+      <nav class="drawer-links">
+        {building.nav_links.map(l => <a href={l.url} target="_blank" rel="noopener">{l.label}</a>)}
+      </nav>
+    </article>
+
+    <!-- Attuning -->
+    <article class="drawer-panel" id="drawer-attuning">
+      <div class="section-marker"><span class="marker-num">{attuning.marker_num}</span> {attuning.marker_label}</div>
+      <h2>{attuning.heading}</h2>
+      <p>{attuning.intro}</p>
+      {attuning.soundcloud_embeds.map(e => (
+        <div class="soundcloud-embed">
+          <iframe width="100%" height={e.height} scrolling="no" frameborder="no" allow="autoplay" data-src={e.url}></iframe>
+        </div>
+      ))}
+      <nav class="drawer-links">
+        {attuning.nav_links.map(l => <a href={l.url} target="_blank" rel="noopener">{l.label}</a>)}
+      </nav>
+      <div class="drawer-divider"></div>
+      <h3 class="soapbox-subtitle">artists &amp; music i love</h3>
+      <div class="rec-category">
+        <div class="rec-list">
+          {attuning.artists.map(a => (
+            <a class="rec-entry" href={a.url} target="_blank" rel="noopener">
+              <div class="rec-title">{a.title}</div>
+              <div class="rec-desc">{a.desc}</div>
+            </a>
+          ))}
+        </div>
+      </div>
+      <div class="drawer-divider"></div>
+      <h3 class="soapbox-subtitle">movies &amp; tv</h3>
+      <div class="rec-category">
+        <div class="rec-list">
+          {attuning.movies.map(m => (
+            <a class="rec-entry" href={m.url} target="_blank" rel="noopener">
+              <div class="rec-title">{m.title}</div>
+              <div class="rec-byline">{m.byline}</div>
+              <div class="rec-desc">{m.desc}</div>
+            </a>
+          ))}
+        </div>
+      </div>
+      <div class="drawer-divider"></div>
+      <h3 class="soapbox-subtitle">games i like to play</h3>
+      <div class="rec-category">
+        <div class="rec-list">
+          {attuning.games.map(g => (
+            <a class="rec-entry" href={g.url} target="_blank" rel="noopener">
+              <div class="rec-title">{g.title}</div>
+              <div class="rec-desc">{g.desc}</div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </article>
+
+    <!-- Thinking -->
+    <article class="drawer-panel" id="drawer-thinking">
+      <div class="section-marker"><span class="marker-num">{thinking.marker_num}</span> {thinking.marker_label}</div>
+      <h2>{thinking.heading}</h2>
+      <p set:html={thinking.intro} />
+      <div class="keyideas-list" id="keyideas"></div>
+      <div class="drawer-divider"></div>
+      <h3 class="soapbox-subtitle">hot takes</h3>
+      <p>{thinking.hottakes_intro}</p>
+      <div class="hottakes-list" id="hottakes"></div>
+    </article>
+
+    <!-- Reading -->
+    <article class="drawer-panel" id="drawer-reading">
+      <div class="section-marker"><span class="marker-num">{reading.marker_num}</span> {reading.marker_label}</div>
+      <h2>{reading.heading}</h2>
+      <div class="bookshelf-shelves" id="bookshelf"></div>
+    </article>
+
+    <!-- Discovering -->
+    <article class="drawer-panel" id="drawer-discovering">
+      <div class="section-marker"><span class="marker-num">{discovering.marker_num}</span> {discovering.marker_label}</div>
+      <h2>{discovering.heading}</h2>
+      <p>{discovering.intro}</p>
+      <div class="recommendations-list" id="recommendations"></div>
+    </article>
+
+    <!-- Remembering -->
+    <article class="drawer-panel" id="drawer-remembering">
+      <div class="section-marker"><span class="marker-num">{remembering.marker_num}</span> {remembering.marker_label}</div>
+      <h2>{remembering.heading}</h2>
+      <p>{remembering.intro}</p>
+      <div class="timeline">
+        {remembering.timeline.map(t => (
+          <div class="timeline-entry">
+            <span class="timeline-year">{t.year}</span>
+            <span class="timeline-event">{t.event}</span>
+          </div>
+        ))}
+      </div>
+      <div class="drawer-divider"></div>
+      <h3 class="soapbox-subtitle">fun facts</h3>
+      <p class="detail">{remembering.funfacts_intro}</p>
+      <div class="funfacts-list" id="funfacts"></div>
+      <div class="drawer-divider"></div>
+      <h3 class="soapbox-subtitle">photo archive</h3>
+      <p class="detail">{remembering.archive_intro}</p>
+      <div class="archive-gallery" id="archive-gallery"></div>
+    </article>
+
+    </div>
+  </div>
+
+  <!-- Drawer backdrop -->
+  <div class="drawer-backdrop" aria-hidden="true"></div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close">[&times;] close</button>
+    <button class="lightbox-nav lightbox-prev">&lsaquo;</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+    <button class="lightbox-nav lightbox-next">&rsaquo;</button>
+    <div class="lightbox-counter" id="lightbox-counter"></div>
+  </div>
+
+  <!-- Easter egg: hidden fog toggle -->
+  <div class="fog-toggle" id="fog-toggle" aria-hidden="true">&#x1F4CE;</div>
+
+  <!-- AGI modal -->
+  <div class="agi-modal" id="agi-modal">
+    <div class="agi-modal-box">
+      <p class="agi-modal-text">congratulations, you have stumbled upon intelligence too cheap to meter.<br>bounded rationality is over.<br><br>are you actually prepared for agi, anon?</p>
+      <div class="agi-modal-buttons">
+        <button id="agi-love" class="agi-btn agi-btn--love">toward love too cheap to meter</button>
+        <button id="agi-nope" class="agi-btn agi-btn--nope">no, i&rsquo;m not ready</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="last-updated">last updated on 20 february 2026</div>
+
+  <!-- GSAP + Plugins via CDN -->
+  <script is:inline src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/gsap.min.js"></script>
+  <script is:inline src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/DrawSVGPlugin.min.js"></script>
+  <script is:inline src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/CustomEase.min.js"></script>
+  <script is:inline src="/main.js"></script>
+</BaseLayout>

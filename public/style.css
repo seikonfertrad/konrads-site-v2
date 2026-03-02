@@ -830,6 +830,54 @@ blockquote {
   line-height: 1.7;
 }
 
+/* ---- Timeline ---- */
+.timeline {
+  margin-top: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.timeline-entry {
+  display: flex;
+  gap: var(--space-md);
+  padding: var(--space-xs) 0;
+  border-left: 1px solid rgba(199, 91, 58, 0.2);
+  padding-left: var(--space-md);
+  position: relative;
+}
+
+.timeline-entry::before {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.timeline-year {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--accent);
+  white-space: nowrap;
+  min-width: 4.5em;
+  flex-shrink: 0;
+  opacity: 0.85;
+  line-height: 1.7;
+}
+
+.timeline-event {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
 /* ---- Good Stuff ---- */
 .recommendations-list {
   margin-top: var(--space-md);
@@ -980,6 +1028,16 @@ blockquote {
   width: 100%;
   margin-top: 12px;
   border: 1px solid rgba(199, 91, 58, 0.1);
+}
+
+.keyidea-grounded {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  opacity: 0.7;
+  line-height: 1.6;
+  font-style: italic;
 }
 
 .keyidea-related {

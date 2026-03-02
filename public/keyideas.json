@@ -1,0 +1,77 @@
+{
+  "items": [
+    {
+      "title": "coordination is the bottleneck",
+      "summary": "most problems that look like knowledge problems or resource problems are actually coordination problems. we often know what to do. we frequently have what we need. what's missing is the ability to get enough people aligned, trusting, and acting in concert. and when we genuinely don't know what to do, the way forward is tinkering — and tinkering is, as proto-industrial britain shows, largely a question of social status. people need to feel safe experimenting and having bets not pay off. the practical answer to coordination failures is better infrastructure: better tools, better protocols, better shared languages. we need to be far more ambitious about building this infrastructure and grant status to those who do so systematically.",
+      "related": ["thomas schelling", "elinor ostrom", "scott alexander", "herbert simon"],
+      "grounded": "→ why i co-founded a think tank that builds trust networks between diplomats, ai labs, and researchers across geopolitical fault-lines."
+    },
+    {
+      "title": "bounded rationality",
+      "summary": "herbert simon's core insight: humans don't optimize, they satisfice. we decide with incomplete information, finite time, and limited cognition. this isn't a flaw — it's the operating condition. kahneman treats this as systematic error to be corrected. gigerenzer gets closer: heuristics are adaptive compressions, not bugs. and since everything is trade-offs under bounded rationality, 'correcting' one bias means degrading performance somewhere else in the system. you can find better compressions — better heuristics — but you can't magically debias your way to optimality. two people with identical values will still reach different conclusions because they're working from different slices of reality. stop asking 'why don't people just...' and start designing for how people actually think.",
+      "related": ["herbert simon", "daniel kahneman", "gerd gigerenzer"],
+      "grounded": "→ why i wrote about most policymakers not being able to feel the stakes of frontier ai."
+    },
+    {
+      "title": "no fundamental value differences",
+      "summary": "most apparent value clashes aren't deep disagreements — they're artefacts of bounded rationality, polysemy (the same words meaning different things to different people), impatience to bridge inferential gaps, and two-level games where claiming incommensurable values is strategically useful for in-group cohesion. strip away the noise and people want remarkably similar things: safety, dignity, agency, belonging. the solution is better negotiation infrastructure — what seb krier calls coasean bargaining at scale: reducing the transaction costs that prevent us from actually hashing things out. most 'disagreements' dissolve when people sit long enough to adjust for subjective context. this applies at every scale — not just between nations, but between departments, subcultures, generations, any boundary where in-group and out-group form.",
+      "related": ["robert putnam", "eliezer yudkowsky", "ludwig wittgenstein", "seb krier"],
+      "grounded": "→ why i work on us-china ai diplomacy — studying worldviews on both sides to find where convergence is actually possible."
+    },
+    {
+      "title": "everything should be thinkable",
+      "summary": "no idea should be off-limits for consideration. the moment you declare a thought unthinkable, you lose the ability to reason about it — and reasoning about hard things is exactly how you avoid the worst outcomes. this is not the same as saying everything should be done. thinking is not endorsing. keeping everything publicly thinkable is precisely how you prevent dangerous ideas from festering underground. the defense against bad-faith exploitation isn't restricting what can be said — it's raising the bar for morally acceptable behavior and holding each other accountable to that bar. the strongest taboos should be on actions, not thoughts.",
+      "related": ["john stuart mill", "karl popper"],
+      "grounded": "→ why i run writing sundays, keep a private substack, and encourage friends to think out loud in safe spaces."
+    },
+    {
+      "title": "language as coordination infrastructure",
+      "summary": "language is our highest-bandwidth coordination tool, and most people use it terribly. precise language compresses information, bridges inferential gaps, and multiplies collective intelligence. writing and programming both train this skill: forcing you to compress thoughts into scrutinizable form. the bottleneck of inter-brain communication isn't just a constraint — it's what made us smart in the first place. use it well.",
+      "related": ["eliezer yudkowsky", "ludwig wittgenstein", "alberto acerbi"],
+      "grounded": "→ why i brief diplomats — translating between the people building ai and the people tasked with governing it."
+    },
+    {
+      "title": "the uncanny valley of improvement",
+      "summary": "to get from a local optimum to a better one, things will temporarily get worse. the art is being fine with this. moving from hare hunting (everyone fends for themselves, safe but mediocre) to stag hunting (coordinated trust, high payoff) means tolerating failed stag hunts along the way — coordination skills and infrastructure are a fail-forward exercise. depending on the scale of change, the discomfort might last a good while. but with the right entourage and a shared compass, you can survive the valley.",
+      "related": ["jean-jacques rousseau", "brian skyrms", "seth godin"],
+      "image": "images/uncanny-valley.svg",
+      "grounded": "→ lived this when pivoting si from biosecurity to ai governance, and again when scaling the team from 2 to 10."
+    },
+    {
+      "title": "complacency reduces agency",
+      "summary": "the threat isn't comfort itself — you can find comfort in exertion, in pushing further, in knowing you're growing. the threat is complacency: the quiet decision to stop reaching. we're not collectively ambitious enough, and much of that is because we've failed to mutually insure each other against the downside of trying. when failure means social death, people retreat into escapism instead of staring into the abyss. the fix is cultural: normalize ambitious tinkering, cushion the falls, and make it safe to reach. comfort in where you're at is fine — as long as you continuously know you can push further.",
+      "related": ["ben kuhn"],
+      "grounded": "→ why i founded fractalgva — create density of ambitious people who make it safe to tinker and fail."
+    },
+    {
+      "title": "good faith & hyperstitioning abundance",
+      "summary": "we need to simultaneously pursue technological solutions and modify culture toward what actually matters — walking a tightrope between both. hyperstition (borrowing the term from ccru but inverting its valence) is the key mechanism: act as if a better world is already emerging, and the acting helps make it real. but this only works if grounded in good faith — assuming others share the goal even when their methods differ. without good faith you get cynicism; without cultural realignment you get tech solutionism; without technology you get wishful thinking. the trick is holding all three at once.",
+      "related": ["nick land / ccru", "david deutsch", "rutger bregman"],
+      "grounded": "→ the operating principle behind both si and fractalgva — and why we throw castle weekends."
+    },
+    {
+      "title": "the need for economic growth",
+      "summary": "growth isn't greed — it's the prerequisite for everything else. health systems, climate adaptation, scientific research, safety nets, space exploration — all funded by surplus, and surplus requires growth. the average person today earns about $22,000/year in purchasing power. to bring everyone to swiss quality of life (~$82,000/year), global gdp needs to roughly quadruple — and that's before the institutional, educational, and infrastructure investment that makes that quality of life possible. the real multiplier is much higher. degrowth advocates don't understand that technological progress creates efficiencies: abundant nuclear energy, better materials, smarter logistics. the question isn't whether to grow but how to grow — sustainably, inclusively, and toward things that actually matter.",
+      "related": ["tyler cowen", "dietrich vollrath", "david deutsch"],
+      "grounded": "→ why i work on ai governance — ai is the most consequential growth driver in history and getting it right matters more than anything."
+    },
+    {
+      "title": "limits to growth rate & maximum scale",
+      "summary": "every entity — company, community, institution, movement — has a natural growth rate it can sustain without losing coherence. grow too fast and culture breaks, quality drops, trust erodes. there's also a maximum scale beyond which coordination costs exceed the value of coordination. even cities, which show superlinear returns to innovation, face diminishing returns across other dimensions — liveability, governance, social cohesion — following logistic curves that flatten. it's always a multi-objective optimization problem. still: the right answer is to push at the frontier of what's possible, not to retreat to safe abstractions. staying small and comfortable means you stop getting feedback from reality. networks over monoliths, but ambitious networks.",
+      "related": ["robin dunbar", "elinor ostrom", "geoffrey west"],
+      "grounded": "→ hard-won from scaling si to 10 while fighting to maintain culture, and building fractalgva as a decentralized network rather than a single space."
+    },
+    {
+      "title": "aesthetics as coordination infrastructure",
+      "summary": "we've optimized for cost-efficiency everywhere and lost something essential: the capacity to inspire. aesthetic grandeur — in architecture, interior design, art, fashion — isn't a luxury. it's coordination infrastructure. beauty and awe connect people to their higher selves, to shared aspiration, to a sense that something larger is worth building toward. a future worth wanting needs to look and feel worth wanting. we need more inspiration and less beige.",
+      "related": ["christopher alexander", "alain de botton", "roger scruton"],
+      "grounded": "→ why castle weekends are in a castle, why this site looks like a map, and why i dj."
+    },
+    {
+      "title": "focus on what you want to see more of",
+      "summary": "the simplest heuristic for shaping the world around you: reward what you like, rather than punishing what you don't. leave positive reviews. amplify good work. give attention to the things you value. energy flows where attention goes, and most people waste theirs on outrage.",
+      "related": [],
+      "grounded": "→ why i write google reviews compulsively and try to leave positive ones."
+    }
+  ]
+}

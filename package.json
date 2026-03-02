@@ -1,0 +1,27 @@
+{
+  "name": "konrads-site-v2",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seikonfertrad/konrads-site-v2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/seikonfertrad/konrads-site-v2/issues"
+  },
+  "homepage": "https://github.com/seikonfertrad/konrads-site-v2#readme",
+  "dependencies": {
+    "@astrojs/rss": "^4.0.15",
+    "@astrojs/sitemap": "^3.7.0",
+    "astro": "^5.18.0"
+  }
+}

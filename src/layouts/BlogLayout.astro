@@ -1,0 +1,77 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import BlogNav from '../components/BlogNav.astro';
+import SubscribeForm from '../components/SubscribeForm.astro';
+import '../styles/base.css';
+import '../styles/blog.css';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  tags?: string[];
+}
+
+const { title, description, pubDate, updatedDate, tags = [] } = Astro.props;
+
+const formattedDate = pubDate.toLocaleDateString('en-us', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const formattedUpdatedDate = updatedDate?.toLocaleDateString('en-us', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  datePublished: pubDate.toISOString(),
+  ...(updatedDate && { dateModified: updatedDate.toISOString() }),
+  author: {
+    '@type': 'Person',
+    name: 'Konrad Seifert',
+    url: 'https://konrads.link',
+  },
+  url: Astro.url.href,
+});
+---
+
+<BaseLayout title={`${title} — konrad seifert`} description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLd} />
+  <div class="blog-container">
+    <BlogNav />
+
+    <article>
+      <header class="post-header">
+        <div class="post-header-date">
+          <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+          {formattedUpdatedDate && <span> · updated {formattedUpdatedDate}</span>}
+        </div>
+        <h1>{title}</h1>
+        <p class="post-header-description">{description}</p>
+        {tags.length > 0 && (
+          <div class="post-header-tags">
+            {tags.map((tag) => <span class="tag">{tag}</span>)}
+          </div>
+        )}
+      </header>
+
+      <div class="prose">
+        <slot />
+      </div>
+
+      <footer class="post-footer">
+        <SubscribeForm variant="inline" />
+        <slot name="footer" />
+        <a href="/blog/" class="back-link">&larr; all posts</a>
+      </footer>
+    </article>
+  </div>
+</BaseLayout>

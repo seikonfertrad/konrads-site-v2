@@ -1,0 +1,91 @@
+{
+  "items": [
+    {
+      "category": "essays",
+      "items": [
+        {
+          "title": "staring into the abyss as a core life skill",
+          "url": "https://www.benkuhn.net/abyss/",
+          "by": "ben kuhn",
+          "desc": "the practice of deeply examining the hard questions you'd rather avoid. short, practical, and quietly life-changing."
+        },
+        {
+          "title": "actually possible: thoughts on utopia",
+          "url": "https://joecarlsmith.com/2021/01/18/actually-possible-thoughts-on-utopia",
+          "by": "joe carlsmith",
+          "desc": "the most beautiful thing i've read about what a good future could actually look like. not sci-fi, not naive — just careful, honest hope."
+        },
+        {
+          "title": "coasean bargaining at scale",
+          "url": "https://blog.cosmos-institute.org/p/coasean-bargaining-at-scale",
+          "by": "séb krier",
+          "desc": "how ai agents could reduce transaction costs to near-zero, enabling the kind of decentralised negotiation that makes most political disagreements dissolve."
+        },
+        {
+          "title": "cfar handbook",
+          "url": "https://www.rationality.org/files/CFAR_Handbook_2021-01.pdf",
+          "by": "center for applied rationality",
+          "desc": "the guide to applied rationality. techniques for noticing where your functioning breaks down and fixing it."
+        },
+        {
+          "title": "the fragile world hypothesis",
+          "url": "https://www.sciencedirect.com/science/article/pii/S0016328720300604",
+          "by": "david manheim",
+          "desc": "civilization is a tightrope walk — fragility isn't a bug, it's the natural state of complex systems. the point isn't to be scared or to clamp down with heavy-handed control. it's that staying on the rope requires thoughtful governance at every scale, and within those bounds, you go as hard as you can."
+        },
+        {
+          "title": "the minimum growth needed to end poverty",
+          "url": "https://ourworldindata.org/poverty-minimum-growth-needed",
+          "by": "max roser",
+          "desc": "the world economy needs to grow at least 5x to eradicate poverty -- much more even if we want everyone to have our quality of life -- technology is our only path forward."
+        }
+      ]
+    },
+    {
+      "category": "blogs",
+      "items": [
+        {
+          "title": "slate star codex / astral codex ten",
+          "url": "https://www.astralcodexten.com",
+          "by": "scott alexander",
+          "desc": "a psychiatrist who writes about coordination failures, truth-seeking, linguistics, medicine, and active inference — always with wit, sometimes with rigor."
+        },
+        {
+          "title": "putanumonit",
+          "url": "https://putanumonit.com",
+          "by": "jacob falkovich",
+          "desc": "bayesian thinking applied to dating, politics, and life. rationality that's fun to read."
+        },
+        {
+          "title": "carl shulman",
+          "url": "https://www.reflectivedisequilibrium.com/",
+          "by": "carl shulman",
+          "desc": "possibly the most careful thinker alive on tech trajectories and their implications. rarely writes in public, always worth reading."
+        }
+      ]
+    },
+    {
+      "category": "podcasts",
+      "items": [
+        {
+          "title": "sean carroll's mindscape",
+          "url": "https://www.preposterousuniverse.com/podcast/",
+          "by": "sean carroll",
+          "desc": "a physicist with range: consciousness, morality, quantum mechanics, aliens."
+        },
+        {
+          "title": "the knowledge project",
+          "url": "https://fs.blog/knowledge-project-podcast/",
+          "by": "shane parrish",
+          "desc": "decision-making and mental models. the barbara coloroso episode is secretly a masterclass in human interaction."
+        },
+        {
+          "title": "you are not so smart",
+          "url": "https://youarenotsosmart.com/",
+          "by": "david mcraney",
+          "desc": "cognitive biases, self-delusion, and why your brain lies to you. the ads are annoying but the content earns them."
+        }
+      ]
+    }
+  ]
+}

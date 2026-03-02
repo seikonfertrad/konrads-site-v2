@@ -1,0 +1,48 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  bodyClass?: string;
+}
+
+const {
+  title,
+  description = 'konrad seifert — ai diplomacy, community building, djing, and radically better futures.',
+  ogImage = 'https://konrads.link/og-image.png',
+  bodyClass = '',
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="description" content={description}>
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content={Astro.url.href}>
+  <meta property="og:image" content={ogImage}>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content={ogImage}>
+  <title>{title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="alternate" type="application/rss+xml" title="konrad seifert" href="/rss.xml">
+  <slot name="head" />
+</head>
+<body class={bodyClass}>
+  <slot />
+
+  <!-- GoatCounter — privacy-friendly analytics -->
+  <script data-goatcounter="https://konrads.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js" is:inline></script>
+</body>
+</html>

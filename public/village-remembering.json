@@ -1,0 +1,19 @@
+{
+  "marker_num": "07",
+  "marker_label": "the archive",
+  "heading": "personal lore",
+  "intro": "the rough arc, then some details.",
+  "timeline": [
+    { "year": "2013", "event": "discovered effective altruism through an interest in animal rights." },
+    { "year": "2014", "event": "started studying international relations in geneva. built ea group instead of attending lectures." },
+    { "year": "2016", "event": "got funded at a bioethics summer academy. dropped out of university to professionalize community building." },
+    { "year": "2016–19", "event": "rebuilt ea switzerland. ran 100+ interviews with senior policymakers on catastrophic risk decision-making." },
+    { "year": "2018–19", "event": "organized side events at the biological weapons convention. started computational modelling of pandemic attention dynamics." },
+    { "year": "2020", "event": "covid validated our focus on catastrophic risks. translated the momentum into a new vehicle." },
+    { "year": "2021", "event": "co-founded the simon institute for longterm governance with max stauffer. initially focused on bio + ai." },
+    { "year": "2023", "event": "chatgpt validated our focus on ai. went all in on ai governance." },
+    { "year": "2025", "event": "team of 10, chf 5m+ raised. two trips to china. frontier ai diplomacy. founded fractalgva. applying for swiss citizenship." }
+  ],
+  "funfacts_intro": "some background on what might have made me me",
+  "archive_intro": "i have no mental imagery and am trying to get better at taking photos and sharing them. this is 10y on instagram (2014–2024), which i abandoned but exported all my data from."
+}

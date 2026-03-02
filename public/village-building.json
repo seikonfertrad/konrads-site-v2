@@ -1,0 +1,17 @@
+{
+  "marker_num": "02",
+  "marker_label": "the community",
+  "heading": "building our village in the city",
+  "intro": "<a href=\"https://fractalgva.ch\" target=\"_blank\" rel=\"noopener\">fractalgva</a> is a neighborhood project in geneva's eaux-vives. the idea: create density of interesting people and serendipitously generate scenius. friends move closer, events self-organize, and the city starts to feel like a durable home base.",
+  "detail": "previously, i rebuilt <a href=\"https://effectivealtruism.ch\" target=\"_blank\" rel=\"noopener\">ea switzerland</a> from 2016–2019—dropped out of university to do it. the pattern is the same: find the ambitious weirdos, give them infrastructure, watch what happens.",
+  "programs": [
+    { "title": "fractal university", "desc": "peer-taught courses on things we care about—claude code, twitter strategy, civilization infrastructure. by far the biggest impact on our community life." },
+    { "title": "fractal accelerator", "desc": "intensive neighborhood-building program. ran in summer 2025 and led to a significant increase in people around us organizing their own activities." },
+    { "title": "weekly events", "desc": "open meetups, themed dinners, writing sundays, massage workshops, retro retreats. at least one every week, year-round." },
+    { "title": "castle weekends", "desc": "annual gathering of friends in a swiss castle. talks, adventures, and the kind of conversations that only happen when you take people out of their routines." }
+  ],
+  "extra_detail": "over the years this has also produced: ea workshops, a brocher workshop, themed meetups, groups (civilization servants, the guild, chirad, co-ceos), and a few organizations.",
+  "nav_links": [
+    { "label": "fractalgva.ch", "url": "https://fractalgva.ch" }
+  ]
+}

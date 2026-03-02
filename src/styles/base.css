@@ -1,0 +1,60 @@
+/* ============================================
+   SHARED DESIGN TOKENS
+   Extracted from the map's style.css
+   ============================================ */
+
+:root {
+  --bg: #FAF8F5;
+  --text: #1A1A1A;
+  --text-secondary: #6B6560;
+  --text-muted: #9A9490;
+  --accent: #C75B3A;
+  --accent-light: rgba(199, 91, 58, 0.08);
+  --contour: #C75B3A;
+  --border: #E0DAD0;
+  --font-sans: 'Inter', -apple-system, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+
+  --space-xs: 6px;
+  --space-sm: 12px;
+  --space-md: 24px;
+  --space-lg: 48px;
+  --space-xl: 96px;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+a:hover {
+  border-bottom-color: var(--accent);
+}
