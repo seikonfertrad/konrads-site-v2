@@ -163,6 +163,28 @@ collections:
           - { name: funfacts_intro, label: Fun Facts Intro, widget: text }
           - { name: archive_intro, label: Archive Intro, widget: text }
 
+  - name: pages
+    label: Pages
+    files:
+      - name: geneva
+        label: "Geneva — why we're here"
+        file: public/geneva.json
+        fields:
+          - { name: heading, label: Heading, widget: string }
+          - { name: subtitle, label: Subtitle, widget: string }
+          - { name: intro, label: Intro, widget: text }
+          - { name: why_here, label: "Why Here", widget: text }
+          - name: sections
+            label: Sections
+            widget: list
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: text, label: Text, widget: text }
+              - { name: image, label: Image Path, widget: string }
+              - { name: caption, label: Caption, widget: string }
+          - { name: closing, label: Closing, widget: text }
+          - { name: photo_credits, label: Photo Credits, widget: string }
+
   - name: map_data
     label: Map Data
     files:

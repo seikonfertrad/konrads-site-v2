@@ -1,0 +1,132 @@
+/* ============================================
+   GENEVA PAGE STYLES
+   Photo essay layout with full-bleed images
+   ============================================ */
+
+.geneva-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-md);
+  min-height: 100vh;
+}
+
+/* ---- Header ---- */
+
+.geneva-header {
+  margin-bottom: var(--space-xl);
+}
+
+.geneva-coords {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: lowercase;
+  letter-spacing: 0.05em;
+}
+
+.geneva-header h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin: var(--space-sm) 0;
+}
+
+.geneva-intro {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-top: var(--space-md);
+}
+
+.geneva-why {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-top: var(--space-md);
+}
+
+/* ---- Sections ---- */
+
+.geneva-section {
+  margin-bottom: var(--space-xl);
+}
+
+.geneva-section-img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: var(--space-sm);
+  display: block;
+}
+
+.geneva-section-caption {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: lowercase;
+  margin-bottom: var(--space-md);
+}
+
+.geneva-section h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-sm);
+}
+
+.geneva-section p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+/* ---- Closing ---- */
+
+.geneva-closing {
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  font-style: italic;
+  padding: var(--space-lg) 0;
+  border-top: 1px solid var(--border);
+}
+
+.geneva-credits {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: lowercase;
+  margin-top: var(--space-md);
+}
+
+/* ---- Back link ---- */
+
+.geneva-back {
+  margin-top: var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--border);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.geneva-back a:hover {
+  color: var(--accent);
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 600px) {
+  .geneva-container {
+    padding: var(--space-md) var(--space-sm);
+  }
+
+  .geneva-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .geneva-intro,
+  .geneva-why,
+  .geneva-section p {
+    font-size: 1rem;
+  }
+}

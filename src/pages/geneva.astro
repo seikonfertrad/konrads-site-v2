@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BlogNav from '../components/BlogNav.astro';
+import geneva from '../../public/geneva.json';
+---
+
+<BaseLayout
+  title="why geneva — konrad seifert"
+  description="why we chose geneva: diversity, natural beauty, intellectual density, and the best place to raise a family."
+>
+  <link slot="head" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+  <style slot="head" is:inline>
+    @import '/src/styles/base.css';
+    @import '/src/styles/blog.css';
+    @import '/src/styles/geneva.css';
+  </style>
+
+  <div class="geneva-container">
+    <BlogNav />
+
+    <header class="geneva-header">
+      <div class="geneva-coords">{geneva.subtitle}</div>
+      <h1>{geneva.heading}</h1>
+      <p class="geneva-intro">{geneva.intro}</p>
+      <p class="geneva-why">{geneva.why_here}</p>
+    </header>
+
+    {geneva.sections.map(s => (
+      <section class="geneva-section">
+        <img class="geneva-section-img" src={s.image} alt={s.caption} loading="lazy" />
+        <div class="geneva-section-caption">{s.caption}</div>
+        <h2>{s.title}</h2>
+        <p>{s.text}</p>
+      </section>
+    ))}
+
+    <p class="geneva-closing">{geneva.closing}</p>
+    <div class="geneva-credits">{geneva.photo_credits}</div>
+
+    <div class="geneva-back">
+      <a href="/">&larr; back to the map</a>
+    </div>
+  </div>
+</BaseLayout>
