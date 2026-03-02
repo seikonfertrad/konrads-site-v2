@@ -1,0 +1,23 @@
+{
+  "marker_num": "01",
+  "marker_label": "the day job",
+  "heading": "harnessing inferential gaps to defeat bounded rationality",
+  "intro": "co-founder of the <a href=\"https://simoninstitute.ch\" target=\"_blank\" rel=\"noopener\">simon institute for longterm governance</a>. we do frontier ai diplomacy—helping china and the west exchange on ai governance so that frontier r&d is understood across geopolitical fault-lines.",
+  "details": [
+    "in practice: we brief diplomats and international civil servants, connect them to technical experts, and contribute to official documents via trust networks across countries' missions and international organisations' secretariats. the goal is productive communication between the people building the most powerful technology in history and the people tasked with governing it—across countries that don't (yet) believe they have shared goals.",
+    "we started in biosecurity—organizing side events at the biological weapons convention, running tabletop exercises, modelling pandemic attention dynamics. when covid validated our focus on catastrophic risks, we launched the institute. when chatgpt validated our focus on ai, we went all in. now a team of 10, chf 5m+ raised, operating at the intersection of technical governance and intercultural exchange."
+  ],
+  "path_here": "discovered ea in 2013 through animal rights. built ea geneva, then rebuilt ea switzerland 2016–2019. dropped out of university after getting funded to professionalize community building. ran 100+ interviews with senior policymakers on catastrophic risk decision-making. co-founded the simon institute in 2021 with <a href=\"https://maxstauffer.com\" target=\"_blank\" rel=\"noopener\">max stauffer</a>, who had been sleeping on my couch since we were both too excited about policy to stop talking.",
+  "publications": [
+    { "title": "most policymakers cannot feel a higher", "url": "https://open.substack.com/pub/konradseifert/p/most-policymakers-cannot-feel-a-higher", "byline": "substack", "desc": "on the inferential gap between those who build frontier ai and those who govern it." },
+    { "title": "how the history of cern can inform international ai r&d efforts", "url": "https://konradseifert.substack.com/", "byline": "substack", "desc": "what diplomatic entrepreneurship looks like when countries don't trust each other yet." },
+    { "title": "rand perspectives piece", "url": "https://www.rand.org/pubs/perspectives/PEA3703-1.html", "byline": "rand corporation", "desc": "co-authored research on emerging tech governance." },
+    { "title": "existential threats beyond the bomb", "url": "https://europeanleadershipnetwork.org/commentary/existential-threats-beyond-the-bomb-emerging-disruptive-technologies-in-the-age-of-ai/", "byline": "european leadership network", "desc": "on emerging disruptive technologies in the age of ai." },
+    { "title": "fake brains and killer robots", "url": "https://europeanleadershipnetwork.org/commentary/ok-doomer-the-never-podcast-fake-brains-and-killer-robots/", "byline": "eln · never podcast", "desc": "podcast on ai risk and international security." },
+    { "title": "existential risk & rapid technological change", "url": "https://sendaiframework-mtr.undrr.org/publication/thematic-study-existential-risk-and-rapid-technological-change-advancing-risk-informed", "byline": "undrr · sendai framework", "desc": "thematic study advancing risk-informed development." }
+  ],
+  "nav_links": [
+    { "label": "simoninstitute.ch", "url": "https://simoninstitute.ch" },
+    { "label": "substack", "url": "https://substack.com/@konradseifert" }
+  ]
+}

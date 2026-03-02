@@ -1104,10 +1104,10 @@ function handleResize(contourPathsRef, villagePositionsRef) {
 
   window.addEventListener('resize', () => handleResize(contourPathsRef, villagePositionsRef));
 
-  // Archive gallery — lazy-load manifest when drawer first opens
+  // Archive gallery
   initArchiveGallery();
 
-  // Lazy-load JSON data on first drawer open
+  // Lazy-load JSON data
   initLazyPanels();
 })();
 
@@ -1248,14 +1248,13 @@ function initLazyPanels() {
     { containerId: 'keyideas',        json: 'keyideas.json',        render: renderKeyIdeas },
   ];
 
-  // Prefetch all JSON and render panels in background after page is ready
   const prefetch = () => {
     registry.forEach(cfg => {
       const container = document.getElementById(cfg.containerId);
       if (container) {
         fetch(cfg.json)
           .then(r => r.json())
-          .then(data => cfg.render(data, container))
+          .then(data => cfg.render(data.items || data, container))
           .catch(() => {});
       }
     });

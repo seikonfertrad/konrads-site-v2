@@ -1,0 +1,118 @@
+---
+interface Props {
+  variant?: 'block' | 'inline';
+}
+
+const { variant = 'block' } = Astro.props;
+---
+
+{variant === 'block' ? (
+  <div class="subscribe subscribe--block">
+    <h3 class="subscribe-heading">get new posts by email</h3>
+    <p class="subscribe-text">no spam, unsubscribe anytime.</p>
+    <form
+      action="https://buttondown.com/api/emails/embed-subscribe/konradseifert"
+      method="post"
+      target="popupwindow"
+      class="subscribe-form"
+    >
+      <input type="email" name="email" placeholder="you@example.com" required class="subscribe-input" />
+      <button type="submit" class="subscribe-button">subscribe</button>
+    </form>
+  </div>
+) : (
+  <div class="subscribe subscribe--inline">
+    <p class="subscribe-text">enjoyed this? get future posts by email:</p>
+    <form
+      action="https://buttondown.com/api/emails/embed-subscribe/konradseifert"
+      method="post"
+      target="popupwindow"
+      class="subscribe-form"
+    >
+      <input type="email" name="email" placeholder="you@example.com" required class="subscribe-input" />
+      <button type="submit" class="subscribe-button">subscribe</button>
+    </form>
+  </div>
+)}
+
+<style>
+  .subscribe {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: var(--space-md);
+  }
+
+  .subscribe--block {
+    margin: var(--space-lg) 0;
+    background: var(--accent-light);
+  }
+
+  .subscribe--inline {
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .subscribe-heading {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+    text-transform: lowercase;
+  }
+
+  .subscribe-text {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .subscribe-form {
+    display: flex;
+    gap: var(--space-xs);
+  }
+
+  .subscribe-input {
+    flex: 1;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+
+  .subscribe-input:focus {
+    border-color: var(--accent);
+  }
+
+  .subscribe-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .subscribe-button {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    background: var(--accent);
+    color: var(--bg);
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    text-transform: lowercase;
+    white-space: nowrap;
+  }
+
+  .subscribe-button:hover {
+    opacity: 0.85;
+  }
+
+  @media (max-width: 480px) {
+    .subscribe-form {
+      flex-direction: column;
+    }
+  }
+</style>

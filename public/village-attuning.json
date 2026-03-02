@@ -1,0 +1,28 @@
+{
+  "marker_num": "03",
+  "marker_label": "the flow state",
+  "heading": "creating, listening, dancing",
+  "intro": "i curate and weave tracks together — from acid techno to hip hop and jazz — mostly for myself to enjoy, and sometimes at friends' parties.",
+  "soundcloud_embeds": [
+    { "url": "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/kontrab4nd/bumpy-solstice-2am-ghetto-tek-2022-06-19&color=%23C75B3A&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false", "height": 166 },
+    { "url": "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/kontrab4nd/not-the-holiday-mix-i-had-imagined&color=%23C75B3A&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false", "height": 166 },
+    { "url": "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/kontrab4nd/sets/all-time-favorites&color=%23C75B3A&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&show_artwork=true", "height": 300 }
+  ],
+  "nav_links": [
+    { "label": "soundcloud", "url": "https://soundcloud.com/kontrab4nd" }
+  ],
+  "artists": [
+    { "title": "sonia calico", "url": "https://soundcloud.com/soniacalico", "desc": "taiwanese dj/producer. experimental club, deconstructed, relentless energy." },
+    { "title": "acid pauli", "url": "https://soundcloud.com/acidpauli", "desc": "psychedelic electronic music. organic, deeply textured, impossible to sit still to." },
+    { "title": "nils frahm", "url": "https://www.nilsfrahm.com/works/live-at-montreux-jazz-festival-2015/", "desc": "intimate piano with electronic textures, ambient techno-influenced soundscapes." }
+  ],
+  "movies": [
+    { "title": "sense8", "url": "https://www.imdb.com/title/tt2431438/", "byline": "the wachowskis", "desc": "eight strangers across the world share consciousness." },
+    { "title": "everything everywhere all at once", "url": "https://www.imdb.com/title/tt6710474/", "byline": "daniels", "desc": "multiverse absurdism that becomes the most moving film about love and laundry." },
+    { "title": "altered carbon", "url": "https://www.imdb.com/title/tt2261227/", "byline": "laeta kalogridis", "desc": "consciousness is software, bodies are hardware, and immortality breaks society in ways that feel inevitable. cyberpunk noir at its most philosophical." }
+  ],
+  "games": [
+    { "title": "hanabi", "url": "https://boardgamegeek.com/boardgame/98778/hanabi", "desc": "cooperative card game where you can see everyone's hand but your own. pure coordination problem." },
+    { "title": "secret hitler", "url": "https://www.secrethitler.com", "desc": "watching your friends lie to your face is a great way to build trust." }
+  ]
+}

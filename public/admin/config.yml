@@ -1,0 +1,236 @@
+backend:
+  name: github
+  repo: seikonfertrad/konrads-site-v2
+  branch: main
+
+media_folder: public/images/blog
+public_folder: /images/blog
+
+collections:
+  - name: blog
+    label: Blog Posts
+    folder: src/content/blog
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: description, label: Description, widget: string }
+      - { name: pubDate, label: Publish Date, widget: datetime, date_format: YYYY-MM-DD, time_format: false }
+      - { name: updatedDate, label: Updated Date, widget: datetime, date_format: YYYY-MM-DD, time_format: false, required: false }
+      - { name: tags, label: Tags, widget: list, default: [] }
+      - { name: draft, label: Draft, widget: boolean, default: false }
+      - { name: body, label: Body, widget: markdown }
+
+  - name: map_villages
+    label: Map Villages
+    files:
+      - name: bridging
+        label: "01 Bridging — the day job"
+        file: public/village-bridging.json
+        fields:
+          - { name: marker_num, label: Marker Number, widget: string }
+          - { name: marker_label, label: Marker Label, widget: string }
+          - { name: heading, label: Heading, widget: string }
+          - { name: intro, label: Intro (HTML ok), widget: text }
+          - name: details
+            label: Detail Paragraphs
+            widget: list
+            field: { name: text, label: Text, widget: text }
+          - { name: path_here, label: "Path Here (HTML ok)", widget: text }
+          - name: publications
+            label: Publications
+            widget: list
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: url, label: URL, widget: string }
+              - { name: byline, label: Byline, widget: string }
+              - { name: desc, label: Description, widget: string }
+          - name: nav_links
+            label: Nav Links
+            widget: list
+            fields:
+              - { name: label, label: Label, widget: string }
+              - { name: url, label: URL, widget: string }
+
+      - name: building
+        label: "02 Building — the community"
+        file: public/village-building.json
+        fields:
+          - { name: marker_num, label: Marker Number, widget: string }
+          - { name: marker_label, label: Marker Label, widget: string }
+          - { name: heading, label: Heading, widget: string }
+          - { name: intro, label: Intro (HTML ok), widget: text }
+          - { name: detail, label: Detail (HTML ok), widget: text }
+          - name: programs
+            label: Programs
+            widget: list
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: desc, label: Description, widget: text }
+          - { name: extra_detail, label: Extra Detail, widget: text }
+          - name: nav_links
+            label: Nav Links
+            widget: list
+            fields:
+              - { name: label, label: Label, widget: string }
+              - { name: url, label: URL, widget: string }
+
+      - name: attuning
+        label: "03 Attuning — the flow state"
+        file: public/village-attuning.json
+        fields:
+          - { name: marker_num, label: Marker Number, widget: string }
+          - { name: marker_label, label: Marker Label, widget: string }
+          - { name: heading, label: Heading, widget: string }
+          - { name: intro, label: Intro, widget: text }
+          - name: soundcloud_embeds
+            label: SoundCloud Embeds
+            widget: list
+            fields:
+              - { name: url, label: Embed URL, widget: string }
+              - { name: height, label: Height (px), widget: number, default: 166 }
+          - name: nav_links
+            label: Nav Links
+            widget: list
+            fields:
+              - { name: label, label: Label, widget: string }
+              - { name: url, label: URL, widget: string }
+          - name: artists
+            label: Artists
+            widget: list
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: url, label: URL, widget: string }
+              - { name: desc, label: Description, widget: string }
+          - name: movies
+            label: Movies & TV
+            widget: list
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: url, label: URL, widget: string }
+              - { name: byline, label: Byline, widget: string }
+              - { name: desc, label: Description, widget: string }
+          - name: games
+            label: Games
+            widget: list
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: url, label: URL, widget: string }
+              - { name: desc, label: Description, widget: string }
+
+      - name: thinking
+        label: "04 Thinking — the soapbox"
+        file: public/village-thinking.json
+        fields:
+          - { name: marker_num, label: Marker Number, widget: string }
+          - { name: marker_label, label: Marker Label, widget: string }
+          - { name: heading, label: Heading, widget: string }
+          - { name: intro, label: Intro (HTML ok), widget: text }
+          - { name: hottakes_intro, label: Hot Takes Intro, widget: text }
+
+      - name: reading
+        label: "05 Reading — the bookshelf"
+        file: public/village-reading.json
+        fields:
+          - { name: marker_num, label: Marker Number, widget: string }
+          - { name: marker_label, label: Marker Label, widget: string }
+          - { name: heading, label: Heading, widget: string }
+
+      - name: discovering
+        label: "06 Discovering — the rabbit holes"
+        file: public/village-discovering.json
+        fields:
+          - { name: marker_num, label: Marker Number, widget: string }
+          - { name: marker_label, label: Marker Label, widget: string }
+          - { name: heading, label: Heading, widget: string }
+          - { name: intro, label: Intro, widget: text }
+
+      - name: remembering
+        label: "07 Remembering — the archive"
+        file: public/village-remembering.json
+        fields:
+          - { name: marker_num, label: Marker Number, widget: string }
+          - { name: marker_label, label: Marker Label, widget: string }
+          - { name: heading, label: Heading, widget: string }
+          - { name: intro, label: Intro, widget: text }
+          - name: timeline
+            label: Timeline
+            widget: list
+            fields:
+              - { name: year, label: Year, widget: string }
+              - { name: event, label: Event, widget: text }
+          - { name: funfacts_intro, label: Fun Facts Intro, widget: text }
+          - { name: archive_intro, label: Archive Intro, widget: text }
+
+  - name: map_data
+    label: Map Data
+    files:
+      - name: books
+        label: Books
+        file: public/books.json
+        fields:
+          - name: items
+            label: Books
+            widget: list
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: author, label: Author, widget: string }
+              - { name: cover, label: Cover Path, widget: string }
+
+      - name: hottakes
+        label: Hot Takes
+        file: public/hottakes.json
+        fields:
+          - name: items
+            label: Hot Takes
+            widget: list
+            fields:
+              - { name: take, label: Take, widget: text }
+              - { name: tag, label: Tag, widget: string }
+
+      - name: keyideas
+        label: Key Ideas
+        file: public/keyideas.json
+        fields:
+          - name: items
+            label: Key Ideas
+            widget: list
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: summary, label: Summary, widget: text }
+              - name: related
+                label: Related Thinkers
+                widget: list
+                field: { name: name, label: Name, widget: string }
+              - { name: grounded, label: Grounded In, widget: text, required: false }
+              - { name: image, label: Image Path, widget: string, required: false }
+
+      - name: funfacts
+        label: Fun Facts
+        file: public/funfacts.json
+        fields:
+          - name: items
+            label: Fun Facts
+            widget: list
+            fields:
+              - { name: handle, label: Handle, widget: string }
+              - { name: text, label: Text, widget: text }
+
+      - name: recommendations
+        label: Recommendations
+        file: public/recommendations.json
+        fields:
+          - name: items
+            label: Categories
+            widget: list
+            fields:
+              - { name: category, label: Category, widget: string }
+              - name: items
+                label: Items
+                widget: list
+                fields:
+                  - { name: title, label: Title, widget: string }
+                  - { name: url, label: URL, widget: string }
+                  - { name: by, label: By, widget: string }
+                  - { name: desc, label: Description, widget: string }

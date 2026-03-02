@@ -1,0 +1,24 @@
+{
+  "items": [
+    { "title": "albion's seed", "author": "david hackett fischer", "cover": "covers/albions-seed.jpg" },
+    { "title": "playing to win", "author": "david sirlin", "cover": "covers/playing-to-win.jpg" },
+    { "title": "reasons and persons", "author": "derek parfit", "cover": "covers/reasons-and-persons.jpg" },
+    { "title": "harry potter and the methods of rationality", "author": "eliezer yudkowsky", "cover": "covers/harry-potter-and-the-methods-of-rationality.jpg" },
+    { "title": "inadequate equilibria", "author": "eliezer yudkowsky", "cover": "covers/inadequate-equilibria.jpg" },
+    { "title": "the listening society", "author": "hanzi freinacht", "cover": "covers/the-listening-society.jpg" },
+    { "title": "competitive sensemaking", "author": "john nerst", "cover": "covers/competitive-sensemaking.jpg" },
+    { "title": "impro", "author": "keith johnstone", "cover": "covers/impro.jpg" },
+    { "title": "trade wars are class wars", "author": "klein & pettis", "cover": "covers/trade-wars-are-class-wars.jpg" },
+    { "title": "skin in the game", "author": "nassim nicholas taleb", "cover": "covers/skin-in-the-game.jpg" },
+    { "title": "a billion wicked thoughts", "author": "ogi ogas & sai gaddam", "cover": "covers/a-billion-wicked-thoughts.jpg" },
+    { "title": "against empathy", "author": "paul bloom", "cover": "covers/against-empathy.jpg" },
+    { "title": "zero to one", "author": "peter thiel", "cover": "covers/zero-to-one.jpg" },
+    { "title": "there is no antimemetics division", "author": "qntm", "cover": "covers/there-is-no-antimemetics-division.jpg" },
+    { "title": "altered carbon", "author": "richard morgan", "cover": "covers/altered-carbon.jpg" },
+    { "title": "behave", "author": "robert sapolsky", "cover": "covers/behave.jpg" },
+    { "title": "friends", "author": "robin dunbar", "cover": "covers/friends.jpg" },
+    { "title": "lying", "author": "sam harris", "cover": "covers/lying.jpg" },
+    { "title": "the 7 habits of highly effective people", "author": "stephen covey", "cover": "covers/the-7-habits.jpg" },
+    { "title": "stubborn attachments", "author": "tyler cowen", "cover": "covers/stubborn-attachments.jpg" }
+  ]
+}
