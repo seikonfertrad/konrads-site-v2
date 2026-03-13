@@ -46,7 +46,7 @@ const {
     position: fixed;
     inset: 0;
     z-index: 9999;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     background: rgba(0, 0, 0, 0.6);
@@ -84,9 +84,12 @@ const {
   </div>
   <script is:inline>
     (function() {
+      if (sessionStorage.getItem('wip-dismissed')) return;
       var popup = document.getElementById('wip-popup');
+      popup.style.display = 'flex';
       requestAnimationFrame(function() { popup.style.opacity = '1'; });
       document.getElementById('wip-dismiss').addEventListener('click', function() {
+        sessionStorage.setItem('wip-dismissed', '1');
         popup.style.opacity = '0';
         setTimeout(function() { popup.remove(); }, 300);
       });

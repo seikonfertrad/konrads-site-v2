@@ -2,18 +2,15 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BlogNav from '../components/BlogNav.astro';
 import geneva from '../../public/geneva.json';
+import '../styles/base.css';
+import '../styles/blog.css';
+import '../styles/geneva.css';
 ---
 
 <BaseLayout
   title="why geneva — konrad seifert"
   description="why we chose geneva: diversity, natural beauty, intellectual density, and the best place to raise a family."
 >
-  <link slot="head" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <style slot="head" is:inline>
-    @import '/src/styles/base.css';
-    @import '/src/styles/blog.css';
-    @import '/src/styles/geneva.css';
-  </style>
 
   <div class="geneva-container">
     <BlogNav />
