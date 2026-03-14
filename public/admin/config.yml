@@ -68,7 +68,7 @@ collections:
             fields:
               - { name: title, label: Title, widget: string }
               - { name: desc, label: Description, widget: text }
-          - { name: extra_detail, label: Extra Detail, widget: text }
+              - { name: url, label: URL, widget: string, required: false }
           - name: nav_links
             label: Nav Links
             widget: list
@@ -104,12 +104,11 @@ collections:
               - { name: url, label: URL, widget: string }
               - { name: desc, label: Description, widget: string }
           - name: movies
-            label: Movies & TV
+            label: Cinema
             widget: list
             fields:
               - { name: title, label: Title, widget: string }
               - { name: url, label: URL, widget: string }
-              - { name: byline, label: Byline, widget: string }
               - { name: desc, label: Description, widget: string }
           - name: games
             label: Games
