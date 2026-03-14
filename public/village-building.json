@@ -7,18 +7,19 @@
   "programs": [
     {
       "title": "fractal university",
-      "desc": "peer-taught courses on things we care about -- civic engagement, improv theater, claude code, life satisfaction, bike building, poetry writing, lino printing, child-rearing, documentary making, mandarin, meditating, drawing, climbing."
+      "desc": "peer-taught courses on things we care about -- civic engagement, improv theater, claude code, life satisfaction, bike building, poetry writing, lino printing, child-rearing, documentary making, mandarin, meditating, drawing, climbing.",
+      "url": "https://fractal-uni-geneva.super.site/"
     },
     {
       "title": "regular events",
-      "desc": "meetups, dinners, workshops. many are private. reach out if you'd like to stay in the loop."
+      "desc": "meetups, dinners, workshops. many are private. reach out if you'd like to stay in the loop.",
+      "url": "https://luma.com/fractalgva"
     },
     {
       "title": "occasional retreats",
       "desc": "talks, hikes, hackathons, raves, and the conversations and connections that only happen when you take people out of their routines for a sustained period of time."
     }
   ],
-  "extra_detail": "--",
   "nav_links": [
     {
       "label": "fractalgva.ch",

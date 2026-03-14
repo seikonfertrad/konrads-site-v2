@@ -164,14 +164,18 @@ import remembering from '../../public/village-remembering.json';
       <div class="drawer-divider"></div>
       <h3 class="soapbox-subtitle">what we run</h3>
       <div class="rec-list">
-        {building.programs.map(p => (
+        {building.programs.map(p => p.url ? (
+          <a class="rec-entry" href={p.url} target="_blank" rel="noopener">
+            <div class="rec-title">{p.title}</div>
+            <div class="rec-desc">{p.desc}</div>
+          </a>
+        ) : (
           <div class="rec-entry">
             <div class="rec-title">{p.title}</div>
             <div class="rec-desc">{p.desc}</div>
           </div>
         ))}
       </div>
-      <p class="detail" style="margin-top: var(--space-md);">{building.extra_detail}</p>
       <nav class="drawer-links">
         {building.nav_links.map(l => <a href={l.url} target="_blank" rel="noopener">{l.label}</a>)}
       </nav>
