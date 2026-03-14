@@ -207,13 +207,12 @@ import remembering from '../../public/village-remembering.json';
         </div>
       </div>
       <div class="drawer-divider"></div>
-      <h3 class="soapbox-subtitle">movies &amp; tv</h3>
+      <h3 class="soapbox-subtitle">cinema</h3>
       <div class="rec-category">
         <div class="rec-list">
           {attuning.movies.map(m => (
             <a class="rec-entry" href={m.url} target="_blank" rel="noopener">
               <div class="rec-title">{m.title}</div>
-              <div class="rec-byline">{m.byline}</div>
               <div class="rec-desc">{m.desc}</div>
             </a>
           ))}
