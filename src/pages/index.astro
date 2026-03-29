@@ -32,6 +32,9 @@ import remembering from '../../public/village-remembering.json';
   }
   </script>
 
+  <!-- Skip link for keyboard navigation -->
+  <a class="skip-link" href="#drawer-bridging">skip to content</a>
+
   <!-- Generative contour lines — injected by JS -->
   <div class="topo-bg" aria-hidden="true">
     <svg id="contour-svg" preserveAspectRatio="none"></svg>
@@ -291,12 +294,12 @@ import remembering from '../../public/village-remembering.json';
   <div class="drawer-backdrop" aria-hidden="true"></div>
 
   <!-- Lightbox -->
-  <div class="lightbox" id="lightbox">
-    <button class="lightbox-close">[&times;] close</button>
-    <button class="lightbox-nav lightbox-prev">&lsaquo;</button>
-    <img class="lightbox-img" id="lightbox-img" src="" alt="">
+  <div class="lightbox" id="lightbox" role="dialog" aria-label="Photo viewer">
+    <button class="lightbox-close" aria-label="Close photo viewer">[&times;] close</button>
+    <button class="lightbox-nav lightbox-prev" aria-label="Previous photo">&lsaquo;</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="Archive photo">
     <div class="lightbox-caption" id="lightbox-caption"></div>
-    <button class="lightbox-nav lightbox-next">&rsaquo;</button>
+    <button class="lightbox-nav lightbox-next" aria-label="Next photo">&rsaquo;</button>
     <div class="lightbox-counter" id="lightbox-counter"></div>
   </div>
 
@@ -304,7 +307,7 @@ import remembering from '../../public/village-remembering.json';
   <div class="fog-toggle" id="fog-toggle" aria-hidden="true">&#x1F4CE;</div>
 
   <!-- AGI modal -->
-  <div class="agi-modal" id="agi-modal">
+  <div class="agi-modal" id="agi-modal" role="dialog" aria-label="AGI easter egg">
     <div class="agi-modal-box">
       <p class="agi-modal-text">congratulations, you have stumbled upon intelligence too cheap to meter.<br>bounded rationality is over.<br><br>are you actually prepared for agi, anon?</p>
       <div class="agi-modal-buttons">
@@ -317,8 +320,8 @@ import remembering from '../../public/village-remembering.json';
   <div class="last-updated">last updated on 20 february 2026</div>
 
   <!-- GSAP + Plugins via CDN -->
-  <script is:inline src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/gsap.min.js"></script>
-  <script is:inline src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/DrawSVGPlugin.min.js"></script>
-  <script is:inline src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/CustomEase.min.js"></script>
-  <script is:inline src="/main.js"></script>
+  <script is:inline defer src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/gsap.min.js"></script>
+  <script is:inline defer src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/DrawSVGPlugin.min.js"></script>
+  <script is:inline defer src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/CustomEase.min.js"></script>
+  <script is:inline defer src="/main.js"></script>
 </BaseLayout>

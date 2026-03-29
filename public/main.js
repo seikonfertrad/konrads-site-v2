@@ -11,6 +11,8 @@ let IS_DESKTOP = desktopQuery.matches;
 desktopQuery.addEventListener('change', e => { IS_DESKTOP = e.matches; });
 let fogDisabled = false;
 
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 
 // ============================================
 // 1. GENERATE RINGS — concentric circles per village
@@ -146,6 +148,7 @@ function positionVillages() {
 // ============================================
 
 function animateVillageHover() {
+  if (REDUCED_MOTION) return;
   const villages = document.querySelectorAll('.village');
   villages.forEach(village => {
     const isHero = village.classList.contains('village--hero');
@@ -293,16 +296,18 @@ function generateContours(villagePositions) {
     }
   }
 
-  // DrawSVG entrance
-  contourPaths.forEach((path, i) => {
-    gsap.set(path, { drawSVG: '0%' });
-    gsap.to(path, {
-      drawSVG: '100%',
-      duration: 2 + Math.random() * 1.5,
-      delay: 0.05 + i * 0.03,
-      ease: 'power2.inOut',
+  // DrawSVG entrance (skip if reduced motion)
+  if (!REDUCED_MOTION) {
+    contourPaths.forEach((path, i) => {
+      gsap.set(path, { drawSVG: '0%' });
+      gsap.to(path, {
+        drawSVG: '100%',
+        duration: 2 + Math.random() * 1.5,
+        delay: 0.05 + i * 0.03,
+        ease: 'power2.inOut',
+      });
     });
-  });
+  }
 
   return contourPaths;
 }
@@ -313,6 +318,7 @@ function generateContours(villagePositions) {
 // ============================================
 
 function animateContourOscillation(paths) {
+  if (REDUCED_MOTION) return;
   paths.forEach(path => {
     const depth = parseFloat(path.dataset.depth);
 
@@ -347,6 +353,13 @@ function initFlashlight() {
   const contourPaths = document.querySelectorAll('.contour-line');
   let pathways = null; // lazy — queried after pathways are generated
   if (!fog || !villages.length) return;
+
+  // Reduced motion: show everything, no tracking
+  if (REDUCED_MOTION) {
+    fog.style.display = 'none';
+    villages.forEach(v => { gsap.set(v, { opacity: 1 }); });
+    return;
+  }
 
   // Initial hidden state
   villages.forEach(v => {
@@ -831,6 +844,7 @@ function initDrawer() {
 // ============================================
 
 function animateRings() {
+  if (REDUCED_MOTION) return;
   const villages = document.querySelectorAll('.village');
   villages.forEach(village => {
     const rings = village.querySelectorAll('.village-rings circle');
@@ -881,6 +895,12 @@ function loopRingDraw(ring, duration) {
 function heroEntrance() {
   const hero = document.querySelector('.village--hero');
   if (!hero) return;
+
+  // Reduced motion: show hero immediately
+  if (REDUCED_MOTION) {
+    gsap.set(hero, { opacity: 1 });
+    return;
+  }
 
   const rings = hero.querySelectorAll('.village-rings circle');
   const title = hero.querySelector('.village-title');
@@ -958,15 +978,19 @@ function initMobile() {
   const contourPaths = generateContours([]);
   animateContourOscillation(contourPaths);
 
-  // Fade in villages
+  // Fade in villages (immediate if reduced motion)
   villages.forEach((v, i) => {
-    gsap.set(v, { opacity: 0 });
-    gsap.to(v, {
-      opacity: 1,
-      duration: 0.5,
-      delay: 0.2 + i * 0.08,
-      ease: 'power2.out',
-    });
+    if (REDUCED_MOTION) {
+      gsap.set(v, { opacity: 1 });
+    } else {
+      gsap.set(v, { opacity: 0 });
+      gsap.to(v, {
+        opacity: 1,
+        duration: 0.5,
+        delay: 0.2 + i * 0.08,
+        ease: 'power2.out',
+      });
+    }
   });
 
   // Drawer works via tap
@@ -1026,16 +1050,18 @@ function generatePathways(villagePositions) {
     paths.push(path);
   });
 
-  // Entrance: draw in
-  paths.forEach((path, i) => {
-    gsap.set(path, { drawSVG: '0%' });
-    gsap.to(path, {
-      drawSVG: '100%',
-      duration: 1.5 + Math.random(),
-      delay: 1.5 + i * 0.1,
-      ease: 'power2.inOut',
+  // Entrance: draw in (skip if reduced motion)
+  if (!REDUCED_MOTION) {
+    paths.forEach((path, i) => {
+      gsap.set(path, { drawSVG: '0%' });
+      gsap.to(path, {
+        drawSVG: '100%',
+        duration: 1.5 + Math.random(),
+        delay: 1.5 + i * 0.1,
+        ease: 'power2.inOut',
+      });
     });
-  });
+  }
 
   return paths;
 }
@@ -1194,7 +1220,9 @@ function initArchiveGallery() {
   function updateLightbox() {
     lightboxImg.src = allImages[currentIdx];
     const filename = allImages[currentIdx].split('/').pop();
-    lightboxCaption.textContent = captions[filename] || '';
+    const caption = captions[filename] || '';
+    lightboxCaption.textContent = caption;
+    lightboxImg.alt = caption || `Archive photo ${currentIdx + 1}`;
     lightboxCounter.textContent = `${currentIdx + 1} / ${allImages.length}`;
   }
 
