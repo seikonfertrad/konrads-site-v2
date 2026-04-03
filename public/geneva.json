@@ -15,27 +15,31 @@
       "title": "international geneva",
       "text": "geneva hosts countless international organizations, companies, ngos, research labs, and foundations. the city runs some of the most crucial international coordination and cross-cultural negotiations operations across business, science, and diplomacy. the density of altruistic, hard working individuals is unmatched. the main thing that's missing is a tinge of the 'tism and ambtion à la the bay area.",
       "image": "/images/geneva/palais-des-nations.jpg",
-      "caption": "palais des nations — UN european headquarters"
+      "caption": "aerial view of the palais des nations",
+      "caption_url": "https://letrois.info/actualites/la-renovation-du-palais-des-nations-a-geneve-a-franchi-une-etape-importante/"
     },
     {
       "title": "diversity that actually mixes",
       "text": "over 40% of geneva's residents are foreign nationals — and that's before counting dual citizens. french, portuguese, italian, spanish communities are the largest, but you'll find people from every continent. unlike london's patchwork of self-contained neighborhoods, geneva's small size forces mixing. the same café, the same tram, the same park. your kids' classmates come from 30 countries. it's cosmopolitan not as an aspiration but as a structural fact.",
       "image": "/images/geneva/street-cafe.jpg",
-      "caption": "a café in the old town"
+      "caption": "musiques en été at the ella fitzgerald stage, parc la grange",
+      "caption_url": "https://www.musiques-en-ete.ch/"
     },
     {
       "title": "precision & craft",
       "text": "yes, patek philippe, rolex, vacheron constantin — they're all here. but the culture isn't flashy: the locals value precision, patience, and craft. that ethos seeps into everything: the trains run on time, the fondue is taken seriously, the public spaces well kept, and people show up when they say they will (+/- 15 minutes). the flashy things are usually owned by foreigners.",
       "image": "/images/geneva/watchmaking.jpg",
-      "caption": "the movement of a patek philippe"
+      "caption": "the movement of a patek philippe",
+      "caption_url": "https://unsplash.com/photos/e3j8AFfumBU"
     },
     {
       "title": "the alps next door",
       "text": "on a clear day you can see mont blanc from the city center — the highest peak in western europe, only 80 kilometers away. skiing is an hour away. hiking starts at the city limits. the jura mountains offer gentler terrain and wilder solitude. natural beauty is the permanent frame around daily life. and we're finally starting to build higher buildings, too!",
       "image": "/images/geneva/mont-blanc.jpg",
-      "caption": "mont blanc seen from across the lake"
+      "caption": "mont blanc seen from across the lake",
+      "caption_url": "https://unsplash.com/s/photos/geneva"
     }
   ],
   "closing": "geneva doesn't try to sell itself. but if you value intellectual density, genuine diversity, natural beauty, and a place where kids can grow up with a wide aperture on the world — it's hard to beat. all you need is people to invite you to the non-public events. hit me up!",
-  "photo_credits": "photos via unsplash"
+  "photo_credits": "photos via unsplash, landezine, and le trois"
 }
