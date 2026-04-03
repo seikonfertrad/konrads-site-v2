@@ -1,0 +1,16 @@
+---
+// Redirect old blog post to the recs drawer on the homepage.
+// Uses a client-side redirect because Astro.redirect() can't carry a #hash fragment.
+---
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="refresh" content="0;url=/#discovering">
+  <link rel="canonical" href="https://konrads.link/#discovering">
+  <title>Redirecting…</title>
+</head>
+<body>
+  <p>Redirecting to <a href="/#discovering">recommendations</a>…</p>
+</body>
+</html>
