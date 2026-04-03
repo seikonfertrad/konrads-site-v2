@@ -29,7 +29,7 @@ import '../styles/geneva.css';
     {geneva.sections.map(s => (
       <section class="geneva-section">
         <img class="geneva-section-img" src={s.image} alt={s.caption} loading="lazy" />
-        <div class="geneva-section-caption">{s.caption}</div>
+        <div class="geneva-section-caption">{s.caption_url ? <a href={s.caption_url} target="_blank" rel="noopener">{s.caption}</a> : s.caption}</div>
         <h2>{s.title}</h2>
         <p>{s.text}</p>
       </section>
