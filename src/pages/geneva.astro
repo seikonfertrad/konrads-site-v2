@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BlogNav from '../components/BlogNav.astro';
 import geneva from '../../public/geneva.json';
 import '../styles/base.css';
 import '../styles/blog.css';
@@ -13,7 +12,12 @@ import '../styles/geneva.css';
 >
 
   <div class="geneva-container">
-    <BlogNav />
+    <nav class="blog-nav">
+      <a href="/" class="blog-nav-logo">ks</a>
+      <div class="blog-nav-links">
+        <a href="/">map</a>
+      </div>
+    </nav>
 
     <header class="geneva-header">
       <div class="geneva-coords">{geneva.subtitle}</div>
