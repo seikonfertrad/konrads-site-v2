@@ -1,26 +1,20 @@
 {
   "heading": "why geneva",
   "subtitle": "46.2044° n, 6.1432° e",
-  "intro": "we chose geneva because it felt like the right place to build a life. after london, it's plausibly the second most diverse city in per capita terms — over 40% foreign residents, 180+ nationalities — and because it's small, people actually mix. there's no equivalent of london's ethnic enclaves here. your kids grow up trilingual by accident, surrounded by families from everywhere, in a place where the alps are a bike ride away and the lake is always in view.",
-  "why_here": "we wanted to start a family, and kids growing up here seemed much better than anywhere else we'd lived. the international density means the school playground is a UN general assembly in miniature. the city is compact enough that you walk everywhere, safe enough that kids roam free, and ambitious enough — between CERN, the UN, and the watch industry — that you never run out of interesting people at dinner.",
+  "intro": "we chose geneva because it felt like the right place to build a family. after living in london, geneva's plausibly the second most diverse european city in per capita terms — over 40% foreign residents, 180+ nationalities. and there's no equivalent of london's ethnic enclaves here. your kids grow up trilingual by accident, surrounded by families from everywhere, with the lake a bike ride away and the alps always in view.",
+  "why_here": "kids spending their first years here seemed much better than anywhere else we'd lived or considered moving to. the city is compact enough to bike, safe enough for kids to roam, and ambitious enough — between cern, the humanitarians, investors, and third culture kids, you never run out of interesting people. the challenge for most people is to find a partner and a good job. both of these are locally solvable imho",
   "sections": [
     {
-      "title": "the lake & the jet",
-      "text": "lake geneva — lac léman to locals — is one of europe's largest lakes, a crescent of alpine water that defines the city. the jet d'eau shoots 140 meters into the sky and has become geneva's calling card. but the real magic is quotidian: morning runs along the quai, swimming in the rhône in summer, watching the light change over the jura mountains at dusk.",
+      "title": "the lake",
+      "text": "lake geneva is the collection of alpine water that defines the city. the magic is quotidian: sunrises by the quai in summer and sauna & lake plunge in winter. recent years have seen an impressive expansion of beach areas, restaurants & bars, plus free fitness and dance courses. everything is maintained in pristine condition and i haven't grown numb to living in a postcard after more than a decade here.",
       "image": "/images/geneva/jet-deau.jpg",
       "caption": "the jet d'eau, geneva's 140-meter water fountain"
     },
     {
       "title": "international geneva",
-      "text": "geneva hosts the european headquarters of the united nations, the WHO, the WTO, the red cross, and around 180 other international organizations. this isn't just institutional furniture — it means the city runs on cross-cultural negotiation as a daily practice. your neighbor might be a climate negotiator, your barista a former diplomat's kid. the density of people working on global problems is unmatched anywhere outside of new york or brussels, but compressed into a city of 200,000.",
+      "text": "geneva hosts countless international organizations, companies, ngos, research labs, and foundations. the city runs some of the most crucial international coordination and cross-cultural negotiations operations across business, science, and diplomacy. the density of altruistic, hard working individuals is unmatched. the main thing that's missing is a tinge of the 'tism and ambtion à la the bay area.",
       "image": "/images/geneva/palais-des-nations.jpg",
       "caption": "palais des nations — UN european headquarters"
-    },
-    {
-      "title": "the old town",
-      "text": "the vieille ville sits on a hill above the lake, all cobblestones and cathedral spires. it's where calvin preached, where the geneva conventions were drafted, and where you now find some of the best small restaurants in the city. it's genuinely beautiful in a way that most european old towns aspire to but few achieve — lived-in rather than preserved-in-amber.",
-      "image": "/images/geneva/old-town.jpg",
-      "caption": "geneva's vieille ville"
     },
     {
       "title": "diversity that actually mixes",
@@ -29,24 +23,18 @@
       "caption": "a café in the old town"
     },
     {
-      "title": "science at the frontier",
-      "text": "CERN sits on the french-swiss border just outside the city — the place where the world wide web was invented and where the higgs boson was discovered. it's a reminder that geneva has always been a city where the biggest questions get asked. the culture of intellectual ambition is palpable and infectious.",
-      "image": "/images/geneva/cern.jpg",
-      "caption": "inside CERN's large hadron collider"
-    },
-    {
       "title": "precision & craft",
-      "text": "geneva has been the heart of swiss watchmaking for centuries. patek philippe, rolex, vacheron constantin — they're all here. but it's not just luxury brands. it's a culture that values precision, patience, and craft. that ethos seeps into everything: the trains run on time, the fondue is taken seriously, and people show up when they say they will.",
+      "text": "yes, patek philippe, rolex, vacheron constantin — they're all here. but the culture isn't flashy: the locals value precision, patience, and craft. that ethos seeps into everything: the trains run on time, the fondue is taken seriously, the public spaces well kept, and people show up when they say they will (+/- 15 minutes). the flashy things are usually owned by foreigners.",
       "image": "/images/geneva/watchmaking.jpg",
       "caption": "the movement of a mechanical watch"
     },
     {
       "title": "the alps next door",
-      "text": "on a clear day you can see mont blanc from the city center — the highest peak in western europe, 80 kilometers away but looming like a backdrop painted by someone who overdid the contrast slider. skiing is an hour away. hiking starts at the city limits. the jura mountains on the other side offer gentler terrain and wilder solitude. nature isn't something you drive to on weekends — it's the permanent frame around daily life.",
+      "text": "on a clear day you can see mont blanc from the city center — the highest peak in western europe, only 80 kilometers away. skiing is an hour away. hiking starts at the city limits. the jura mountains offer gentler terrain and wilder solitude. natural beauty is the permanent frame around daily life. and we're finally starting to build higher buildings, too!",
       "image": "/images/geneva/mont-blanc.jpg",
       "caption": "mont blanc seen from across the lake"
     }
   ],
-  "closing": "geneva isn't flashy. it doesn't try to sell itself. but if you value intellectual density, genuine diversity, natural beauty, and a place where kids can grow up with a wide aperture on the world — it's hard to beat.",
+  "closing": "geneva doesn't try to sell itself. but if you value intellectual density, genuine diversity, natural beauty, and a place where kids can grow up with a wide aperture on the world — it's hard to beat. all you need is people to invite you to the non-public events. hit me up!",
   "photo_credits": "photos via unsplash"
 }
