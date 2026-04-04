@@ -13,6 +13,29 @@ let fogDisabled = false;
 
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// ============================================
+// 0. WELCOME MODAL — shown once per session
+// ============================================
+(function initWelcomeModal() {
+  const modal = document.getElementById('welcome-modal');
+  const btn = document.getElementById('welcome-close');
+  if (!modal || !btn) return;
+
+  if (sessionStorage.getItem('welcomed')) {
+    modal.classList.remove('is-active');
+    return;
+  }
+
+  function close() {
+    modal.classList.remove('is-active');
+    sessionStorage.setItem('welcomed', '1');
+  }
+
+  btn.addEventListener('click', close);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) close();
+  });
+})();
 
 // ============================================
 // 1. GENERATE RINGS — concentric circles per village
