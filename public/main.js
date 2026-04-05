@@ -9,6 +9,7 @@ CustomEase.create("swissReveal", "M0,0 C0.25,0.1 0.25,1 1,1");
 const desktopQuery = window.matchMedia('(min-width: 769px) and (pointer: fine)');
 let IS_DESKTOP = desktopQuery.matches;
 desktopQuery.addEventListener('change', e => { IS_DESKTOP = e.matches; });
+const IS_TABLET = !IS_DESKTOP && window.matchMedia('(min-width: 769px) and (pointer: coarse)').matches;
 let fogDisabled = false;
 
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1098,7 +1099,7 @@ let resizeTimeout;
 function handleResize(contourPathsRef, villagePositionsRef) {
   clearTimeout(resizeTimeout);
   resizeTimeout = setTimeout(() => {
-    if (IS_DESKTOP) {
+    if (IS_DESKTOP || IS_TABLET) {
       // Kill existing oscillation tweens
       contourPathsRef.current.forEach(path => gsap.killTweensOf(path));
 
@@ -1127,7 +1128,7 @@ function handleResize(contourPathsRef, villagePositionsRef) {
   // Generate rings for all villages
   document.querySelectorAll('.village').forEach(generateRings);
 
-  if (IS_DESKTOP) {
+  if (IS_DESKTOP || IS_TABLET) {
     // Position villages on the map
     const positions = positionVillages();
     villagePositionsRef.current = positions;
@@ -1138,7 +1139,17 @@ function handleResize(contourPathsRef, villagePositionsRef) {
 
     animateContourOscillation(contourPaths);
     generatePathways(positions);
-    initFlashlight();
+
+    if (IS_TABLET) {
+      // Tablet: desktop layout but no fog (no cursor to drive it)
+      fogDisabled = true;
+      const fog = document.querySelector('.fog');
+      if (fog) fog.style.display = 'none';
+      document.querySelectorAll('.village').forEach(v => { gsap.set(v, { opacity: 1 }); });
+    } else {
+      initFlashlight();
+    }
+
     initDrawer();
     heroEntrance();
     animateRings();
