@@ -239,6 +239,24 @@ a:hover {
   letter-spacing: 0.06em;
 }
 
+.village-feedback {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  opacity: 0.5;
+  pointer-events: auto;
+  margin-top: 2px;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+.village-feedback:hover {
+  opacity: 1;
+  color: var(--accent);
+}
+
 /* Focus: visible ring for keyboard, hidden for mouse */
 .village:focus {
   outline: none;
