@@ -198,6 +198,7 @@ collections:
               - { name: title, label: Title, widget: string }
               - { name: author, label: Author, widget: string }
               - { name: cover, label: Cover Path, widget: string }
+              - { name: link, label: Goodreads Link, widget: string, required: false }
 
       - name: hottakes
         label: Hot Takes
