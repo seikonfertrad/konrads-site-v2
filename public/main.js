@@ -1337,7 +1337,7 @@ function renderBookshelf(data, container) {
   data.forEach(book => {
     const card = document.createElement('a');
     card.className = 'book-card';
-    card.href = 'https://www.goodreads.com/search?q=' + encodeURIComponent(book.title + ' ' + book.author);
+    card.href = book.link || 'https://www.goodreads.com/search?q=' + encodeURIComponent(book.title + ' ' + book.author);
     card.target = '_blank';
     card.rel = 'noopener';
 
