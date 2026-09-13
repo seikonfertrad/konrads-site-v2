@@ -106,6 +106,21 @@ describe("vote page", () => {
     await ctx.close();
   });
 
+  test("a Design your own link, seeded with design C in red, is there before anyone votes", async () => {
+    const ctx = await browser.newContext();
+    const page = await open(ctx);
+    const link = page.locator("#design-own");
+    assert.ok(await link.isVisible(), "link not visible before voting");
+    const seed = await page.evaluate(() => window.HH_DESIGNS.find((d) => d.id === "C").tool.red);
+    assert.equal(await link.getAttribute("href"), "tool/#" + seed);
+    await link.click();
+    await page.waitForSelector("#flag svg");
+    assert.equal(await page.inputValue('input[data-key="a"]'), "5");
+    assert.equal(await page.inputValue('input[data-key="ai"]'), "26");
+    assert.equal(await page.isHidden("#mode"), true);
+    await ctx.close();
+  });
+
   test("the card order varies between visits", async () => {
     const ctx = await browser.newContext();
     const page = await ctx.newPage();
@@ -151,7 +166,6 @@ describe("vote page", () => {
     assert.equal(await page.getAttribute('#results [data-colour-result="white"]', "data-count"), "1");
     assert.equal(await visibleVoteButtons(page), 0);
     assert.ok(await page.isVisible("#design-own"));
-    assert.equal(await page.getAttribute("#design-own", "href"), "tool/");
     if (SHOTS) await shoot(page, "desktop-results.png");
 
     const token = await page.evaluate(() => localStorage.getItem("hhflag.token"));
@@ -275,6 +289,7 @@ describe("vote page", () => {
       assert.match(await page.textContent("#intro"), /opens soon/i);
       assert.equal(await page.isHidden("#results"), true);
     }
+    assert.ok(await page.isVisible("#design-own"), "public visitors need the Design your own link too");
     await ctx.close();
   });
 
