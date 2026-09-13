@@ -35,7 +35,7 @@
 <script>
 (function () {
   const params = new URLSearchParams(location.search);
-  const mapId = params.get("map") || "atlas";
+  const mapId = params.get("map") === "lightcone" ? "lightcone" : "atlas";
   const isLightcone = mapId === "lightcone";
   const data = isLightcone ? window.LIGHTCONE_DATA : window.ATLAS_DATA;
 
