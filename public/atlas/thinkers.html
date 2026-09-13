@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Thinkers — Atlas</title>
+  <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <h1 class="site-title" id="site-title-host">
+      <a href="index.html">East ↔ West Atlas
+        <span class="sub">Comparative concepts, thinkers, and disputes — with focus on US–China</span>
+      </a>
+    </h1>
+    <nav class="site-nav" id="site-nav"></nav>
+  </div>
+</header>
+
+<main class="page" id="content">
+  <p class="kicker" id="kicker">Thinkers</p>
+  <h1 id="page-title">Thinkers</h1>
+  <p class="lede" id="lede">Loading…</p>
+  <div id="thinker-list"></div>
+</main>
+
+<footer class="site-foot">
+  Profiles are original prose for this site. See <a href="sources.html">Sources</a> for citations.
+</footer>
+
+<script src="data/atlas.js"></script>
+<script src="data/lightcone.js"></script>
+<script>
+(function () {
+  const params = new URLSearchParams(location.search);
+  const mapId = params.get("map") || "atlas";
+  const isLightcone = mapId === "lightcone";
+  const data = isLightcone ? window.LIGHTCONE_DATA : window.ATLAS_DATA;
+
+  // Map-aware chrome
+  if (isLightcone) {
+    document.title = "Thinkers — Lightcone Atlas";
+    document.querySelector(".site-title a").firstChild.textContent = "Lightcone Atlas";
+    document.querySelector(".site-title .sub").textContent = "LW/EA concepts, thinkers, and disputes around ethics, x-risk, and the future";
+    document.getElementById("kicker").textContent = `${data.thinkers.length} thinkers across the LW/EA cluster`;
+    document.getElementById("lede").innerHTML = "The figures who built the LessWrong / Effective Altruism intellectual cluster, plus their classical-utilitarian forebears. Grouped by sub-tradition. Click any name for a profile.";
+  } else {
+    document.title = "Thinkers — East ↔ West Atlas";
+    document.getElementById("kicker").textContent = `${data.thinkers.length} thinkers across the field`;
+    document.getElementById("lede").innerHTML = "The figures who built the comparative philosophy of Asian and Western thought, plus the canonical interlocutors they worked with or against. Grouped by tradition. Click any name for a profile.";
+  }
+  document.getElementById("site-nav").innerHTML = isLightcone
+    ? `<a href="lightcone.html">Map</a>
+       <a href="thinkers.html?map=lightcone" class="active">Thinkers</a>
+       <a href="traditions.html?map=lightcone">Traditions</a>
+       <a href="disputes.html?map=lightcone">Disputes</a>
+       <a href="index.html">East–West map</a>
+       <a href="cross.html">Cross-map</a>
+       <a href="sources.html">Sources</a>
+       <a href="about.html">About</a>`
+    : `<a href="index.html">Map</a>
+       <a href="thinkers.html" class="active">Thinkers</a>
+       <a href="traditions.html">Traditions</a>
+       <a href="disputes.html">Disputes</a>
+       <a href="essays.html">Readings</a>
+       <a href="lightcone.html">Lightcone map</a>
+       <a href="cross.html">Cross-map</a>
+       <a href="sources.html">Sources</a>
+       <a href="about.html">About</a>`;
+
+  const tradById = Object.fromEntries(data.traditions.map(t => [t.id, t]));
+  const order = isLightcone
+    ? ["classical-utilitarian","bayesian-rationalism","effective-altruism","longtermism","ai-safety","transhumanism","suffering-focused"]
+    : ["chinese-classical","chinese-buddhist","chinese-neoconfucian","chinese-modern","greek-classical","modern-european","kyoto-school","comparative"];
+  const grouped = {};
+  data.thinkers.forEach(t => {
+    (grouped[t.tradition] = grouped[t.tradition] || []).push(t);
+  });
+
+  let html = "";
+  order.forEach(tid => {
+    const list = grouped[tid];
+    if (!list || !list.length) return;
+    const trad = tradById[tid];
+    html += `<section class="concept-section" style="margin-top:42px;">
+      <h2 style="text-transform:none;letter-spacing:0;color:var(--ink);font-size:22px;font-family:var(--serif);font-weight:600;border-bottom:1px solid var(--rule);padding-bottom:8px;">${trad.name}</h2>
+      <p style="font-size:13px;color:var(--muted);margin-top:-2px;font-style:italic;">${trad.period}</p>
+      <ul class="essay-list" style="border-top:1px solid var(--rule);">`;
+    list.sort((a,b) => a.name.localeCompare(b.name)).forEach(t => {
+      html += `<li>
+        <h3><a href="thinker.html?map=${mapId}&id=${t.id}">${t.name}</a> <span style="color:var(--muted);font-size:14px;font-weight:normal">· ${t.dates}</span></h3>
+        <p>${(t.contribution || "").split(". ")[0]}.</p>
+      </li>`;
+    });
+    html += `</ul></section>`;
+  });
+  document.getElementById("thinker-list").innerHTML = html;
+})();
+</script>
+</body>
+</html>

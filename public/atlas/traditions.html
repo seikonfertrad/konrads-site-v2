@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Traditions — Atlas</title>
+  <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <h1 class="site-title">
+      <a href="index.html">East ↔ West Atlas
+        <span class="sub">Comparative concepts, thinkers, and disputes — with focus on US–China</span>
+      </a>
+    </h1>
+    <nav class="site-nav" id="site-nav"></nav>
+  </div>
+</header>
+
+<main class="page" id="content">
+  <p class="kicker" id="kicker"></p>
+  <h1>Traditions</h1>
+  <p class="lede" id="lede">Loading…</p>
+  <div id="trad-list"></div>
+</main>
+
+<footer class="site-foot">
+  Capsules are original notes for this site. See <a href="sources.html">Sources</a>.
+</footer>
+
+<script src="data/atlas.js"></script>
+<script src="data/lightcone.js"></script>
+<script>
+(function () {
+  const params = new URLSearchParams(location.search);
+  const mapId = params.get("map") || "atlas";
+  const isLightcone = mapId === "lightcone";
+  const data = isLightcone ? window.LIGHTCONE_DATA : window.ATLAS_DATA;
+
+  if (isLightcone) {
+    document.title = "Traditions — Lightcone Atlas";
+    document.querySelector(".site-title a").firstChild.textContent = "Lightcone Atlas";
+    document.querySelector(".site-title .sub").textContent = "LW/EA concepts, thinkers, and disputes around ethics, x-risk, and the future";
+    document.getElementById("kicker").textContent = `${data.traditions.length} sub-traditions in the LW/EA cluster`;
+    document.getElementById("lede").innerHTML = "Capsule summaries of the sub-traditions whose concepts and thinkers populate the Lightcone Atlas. The labels are orientation: each strand contains internal disputes, several are entangled with each other, and the boundaries between (say) longtermism and AI safety are porous.";
+  } else {
+    document.title = "Traditions — East ↔ West Atlas";
+    document.getElementById("kicker").textContent = `${data.traditions.length} intellectual lineages`;
+    document.getElementById("lede").innerHTML = "Capsule summaries of the intellectual lineages whose concepts populate this atlas. The labels are orientation, not essence: each lineage contains internal disputes, and most are read by some thinkers as continuous with one another and by others as sharply distinct.";
+  }
+  document.getElementById("site-nav").innerHTML = isLightcone
+    ? `<a href="lightcone.html">Map</a>
+       <a href="thinkers.html?map=lightcone">Thinkers</a>
+       <a href="traditions.html?map=lightcone" class="active">Traditions</a>
+       <a href="disputes.html?map=lightcone">Disputes</a>
+       <a href="index.html">East–West map</a>
+       <a href="cross.html">Cross-map</a>
+       <a href="sources.html">Sources</a>
+       <a href="about.html">About</a>`
+    : `<a href="index.html">Map</a>
+       <a href="thinkers.html">Thinkers</a>
+       <a href="traditions.html" class="active">Traditions</a>
+       <a href="disputes.html">Disputes</a>
+       <a href="essays.html">Readings</a>
+       <a href="lightcone.html">Lightcone map</a>
+       <a href="cross.html">Cross-map</a>
+       <a href="sources.html">Sources</a>
+       <a href="about.html">About</a>`;
+
+  const cByTrad = {}, tByTrad = {};
+  data.concepts.forEach(c => (cByTrad[c.tradition] = cByTrad[c.tradition] || []).push(c));
+  data.thinkers.forEach(t => (tByTrad[t.tradition] = tByTrad[t.tradition] || []).push(t));
+
+  let html = "";
+  data.traditions.forEach(t => {
+    const concepts = (cByTrad[t.id] || []);
+    const thinkers = (tByTrad[t.id] || []);
+    html += `<section class="concept-section" style="margin-top:36px;border-left:3px solid ${t.color};padding-left:18px;">
+      <p class="kicker" style="margin:0">${t.period}</p>
+      <h2 style="text-transform:none;letter-spacing:0;color:var(--ink);font-size:24px;font-family:var(--serif);font-weight:600;margin-top:6px;">${t.name}</h2>
+      <p style="font-size:16px;line-height:1.6;">${t.capsule}</p>
+      ${thinkers.length ? `<p style="font-size:13px;color:var(--muted);margin-top:14px;">
+        <strong>Thinkers in this lineage:</strong> ${thinkers.map(th => `<a href="thinker.html?map=${mapId}&id=${th.id}">${th.name.split(" (")[0]}</a>`).join(" · ")}
+      </p>` : ""}
+      ${concepts.length ? `<p style="font-size:13px;color:var(--muted);margin-top:6px;">
+        <strong>Concepts:</strong> ${concepts.map(c => `<a href="concepts/concept.html?map=${mapId}&id=${c.id}">${c.term}</a>`).join(" · ")}
+      </p>` : ""}
+    </section>`;
+  });
+  document.getElementById("trad-list").innerHTML = html;
+})();
+</script>
+</body>
+</html>

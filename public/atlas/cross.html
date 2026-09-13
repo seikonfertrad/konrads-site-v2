@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cross-map — Atlas</title>
+  <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <h1 class="site-title">
+      <a href="index.html">Atlas
+        <span class="sub">Cross-map: connections between East–West and Lightcone</span>
+      </a>
+    </h1>
+    <nav class="site-nav">
+      <a href="index.html">East–West map</a>
+      <a href="lightcone.html">Lightcone map</a>
+      <a href="cross.html" class="active">Cross-map</a>
+      <a href="sources.html">Sources</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page" id="content">
+  <p class="kicker">Where the two maps meet</p>
+  <h1>Cross-map</h1>
+  <p class="lede">
+    The two atlases on this site index different fields — comparative philosophy of Asian and Western thought on one side, the LessWrong / Effective Altruism cluster on the other — but they share intellectual gravity. Each is a particular configuration of moral philosophy, decision theory, and futures thinking; each makes its own kind of universalist claim; each has a distinctive blind spot the other can name. This page lays out the cross-map edges: concepts in the Lightcone Atlas paired with their counterparts across the East–West écart.
+  </p>
+
+  <p style="font-size:14px;color:var(--muted);">Click any term to open the concept page in the relevant map. Edge type follows the standard atlas vocabulary: <strong>écart</strong> = productive gap, <strong>parallel</strong> = resonance without coincidence, <strong>kinship</strong> = shared lineage.</p>
+
+  <div id="cross-list">Loading…</div>
+
+  <h2 style="margin-top:64px;">Why the cross-map matters</h2>
+
+  <p>
+    Three observations are worth making explicit. <strong>First</strong>, the LW/EA cluster's core methodological move — formalize ethics as expected-value over impartially counted welfare across all moral patients — sits at maximum écart from the Confucian role-ethics tradition recovered by Hall–Ames and the relational ren-tradition reread by Jullien. The disagreement is not about which produces better answers in a given case. It is about whether ethics is the kind of thing that admits formalization without remainder. The Lightcone Atlas presupposes that it is; large parts of the East–West Atlas presuppose that it is not.
+  </p>
+
+  <p>
+    <strong>Second</strong>, longtermism's frame of reasoning forward from a desired distant outcome — and from there backward to present action — shares a deep grammar with the Western teleological reflex that Jullien names as the principal écart with Chinese strategic thought. Longtermism is not Aristotelian (it is consequentialist, not virtue-theoretic), but it is plan-shaped at cosmic scale, where shi-thinking would read the cosmic situation's propensity instead. The strongest Chinese-tradition critique of longtermism is not that it cares about the future but that it imagines the future as a state to be reached rather than as a propensity to be inflected.
+  </p>
+
+  <p>
+    <strong>Third</strong>, AI alignment as currently framed treats values as objects that can be encoded, transferred, and optimized for. This is the formalization-of-ethics premise applied to a new substrate. Wuwei and ren — and aidagara, in the Kyoto School lineage — name an alternative in which appropriate behavior is the residue of cultivated relation, neither encoded nor objective-shaped. Whether the alignment frame can absorb the relational alternative (or has to) is a philosophical question the field rarely surfaces. The cross-map edge from <em>ai-alignment</em> to <em>wuwei</em> is the place that question lives.
+  </p>
+
+  <p>
+    These are not arguments that the East–West tradition is right and the LW/EA tradition is wrong. They are the écart, in Jullien's sense — the productive gap from which both configurations become legible. The atlas's bet is that holding both visible at once, without dissolving either, sharpens specific perceptions that running either alone could not.
+  </p>
+
+</main>
+
+<footer class="site-foot">
+  Cross-map analysis is original prose for this site. See the individual concept pages for full context, and <a href="sources.html">Sources</a> for citations.
+</footer>
+
+<script src="data/atlas.js"></script>
+<script src="data/lightcone.js"></script>
+<script>
+(function () {
+  const atlas = window.ATLAS_DATA;
+  const lightcone = window.LIGHTCONE_DATA;
+  const atlasById = Object.fromEntries(atlas.concepts.map(c => [c.id, c]));
+  const lightconeById = Object.fromEntries(lightcone.concepts.map(c => [c.id, c]));
+
+  // Cross-map edges live on the lightcone side, marked with cross_map: true
+  const crossEdges = lightcone.edges.filter(e => e.cross_map);
+
+  // Group by edge type
+  const grouped = {};
+  crossEdges.forEach(e => {
+    (grouped[e.type] = grouped[e.type] || []).push(e);
+  });
+  const order = ["ecart","parallel","kinship","lineage","pair"];
+
+  let html = "";
+  order.forEach(type => {
+    const list = grouped[type];
+    if (!list || !list.length) return;
+    const labels = {
+      ecart: "Écart — productive gaps between the two configurations",
+      parallel: "Parallels — resonance across the two configurations",
+      kinship: "Kinship — shared lineage",
+      lineage: "Lineage",
+      pair: "Pair"
+    };
+    html += `<section class="concept-section" style="margin-top:42px;">
+      <h2 style="text-transform:none;letter-spacing:0;color:var(--ink);font-size:22px;font-family:var(--serif);font-weight:600;border-bottom:1px solid var(--rule);padding-bottom:8px;">${labels[type] || type}</h2>
+      <ul class="essay-list" style="border-top:1px solid var(--rule);">`;
+    list.forEach(e => {
+      const lc = lightconeById[e.source];
+      const at = atlasById[e.target];
+      if (!lc || !at) return;
+      html += `<li>
+        <h3 style="font-style:normal;">
+          <a href="concepts/concept.html?map=lightcone&id=${lc.id}">${lc.term}</a>
+          <span style="color:var(--muted);font-weight:normal;margin:0 6px;">↔</span>
+          <a href="concepts/concept.html?map=atlas&id=${at.id}">${at.term} <em>(${at.transliteration || at.english})</em></a>
+        </h3>
+        <p>${e.note || ""}</p>
+      </li>`;
+    });
+    html += `</ul></section>`;
+  });
+  document.getElementById("cross-list").innerHTML = html;
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Concept — East ↔ West Atlas</title>
+  <link rel="stylesheet" href="../css/site.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <h1 class="site-title">
+      <a href="../index.html">East ↔ West Atlas
+        <span class="sub">Comparative concepts, thinkers, and disputes — with focus on US–China</span>
+      </a>
+    </h1>
+    <nav class="site-nav" id="site-nav"></nav>
+  </div>
+</header>
+
+<main class="page" id="content">
+  <p class="lede">Loading concept…</p>
+</main>
+
+<footer class="site-foot">
+  All glosses are original prose composed for this site. See <a href="../sources.html">Sources</a>.
+</footer>
+
+<script src="../data/atlas.js"></script>
+<script src="../data/lightcone.js"></script>
+<script>
+(function () {
+  const params = new URLSearchParams(location.search);
+  const mapId = params.get("map") || "atlas";
+  const isLightcone = mapId === "lightcone";
+
+  // Pick data file
+  const data = isLightcone ? window.LIGHTCONE_DATA : window.ATLAS_DATA;
+  // Also build cross-map index so we can link to the other atlas's concepts
+  const otherData = isLightcone ? window.ATLAS_DATA : window.LIGHTCONE_DATA;
+  const otherById = Object.fromEntries(otherData.concepts.map(c => [c.id, c]));
+
+  // Render header nav with map-aware highlights
+  const navHTML = isLightcone
+    ? `<a href="../lightcone.html">Lightcone map</a>
+       <a href="../thinkers.html?map=lightcone">Thinkers</a>
+       <a href="../traditions.html?map=lightcone">Traditions</a>
+       <a href="../disputes.html?map=lightcone">Disputes</a>
+       <a href="../index.html">East–West map</a>
+       <a href="../cross.html">Cross-map</a>
+       <a href="../sources.html">Sources</a>
+       <a href="../about.html">About</a>`
+    : `<a href="../index.html">Map</a>
+       <a href="../thinkers.html">Thinkers</a>
+       <a href="../traditions.html">Traditions</a>
+       <a href="../disputes.html">Disputes</a>
+       <a href="../essays.html">Readings</a>
+       <a href="../lightcone.html">Lightcone map</a>
+       <a href="../cross.html">Cross-map</a>
+       <a href="../sources.html">Sources</a>
+       <a href="../about.html">About</a>`;
+  document.getElementById("site-nav").innerHTML = navHTML;
+  if (isLightcone) {
+    document.querySelector(".site-title a").firstChild.textContent = "Lightcone Atlas";
+    document.querySelector(".site-title .sub").textContent = "LW/EA concepts, thinkers, and disputes around ethics, x-risk, and the future";
+    document.title = "Concept — Lightcone Atlas";
+  }
+
+  const id = params.get("id");
+  const conceptById = Object.fromEntries(data.concepts.map(c => [c.id, c]));
+  const thinkerById = Object.fromEntries(data.thinkers.map(t => [t.id, t]));
+  const tradById    = Object.fromEntries(data.traditions.map(t => [t.id, t]));
+  const c = conceptById[id];
+  const root = document.getElementById("content");
+
+  if (!c) {
+    root.innerHTML = `<p class="lede">No concept selected. <a href="../${isLightcone ? "lightcone" : "index"}.html">Return to the map</a> and click a node.</p>`;
+    return;
+  }
+
+  document.title = `${c.term} (${c.transliteration || ""}) — ${isLightcone ? "Lightcone" : "East ↔ West"} Atlas`;
+
+  const tradName = (tradById[c.tradition] && tradById[c.tradition].name) || c.tradition;
+  const tradTagClass = c.tradition.startsWith("chinese") ? "chinese"
+                     : (c.tradition === "kyoto-school" || c.tradition === "comparative" ? "jullien"
+                     : "western");
+
+  // Counterparts (may include cross-map)
+  const counterparts = (c.counterparts || []).map(cid => {
+    if (conceptById[cid]) {
+      const cc = conceptById[cid];
+      return `<li><a href="concept.html?map=${mapId}&id=${cc.id}">${cc.term} <em>(${cc.english || cc.transliteration})</em></a></li>`;
+    }
+    if (otherById[cid]) {
+      const cc = otherById[cid];
+      const otherMap = isLightcone ? "atlas" : "lightcone";
+      return `<li><a href="concept.html?map=${otherMap}&id=${cc.id}">${cc.term} <em>(${cc.english || cc.transliteration})</em> <span style="font-size:11px;letter-spacing:0.08em;color:var(--accent);text-transform:uppercase;margin-left:6px;">cross-map</span></a></li>`;
+    }
+    return "";
+  }).filter(Boolean).join("");
+
+  // Thinkers worked the concept
+  const tcEdges = data.edges.filter(e => e.kind === "tc" && e.target === c.id);
+  const grouped = { coined: [], central: [], advanced: [], critiqued: [] };
+  tcEdges.forEach(e => {
+    const t = thinkerById[e.source];
+    if (t) (grouped[e.type] || grouped.advanced).push(t);
+  });
+  function thinkerRow(label, list) {
+    if (!list.length) return "";
+    return `<p style="margin:6px 0"><span style="font-family:var(--sans);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-right:8px;">${label}</span>${
+      list.map(t => `<a href="../thinker.html?map=${mapId}&id=${t.id}">${t.name.split(" (")[0]}</a>`).join(" · ")
+    }</p>`;
+  }
+
+  // Other related concepts via cc edges (excluding counterparts already shown)
+  const counterpartIds = new Set(c.counterparts || []);
+  const relatedFromEdges = data.edges
+    .filter(e => e.kind === "cc" && (e.source === c.id || e.target === c.id))
+    .map(e => {
+      const otherId = e.source === c.id ? e.target : e.source;
+      if (counterpartIds.has(otherId)) return null;
+      const isCross = e.cross_map || (!conceptById[otherId] && otherById[otherId]);
+      if (isCross) {
+        const cc = otherById[otherId];
+        if (!cc) return null;
+        const otherMap = isLightcone ? "atlas" : "lightcone";
+        return `<li><a href="concept.html?map=${otherMap}&id=${cc.id}">${cc.term}</a> <span style="color:var(--muted);font-size:13px">— ${e.type}: ${e.note || ""}</span> <span style="font-size:10px;letter-spacing:0.1em;color:var(--accent);text-transform:uppercase;margin-left:6px;">cross-map</span></li>`;
+      }
+      const other = conceptById[otherId];
+      if (!other) return null;
+      return `<li><a href="concept.html?map=${mapId}&id=${other.id}">${other.term}</a> <span style="color:var(--muted);font-size:13px">— ${e.type}: ${e.note || ""}</span></li>`;
+    }).filter(Boolean).join("");
+
+  const inDisputes = data.disputes.filter(d =>
+    d.positions.some(p => (p.concepts || []).includes(c.id))
+  ).map(d => `<li><a href="../disputes.html${isLightcone ? "?map=lightcone" : ""}#${d.id}">${d.name}</a> — ${d.summary}</li>`).join("");
+
+  const coinedBy = c.coined_by ? thinkerById[c.coined_by] : null;
+
+  root.innerHTML = `
+    <p class="kicker"><a href="../${isLightcone ? "lightcone" : "index"}.html">← back to map</a></p>
+
+    <header class="concept-header">
+      <div class="glyph">${c.term}</div>
+      <div class="meta-block">
+        <div class="label">${c.script || ""} &middot; ${c.domain || ""}</div>
+        <h1>${c.transliteration || c.term}</h1>
+        <div class="english">${c.english || ""}</div>
+        <span class="tradition-tag ${tradTagClass}">${tradName}</span>
+        ${coinedBy ? `<div style="margin-top:10px;font-size:14px;color:var(--muted)">coined by <a href="../thinker.html?map=${mapId}&id=${coinedBy.id}">${coinedBy.name.split(" (")[0]}</a></div>` : ""}
+      </div>
+    </header>
+
+    <section class="concept-section">
+      <h2>Gloss</h2>
+      <p>${c.gloss || ""}</p>
+    </section>
+
+    ${c.ecart ? `<section class="concept-section ecart"><h2>The écart</h2><p>${c.ecart}</p></section>` : ""}
+    ${c.us_china ? `<section class="concept-section application"><h2>US–China application</h2><p>${c.us_china}</p></section>` : ""}
+
+    ${tcEdges.length ? `
+    <section class="concept-section">
+      <h2>Thinkers who have worked this concept</h2>
+      ${thinkerRow("Coined", grouped.coined)}
+      ${thinkerRow("Central", grouped.central)}
+      ${thinkerRow("Advanced", grouped.advanced)}
+      ${thinkerRow("Critiqued", grouped.critiqued)}
+    </section>` : ""}
+
+    ${counterparts ? `<section class="concept-section"><h2>Counterparts across the écart</h2><ul class="counterpart-list">${counterparts}</ul></section>` : ""}
+    ${relatedFromEdges ? `<section class="concept-section"><h2>Related concepts</h2><ul class="counterpart-list" style="flex-direction:column;align-items:flex-start">${relatedFromEdges}</ul></section>` : ""}
+    ${inDisputes ? `<section class="concept-section"><h2>In disputes</h2><ul class="counterpart-list" style="flex-direction:column;align-items:flex-start">${inDisputes}</ul></section>` : ""}
+  `;
+})();
+</script>
+</body>
+</html>

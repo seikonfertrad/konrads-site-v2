@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Disputes — Atlas</title>
+  <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <h1 class="site-title">
+      <a href="index.html">East ↔ West Atlas
+        <span class="sub">Comparative concepts, thinkers, and disputes — with focus on US–China</span>
+      </a>
+    </h1>
+    <nav class="site-nav" id="site-nav"></nav>
+  </div>
+</header>
+
+<main class="page" id="content">
+  <p class="kicker" id="kicker"></p>
+  <h1>Disputes</h1>
+  <p class="lede" id="lede">Loading…</p>
+  <p style="font-size:14px;color:var(--muted);">Index: <span id="d-index"></span></p>
+  <div id="dispute-list"></div>
+</main>
+
+<footer class="site-foot">
+  Dispute summaries are original prose. See <a href="sources.html">Sources</a>.
+</footer>
+
+<script src="data/atlas.js"></script>
+<script src="data/lightcone.js"></script>
+<script>
+(function () {
+  const params = new URLSearchParams(location.search);
+  const mapId = params.get("map") || "atlas";
+  const isLightcone = mapId === "lightcone";
+  const data = isLightcone ? window.LIGHTCONE_DATA : window.ATLAS_DATA;
+
+  if (isLightcone) {
+    document.title = "Disputes — Lightcone Atlas";
+    document.querySelector(".site-title a").firstChild.textContent = "Lightcone Atlas";
+    document.querySelector(".site-title .sub").textContent = "LW/EA concepts, thinkers, and disputes around ethics, x-risk, and the future";
+    document.getElementById("kicker").textContent = `${data.disputes.length} live debates`;
+    document.getElementById("lede").innerHTML = "Eight live debates within the LW/EA cluster, set out with their principal positions, the thinkers who argued them, and the concepts at stake. Includes the Yudkowsky–Hanson AI takeoff debate, the strong-longtermism / cluelessness dispute, agent foundations vs. prosaic alignment, total-view vs. person-affecting-view in population ethics, and the post-FTX reckoning over EA epistemics.";
+  } else {
+    document.title = "Disputes — East ↔ West Atlas";
+    document.getElementById("kicker").textContent = `${data.disputes.length} live debates`;
+    document.getElementById("lede").innerHTML = "A field is most legible through its disputes. Each entry below sets out a debate that has actually been had — sometimes within Chinese thought, sometimes between Chinese and Western traditions, sometimes within comparative philosophy itself — together with the principal positions, the thinkers who argued them, and the concepts at stake.";
+  }
+  document.getElementById("site-nav").innerHTML = isLightcone
+    ? `<a href="lightcone.html">Map</a>
+       <a href="thinkers.html?map=lightcone">Thinkers</a>
+       <a href="traditions.html?map=lightcone">Traditions</a>
+       <a href="disputes.html?map=lightcone" class="active">Disputes</a>
+       <a href="index.html">East–West map</a>
+       <a href="cross.html">Cross-map</a>
+       <a href="sources.html">Sources</a>
+       <a href="about.html">About</a>`
+    : `<a href="index.html">Map</a>
+       <a href="thinkers.html">Thinkers</a>
+       <a href="traditions.html">Traditions</a>
+       <a href="disputes.html" class="active">Disputes</a>
+       <a href="essays.html">Readings</a>
+       <a href="lightcone.html">Lightcone map</a>
+       <a href="cross.html">Cross-map</a>
+       <a href="sources.html">Sources</a>
+       <a href="about.html">About</a>`;
+
+  const conceptById = Object.fromEntries(data.concepts.map(c => [c.id, c]));
+  const thinkerById = Object.fromEntries(data.thinkers.map(t => [t.id, t]));
+
+  let index = "";
+  let html = "";
+  data.disputes.forEach((d, i) => {
+    index += `<a href="#${d.id}">${i+1}. ${d.name}</a>${i < data.disputes.length-1 ? " · " : ""}`;
+    const positions = d.positions.map(p => {
+      const thinkers = (p.thinkers || []).map(tid => {
+        const t = thinkerById[tid];
+        return t ? `<a href="thinker.html?map=${mapId}&id=${t.id}">${t.name.split(" (")[0]}</a>` : "";
+      }).filter(Boolean).join(" · ");
+      const concepts = (p.concepts || []).map(cid => {
+        const c = conceptById[cid];
+        return c ? `<a href="concepts/concept.html?map=${mapId}&id=${c.id}">${c.term}</a>` : "";
+      }).filter(Boolean).join(" · ");
+      return `<div style="margin:18px 0;padding:14px 16px;background:#fffdf8;border:1px solid var(--rule);border-radius:6px;">
+        <div style="font-family:var(--sans);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;">Position</div>
+        <div style="font-weight:600;font-size:16px;margin-bottom:8px;">${p.label}</div>
+        <p style="margin:0 0 10px 0;font-size:15px;line-height:1.55;">${p.claim}</p>
+        ${thinkers ? `<p style="margin:6px 0 0;font-size:13px;color:var(--muted);"><strong>Thinkers:</strong> ${thinkers}</p>` : ""}
+        ${concepts ? `<p style="margin:4px 0 0;font-size:13px;color:var(--muted);"><strong>Concepts:</strong> ${concepts}</p>` : ""}
+      </div>`;
+    }).join("");
+    html += `<section id="${d.id}" style="margin-top:48px;padding-top:24px;border-top:1px solid var(--rule);">
+      <p class="kicker">Dispute ${i+1} of ${data.disputes.length}</p>
+      <h2 style="text-transform:none;letter-spacing:0;color:var(--ink);font-size:24px;font-family:var(--serif);font-weight:600;margin:6px 0 14px;">${d.name}</h2>
+      <p style="font-size:17px;line-height:1.6;margin:0 0 12px;">${d.summary}</p>
+      <p style="font-size:14px;line-height:1.55;color:var(--muted);font-style:italic;margin:0 0 6px;"><strong style="color:var(--ink);font-style:normal;">What is at stake:</strong> ${d.stake}</p>
+      ${positions}
+    </section>`;
+  });
+  document.getElementById("d-index").innerHTML = index;
+  document.getElementById("dispute-list").innerHTML = html;
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lightcone ↔ Sino — mapping the LW/EA memespace onto Chinese thought</title>
+  <meta name="description" content="An interactive map of the LessWrong / Effective Altruism cluster of concepts plotted against their Chinese-tradition counterparts." />
+  <link rel="stylesheet" href="css/site.css" />
+  <style>
+    .legend .legend-groups { display: grid; grid-template-columns: auto auto; column-gap: 18px; }
+    .legend .legend-group { display: flex; flex-direction: column; gap: 4px; }
+    .legend .key-rows { display: flex; flex-wrap: wrap; column-gap: 14px; row-gap: 4px; }
+    .legend .legend-title { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <h1 class="site-title">
+      <a href="lightcone.html">Lightcone ↔ Sino
+        <span class="sub">Mapping the LW/EA memespace onto Chinese thought</span>
+      </a>
+    </h1>
+    <nav class="site-nav">
+      <a href="lightcone.html" class="active">Map</a>
+      <a href="thinkers.html?map=lightcone">Thinkers</a>
+      <a href="traditions.html?map=lightcone">Traditions</a>
+      <a href="disputes.html?map=lightcone">Disputes</a>
+      <a href="index.html">East–West map</a>
+      <a href="cross.html">Cross-edges</a>
+      <a href="sources.html">Sources</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="graph-shell">
+  <section class="graph-area">
+    <svg id="graph"></svg>
+
+    <div class="controls" aria-label="Graph filters">
+      <h4>Search</h4>
+      <input id="search" type="search" placeholder="Term, name, English…" autocomplete="off" />
+
+      <h4 style="margin-top:12px">Show</h4>
+      <div class="row" id="filter-show">
+        <button class="chip active" data-show="concepts" title="Concept nodes">Concepts</button>
+        <button class="chip active" data-show="thinkers" title="LW/EA thinker nodes">Thinkers</button>
+        <button class="chip" data-show="tt" title="Influence, critique, dispute edges between thinkers">Influence &amp; critique</button>
+      </div>
+
+      <h4>Tradition</h4>
+      <div class="row" id="filter-tradition">
+        <button class="chip active" data-tradition="all">All</button>
+        <button class="chip" data-tradition="origin:atlas" title="Concepts mirrored in from the East–West atlas: mostly Chinese, plus a few Greek, modern European, Kyoto School and comparative ones">East–West atlas</button>
+        <button class="chip" data-tradition="classical-utilitarian">Classical util.</button>
+        <button class="chip" data-tradition="bayesian-rationalism">Rationalism</button>
+        <button class="chip" data-tradition="effective-altruism">EA</button>
+        <button class="chip" data-tradition="longtermism">Longtermism</button>
+        <button class="chip" data-tradition="ai-safety">AI safety</button>
+        <button class="chip" data-tradition="transhumanism">Transhumanism</button>
+        <button class="chip" data-tradition="suffering-focused">Suffering-focused</button>
+      </div>
+
+      <h4>Concept-edge type</h4>
+      <div class="row" id="filter-edges">
+        <button class="chip active" data-edge="ecart">Écart</button>
+        <button class="chip active" data-edge="parallel">Parallel</button>
+        <button class="chip active" data-edge="pair">Pair</button>
+        <button class="chip active" data-edge="kinship">Kinship</button>
+        <button class="chip active" data-edge="lineage">Lineage</button>
+      </div>
+    </div>
+
+    <div class="legend" aria-label="Legend">
+      <div class="key-rows">
+      <div class="row"><span class="swatch swatch-thinker"></span> Thinker (rounded rect)</div>
+      <div class="row"><svg class="line" viewBox="0 0 26 2"><line x1="0" y1="1" x2="26" y2="1" stroke="#8a3324" stroke-width="1.6" stroke-dasharray="6 4"/></svg> écart (the gap)</div>
+      <div class="row"><svg class="line" viewBox="0 0 26 2"><line x1="0" y1="1" x2="26" y2="1" stroke="#2c4a52" stroke-width="1.1" stroke-dasharray="2 4"/></svg> parallel (resonance)</div>
+      </div>
+    </div>
+  </section>
+
+  <aside class="panel" id="panel">
+    <p class="empty">
+      <strong>Lightcone ↔ Sino.</strong> The LessWrong / Effective Altruism cluster — impartial expected-value ethics, longtermism, x-risk, AI alignment, the lightcone — is itself a particular intellectual configuration with strong premises about what ethics is, how to think about the future, and what counts as taking the future seriously. This map plots that configuration against its Chinese-tradition counterparts and lets you read the écart between them.
+    </p>
+    <p class="empty">
+      Concepts mirrored in from the <a href="index.html">East–West atlas</a> sit toward the left: mostly Chinese, plus a few Greek, European, Kyoto School and comparative ones. Only those with a substantial relation to an LW/EA concept appear here. LW/EA concepts (cool tones, on the right) and their thinkers populate the rest of the graph. The dashed red lines crossing the middle are the écart edges; the dotted blue lines are parallels. Click any node to read both sides of the gap.
+    </p>
+    <p class="empty">
+      The bet of this view: the LW/EA memespace's most distinctive moves — formalize ethics as expected-value over impartially counted welfare; reason forward from a desired distant future; treat values as encodable objects to be loaded into AI systems — each have well-developed Chinese counterparts that organize the same problems differently. Reading the LW/EA framework through this écart sharpens both what it does well and where its blind spots are. See the <a href="cross.html">Cross-edges</a> page for the full annotated list.
+    </p>
+  </aside>
+</main>
+
+<footer class="site-foot">
+  All summaries are original prose composed for this site. Bibliographic citations are factual references; no copyrighted text is reproduced. See <a href="sources.html">Sources</a> and <a href="about.html">About</a>.
+</footer>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="data/atlas.js"></script>
+<script src="data/lightcone.js"></script>
+<script>
+// ─── Build the merged graph dataset ────────────────────────────────────────
+// Take the full lightcone data, plus the subset of East–West atlas concepts
+// that are referenced by lightcone's cross-map edges. Atlas concepts appear
+// as proper nodes here so the cross-map edges actually render.
+(function () {
+  const lc = window.LIGHTCONE_DATA;
+  const at = window.ATLAS_DATA;
+
+  const lcConceptIds = new Set(lc.concepts.map(c => c.id));
+  const atConceptIds = new Set(at.concepts.map(c => c.id));
+
+  const referencedAtlasIds = new Set();
+  lc.edges.forEach(e => {
+    if (e.kind !== "cc") return;
+    if (e.cross_map || (!lcConceptIds.has(e.source) && atConceptIds.has(e.source))) {
+      // either side may be the atlas concept; track both
+      if (atConceptIds.has(e.source) && !lcConceptIds.has(e.source)) referencedAtlasIds.add(e.source);
+      if (atConceptIds.has(e.target) && !lcConceptIds.has(e.target)) referencedAtlasIds.add(e.target);
+    }
+  });
+
+  const mirroredAtlasConcepts = at.concepts.filter(c => referencedAtlasIds.has(c.id));
+  const usedAtlasTraditionIds = new Set(mirroredAtlasConcepts.map(c => c.tradition));
+
+  // Presentation overrides for this map only: the right half belongs to LW/EA, so these atlas
+  // traditions move left, and their atlas colours (which duplicate LW/EA colours) are replaced.
+  const lightconeOverrides = {
+    "greek-classical": { xPos: -0.75, yPos: -0.6, color: "#c287bc" },
+    "modern-european": { xPos: -0.75, yPos: 0.6,  color: "#3fa66b" },
+    "kyoto-school":    { xPos: -0.9,  yPos: -0.4, color: "#af5ca9" },
+    "comparative":     { xPos: -0.6,  yPos: -0.9, color: "#eb7578" }
+  };
+  const mirroredAtlasTraditions = at.traditions
+    .filter(t => usedAtlasTraditionIds.has(t.id))
+    .map(t => ({ ...t, ...lightconeOverrides[t.id] }));
+
+  // Tag origin so concept-page links go to the right map
+  const lcConceptsTagged = lc.concepts.map(c => ({ ...c, _originMap: "lightcone" }));
+  const mirroredTagged   = mirroredAtlasConcepts.map(c => ({ ...c, _originMap: "atlas" }));
+
+  window.GRAPH_MAP_ID = "lightcone";
+  window.GRAPH_DATA = {
+    traditions: [...lc.traditions, ...mirroredAtlasTraditions],
+    concepts:   [...lcConceptsTagged, ...mirroredTagged],
+    thinkers:   lc.thinkers.map(t => ({ ...t, _originMap: "lightcone" })),
+    disputes:   lc.disputes,
+    edges:      lc.edges
+  };
+
+  // Legend rows come from the data, so every tradition on the map is listed in the colour it is drawn in
+  const legendGroup = (title, traditions) =>
+    `<div class="legend-group"><div class="legend-title">${title}</div>${
+      traditions.map(t => `<div class="row"><span class="swatch" style="background:${t.color}"></span> ${t.name}</div>`).join("")
+    }</div>`;
+  document.querySelector(".legend").insertAdjacentHTML("afterbegin",
+    `<div class="legend-groups">${legendGroup("East–West atlas", mirroredAtlasTraditions)}${legendGroup("LW/EA", lc.traditions)}</div>`);
+})();
+</script>
+<script src="js/graph.js"></script>
+</body>
+</html>
