@@ -98,6 +98,9 @@
 </footer>
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
+<!-- lightcone.js first: both files alias window.GRAPH_DATA, and this map's is atlas.js.
+     The lightcone data is loaded so the panel can resolve cross-map counterparts. -->
+<script src="data/lightcone.js"></script>
 <script src="data/atlas.js"></script>
 <script>window.GRAPH_MAP_ID = "atlas";</script>
 <script src="js/graph.js"></script>

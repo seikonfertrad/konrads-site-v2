@@ -107,6 +107,9 @@
     const t = thinkerById[e.source];
     if (t) (grouped[e.type] || grouped.advanced).push(t);
   });
+  // key_thinkers not backed by an explicit tc edge still belong in this section
+  const edgeThinkerIds = new Set(tcEdges.map(e => e.source));
+  const keyOnly = (c.key_thinkers || []).filter(id => !edgeThinkerIds.has(id)).map(id => thinkerById[id]).filter(Boolean);
   function thinkerRow(label, list) {
     if (!list.length) return "";
     return `<p style="margin:6px 0"><span style="font-family:var(--sans);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-right:8px;">${label}</span>${
@@ -114,9 +117,25 @@
     }</p>`;
   }
 
-  // Other related concepts via cc edges (excluding counterparts already shown)
+  // The reverse counterpart direction: concepts (in either map) that list this one.
+  // Counterpart lists are directional by design (salience from each concept's own
+  // vantage), so the reverse direction is derived rather than stored.
+  const listedBy = [...data.concepts, ...otherData.concepts]
+    .filter(cc => cc.id !== c.id && (cc.counterparts || []).includes(c.id) && !(c.counterparts || []).includes(cc.id))
+    .map(cc => {
+      const cross = !conceptById[cc.id];
+      const m = cross ? (isLightcone ? "atlas" : "lightcone") : mapId;
+      return `<li><a href="concept.html?map=${m}&id=${cc.id}">${cc.term} <em>(${cc.english || cc.transliteration})</em></a>${cross ? ` <span style="font-size:11px;letter-spacing:0.08em;color:var(--accent);text-transform:uppercase;margin-left:6px;">cross-map</span>` : ""}</li>`;
+    }).join("");
+
+  // Other related concepts via cc edges (excluding counterparts already shown).
+  // Cross-map edges are stored only in the lightcone data file, so when this is
+  // an atlas concept the lightcone file's cross_map edges must be scanned too.
   const counterpartIds = new Set(c.counterparts || []);
-  const relatedFromEdges = data.edges
+  const edgePool = isLightcone
+    ? data.edges
+    : [...data.edges, ...otherData.edges.filter(e => e.cross_map)];
+  const relatedFromEdges = edgePool
     .filter(e => e.kind === "cc" && (e.source === c.id || e.target === c.id))
     .map(e => {
       const otherId = e.source === c.id ? e.target : e.source;
@@ -161,16 +180,18 @@
     ${c.ecart ? `<section class="concept-section ecart"><h2>The écart</h2><p>${c.ecart}</p></section>` : ""}
     ${c.us_china ? `<section class="concept-section application"><h2>US–China application</h2><p>${c.us_china}</p></section>` : ""}
 
-    ${tcEdges.length ? `
+    ${(tcEdges.length || keyOnly.length) ? `
     <section class="concept-section">
       <h2>Thinkers who have worked this concept</h2>
       ${thinkerRow("Coined", grouped.coined)}
       ${thinkerRow("Central", grouped.central)}
       ${thinkerRow("Advanced", grouped.advanced)}
       ${thinkerRow("Critiqued", grouped.critiqued)}
+      ${thinkerRow("Key", keyOnly)}
     </section>` : ""}
 
     ${counterparts ? `<section class="concept-section"><h2>Counterparts across the écart</h2><ul class="counterpart-list">${counterparts}</ul></section>` : ""}
+    ${listedBy ? `<section class="concept-section"><h2>Listed as a counterpart by</h2><ul class="counterpart-list">${listedBy}</ul></section>` : ""}
     ${relatedFromEdges ? `<section class="concept-section"><h2>Related concepts</h2><ul class="counterpart-list" style="flex-direction:column;align-items:flex-start">${relatedFromEdges}</ul></section>` : ""}
     ${inDisputes ? `<section class="concept-section"><h2>In disputes</h2><ul class="counterpart-list" style="flex-direction:column;align-items:flex-start">${inDisputes}</ul></section>` : ""}
   `;

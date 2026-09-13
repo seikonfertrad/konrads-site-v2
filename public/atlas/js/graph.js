@@ -11,6 +11,13 @@
   const traditionById = Object.fromEntries(data.traditions.map(t => [t.id, t]));
   const disputeById  = Object.fromEntries(data.disputes.map(d => [d.id, d]));
 
+  // The other atlas, when its data file is loaded on this page: lets the panel
+  // resolve cross-map counterparts and edges instead of silently dropping them.
+  const currentMapId = window.GRAPH_MAP_ID === "lightcone" ? "lightcone" : "atlas";
+  const otherMapId   = currentMapId === "lightcone" ? "atlas" : "lightcone";
+  const otherData    = otherMapId === "atlas" ? window.ATLAS_DATA : window.LIGHTCONE_DATA;
+  const otherConceptById = otherData ? Object.fromEntries(otherData.concepts.map(c => [c.id, c])) : {};
+
   // Tradition palette: each tradition has its own color
   function nodeColor(node) {
     const trad = node.tradition;
@@ -259,21 +266,42 @@
   }
 
   function showConcept(c) {
-    // Find counterparts (linked) and thinkers who worked it
+    // Find counterparts (linked) and thinkers who worked it.
+    // A counterpart may live in the other atlas: link to its concept page there.
     const counterparts = (c.counterparts || []).map(cid => {
       const cc = conceptById[cid];
-      return cc ? `<a href="#" data-cnid="c:${cc.id}">${cc.term}</a>` : "";
+      if (cc) return `<a href="#" data-cnid="c:${cc.id}">${cc.term}</a>`;
+      const oc = otherConceptById[cid];
+      if (oc) return `<a href="concepts/concept.html?map=${otherMapId}&id=${oc.id}" title="cross-map · ${oc.english || ""}">${oc.term}<sup style="opacity:0.6">×</sup></a>`;
+      return "";
     }).filter(Boolean).join("");
 
-    // Thinkers who worked this concept
-    const linkedThinkers = data.edges
-      .filter(e => e.kind === "tc" && e.target === c.id)
+    // Cross-map edges touching this concept. They are stored in the lightcone
+    // data file, so on the East–West map they must be read from otherData;
+    // on the lightcone map they already render as graph edges.
+    const crossLinks = (currentMapId === "atlas" && otherData ? otherData.edges : [])
+      .filter(e => e.cross_map && (e.source === c.id || e.target === c.id))
+      .map(e => {
+        const oc = otherConceptById[e.source === c.id ? e.target : e.source];
+        if (!oc) return "";
+        return `<a href="concepts/concept.html?map=${otherMapId}&id=${oc.id}" title="${e.type}: ${e.note || ""}">${oc.term}<sup style="opacity:0.6">${e.type[0]}</sup></a>`;
+      }).filter(Boolean).join("");
+
+    // Thinkers who worked this concept (tc edges, plus key_thinkers without one)
+    const tcEdges = data.edges.filter(e => e.kind === "tc" && e.target === c.id);
+    const edgeThinkerIds = new Set(tcEdges.map(e => e.source));
+    const linkedThinkers = tcEdges
       .map(e => {
         const t = thinkerById[e.source];
         if (!t) return "";
         const role = e.type;
         return `<a href="#" data-cnid="t:${t.id}" title="${role}">${t.name.split(" (")[0]}<sup style="opacity:0.6">${role[0]}</sup></a>`;
-      }).filter(Boolean).join(" · ");
+      })
+      .concat((c.key_thinkers || []).filter(tid => !edgeThinkerIds.has(tid)).map(tid => {
+        const t = thinkerById[tid];
+        return t ? `<a href="#" data-cnid="t:${t.id}" title="key thinker">${t.name.split(" (")[0]}<sup style="opacity:0.6">k</sup></a>` : "";
+      }))
+      .filter(Boolean).join(" · ");
 
     // Disputes the concept figures in
     const inDisputes = data.disputes.filter(d => d.positions.some(p => (p.concepts || []).includes(c.id)))
@@ -296,6 +324,7 @@
       </div>` : ""}
 
       ${counterparts ? `<div class="related"><span class="label">Counterparts</span>${counterparts}</div>` : ""}
+      ${crossLinks ? `<div class="related"><span class="label">Across the maps</span>${crossLinks}</div>` : ""}
       ${linkedThinkers ? `<div class="related"><span class="label">Worked by</span>${linkedThinkers}</div>` : ""}
       ${inDisputes ? `<div class="related"><span class="label">In disputes</span>${inDisputes}</div>` : ""}
 

@@ -57,7 +57,7 @@
     The <a href="index.html">Map</a> is the homepage: a force-directed graph in which concepts are circles and thinkers are rounded rectangles. Filters separate the layers (concepts only, thinkers only, both, plus the thinker-to-thinker network). Search ranges across terms, transliterations, and contributions. Click any node for a side-panel summary; click again for the full page.
   </p>
   <p>
-    The <a href="thinkers.html">Thinkers</a> page lists the twenty-four figures grouped by tradition. Each thinker page surfaces the concepts they coined, advanced, or critiqued, the dialogues and disputes they were in, and selected works. The <a href="traditions.html">Traditions</a> page gives capsule summaries of the eight intellectual lineages and the concepts and thinkers each contains. The <a href="disputes.html">Disputes</a> page lays out eight live debates, each with its principal positions, the thinkers arguing them, and the concepts at stake.
+    The <a href="thinkers.html">Thinkers</a> page lists the twenty-seven figures grouped by tradition. Each thinker page surfaces the concepts they coined, advanced, or critiqued, the dialogues and disputes they were in, and selected works. The <a href="traditions.html">Traditions</a> page gives capsule summaries of the eight intellectual lineages and the concepts and thinkers each contains. The <a href="disputes.html">Disputes</a> page lays out eight live debates, each with its principal positions, the thinkers arguing them, and the concepts at stake.
   </p>
 
   <h2>What this is not</h2>
@@ -90,7 +90,7 @@
     <em>Chinese thought is plural.</em> The labels "Chinese-classical" and "Confucian" mask substantial internal disputes — Mencius and Xunzi on human nature, Confucians and Mohists on the universality of love, Daoists and Confucians on civilization, Legalists and Confucians on rule by law versus rule by virtue. The site attempts to honor this plurality (Confucius, Mencius, Laozi, and Zhuangzi each have their own thinker entries) but cannot fully reproduce it within a graph organized around comparative purposes.
   </p>
   <p>
-    <em>The included thinkers are partly contingent.</em> Twenty-four thinkers across two and a half millennia is a curated selection, not a comprehensive one. Major figures absent for space rather than principle include: Tang Junyi, Feng Youlan, Xunzi, Wang Yangming, Zhu Xi (acknowledged in concepts but not in their own entries), Wing-tsit Chan, Henry Rosemont (whose role-ethics work is folded into the Hall–Ames entry), Karl Jaspers, Reinhard May, the rest of the Kyoto School (Tanabe, Nishitani), Joseph Adler, Sarah Allan, Bryan Van Norden, Stephen Angle, and many others. Their absence is not a verdict on their importance.
+    <em>The included thinkers are partly contingent.</em> Twenty-seven thinkers across two and a half millennia is a curated selection, not a comprehensive one. Major figures absent for space rather than principle include: Tang Junyi, Feng Youlan, Xunzi, Wang Yangming, Zhu Xi (acknowledged in concepts but not in their own entries), Wing-tsit Chan, Henry Rosemont (whose role-ethics work is folded into the Hall–Ames entry), Karl Jaspers, Reinhard May, the rest of the Kyoto School (Tanabe, Nishitani), Joseph Adler, Sarah Allan, Bryan Van Norden, Stephen Angle, and many others. Their absence is not a verdict on their importance.
   </p>
   <p>
     <em>The disputes are also a curated selection.</em> Eight disputes suggest a settled set; in fact the field has dozens of live debates and these eight are the ones most directly relevant to the U.S.–China question that organizes the project.
@@ -104,7 +104,10 @@
     The Map is a D3.js v7 force-directed layout. Concepts are circles colored by tradition; thinkers are rounded rectangles. Edges encode three relation kinds: concept-to-concept (with five sub-types: écart, parallel, pair, kinship, lineage), thinker-to-concept (coined, central, advanced, critiqued), thinker-to-thinker (influence, critique, dispute). Forces nudge Chinese-tradition nodes left, Western-tradition nodes right, comparative-method nodes upward; Kyoto-School nodes float between. The geometry is a visual hint, not an argument. Drag any node to test an alternative arrangement.
   </p>
   <p>
-    The site is a static HTML/CSS/JavaScript build with no backend. All concept, thinker, tradition, and dispute data live in a single JavaScript file (<code>data/atlas.js</code>) that can be edited to add or revise entries. The build runs offline once loaded.
+    The site is a static HTML/CSS/JavaScript build with no backend. All concept, thinker, tradition, and dispute data live in two JavaScript files — <code>data/atlas.js</code> for the East–West atlas and <code>data/lightcone.js</code> for the Lightcone atlas, which also holds the cross-map edges between the two — and can be edited to add or revise entries. The build runs offline once loaded.
+  </p>
+  <p>
+    The two ontologies and the mapping between them are consistency-checked by an audit script (<code>tools/atlas-audit.mjs</code> in the repository, run with <code>npm run atlas:audit</code>): it verifies that every edge, counterpart, dispute position, and attribution resolves to a real entry, that cross-map edges genuinely connect the two maps, and it computes the mapping's coverage and residue. The conceptual analysis behind the mapping — what the edge types claim, why counterpart lists are directional, and why the unmapped residue is a result rather than a gap — is set out on the <a href="cross.html">Cross-map</a> page.
   </p>
 
   <h2>Acknowledgments</h2>

@@ -32,9 +32,33 @@
     The two atlases on this site index different fields — comparative philosophy of Asian and Western thought on one side, the LessWrong / Effective Altruism cluster on the other — but they share intellectual gravity. Each is a particular configuration of moral philosophy, decision theory, and futures thinking; each makes its own kind of universalist claim; each has a distinctive blind spot the other can name. This page lays out the cross-map edges: concepts in the Lightcone Atlas paired with their counterparts across the East–West écart.
   </p>
 
-  <p style="font-size:14px;color:var(--muted);">Click any term to open the concept page in the relevant map. Edge type follows the standard atlas vocabulary: <strong>écart</strong> = productive gap, <strong>parallel</strong> = resonance without coincidence, <strong>kinship</strong> = shared lineage.</p>
+  <p style="font-size:14px;color:var(--muted);">Click any term to open the concept page in the relevant map. Edge type follows the standard atlas vocabulary: <strong>écart</strong> = productive gap, <strong>parallel</strong> = resonance without coincidence, <strong>kinship</strong> = shared lineage. <span id="cross-count"></span></p>
 
   <div id="cross-list">Loading…</div>
+
+  <h2 style="margin-top:64px;">Method — the conceptual analysis behind the mapping</h2>
+
+  <p>
+    The cross-map is not a translation table. It is built by a fixed procedure, and knowing the procedure is the only way to read the edges responsibly.
+  </p>
+
+  <p>
+    <strong>1. Two ontologies, one schema.</strong> Each atlas is a small ontology: traditions (historical configurations), thinkers, concepts, disputes, and typed relations between them. The schema is deliberately identical on both sides so that mapping is possible at all — but the two ontologies are not the same kind of object. The East–West Atlas indexes civilizational repertoires stabilized over millennia and read through a century of comparative scholarship; the Lightcone Atlas indexes a living research cluster barely two decades old. Any edge between them therefore connects entities of different maturity, and the edge types are chosen to keep that asymmetry visible rather than flatten it.
+  </p>
+
+  <p>
+    <strong>2. The relation vocabulary is the analysis.</strong> Five edge types are used within each map; only three are permitted across the gap. <em>Écart</em> (after Jullien) marks two concepts that organize the <em>same problem</em> through incompatible configurations — the pairing claims neither equivalence nor opposition, but that each becomes legible against the other. <em>Parallel</em> marks structural resonance without shared lineage or shared problem-framing: the concepts rhyme, and the rhyme is informative, but neither would recognize the other as an answer to its own question. <em>Kinship</em> marks actual shared descent (utilitarianism and the Kantian moral law are both children of European universalism; the edge records the family, not agreement). The two remaining types — <em>pair</em> (mutually constitutive concepts inside one tradition) and <em>lineage</em> (derivation inside one tradition) — are deliberately barred from crossing the gap: using them across the écart would smuggle in the claim that the two configurations form one tradition, which is exactly what the atlas refuses to presuppose.
+  </p>
+
+  <p>
+    <strong>3. Counterparts are directional by design.</strong> Each concept lists the counterparts most salient <em>from its own vantage</em>, and the lists are intentionally not symmetric: ren's page names the moral law because Kant is the interlocutor against which the ren-tradition has had to define itself, while the moral law's page need not name junzi, because junzi is not what the Kantian tradition argues with. Asymmetric salience is a finding about the two configurations, not an error in the data — so the tool now shows the reverse direction separately ("listed as a counterpart by") instead of forcing the lists to match.
+  </p>
+
+  <p>
+    <strong>4. The residue is part of the result.</strong> A mapping that connected everything would be evidence of a broken method. The concepts listed below have <em>no</em> edge across the gap, and the pattern of what fails to map is itself a conclusion of the analysis. On the LW/EA side the unmapped core is the formal decision-theory stratum (Newcomb's problem, CDT/FDT, acausal trade, Pascal's mugging) and population ethics (the total view, the Repugnant Conclusion): the most mathematically articulated layer of the cluster is precisely the layer for which the Chinese tradition offers no counterpart, because it never posed ethics as an aggregation problem over possible persons. On the East–West side, the unmapped concepts are mostly the internal Western metaphysical hinges (Being, eidos, the subject, the will) — which the cross-map does not need, since the LW/EA cluster inherits them silently — and the aesthetic register (dan, the sublime), which the LW/EA cluster simply does not have. A research community with no aesthetics and an inherited, unexamined metaphysics: that is a description the residue produces mechanically, and it is worth having.
+  </p>
+
+  <div id="cross-residue"></div>
 
   <h2 style="margin-top:64px;">Why the cross-map matters</h2>
 
@@ -69,8 +93,16 @@
   const atlasById = Object.fromEntries(atlas.concepts.map(c => [c.id, c]));
   const lightconeById = Object.fromEntries(lightcone.concepts.map(c => [c.id, c]));
 
-  // Cross-map edges live on the lightcone side, marked with cross_map: true
-  const crossEdges = lightcone.edges.filter(e => e.cross_map);
+  // Cross-map edges live in the lightcone data file, marked with cross_map: true.
+  // Either endpoint may be the atlas-side concept, so resolve both orientations
+  // and normalize to { lc, at } for display (lightcone left, atlas right).
+  const crossEdges = [];
+  lightcone.edges.filter(e => e.cross_map).forEach(e => {
+    let lc = lightconeById[e.source], at = atlasById[e.target];
+    if (!lc || !at) { lc = lightconeById[e.target]; at = atlasById[e.source]; }
+    if (!lc || !at) { console.warn("cross-map edge does not connect the two maps:", e); return; }
+    crossEdges.push({ lc, at, type: e.type, note: e.note });
+  });
 
   // Group by edge type
   const grouped = {};
@@ -78,6 +110,9 @@
     (grouped[e.type] = grouped[e.type] || []).push(e);
   });
   const order = ["ecart","parallel","kinship","lineage","pair"];
+
+  document.getElementById("cross-count").textContent =
+    `${crossEdges.length} edges: ${order.filter(t => grouped[t]).map(t => `${grouped[t].length} ${t}`).join(", ")}.`;
 
   let html = "";
   order.forEach(type => {
@@ -94,14 +129,11 @@
       <h2 style="text-transform:none;letter-spacing:0;color:var(--ink);font-size:22px;font-family:var(--serif);font-weight:600;border-bottom:1px solid var(--rule);padding-bottom:8px;">${labels[type] || type}</h2>
       <ul class="essay-list" style="border-top:1px solid var(--rule);">`;
     list.forEach(e => {
-      const lc = lightconeById[e.source];
-      const at = atlasById[e.target];
-      if (!lc || !at) return;
       html += `<li>
         <h3 style="font-style:normal;">
-          <a href="concepts/concept.html?map=lightcone&id=${lc.id}">${lc.term}</a>
+          <a href="concepts/concept.html?map=lightcone&id=${e.lc.id}">${e.lc.term}</a>
           <span style="color:var(--muted);font-weight:normal;margin:0 6px;">↔</span>
-          <a href="concepts/concept.html?map=atlas&id=${at.id}">${at.term} <em>(${at.transliteration || at.english})</em></a>
+          <a href="concepts/concept.html?map=atlas&id=${e.at.id}">${e.at.term} <em>(${e.at.transliteration || e.at.english})</em></a>
         </h3>
         <p>${e.note || ""}</p>
       </li>`;
@@ -109,6 +141,27 @@
     html += `</ul></section>`;
   });
   document.getElementById("cross-list").innerHTML = html;
+
+  // The residue: concepts on each side with no relation across the gap
+  // (neither a cross-map edge nor a counterpart entry pointing across).
+  const touched = new Set();
+  crossEdges.forEach(e => { touched.add("lc:" + e.lc.id); touched.add("at:" + e.at.id); });
+  atlas.concepts.forEach(c => (c.counterparts || []).forEach(cp => {
+    if (lightconeById[cp]) { touched.add("at:" + c.id); touched.add("lc:" + cp); }
+  }));
+  lightcone.concepts.forEach(c => (c.counterparts || []).forEach(cp => {
+    if (atlasById[cp]) { touched.add("lc:" + c.id); touched.add("at:" + cp); }
+  }));
+  const residueLc = lightcone.concepts.filter(c => !touched.has("lc:" + c.id));
+  const residueAt = atlas.concepts.filter(c => !touched.has("at:" + c.id));
+  const residueList = (list, map) => list.map(c =>
+    `<a href="concepts/concept.html?map=${map}&id=${c.id}">${c.term}</a>`
+  ).join(" · ") || "—";
+  document.getElementById("cross-residue").innerHTML = `
+    <div style="margin-top:20px;padding:16px 18px;background:#fffdf8;border:1px solid var(--rule);border-radius:6px;">
+      <p style="margin:0 0 10px;"><strong>Unmapped on the LW/EA side</strong> (${residueLc.length} of ${lightcone.concepts.length}): ${residueList(residueLc, "lightcone")}</p>
+      <p style="margin:0;"><strong>Unmapped on the East–West side</strong> (${residueAt.length} of ${atlas.concepts.length}): ${residueList(residueAt, "atlas")}</p>
+    </div>`;
 })();
 </script>
 </body>

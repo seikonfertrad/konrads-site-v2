@@ -78,7 +78,7 @@ window.LIGHTCONE_DATA = {
       tradition: "effective-altruism", nationality: "United States",
       key_works: ["GiveWell co-founding writings (2007–)", "Cold Takes blog series 'The Most Important Century' (2021)"],
       central_concepts: ["cause-prioritization", "counterfactual-impact", "ea-epistemics"],
-      contribution: "Co-founder of GiveWell, founding director of Open Philanthropy, then back to Anthropic. The figure who built the institutional infrastructure that turned EA from an argument into a multi-billion-dollar funding apparatus. <em>The Most Important Century</em> series is the clearest popular articulation of the longtermist-AI case from inside major-funder responsibilities."
+      contribution: "Co-founder of GiveWell, founding director of Open Philanthropy, then a move to Anthropic. The figure who built the institutional infrastructure that turned EA from an argument into a multi-billion-dollar funding apparatus. <em>The Most Important Century</em> series is the clearest popular articulation of the longtermist-AI case from inside major-funder responsibilities."
     },
     {
       id: "macaskill", name: "Will MacAskill", dates: "1987 –",
@@ -593,7 +593,6 @@ window.LIGHTCONE_DATA = {
     // ── Cross-map edges from new sino concepts (Sunzi / Legalism / Buddhism / social / modern Chinese) ──
     { source: "jisuan", target: "expected-value", kind: "cc", type: "parallel", note: "Sunzi's structured comparative counting against probability-weighted aggregation — two different formalizations of pre-action assessment", cross_map: true },
     { source: "jisuan", target: "inside-outside-view", kind: "cc", type: "parallel", note: "the seven calculations are systematic outside-view applied to one's own situation", cross_map: true },
-    { source: "fa", target: "rights", kind: "cc", type: "ecart", note: "Legalist impersonal standard and liberal individual entitlement — both anti-personal in opposite directions", cross_map: true },
     { source: "fa", target: "ai-alignment", kind: "cc", type: "parallel", note: "the alignment problem read in fa-thinking: design for ordinary or vicious agents through impersonal standards rather than rely on virtuous values", cross_map: true },
     { source: "fa", target: "corrigibility", kind: "cc", type: "parallel", note: "both organize systems around exposed standards rather than character", cross_map: true },
     { source: "erdi", target: "map-territory", kind: "cc", type: "parallel", note: "two-truths structure as ancestor-cousin to map/territory — but with the Buddhist claim that the territory itself has no inherent existence", cross_map: true },
