@@ -1,0 +1,16 @@
+name = "hyperhelvetica-vote"
+main = "src/index.js"
+compatibility_date = "2026-08-01"
+workers_dev = true
+
+[vars]
+ALLOWED_ORIGINS = "https://konrads.link"
+VOTING_OPEN = "true"
+NETWORK_DAILY_CAP = "10"
+# IP_SALT is a secret: `wrangler secret put IP_SALT` (locally it comes from .dev.vars)
+
+[[d1_databases]]
+binding = "DB"
+database_name = "hyperhelvetica-vote"
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"

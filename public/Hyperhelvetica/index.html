@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hyperhelvetica flag</title>
+<meta name="description" content="Four candidates for the Hyperhelvetica flag. Pick one; the results show after you vote.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://konrads.link/Hyperhelvetica/">
+<meta property="og:title" content="Hyperhelvetica flag">
+<meta property="og:description" content="Four candidates. Pick one; the results show after you vote.">
+<meta property="og:image" content="https://konrads.link/Hyperhelvetica/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Four flag designs built on the Swiss cross, A to D, in red">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  :root { --red: #DA291C; --ink: #111; --muted: #6b6b6b; --line: #e4e4e4; --wash: #f1f1f1; color-scheme: light; }
+  * { box-sizing: border-box; margin: 0; }
+  [hidden] { display: none !important; }
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: #fff; color: var(--ink); line-height: 1.5;
+    padding: 40px 20px 96px;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; }
+
+  header { margin-bottom: 28px; }
+  h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; }
+  h1 .red { color: var(--red); }
+  .sub { font-size: 15px; color: var(--muted); margin-top: 6px; }
+
+  button { font: inherit; cursor: pointer; border-radius: 0; min-height: 44px; }
+  button:focus-visible, a:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+
+  #ballot { display: grid; grid-template-columns: 1fr; gap: 36px 24px; }
+  @media (min-width: 560px) { #ballot { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 960px) { #ballot { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+  .card a.open-tool { display: block; }
+  .card img { display: block; width: 100%; height: auto; border: 1px solid var(--line); }
+  .card.picked img { outline: 3px solid var(--ink); outline-offset: 4px; }
+  .card figcaption { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+  .letter { font-size: 22px; font-weight: 700; min-width: 1.1em; }
+
+  .switch { display: flex; }
+  .switch button {
+    padding: 0 12px; font-size: 13px; border: 1px solid #c8c8c8; background: #fff; color: var(--ink);
+  }
+  .switch button + button { margin-left: -1px; }
+  .switch button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; position: relative; }
+
+  .vote {
+    margin-left: auto; padding: 0 18px; font-size: 14px; font-weight: 700;
+    border: 1px solid var(--ink); background: #fff; color: var(--ink);
+  }
+  .vote:hover:not(:disabled) { background: var(--red); border-color: var(--red); color: #fff; }
+  .vote:disabled { opacity: 0.5; cursor: progress; }
+  .voted .vote, .pending .vote { display: none; }
+
+  #results { margin-bottom: 44px; padding: 18px 0 22px; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); }
+  #results h2 {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  #total { color: var(--muted); font-weight: 400; }
+  #result-rows { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+  #result-rows li { display: grid; grid-template-columns: 36px 1.2em minmax(0, 1fr) 6.5em; align-items: center; gap: 12px; }
+  .thumb { display: block; width: 36px; height: 36px; border: 1px solid var(--line); }
+  #result-rows .letter { font-size: 16px; }
+  .bar { display: block; height: 14px; background: var(--wash); }
+  .bar .fill { display: block; height: 100%; width: 0; background: var(--red); transition: width 0.6s ease; }
+  .count { text-align: right; font-size: 14px; font-variant-numeric: tabular-nums; }
+
+  .split { margin-top: 20px; }
+  .split-bar { display: flex; height: 14px; border: 1px solid #c8c8c8; overflow: hidden; }
+  .split-bar span { flex: none; height: 100%; width: 0; transition: width 0.6s ease; }
+  .split-bar .fill-red { background: var(--red); }
+  .split-bar .fill-white { background: #fff; }
+  .split p { display: flex; justify-content: space-between; font-size: 14px; margin-top: 6px; font-variant-numeric: tabular-nums; }
+
+  #your-vote { margin-top: 18px; font-weight: 700; }
+  .own { margin-top: 6px; }
+  #design-own { color: var(--red); text-decoration: none; border-bottom: 1px solid currentColor; }
+  #design-own:hover { color: var(--ink); }
+
+  #status {
+    position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%);
+    width: max-content; max-width: calc(100% - 32px);
+    padding: 10px 16px; background: var(--ink); color: #fff; font-size: 14px; line-height: 1.4;
+  }
+  #status:empty { padding: 0; opacity: 0; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bar .fill, .split-bar span { transition: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Hyper<span class="red">helvetica</span> flag</h1>
+    <p class="sub" id="intro">Pick one. Results after you vote.</p>
+    <noscript><p class="sub">Voting needs JavaScript.</p></noscript>
+  </header>
+
+  <section id="results" aria-labelledby="results-title" hidden>
+    <h2 id="results-title"><span>Results</span> <span id="total"></span></h2>
+    <ol id="result-rows"></ol>
+    <div class="split">
+      <div class="split-bar" aria-hidden="true"><span class="fill-red"></span><span class="fill-white"></span></div>
+      <p><span data-colour-result="red" data-count="0"></span><span data-colour-result="white" data-count="0"></span></p>
+    </div>
+    <p id="your-vote" hidden></p>
+    <p class="own"><a id="design-own" href="tool/">Design your own</a></p>
+  </section>
+
+  <section id="ballot" aria-label="Candidates"></section>
+</div>
+<p id="status" role="status"></p>
+
+<script src="designs.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  /* The workers.dev address printed by `wrangler deploy`. Empty until the Worker is live,
+     and while it is empty the page shows the designs and says voting opens soon. */
+  var DEPLOYED_API = "";
+
+  /* Local runs talk to `wrangler dev`, everything else to the deployed Worker. Chosen by
+     hostname alone: nothing from the address bar reaches this page. */
+  var API = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? "http://127.0.0.1:8787" : DEPLOYED_API;
+
+  var COLOURS = ["red", "white"];
+  var UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  var DESIGNS = (window.HH_DESIGNS || []).slice();
+  var ballot = document.getElementById("ballot");
+  var results = document.getElementById("results");
+  var rows = document.getElementById("result-rows");
+  var status = document.getElementById("status");
+  var reduceMotion = !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+  var cards = {};
+  var busy = false;
+
+  /* Storage can be blocked (private windows, strict settings); voting still works, it just
+     will not remember this browser. */
+  var store = {
+    get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) { /* not remembered */ } },
+    remove: function (k) { try { localStorage.removeItem(k); } catch (e) { /* nothing to forget */ } }
+  };
+
+  var TOKEN = (function () {
+    var saved = store.get("hhflag.token");
+    if (saved && UUID.test(saved)) return saved;
+    return typeof crypto.randomUUID === "function" ? crypto.randomUUID() : uuid();
+  })();
+
+  function uuid() {
+    var b = crypto.getRandomValues(new Uint8Array(16));
+    b[6] = (b[6] & 15) | 64;
+    b[8] = (b[8] & 63) | 128;
+    var h = Array.prototype.map.call(b, function (x) { return (x + 256).toString(16).slice(1); }).join("");
+    return [h.slice(0, 8), h.slice(8, 12), h.slice(12, 16), h.slice(16, 20), h.slice(20)].join("-");
+  }
+
+  function el(name, attrs, text) {
+    var node = document.createElement(name);
+    for (var k in attrs) node.setAttribute(k, attrs[k]);
+    if (text != null) node.textContent = text;
+    return node;
+  }
+
+  function say(message) { status.textContent = message || ""; }
+
+  function shuffle(list) {
+    for (var i = list.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = list[i]; list[i] = list[j]; list[j] = t;
+    }
+    return list;
+  }
+
+  function pct(n, total) { return total ? Math.round((100 * n) / total) : 0; }
+
+  function has(obj, key) { return Object.prototype.hasOwnProperty.call(obj, key); }
+
+  /* Ballot: one card per design, in a fresh order on every visit so position does not
+     steer the vote. */
+  shuffle(DESIGNS.slice()).forEach(function (d) {
+    var card = el("figure", { "class": "card", "data-design": d.id });
+    var link = el("a", { "class": "open-tool", target: "_blank", rel: "noopener", title: "Open in the design tool" });
+    var img = el("img", { width: "800", height: "800", decoding: "async" });
+    var caption = el("figcaption");
+    var colours = el("div", { "class": "switch", role: "group", "aria-label": "Colour of design " + d.id });
+    var buttons = {};
+    COLOURS.forEach(function (c) {
+      var b = el("button", { type: "button", "data-colour": c }, c === "red" ? "Red" : "White");
+      b.addEventListener("click", function () { setColour(d.id, c); });
+      colours.appendChild(b);
+      buttons[c] = b;
+    });
+    /* The white image is only fetched once someone reaches for the switch. */
+    var warm = function () {
+      new Image().src = d.img.white;
+      colours.removeEventListener("pointerenter", warm);
+      colours.removeEventListener("focusin", warm);
+    };
+    colours.addEventListener("pointerenter", warm);
+    colours.addEventListener("focusin", warm);
+
+    var vote = el("button", { type: "button", "class": "vote" }, "Vote");
+    vote.addEventListener("click", function () { cast(d.id); });
+
+    link.appendChild(img);
+    caption.appendChild(el("span", { "class": "letter", "aria-hidden": "true" }, d.id));
+    caption.appendChild(colours);
+    caption.appendChild(vote);
+    card.appendChild(link);
+    card.appendChild(caption);
+    ballot.appendChild(card);
+    cards[d.id] = { design: d, card: card, link: link, img: img, buttons: buttons, vote: vote, colour: "red" };
+    setColour(d.id, "red");
+  });
+
+  /* Result rows stay in A to D order whatever order the ballot came in. */
+  DESIGNS.forEach(function (d) {
+    var row = el("li", { "data-result": d.id, "data-count": "0" });
+    var bar = el("span", { "class": "bar" });
+    bar.appendChild(el("span", { "class": "fill" }));
+    row.appendChild(el("img", { "class": "thumb", src: d.img.red, alt: "", width: "36", height: "36" }));
+    row.appendChild(el("span", { "class": "letter" }, d.id));
+    row.appendChild(bar);
+    row.appendChild(el("span", { "class": "count" }));
+    rows.appendChild(row);
+  });
+
+  function setColour(id, colour) {
+    var c = cards[id];
+    c.colour = colour;
+    c.img.src = c.design.img[colour];
+    c.img.alt = c.design.alt[colour];
+    c.link.href = "tool/#" + c.design.tool[colour];
+    COLOURS.forEach(function (k) { c.buttons[k].setAttribute("aria-pressed", k === colour ? "true" : "false"); });
+    c.vote.setAttribute("aria-label", "Vote for design " + id + " in " + colour);
+  }
+
+  function setBusy(on) {
+    busy = on;
+    Object.keys(cards).forEach(function (id) { cards[id].vote.disabled = on; });
+  }
+
+  function fail(message) {
+    setBusy(false);
+    say(message);
+  }
+
+  function call(path, options) {
+    return fetch(API + path, options).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (body) {
+        return { status: res.status, body: body || {} };
+      });
+    });
+  }
+
+  function cast(id) {
+    if (busy || !API) return;
+    setBusy(true);
+    say("");
+    store.set("hhflag.token", TOKEN);
+    call("/vote", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ token: TOKEN, design: id, colour: cards[id].colour })
+    }).then(function (r) {
+      if (r.status === 200 || r.status === 409) {
+        store.set("hhflag.voted", "1");
+        setBusy(false);
+        return showResults(r.body, r.status === 409 ? "This browser had already voted." : "", true);
+      }
+      if (r.status === 429) return fail("This network has reached today’s vote limit. Try again tomorrow.");
+      if (r.status === 403 && r.body.error === "closed") return showClosed();
+      fail("Something went wrong. Try again.");
+    }, function () {
+      fail("Couldn’t reach the vote server. Try again in a moment.");
+    });
+  }
+
+  function showClosed() {
+    return call("/results?token=" + encodeURIComponent(TOKEN)).then(function (r) {
+      if (r.status === 200) return showResults(r.body, "Voting has closed.", true);
+      fail("Voting has closed.");
+    }, function () {
+      fail("Voting has closed.");
+    });
+  }
+
+  function showResults(body, message, scroll) {
+    var tally = body && body.tally;
+    if (!tally || typeof tally.total !== "number") return fail("Something went wrong. Try again.");
+    var total = tally.total;
+    document.getElementById("total").textContent = total + (total === 1 ? " vote" : " votes");
+
+    DESIGNS.forEach(function (d) {
+      var n = Number((tally.designs || {})[d.id]) || 0;
+      var row = rows.querySelector('[data-result="' + d.id + '"]');
+      row.setAttribute("data-count", String(n));
+      row.querySelector(".fill").style.width = pct(n, total) + "%";
+      row.querySelector(".count").textContent = n + " (" + pct(n, total) + "%)";
+    });
+
+    COLOURS.forEach(function (c) {
+      var n = Number((tally.colours || {})[c]) || 0;
+      var label = results.querySelector('[data-colour-result="' + c + '"]');
+      label.setAttribute("data-count", String(n));
+      label.textContent = (c === "red" ? "Red " : "White ") + pct(n, total) + "%";
+      results.querySelector(".split-bar .fill-" + c).style.width = pct(n, total) + "%";
+    });
+
+    var mine = body.yourVote;
+    var yours = document.getElementById("your-vote");
+    if (mine && has(cards, mine.design) && COLOURS.indexOf(mine.colour) >= 0) {
+      yours.textContent = "Your vote: " + mine.design + ", " + mine.colour + ".";
+      yours.hidden = false;
+      cards[mine.design].card.classList.add("picked");
+      setColour(mine.design, mine.colour);
+    } else {
+      yours.hidden = true;
+    }
+
+    document.body.classList.add("voted");
+    results.hidden = false;
+    say(message);
+    if (scroll) results.scrollIntoView({ block: "start", behavior: reduceMotion ? "auto" : "smooth" });
+  }
+
+  if (!DESIGNS.length) {
+    say("The ballot didn’t load. Reload to try again.");
+  } else if (!API) {
+    document.body.classList.add("pending");
+    document.getElementById("intro").textContent = "Voting opens soon.";
+  } else if (store.get("hhflag.voted") === "1") {
+    var unavailable = function () {
+      document.body.classList.add("voted");
+      say("Your vote is in, but the results didn’t load. Reload to try again.");
+    };
+    call("/results?token=" + encodeURIComponent(TOKEN)).then(function (r) {
+      if (r.status === 200) return showResults(r.body, "", false);
+      /* The server has no vote for this token, so the ballot stays open. */
+      if (r.status === 403 && r.body.error === "vote-first") return store.remove("hhflag.voted");
+      unavailable();
+    }, unavailable);
+  }
+})();
+</script>
+</body>
+</html>

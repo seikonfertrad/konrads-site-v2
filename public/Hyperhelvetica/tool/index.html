@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hyperhelvetica flag: design your own</title>
+<style>
+  :root { --red: #DA291C; --ink: #111; --muted: #777; --line: #ddd; }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: #fff; color: var(--ink);
+    padding: 40px 24px 72px; line-height: 1.5;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  header { margin-bottom: 28px; max-width: 640px; }
+  h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+  h1 .red { color: var(--red); }
+  h1 .tag { color: var(--muted); font-weight: 400; }
+  p.sub { font-size: 14px; color: var(--muted); margin-top: 6px; }
+  #mode {
+    margin-top: 12px; padding: 7px 11px; font-size: 12px; line-height: 1.45;
+    border-left: 3px solid var(--red); background: #faf3f2; color: #6a4a47;
+  }
+  #mode a { color: var(--red); }
+
+  .cols { display: grid; grid-template-columns: 1fr; gap: 32px; }
+  @media (min-width: 900px) { .cols { grid-template-columns: minmax(0, 460px) minmax(0, 1fr); } }
+
+  .stage { position: sticky; top: 24px; align-self: start; }
+  #flag svg { display: block; width: 100%; height: auto; }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  button {
+    font: inherit; font-size: 13px; padding: 6px 14px; border: 1px solid #ccc;
+    background: #fff; color: var(--ink); cursor: pointer; border-radius: 0;
+  }
+  button:hover { border-color: var(--ink); }
+  button:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  button.on { background: var(--red); color: #fff; border-color: var(--red); }
+  button.primary { border-color: var(--ink); }
+
+  h2 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);
+    font-weight: 700; margin: 22px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--line);
+  }
+  h2:first-child { margin-top: 0; }
+  [hidden] { display: none !important; }
+  .row { display: flex; align-items: center; gap: 10px; font-size: 13px; margin-bottom: 8px; }
+  .row .lbl { color: var(--muted); flex: 0 0 118px; }
+  .row .enum { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; }
+  .row .enum button { padding: 4px 10px; font-size: 12px; }
+  input[type=range] { flex: 1; min-width: 80px; accent-color: var(--red); }
+  .out { flex: 0 0 58px; text-align: right; font-variant-numeric: tabular-nums; }
+
+  .link { margin-top: 14px; font-size: 12px; color: var(--muted); word-break: break-all; }
+  .link code { font-family: ui-monospace, Menlo, monospace; }
+  footer { max-width: 640px; margin-top: 40px; font-size: 12px; color: var(--muted); }
+
+  #getsource {
+    margin-top: 28px; font-size: 12px; color: var(--muted);
+    max-width: 300px; line-height: 1.45;
+  }
+  #getsource a { color: var(--red); text-decoration: none; border-bottom: 1px solid currentColor; }
+  #getsource a:hover { color: var(--ink); }
+  @media (min-width: 1100px) {
+    #getsource {
+      position: fixed; right: 20px; bottom: 18px; margin: 0; text-align: right;
+      background: #fff; padding: 8px 0 0 12px;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Hyper<span class="red">helvetica</span> <span class="tag">nested</span></h1>
+    <p class="sub">Spirals of white crosses wind toward the boundary outside; spirals of red crosses wind toward the silhouette of the cross inside. The same storm at two scales, each with its own winding and its own decay. Every control writes itself into the address bar, so the link you copy is the flag you are looking at.</p>
+    <p id="mode" hidden></p>
+  </header>
+
+  <div class="cols">
+    <div class="stage">
+      <div id="flag" role="img" aria-label="Swiss flag with spiral arms of crosses outside the central cross and inside it"></div>
+      <div class="actions">
+        <button class="primary" onclick="downloadSVG()">Download SVG</button>
+        <button onclick="downloadParams()">Download parameters</button>
+        <button onclick="copyLink(this)">Copy link</button>
+        <button onclick="randomise()">Randomise</button>
+        <button onclick="reset()">Reset</button>
+      </div>
+      <p class="link">Permalink: <code id="permalink"></code></p>
+    </div>
+
+    <div id="controls"></div>
+  </div>
+
+  <footer>
+    After the Hyperamerica flag: pledged to the flag, and to the non-Euclidean geometry for which it stands. Outside, arms accumulate at the inscribed circle. Inside, they accumulate at the silhouette of the cross itself, and the cross is the window through which the flow is seen.
+  </footer>
+
+  <aside id="getsource">
+    <a href="hyperhelvetica-flag-tool.html" download>Take the source</a><br>
+    One self-contained HTML file, every parameter unlocked. Open it in a text editor and
+    change whatever you like.
+  </aside>
+</div>
+
+<script src="flag-core.js"></script>
+<script>
+/* Simplified panel by default. The standalone build sets HH_ADVANCED, and ?advanced=1
+   unlocks the same full set in place, which is how the contact sheet links in. */
+var ADVANCED = window.HH_ADVANCED === true || /[?&]advanced=1/.test(location.search);
+var PANEL = HHFlag.panelFields(ADVANCED);
+var params = HHFlag.decode(location.hash);
+
+function render() {
+  var holder = document.getElementById("flag");
+  holder.innerHTML = "";
+  holder.appendChild(HHFlag.build(params));
+  var hash = HHFlag.encode(params);
+  history.replaceState(null, "", hash ? "#" + hash : location.pathname + location.search);
+  document.getElementById("permalink").textContent = location.href;
+}
+
+/* At the top of the arm range a render costs ~100ms, and a dragged slider fires input
+   events far faster than that. Coalesce to one render per frame so dragging stays live. */
+var pendingFrame = false;
+function scheduleRender() {
+  if (pendingFrame) return;
+  pendingFrame = true;
+  requestAnimationFrame(function () { pendingFrame = false; render(); });
+}
+
+function setValue(key, value) {
+  params = HHFlag.normalize(Object.assign({}, params, { [key]: value }));
+  scheduleRender();
+}
+
+function buildControls() {
+  var host = document.getElementById("controls");
+  host.innerHTML = "";
+  HHFlag.GROUPS.forEach(function (group) {
+    if (!PANEL.some(function (f) { return f.group === group; })) return;
+    var h = document.createElement("h2");
+    h.textContent = group;
+    h.dataset.group = group;
+    host.appendChild(h);
+    PANEL.filter(function (f) { return f.group === group; }).forEach(function (f) {
+      var row = document.createElement("div");
+      row.className = "row";
+      row.dataset.row = f.key;
+      row.dataset.group = f.group;
+      row.innerHTML = '<span class="lbl">' + f.label + '</span>';
+
+      if (f.type === "enum") {
+        var box = document.createElement("div");
+        box.className = "enum";
+        f.values.forEach(function (v) {
+          var b = document.createElement("button");
+          b.type = "button";
+          b.textContent = v.charAt(0).toUpperCase() + v.slice(1);
+          b.dataset.key = f.key;
+          b.dataset.value = v;
+          b.onclick = function () { setValue(f.key, v); syncControls(); };
+          box.appendChild(b);
+        });
+        row.appendChild(box);
+      } else {
+        var input = document.createElement("input");
+        input.type = "range";
+        input.min = f.min; input.max = f.max; input.step = f.step;
+        input.dataset.key = f.key;
+        input.addEventListener("input", function () { setValue(f.key, input.value); syncOutputs(); });
+        row.appendChild(input);
+        var out = document.createElement("span");
+        out.className = "out";
+        out.dataset.out = f.key;
+        row.appendChild(out);
+      }
+      host.appendChild(row);
+    });
+  });
+}
+
+/* Slider positions and button states follow params; outputs are split out so
+   dragging a slider does not rewrite the element being dragged. */
+function syncOutputs() {
+  PANEL.forEach(function (f) {
+    var out = document.querySelector('[data-out="' + f.key + '"]');
+    if (out) out.textContent = HHFlag.format(f.key, params[f.key]);
+  });
+}
+
+/* Parameters that only bite under some other setting (wave amplitude, say) hide
+   until they do, so the panel never shows a control that changes nothing. */
+function applyVisibility() {
+  var shown = {};
+  PANEL.forEach(function (f) {
+    var on = HHFlag.visible(f, params);
+    shown[f.group] = shown[f.group] || on;
+    var row = document.querySelector('[data-row="' + f.key + '"]');
+    if (row) row.hidden = !on;
+  });
+  document.querySelectorAll("h2[data-group]").forEach(function (h) {
+    h.hidden = !shown[h.dataset.group];
+  });
+}
+
+function syncControls() {
+  PANEL.forEach(function (f) {
+    if (f.type === "enum") {
+      document.querySelectorAll('button[data-key="' + f.key + '"]').forEach(function (b) {
+        b.className = b.dataset.value === params[f.key] ? "on" : "";
+      });
+    } else {
+      var input = document.querySelector('input[data-key="' + f.key + '"]');
+      if (input) input.value = params[f.key];
+    }
+  });
+  applyVisibility();
+  syncOutputs();
+}
+
+function save(name, text, type) {
+  var blob = new Blob([text], { type: type });
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+  setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+}
+
+function basename() { return "hyperhelvetica-flag_" + HHFlag.slug(params); }
+
+function downloadSVG() {
+  save(basename() + ".svg", HHFlag.serialize(params), "image/svg+xml");
+}
+
+function downloadParams() {
+  var record = {
+    name: basename(),
+    permalink: location.href,
+    saved: new Date().toISOString(),
+    parameters: HHFlag.normalize(params)
+  };
+  save(basename() + ".json", JSON.stringify(record, null, 2), "application/json");
+}
+
+function copyLink(btn) {
+  var label = btn.textContent;
+  navigator.clipboard.writeText(location.href).then(function () {
+    btn.textContent = "Copied";
+    setTimeout(function () { btn.textContent = label; }, 1200);
+  }).catch(function () {
+    btn.textContent = "Copy failed";
+    setTimeout(function () { btn.textContent = label; }, 1200);
+  });
+}
+
+function randomise() { params = HHFlag.random(ADVANCED); render(); syncControls(); }
+function reset() { params = HHFlag.normalize({}); render(); syncControls(); }
+
+window.addEventListener("hashchange", function () {
+  var incoming = HHFlag.decode(location.hash);
+  if (HHFlag.encode(incoming) === HHFlag.encode(params)) return;
+  params = incoming;
+  render();
+  syncControls();
+});
+
+/* Two of the three ways in open the unlocked panel, so it has to say so. */
+function announceMode() {
+  if (!ADVANCED) return;
+  /* "Mark" appears in both fields, so those two need saying which; the rest do not. */
+  var extra = HHFlag.FIELDS.filter(function (f) { return f.advanced && !f.showIf; })
+    .map(function (f) {
+      var dup = HHFlag.FIELDS.filter(function (g) { return g.label === f.label; }).length > 1;
+      return dup ? f.group.split(" ")[0].toLowerCase() + " " + f.label.toLowerCase() : f.label.toLowerCase();
+    });
+  var el = document.getElementById("mode");
+  var strong = document.createElement("strong");
+  strong.textContent = "Unlocked panel.";
+  el.appendChild(strong);
+  el.appendChild(document.createTextNode(" The published tool hides " + extra.length +
+    " of these controls (" + extra.join(", ") + ") and fixes them to the cross. "));
+  if (window.HH_ADVANCED === true) {
+    el.appendChild(document.createTextNode("This is the standalone build: one file, no dependencies, everything exposed."));
+  } else {
+    /* Nodes, not markup: the hash comes from the address bar, and on konrads.link this
+       page shares an origin with the CMS. */
+    var a = document.createElement("a");
+    a.href = location.pathname + location.hash;
+    a.textContent = "Open the simplified version";
+    el.appendChild(a);
+    el.appendChild(document.createTextNode("."));
+  }
+  el.hidden = false;
+}
+
+buildControls();
+render();
+syncControls();
+announceMode();
+</script>
+</body>
+</html>

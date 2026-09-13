@@ -1,0 +1,20 @@
+{
+  "name": "hyperhelvetica-vote",
+  "version": "1.0.0",
+  "description": "Vote endpoint for konrads.link/Hyperhelvetica",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "node --test test/endpoints.test.mjs",
+    "test:page": "node --test test/page.e2e.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "playwright-core": "^1.58.2",
+    "wrangler": "^4.131.1"
+  },
+  "private": true
+}
