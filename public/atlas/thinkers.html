@@ -72,7 +72,7 @@
 
   const tradById = Object.fromEntries(data.traditions.map(t => [t.id, t]));
   const order = isLightcone
-    ? ["classical-utilitarian","bayesian-rationalism","effective-altruism","longtermism","ai-safety","transhumanism","suffering-focused"]
+    ? ["empiricist-probabilist","classical-utilitarian","bayesian-rationalism","effective-altruism","longtermism","ai-safety","transhumanism","suffering-focused"]
     : ["chinese-classical","chinese-buddhist","chinese-neoconfucian","chinese-modern","greek-classical","modern-european","kyoto-school","comparative"];
   const grouped = {};
   data.thinkers.forEach(t => {

@@ -45,7 +45,7 @@
     document.querySelector(".site-title a").firstChild.textContent = "Lightcone Atlas";
     document.querySelector(".site-title .sub").textContent = "LW/EA concepts, thinkers, and disputes around ethics, x-risk, and the future";
     document.getElementById("kicker").textContent = `${data.disputes.length} live debates`;
-    document.getElementById("lede").innerHTML = "Eight live debates within the LW/EA cluster, set out with their principal positions, the thinkers who argued them, and the concepts at stake. Includes the Yudkowsky–Hanson AI takeoff debate, the strong-longtermism / cluelessness dispute, agent foundations vs. prosaic alignment, total-view vs. person-affecting-view in population ethics, and the post-FTX reckoning over EA epistemics.";
+    document.getElementById("lede").innerHTML = "Nine live debates within the LW/EA cluster, set out with their principal positions, the thinkers who argued them, and the concepts at stake. Includes the Yudkowsky–Hanson AI takeoff debate, the strong-longtermism / cluelessness dispute, agent foundations vs. prosaic alignment, what an AI should be aligned to, total-view vs. person-affecting-view in population ethics, and the post-FTX reckoning over EA epistemics.";
   } else {
     document.title = "Disputes — East ↔ West Atlas";
     document.getElementById("kicker").textContent = `${data.disputes.length} live debates`;
@@ -72,6 +72,21 @@
 
   const conceptById = Object.fromEntries(data.concepts.map(c => [c.id, c]));
   const thinkerById = Object.fromEntries(data.thinkers.map(t => [t.id, t]));
+  const otherData = isLightcone ? window.ATLAS_DATA : window.LIGHTCONE_DATA;
+  const otherDisputeById = Object.fromEntries(otherData.disputes.map(d => [d.id, d]));
+  // dispute ↔ dispute edges across the gap live in the lightcone data file
+  const ddEdges = window.LIGHTCONE_DATA.edges.filter(e => e.kind === "dd" && e.cross_map);
+  function crossDisputes(id) {
+    return ddEdges.filter(e => e.source === id || e.target === id).map(e => {
+      const od = otherDisputeById[e.source === id ? e.target : e.source];
+      if (!od) return "";
+      const mine = isLightcone ? e.from_lc : e.from_at;
+      return `<div style="margin:14px 0 0;padding:12px 16px;border-left:3px solid var(--accent);background:#f7f4ee;font-size:14px;line-height:1.55;">
+        <div style="font-family:var(--sans);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:4px;">Rhymes with a dispute in the ${isLightcone ? "East–West" : "Lightcone"} atlas · ${e.basis || ""}</div>
+        <a href="disputes.html${isLightcone ? "" : "?map=lightcone"}#${od.id}"><strong>${od.name}</strong></a> — ${e.note || ""}${mine ? `<div style="margin-top:6px;color:var(--muted)">${mine}</div>` : ""}
+      </div>`;
+    }).join("");
+  }
 
   let index = "";
   let html = "";
@@ -100,6 +115,7 @@
       <p style="font-size:17px;line-height:1.6;margin:0 0 12px;">${d.summary}</p>
       <p style="font-size:14px;line-height:1.55;color:var(--muted);font-style:italic;margin:0 0 6px;"><strong style="color:var(--ink);font-style:normal;">What is at stake:</strong> ${d.stake}</p>
       ${positions}
+      ${crossDisputes(d.id)}
     </section>`;
   });
   document.getElementById("d-index").innerHTML = index;

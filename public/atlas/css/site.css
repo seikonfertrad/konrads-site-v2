@@ -271,6 +271,9 @@ a:hover { border-bottom-color: var(--accent); }
 .link-cc-pair     { stroke: #b88a3e; stroke-width: 1.3; opacity: 0.42; }
 .link-cc-kinship  { stroke: #4f6f78; stroke-width: 1.3; opacity: 0.38; }
 .link-cc-lineage  { stroke: #6a8e3a; stroke-width: 1.2; opacity: 0.45; }
+/* cross-map provenance: textual edges drawn firmer, speculative ones fainter */
+.link-basis-textual     { stroke-width: 2.2; opacity: 0.75; }
+.link-basis-speculative { stroke-width: 0.9; opacity: 0.28; }
 /* Thinker → concept edges (thin gray) */
 .link-tc          { stroke: #aaa; stroke-width: 0.7; opacity: 0.30; }
 .link-tc-coined   { stroke: #555; stroke-width: 1.0; opacity: 0.50; }

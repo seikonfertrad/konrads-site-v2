@@ -29,6 +29,7 @@
 
 <script src="../data/atlas.js"></script>
 <script src="../data/lightcone.js"></script>
+<script src="../data/axes.js"></script>
 <script>
 (function () {
   const params = new URLSearchParams(location.search);
@@ -117,6 +118,18 @@
     }</p>`;
   }
 
+  const AX = window.ATLAS_AXES || { axes: [] };
+  const axisById = Object.fromEntries(AX.axes.map(a => [a.id, a]));
+  const positions = AX.axes.flatMap(a => {
+    const pole = a.poleA.concepts.includes(c.id) ? a.poleA : a.poleB.concepts.includes(c.id) ? a.poleB : null;
+    if (!pole) return [];
+    const opposite = pole === a.poleA ? a.poleB : a.poleA;
+    const rivals = opposite.concepts.map(id => conceptById[id] || otherById[id]).filter(Boolean)
+      .map(cc => `<a href="concept.html?map=${conceptById[cc.id] ? mapId : (isLightcone ? "atlas" : "lightcone")}&id=${cc.id}">${cc.term}</a>`).join(" · ");
+    return [`<li style="margin-bottom:8px"><a href="../cross.html#axis-${a.id}"><strong>${a.question}</strong></a> — sits at <em>${pole.label}</em>; opposite pole: ${rivals || "—"}</li>`];
+  }).join("");
+
+
   // The reverse counterpart direction: concepts (in either map) that list this one.
   // Counterpart lists are directional by design (salience from each concept's own
   // vantage), so the reverse direction is derived rather than stored.
@@ -145,7 +158,12 @@
         const cc = otherById[otherId];
         if (!cc) return null;
         const otherMap = isLightcone ? "atlas" : "lightcone";
-        return `<li><a href="concept.html?map=${otherMap}&id=${cc.id}">${cc.term}</a> <span style="color:var(--muted);font-size:13px">— ${e.type}: ${e.note || ""}</span> <span style="font-size:10px;letter-spacing:0.1em;color:var(--accent);text-transform:uppercase;margin-left:6px;">cross-map</span></li>`;
+        const ax = e.axis && axisById[e.axis];
+        const meta = [e.type, e.basis, ax ? `axis: ${ax.question}` : (e.lineage ? `lineage: ${e.lineage}` : "")].filter(Boolean).join(" · ");
+        const mine = isLightcone ? e.from_lc : e.from_at, theirs = isLightcone ? e.from_at : e.from_lc;
+        return `<li style="margin-bottom:10px"><a href="concept.html?map=${otherMap}&id=${cc.id}">${cc.term}</a> <span style="color:var(--muted);font-size:13px">— ${e.note || ""}</span> <span style="font-size:10px;letter-spacing:0.1em;color:var(--accent);text-transform:uppercase;margin-left:6px;">cross-map · ${meta}</span>${
+          (mine || theirs) ? `<div style="font-size:13px;line-height:1.5;margin-top:4px;color:var(--ink)"><span style="font-family:var(--sans);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)">from this side</span> ${mine || ""}<br><span style="font-family:var(--sans);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)">from the other side</span> ${theirs || ""}</div>` : ""
+        }</li>`;
       }
       const other = conceptById[otherId];
       if (!other) return null;
@@ -179,6 +197,8 @@
 
     ${c.ecart ? `<section class="concept-section ecart"><h2>The écart</h2><p>${c.ecart}</p></section>` : ""}
     ${c.us_china ? `<section class="concept-section application"><h2>US–China application</h2><p>${c.us_china}</p></section>` : ""}
+    ${c.no_counterpart ? `<section class="concept-section"><h2>Why nothing maps here</h2><p>${c.no_counterpart} <span style="font-size:13px;color:var(--muted)">(see the <a href="../cross.html#residue">residue</a>)</span></p></section>` : ""}
+    ${positions ? `<section class="concept-section"><h2>Axes — the problems this concept configures</h2><ul class="counterpart-list" style="flex-direction:column;align-items:flex-start">${positions}</ul></section>` : ""}
 
     ${(tcEdges.length || keyOnly.length) ? `
     <section class="concept-section">

@@ -41,7 +41,7 @@
     if (e.kind === "cc") { s = nid("c", e.source); t = nid("c", e.target); }
     else if (e.kind === "tc") { s = nid("t", e.source); t = nid("c", e.target); }
     else if (e.kind === "tt") { s = nid("t", e.source); t = nid("t", e.target); }
-    return { source: s, target: t, kind: e.kind, type: e.type, note: e.note };
+    return { source: s, target: t, kind: e.kind, type: e.type, note: e.note, basis: e.basis, cross: !!e.cross_map };
   }).filter(l => _nidSet.has(l.source) && _nidSet.has(l.target));
 
   // SVG setup
@@ -85,7 +85,7 @@
     .selectAll("line")
     .data(links)
     .join("line")
-    .attr("class", d => `link link-${d.kind} link-${d.kind}-${d.type}`);
+    .attr("class", d => `link link-${d.kind} link-${d.kind}-${d.type}${d.basis ? ` link-basis-${d.basis}` : ""}`);
 
   // Nodes
   const nodeSel = root.append("g")

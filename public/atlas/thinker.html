@@ -94,13 +94,19 @@
     </section>`;
   }
 
-  const ttEdges = data.edges.filter(e => e.kind === "tt" && (e.source === t.id || e.target === t.id));
+  // Cross-map thinker edges are stored in the lightcone file; resolve the far end in the other atlas
+  const otherData = isLightcone ? window.ATLAS_DATA : window.LIGHTCONE_DATA;
+  const otherThinkerById = Object.fromEntries(otherData.thinkers.map(x => [x.id, x]));
+  const ttPool = isLightcone ? data.edges : [...data.edges, ...window.LIGHTCONE_DATA.edges.filter(e => e.cross_map && e.kind === "tt")];
+  const ttEdges = ttPool.filter(e => e.kind === "tt" && (e.source === t.id || e.target === t.id));
   const ttRows = ttEdges.map(e => {
     const otherId = e.source === t.id ? e.target : e.source;
-    const other = thinkerById[otherId];
+    const other = thinkerById[otherId] || otherThinkerById[otherId];
     if (!other) return "";
+    const cross = !thinkerById[otherId];
+    const m = cross ? (isLightcone ? "atlas" : "lightcone") : mapId;
     const dir = e.source === t.id ? "→" : "←";
-    return `<li><a href="thinker.html?map=${mapId}&id=${other.id}">${other.name.split(" (")[0]}</a> <span style="color:var(--muted);font-size:13px">— ${e.type} ${dir}${e.note ? " · " + e.note : ""}</span></li>`;
+    return `<li><a href="thinker.html?map=${m}&id=${other.id}">${other.name.split(" (")[0]}</a> <span style="color:var(--muted);font-size:13px">— ${e.type} ${dir}${e.note ? " · " + e.note : ""}</span>${cross ? ` <span style="font-size:10px;letter-spacing:0.1em;color:var(--accent);text-transform:uppercase;margin-left:6px;">cross-map</span>` : ""}</li>`;
   }).filter(Boolean).join("");
 
   const inDisputes = data.disputes.filter(d => d.positions.some(p => (p.thinkers || []).includes(t.id)))

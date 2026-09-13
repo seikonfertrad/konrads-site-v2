@@ -206,6 +206,20 @@ window.ATLAS_DATA = {
       key_works: ["Mūlamadhyamakakārikā (中論, Verses on the Middle Way)"],
       central_concepts: ["zhongguan", "erdi", "yuanqi"],
       contribution: "Founder of the Madhyamaka school of Mahāyāna Buddhist philosophy. Through Kumārajīva's translations into Chinese (~400 CE), Nāgārjuna's analysis of emptiness, dependent origination, and the two truths becomes foundational to Chinese Buddhist philosophy and, through it, to East Asian thought generally. The most rigorous philosophical refusal of substance-metaphysics produced anywhere in classical antiquity, and a permanent point of reference for any tradition that wants to think about emergence and emptiness together."
+    },
+    {
+      id: "mozi", name: "Mozi (Mòzǐ)", dates: "~470 – 391 BCE",
+      tradition: "chinese-classical", nationality: "Lu or Song (China)",
+      key_works: ["Mozi (墨子) — compiled by the school"],
+      central_concepts: ["jian-ai", "li-benefit", "fa"],
+      contribution: "Founder of the Mohist school, the first organized rival to the Confucians and the classical tradition's consequentialists. Argues that the standard for any practice is whether it benefits all under heaven — measured in wealth, population, and order — and that concern should be impartial (jian'ai): the same care for a stranger's parent as for one's own. Attacks Confucian graded love, ritual expense, and fatalism on exactly that standard. The Mohists were also the classical tradition's logicians and engineers; the later Mohist canons are its most rigorous work on definition and inference. The school vanished under the Han and was rediscovered as a philosophical partner for utilitarianism only in the twentieth century."
+    },
+    {
+      id: "xunzi", name: "Xunzi (Xúnzǐ)", dates: "~310 – 235 BCE",
+      tradition: "chinese-classical", nationality: "Zhao (China)",
+      key_works: ["Xunzi (荀子)"],
+      central_concepts: ["wei-artifice", "xing", "li_ritual"],
+      contribution: "The third great classical Confucian and Mencius's principal opponent on human nature. Argues that xing is bad — not evil, but a bundle of desires that, left to itself, produces strife — and that everything good in human life is wei (偽): deliberate artifice, the ritual and standards that the sages invented and that each person must acquire by effort. Ritual is therefore a technology, not the unfolding of an endowment. Teacher of Han Feizi and Li Si, and so the bridge from Confucian ritual to Legalist law; marginalized by the Song–Ming orthodoxy that canonized Mencius, and rehabilitated by modern readers who find in him the tradition's most systematic thinker."
     }
   ],
 
@@ -235,13 +249,13 @@ window.ATLAS_DATA = {
       us_china: "Human-rights debates between U.S. and Chinese officials run aground partly here. The Western frame asks whether practices violate universal rights; the Chinese counter-frame, when not merely defensive, sometimes operates with a residual ethics of relation that the universalist frame is structurally unable to recognize as ethics."
     },
     { id: "li_ritual", term: "禮", script: "Chinese", transliteration: "lǐ", english: "ritual propriety", tradition: "chinese-classical", domain: "ethics",
-      key_thinkers: ["confucius", "hall-ames", "anne-cheng", "watsuji"],
+      key_thinkers: ["confucius", "xunzi", "hall-ames", "anne-cheng", "watsuji"],
       gloss: "The performed gesture that constitutes social reality — not etiquette (superficial) and not law (binding from outside), but the choreography that makes a relation what it is. The bow, the seating order, the cup poured first for the elder.",
       counterparts: ["moral_law"],
       ecart: "Modernity sorts performative behavior into superficial etiquette or binding law. 禮 sits between and refuses the distinction: ritual is constitutive without being legal. Hall–Ames's 'role ethics' is in part a Western philosophical recuperation of this register.",
       us_china: "Diplomatic protocol carries far more substantive weight in Chinese practice than Western counterparts typically register. The choreography is read as load-bearing communication on one side, theater on the other; both sides are then surprised."
     },
-    { id: "junzi", term: "君子", script: "Chinese", transliteration: "jūnzǐ", english: "exemplary person", tradition: "chinese-classical", domain: "ethics",
+    { id: "junzi", no_counterpart: "The LW/EA cluster has no exemplary-person concept: its ideal agent is a procedure (the coherent updater) or a machine, not a cultivated figure whose comportment teaches.", term: "君子", script: "Chinese", transliteration: "jūnzǐ", english: "exemplary person", tradition: "chinese-classical", domain: "ethics",
       key_thinkers: ["confucius", "tu-weiming", "hall-ames"],
       gloss: "Classical Confucian honorific often translated as 'gentleman' or 'superior person'; better rendered as 'exemplary person' to avoid both class and gender connotations. The junzi is the cultivated counterpart of moral law: not the rule-follower but the person whose comportment makes ethics legible to those around them.",
       counterparts: ["virtue", "moral_law"],
@@ -289,14 +303,14 @@ window.ATLAS_DATA = {
       ecart: "The modern Cartesian-Kantian subject is substantial, characterful, defined by what it possesses. Xu names a subjectivity organized around what it does not pre-possess.",
       us_china: "The cultural premium on 'authenticity' and 'having a voice' that organizes Western public life maps poorly onto a tradition that prizes the cultivated reserve of xu."
     },
-    { id: "xin", term: "心", script: "Chinese", transliteration: "xīn", english: "heart-mind", tradition: "chinese-classical", domain: "self",
+    { id: "xin", no_counterpart: "Heart-mind names the refusal of the cognition/affect split that the rationalist vocabulary presupposes; nothing on that side is formulated without already assuming the split.", term: "心", script: "Chinese", transliteration: "xīn", english: "heart-mind", tradition: "chinese-classical", domain: "self",
       key_thinkers: ["mencius", "mou-zongsan", "tu-weiming"],
       gloss: "The seat of cognition and feeling, refusing the modern Western distinction between intellect and affect. For Mencius, xin is the moral mind: spontaneously responsive to suffering, the source of the 'four sprouts' of virtue. For Mou Zongsan, xin is the seat of intellectual intuition that Kant denied to humans.",
       counterparts: ["subject"],
       ecart: "Where the modern Western subject is split into faculties (cognition, will, feeling), xin is integrative. The integration is not pre-philosophical naïveté; it is itself a philosophical position about what the human is."
     },
     { id: "xing", term: "性", script: "Chinese", transliteration: "xìng", english: "human nature / disposition", tradition: "chinese-classical", domain: "ethics",
-      key_thinkers: ["mencius", "mou-zongsan"],
+      key_thinkers: ["mencius", "xunzi", "mou-zongsan"],
       gloss: "The endowment of a thing — what it is given to be when allowed to grow. For Mencius, human xing tends toward goodness: the four sprouts mature unless stunted. For Xunzi, human xing tends toward selfishness and must be reshaped by ritual. The dispute is internal to early Confucianism and never fully resolved.",
       counterparts: ["virtue"],
       ecart: "Aristotelian phusis (nature) is similar in form, very different in content: human nature has a telos for Aristotle, a tendency for Mencius, a deficit for Xunzi."
@@ -321,7 +335,7 @@ window.ATLAS_DATA = {
       ecart: "Modern Western political philosophy oscillates between consensus (a kind of conformity) and pluralism (a kind of bare coexistence). He names a third operation: difference cultivated into mutual support without dissolving into agreement. Chenyang Li's central claim is that this is a viable global organizing principle, not a parochialism.",
       us_china: "The PRC state's invocation of 'harmonious society' (和谐社会) and 'harmonious world' (和谐世界) is regularly read as repression-with-decoration. Chenyang Li's philosophical argument for he is independent of and largely ignored by that state usage."
     },
-    { id: "qi", term: "氣", script: "Chinese", transliteration: "qì", english: "vital energy / configuring force", tradition: "chinese-classical", domain: "metaphysics",
+    { id: "qi", no_counterpart: "A configuring substance-energy has no place in a physicalist metaphysics that inherits matter and energy silently from physics.", term: "氣", script: "Chinese", transliteration: "qì", english: "vital energy / configuring force", tradition: "chinese-classical", domain: "metaphysics",
       key_thinkers: ["needham"],
       gloss: "The configuring substance-energy that pervades and constitutes things. Untranslatable as 'matter' or 'energy' — neither captures the way qi crosses what Western metaphysics splits into mind/body, animate/inanimate. Central to Neo-Confucian metaphysics (Zhang Zai's qi-monism), to traditional Chinese medicine, to martial arts, to landscape painting.",
       counterparts: ["being", "li_coherence"],
@@ -359,7 +373,7 @@ window.ATLAS_DATA = {
       counterparts: ["truth"],
       ecart: "Western truth-as-correspondence asks: does this proposition mirror the world? Tong asks: does this pass through? Two different discursive economies funding different practices."
     },
-    { id: "dan", term: "淡", script: "Chinese", transliteration: "dàn", english: "blandness / fadeur", tradition: "chinese-classical", domain: "aesthetics",
+    { id: "dan", no_counterpart: "The LW/EA cluster has no aesthetics; blandness names a value in a register the cluster does not possess.", term: "淡", script: "Chinese", transliteration: "dàn", english: "blandness / fadeur", tradition: "chinese-classical", domain: "aesthetics",
       key_thinkers: ["jullien"],
       gloss: "The quality of holding all flavors in potential without committing to any. Blandness is not insipidity; it is inexhaustibility. The diluted ink-wash; the long-decaying tone; the scholar-official who is not striking and therefore not exhausted by his strikingness.",
       counterparts: ["sublime"],
@@ -367,7 +381,7 @@ window.ATLAS_DATA = {
     },
 
     // ── Modern Chinese coinages ──
-    { id: "intellectual-intuition", term: "智的直覺", script: "Chinese", transliteration: "zhì de zhíjué", english: "intellectual intuition", tradition: "chinese-modern", domain: "knowledge",
+    { id: "intellectual-intuition", no_counterpart: "Mou's claim is aimed at Kant; the rationalist epistemology never posed the question of non-sensible access to reality, so there is nothing to set opposite it.", term: "智的直覺", script: "Chinese", transliteration: "zhì de zhíjué", english: "intellectual intuition", tradition: "chinese-modern", domain: "knowledge",
       coined_by: "mou-zongsan",
       key_thinkers: ["mou-zongsan"],
       gloss: "Mou Zongsan's claim that the Confucian-Buddhist tradition affirms what Kant denied: that humans have direct, non-sensible cognitive access to ultimate reality. Not a culturalist boast but a philosophical thesis with apparatus — the moral mind (Mencius's xin) is the seat of this capacity.",
@@ -376,7 +390,7 @@ window.ATLAS_DATA = {
     },
 
     // ── Japanese / Kyoto School ──
-    { id: "basho", term: "場所", script: "Japanese", transliteration: "basho", english: "place / locus", tradition: "kyoto-school", domain: "metaphysics",
+    { id: "basho", no_counterpart: "A logic of place that contains subject and object has no counterpart in a tradition whose agents are bounded utility-maximizers by construction.", term: "場所", script: "Japanese", transliteration: "basho", english: "place / locus", tradition: "kyoto-school", domain: "metaphysics",
       coined_by: "nishida",
       key_thinkers: ["nishida"],
       gloss: "Nishida Kitarō's 'logic of place.' Where Western philosophy locates determinations in subjects (the I that has properties, performs acts, knows objects), Nishida proposes a logic in which determinations are located in encompassing 'places' that contain both subject and object. The ultimate basho is 'absolute nothingness' (絶対無, mu).",
@@ -390,7 +404,7 @@ window.ATLAS_DATA = {
       counterparts: ["moral_law", "subject"],
       ecart: "Strikingly close in conceptual function to what Jullien half a century later names <em>l'entre</em>, derived from the Chinese 間 jiān. Watsuji reaches the position from Heidegger's analysis of Dasein and his own reading of Confucian ethics; Jullien reaches it through the détour through China. Same neighborhood, different routes."
     },
-    { id: "mu", term: "無", script: "Japanese / Chinese", transliteration: "mu", english: "absolute nothingness", tradition: "kyoto-school", domain: "metaphysics",
+    { id: "mu", no_counterpart: "Absolute nothingness as the encompassing place plays no role in a metaphysics that takes the physical lightcone as the outermost frame.", term: "無", script: "Japanese / Chinese", transliteration: "mu", english: "absolute nothingness", tradition: "kyoto-school", domain: "metaphysics",
       key_thinkers: ["nishida"],
       gloss: "The Kyoto School's reformulation of the Buddhist 'emptiness' (śūnyatā) as 'absolute nothingness': not a privation of being but the encompassing place from which all determinations emerge. Distinct from European nihilism (which thinks nothingness as a privation) and from European negative theology (which thinks it as transcendence).",
       counterparts: ["being"],
@@ -398,7 +412,7 @@ window.ATLAS_DATA = {
     },
 
     // ── Comparative-method coinages ──
-    { id: "ecart_meta", term: "Écart", script: "French", transliteration: "écart", english: "gap / divergence", tradition: "comparative", domain: "meta",
+    { id: "ecart_meta", no_counterpart: "A term of the comparative method itself: it is the instrument of the mapping, not something the mapping maps.", term: "Écart", script: "French", transliteration: "écart", english: "gap / divergence", tradition: "comparative", domain: "meta",
       coined_by: "jullien",
       key_thinkers: ["jullien"],
       gloss: "Jullien's central methodological term. Cultural difference is not opposition (which would presuppose a shared space and pre-organize the disagreement) but écart — a gap that opens a tension between configurations, each of which becomes legible by virtue of its non-coincidence with the other.",
@@ -412,7 +426,7 @@ window.ATLAS_DATA = {
       counterparts: ["universal", "tianxia", "he"],
       ecart: "L'universel claims a shared space prior to inquiry. Le commun produces a shared space through inquiry. The first is foundationalist; the second is laborious."
     },
-    { id: "decoincidence", term: "Dé-coïncidence", script: "French", transliteration: "dé-coïncidence", english: "de-coincidence", tradition: "comparative", domain: "meta",
+    { id: "decoincidence", no_counterpart: "An instrument of the comparative method rather than a configuration of any shared problem.", term: "Dé-coïncidence", script: "French", transliteration: "dé-coïncidence", english: "de-coincidence", tradition: "comparative", domain: "meta",
       coined_by: "jullien",
       key_thinkers: ["jullien"],
       gloss: "Jullien's late concept. To live is to de-coincide with oneself: to open a gap between what one is and what one has been. Where coincidence with oneself is death, dé-coïncidence is the principle of the living.",
@@ -433,14 +447,14 @@ window.ATLAS_DATA = {
       counterparts: ["moral_law", "rights", "ren", "li_ritual"],
       ecart: "Sharp dispute with rights-based liberalism: if persons are constituted by relations, the prior-and-individual rights-bearer is a fiction. Ames's claim is that this is not anti-liberal but post-liberal, available as a global ethics."
     },
-    { id: "organic-naturalism", term: "Organic naturalism", script: "English", transliteration: "organic naturalism", english: "organic naturalism", tradition: "comparative", domain: "metaphysics",
+    { id: "organic-naturalism", no_counterpart: "Needham's frame for the Chinese–European science contrast; the LW/EA cluster inherits that history as settled rather than holding a position in it.", term: "Organic naturalism", script: "English", transliteration: "organic naturalism", english: "organic naturalism", tradition: "comparative", domain: "metaphysics",
       coined_by: "needham",
       key_thinkers: ["needham"],
       gloss: "Needham's name for the metaphysical orientation he reads out of classical Chinese thought: reality as a self-regulating, internally patterned organic process, contrasted with European mechanical reductionism. The thesis frames his Needham question — why a culture rich in organic-naturalist resources did not produce the European Scientific Revolution.",
       counterparts: ["being", "qi"],
       ecart: "Mechanism explains by isolating parts and showing how they couple. Organic naturalism explains by showing how parts emerge from a configurational whole. Both have done immense work; Needham's claim is that they are not stages but alternatives."
     },
-    { id: "axial-age", term: "Axial age", script: "English", transliteration: "axial age", english: "axial age", tradition: "comparative", domain: "meta",
+    { id: "axial-age", no_counterpart: "A historiographic frame, not a concept the traditions themselves hold; it is used to compare, not compared.", term: "Axial age", script: "English", transliteration: "axial age", english: "axial age", tradition: "comparative", domain: "meta",
       coined_by: "schwartz",
       key_thinkers: ["schwartz"],
       gloss: "Karl Jaspers's frame, brought into sinology by Schwartz: the period roughly 800–200 BCE during which transformative breakthroughs occurred in parallel across China (Confucius, the Daoist canon), India (the Buddha, Upanishadic thought), Israel (the Prophets), and Greece (the pre-Socratics through Plato). The frame is comparative without being assimilationist.",
@@ -449,19 +463,19 @@ window.ATLAS_DATA = {
     },
 
     // ── Greek / Modern European ──
-    { id: "eidos", term: "εἶδος", script: "Greek", transliteration: "eidos", english: "form / idea", tradition: "greek-classical", domain: "metaphysics",
+    { id: "eidos", no_counterpart: "Inherited silently: the LW/EA cluster takes the form/matter and model/thing apparatus for granted and never argues for it.", term: "εἶδος", script: "Greek", transliteration: "eidos", english: "form / idea", tradition: "greek-classical", domain: "metaphysics",
       key_thinkers: ["plato", "aristotle"],
       gloss: "Plato's intelligible form; Aristotle's what-it-is. The principle by which a thing is what it is, distinguishable from its matter. Foundation of Western metaphysics: things are knowable in virtue of their form.",
       counterparts: ["li_coherence", "shi"],
       ecart: "Where eidos thinks the thing through its form (a stable what-it-is), Chinese coherence thinks the thing through its immanent grain. Form is imposed and identifying; coherence is internal and configurative."
     },
-    { id: "telos", term: "τέλος", script: "Greek", transliteration: "telos", english: "end / final cause", tradition: "greek-classical", domain: "strategy",
+    { id: "telos", no_counterpart: "Inherited silently through consequentialism as the end-state to be realized; no LW/EA concept names the teleological reflex it embodies.", term: "τέλος", script: "Greek", transliteration: "telos", english: "end / final cause", tradition: "greek-classical", domain: "strategy",
       key_thinkers: ["aristotle", "jullien"],
       gloss: "Aristotle's final cause; the end toward which a thing tends because of its nature. Foundation of Western practical reason: action is rational by reference to a telos.",
       counterparts: ["shi"],
       ecart: "Where telos pre-positions the end to be realized, shi reads the end out of the propensity. Strategy under telos is plan-and-execute; strategy under shi is read-and-ride."
     },
-    { id: "praxis", term: "πρᾶξις", script: "Greek", transliteration: "praxis", english: "action", tradition: "greek-classical", domain: "strategy",
+    { id: "praxis", no_counterpart: "The Aristotelian noble deed has no descendant in a tradition that evaluates action by its consequences rather than by the excellence it displays.", term: "πρᾶξις", script: "Greek", transliteration: "praxis", english: "action", tradition: "greek-classical", domain: "strategy",
       key_thinkers: ["aristotle"],
       gloss: "Aristotelian noble doing: the action that is its own end, the deed that bears the agent's excellence in itself. Modernity narrows praxis toward the decisive, identifiable, attributable act.",
       counterparts: ["wuwei"],
@@ -473,31 +487,31 @@ window.ATLAS_DATA = {
       counterparts: ["moral_law", "ren"],
       ecart: "Where the Kantian moral law takes ethics as rule-application, phronesis takes ethics as cultivated judgment in context. Hall–Ames argue this is closer to Confucianism than the Kantian framework that has dominated comparative ethics."
     },
-    { id: "virtue", term: "ἀρετή", script: "Greek", transliteration: "aretē", english: "virtue / excellence", tradition: "greek-classical", domain: "ethics",
+    { id: "virtue", no_counterpart: "The LW/EA cluster treats virtue ethics as one contested theory among several under moral uncertainty; it has no virtue concept of its own.", term: "ἀρετή", script: "Greek", transliteration: "aretē", english: "virtue / excellence", tradition: "greek-classical", domain: "ethics",
       key_thinkers: ["aristotle", "hall-ames"],
       gloss: "Aretē is excellence at being the kind of thing one is — the virtue of a knife is to cut well, of a citizen to participate well, of a person to live well. Aristotelian ethics is virtue ethics in this register; modern virtue ethics revives it.",
       counterparts: ["ren", "junzi", "moral_law"],
       ecart: "Closer to Confucian junzi-ethics than the Kantian moral law is. Both Greek aretē and Confucian junzi take ethics as the cultivation of excellent character through habituation in roles and relations."
     },
-    { id: "kairos", term: "καιρός", script: "Greek", transliteration: "kairos", english: "the right moment", tradition: "greek-classical", domain: "time",
+    { id: "kairos", no_counterpart: "Inherited silently: the marked moment within continuous time is the unexamined backdrop of every x-risk timeline.", term: "καιρός", script: "Greek", transliteration: "kairos", english: "the right moment", tradition: "greek-classical", domain: "time",
       key_thinkers: ["aristotle"],
       gloss: "The moment qualitatively distinguished within continuous time — the right time to strike, to speak, to commit. Paired with chronos (continuous, homogeneous time), each presupposing the other.",
       counterparts: ["ji", "shi_time"],
       ecart: "Kairos is the marked moment within an unmarked continuum. Shí refuses the continuum; ji is earlier, quieter, and acts before the kairos becomes legible."
     },
-    { id: "chronos", term: "χρόνος", script: "Greek", transliteration: "chronos", english: "continuous time", tradition: "greek-classical", domain: "time",
+    { id: "chronos", no_counterpart: "Inherited silently: homogeneous continuous time is the assumed frame of longtermist accounting, never a position within it.", term: "χρόνος", script: "Greek", transliteration: "chronos", english: "continuous time", tradition: "greek-classical", domain: "time",
       key_thinkers: ["aristotle"],
       gloss: "Greek time as continuous, homogeneous, abstract — the time of clocks and physics, a backdrop against which events occur and durations measure. The companion of kairos: kairos is qualitatively marked time within a chronos that is itself qualitatively flat.",
       counterparts: ["shi_time"],
       ecart: "Classical Chinese has no exact analog of chronos. There is no abstract continuous backdrop time waiting to be filled by seasons; there are only the times-of-things."
     },
-    { id: "method", term: "μέθοδος", script: "Greek", transliteration: "methodos", english: "method", tradition: "greek-classical", domain: "knowledge",
+    { id: "method", no_counterpart: "Inherited silently: the goal-before-road reflex is the water the cluster swims in.", term: "μέθοδος", script: "Greek", transliteration: "methodos", english: "method", tradition: "greek-classical", domain: "knowledge",
       key_thinkers: ["plato", "aristotle"],
       gloss: "Literally 'pursuit-after-something': a way taken with a goal in view, where the goal precedes the road. The Western intellectual reflex of asking 'what's the method' before working a problem.",
       counterparts: ["dao"],
       ecart: "Dao reverses the direction: the way regulates itself, generates its own viability, has no exterior end."
     },
-    { id: "being", term: "Being", script: "Latin / Greek", transliteration: "esse / l'Être", english: "being / what-is", tradition: "greek-classical", domain: "metaphysics",
+    { id: "being", no_counterpart: "Inherited silently as the physicalist what-is; no LW/EA concept names it because none contests it.", term: "Being", script: "Latin / Greek", transliteration: "esse / l'Être", english: "being / what-is", tradition: "greek-classical", domain: "metaphysics",
       key_thinkers: ["plato", "aristotle", "heidegger", "jullien"],
       gloss: "The hinge of Western metaphysics from Parmenides forward. To think reality is to think it as being — substance, presence, what-is. Even modernity's critiques of metaphysics are organized by this hinge.",
       counterparts: ["dao", "qi", "mu", "tian"],
@@ -509,13 +523,13 @@ window.ATLAS_DATA = {
       counterparts: ["tong"],
       ecart: "Where Western truth-talk asks 'does this match what-is,' Chinese discourse leans toward 'does this pass through' (tong). Different discursive economies funding different practices."
     },
-    { id: "subject", term: "Subject", script: "Latin / French", transliteration: "subjectum / sujet", english: "subject / self", tradition: "modern-european", domain: "self",
+    { id: "subject", no_counterpart: "Inherited silently as the bounded agent of decision theory; contested from the Kyoto and Chinese material, never from within the cluster.", term: "Subject", script: "Latin / French", transliteration: "subjectum / sujet", english: "subject / self", tradition: "modern-european", domain: "self",
       key_thinkers: ["kant", "heidegger", "nishida"],
       gloss: "The substantial, bounded, characterful I that modernity inherits from Descartes through Kant. The center of consciousness, the bearer of rights, the agent of action.",
       counterparts: ["xu", "zhong", "basho", "aidagara"],
       ecart: "Where the subject is full (defined by what it possesses), East Asian alternatives — Chinese xu (emptiness), Japanese basho (the encompassing place), Watsuji's aidagara — locate the determinate not in the substantial self but in capacity, place, or relation."
     },
-    { id: "will", term: "Will", script: "Latin / French", transliteration: "voluntas / volonté", english: "will", tradition: "modern-european", domain: "self",
+    { id: "will", no_counterpart: "The willing subject is absorbed without remainder into the utility-maximizing agent; there is no separate LW/EA concept of will to map.", term: "Will", script: "Latin / French", transliteration: "voluntas / volonté", english: "will", tradition: "modern-european", domain: "self",
       key_thinkers: ["kant"],
       gloss: "The faculty of self-determination, central from Augustine through Kant to Schopenhauer and Nietzsche. The willing subject as the engine of moral and historical agency.",
       counterparts: ["yin", "wuwei", "ziran"],
@@ -528,7 +542,7 @@ window.ATLAS_DATA = {
       ecart: "Where moral law is formal and contextless, Confucian ren is irreducibly contextual. The disagreement is not about which produces better ethics in a given case; it is about whether ethics admits of formalization without remainder.",
       us_china: "Disputes about 'human rights' across U.S.–China lines reproduce this écart almost exactly. The Western frame derives rights from a universal moral law; the Chinese counter-frame, when not merely defensive, sometimes operates with a residual ethics of relation that the universalist frame is structurally unable to recognize as ethics."
     },
-    { id: "rights", term: "Rights", script: "English / French", transliteration: "rights / droits", english: "rights", tradition: "modern-european", domain: "politics",
+    { id: "rights", no_counterpart: "Inherited silently as the entitlements of the decision-theoretic individual; the LW/EA cluster reasons past rights to welfare and never argues with them, so there is nothing to set opposite them.", term: "Rights", script: "English / French", transliteration: "rights / droits", english: "rights", tradition: "modern-european", domain: "politics",
       key_thinkers: ["kant", "hall-ames"],
       gloss: "Modern entitlements held by individuals in virtue of their being individuals: liberty, property, due process, free expression. Derive in standard liberal theory from the universal moral law applied to the rational person.",
       counterparts: ["ren", "role-ethics", "tianxia"],
@@ -540,19 +554,19 @@ window.ATLAS_DATA = {
       counterparts: ["common", "tianxia", "he"],
       ecart: "Jullien distinguishes l'universel, l'uniforme (globalization's flattening), and le commun (cultivable shared norms). Tianxia and he propose other framings of the same problem from a Chinese vantage. The post-1945 order claims l'universel and produces l'uniforme; the question is whether le commun, tianxia, or he can name a third path."
     },
-    { id: "event", term: "Event", script: "French / English", transliteration: "événement", english: "event", tradition: "modern-european", domain: "time",
+    { id: "event", no_counterpart: "Inherited silently: the event-shape of change is presupposed by 'takeoff', 'precipice', and 'pivotal act' rather than named.", term: "Event", script: "French / English", transliteration: "événement", english: "event", tradition: "modern-european", domain: "time",
       key_thinkers: ["heidegger", "jullien"],
       gloss: "What interrupts the order of things, what arrives, what dates. From Greek crisis-moment through Christian revelation to modern philosophy of the event (Heidegger, Badiou).",
       counterparts: ["hua", "ji", "shi_time"],
       ecart: "The event is what the silent transformation eventually outputs. Western analysis sees the output and misses the producing continuum."
     },
-    { id: "plan", term: "Plan", script: "Latin / English", transliteration: "planum", english: "plan / model / design", tradition: "modern-european", domain: "strategy",
+    { id: "plan", no_counterpart: "Inherited silently: the plan-and-execute reflex is constitutive of cause prioritization and alignment-as-specification, and therefore invisible to them.", term: "Plan", script: "Latin / English", transliteration: "planum", english: "plan / model / design", tradition: "modern-european", domain: "strategy",
       key_thinkers: ["jullien"],
       gloss: "The pre-figured representation of an end-state, against which action is measured. From Plato's pattern-in-the-mind to modern strategic planning. The cultural reflex of asking 'what's the plan' before acting.",
       counterparts: ["shi", "yin"],
       ecart: "Where plan pre-positions the model, shi reads the situation. The two are not strict opposites but the cultural defaults run different ways."
     },
-    { id: "sublime", term: "Sublime", script: "Latin", transliteration: "sublimis", english: "sublime", tradition: "modern-european", domain: "aesthetics",
+    { id: "sublime", no_counterpart: "The LW/EA cluster has no aesthetics; astronomical stakes produce vertigo, but vertigo is not a category there.", term: "Sublime", script: "Latin", transliteration: "sublimis", english: "sublime", tradition: "modern-european", domain: "aesthetics",
       key_thinkers: ["kant"],
       gloss: "The Romantic aesthetic of overwhelming magnitude, terror, the unrepresentable. Kant's mathematical and dynamic sublime. The complement to the beautiful, marking the limit of form.",
       counterparts: ["dan"],
@@ -569,7 +583,7 @@ window.ATLAS_DATA = {
 
     // ── Legalism (Han Feizi) ──
     { id: "fa", term: "法", script: "Chinese", transliteration: "fǎ", english: "Legalist law / impersonal standard", tradition: "chinese-classical", domain: "politics",
-      key_thinkers: ["han-fei"],
+      key_thinkers: ["han-fei", "mozi"],
       gloss: "The Legalist tradition's central concept: an impersonal, public, prior standard against which actions and persons are measured — explicitly opposed to Confucian li (ritual) and ren (humaneness), which depend on virtuous judgment. Han Feizi's premise is that competent governance cannot rely on virtuous rulers and must be designed for ordinary or vicious ones; fa is what makes such a design possible.",
       counterparts: ["moral_law", "rights"],
       ecart: "Fa's premise — that impersonal standards are needed precisely because no ruler is reliably virtuous — runs closer to liberal-constitutional thinking than Confucian role-ethics does, but the Legalist conclusion (rule by harsh, exposed standards with severe enforcement) is illiberal. The position has no clean Western analog and is regularly mistranslated by both Confucian-leaning sympathizers (who soften it into rule-of-law) and liberal critics (who hear only the harshness)."
@@ -636,6 +650,29 @@ window.ATLAS_DATA = {
       counterparts: ["zhi-wisdom"],
       ecart: "At the level of vocabulary, modern Chinese refuses what Anglophone AI safety calls the orthogonality thesis. Intelligence-without-judgment is not yet zhineng; it is zhi without neng or neng without zhi. The disagreement is not just terminological — it reshapes what 'making AI safe' can mean: alignment-as-value-loading reads as a Western response to a problem the Chinese frame would not have stated this way.",
       us_china: "Chinese AI ethics discourse often reads to Western AI safety researchers as soft on alignment because it is — by the standards of orthogonality-thesis-shaped alignment. From the zhineng vantage, the question 'will the system have good values' is malformed; a system without good judgment is not yet intelligent in the relevant sense. Whether the linguistic-conceptual move tracks anything in the actual technical practice is the live empirical question."
+    },
+
+    // ── Mohist ──
+    { id: "jian-ai", term: "兼愛", script: "Chinese", transliteration: "jiān'ài", english: "impartial care", tradition: "chinese-classical", domain: "ethics",
+      key_thinkers: ["mozi", "mencius"],
+      gloss: "The Mohist master-principle: care extended without gradation — to regard other states, families, and persons as one regards one's own. Mozi's argument is consequentialist: partial care is the root of aggression and disorder, impartial care the condition of benefit for all under heaven. Not affective love but a policy of regard, and the classical tradition's one sustained refusal of graded concern.",
+      counterparts: ["ren", "impartiality", "moral-circle"],
+      ecart: "Mencius's attack — that impartial care 'denies the father' — is the ancient rehearsal of the modern objection that impartiality dissolves the relations in which obligation actually lives. The Mohist reply is the drowning-child argument two millennia early: if your care is graded, explain why the stranger's child counts less. The dispute was never settled inside the tradition; it was won politically by the Confucians.",
+      us_china: "Impartialist premises in Western humanitarian and human-rights discourse are usually read in China as foreign. Mohism shows they are not: the refusal of graded concern has a native Chinese lineage, one the Confucian mainstream outlasted rather than answered."
+    },
+    { id: "li-benefit", term: "利", script: "Chinese", transliteration: "lì", english: "benefit / utility (Mohist criterion)", tradition: "chinese-classical", domain: "ethics",
+      key_thinkers: ["mozi", "mencius"],
+      gloss: "The Mohist criterion for judging any doctrine or practice: does it benefit the people — enrich the poor, increase the population, bring order? Applied with three tests (precedent, observation, consequences in use) to music, funerals, war, and fatalism alike. The same character Mencius refuses at the opening of his book: 'why must the king speak of benefit?'",
+      counterparts: ["ren", "utilitarianism", "cause-prioritization"],
+      ecart: "Mohist benefit is aggregate welfare as a public standard, applied by comparison across practices — the nearest classical Chinese analog of a cost-effectiveness criterion. What it lacks is the calculus: benefit is measured in kinds (wealth, people, order), not in a common unit, so it discriminates practices without summing them. The Confucian objection is not that benefit is bad but that making it the criterion corrupts the motive it is supposed to serve."
+    },
+
+    // ── Xunzi ──
+    { id: "wei-artifice", term: "偽", script: "Chinese", transliteration: "wěi", english: "deliberate artifice / conscious effort", tradition: "chinese-classical", domain: "ethics",
+      key_thinkers: ["xunzi"],
+      gloss: "Xunzi's term for everything in human goodness that is made rather than given: ritual, standards, learning, the straightening of a crooked nature by effort. Not 'falseness' (the character's later sense) but artifice in the craftsman's sense — the sages invented ritual as a potter makes a vessel. Goodness is an achievement of design applied to a nature that would not produce it alone.",
+      counterparts: ["xing", "ziran", "ai-alignment", "cev"],
+      ecart: "Against Mencius's sprouts and the Daoist so-of-itself, wei says the good is engineered. It is the classical tradition's own version of the alignment premise — that a capable agent is not thereby a good one and must be shaped by constructed standards — and the reason Xunzi's students became Legalists. Whether the shaping is education (Xunzi) or law (Han Feizi) is the fork inside the position."
     }
   ],
 
@@ -725,6 +762,28 @@ window.ATLAS_DATA = {
         { label: "Genuine and structuring (Jullien, Hall–Ames)", thinkers: ["jullien", "hall-ames", "needham"], concepts: ["dao", "li_coherence", "qi", "being"], claim: "The Chinese tradition's master concepts (dao, li, qi, ziran, hua) are systematically immanent; the Western tradition's master concepts (Being, telos, eidos, the moral law) are systematically transcendence-tending. The pattern is too consistent to be coincidence." },
         { label: "Artifact of selective reading (Billeter)", thinkers: ["billeter"], concepts: [], claim: "The Chinese tradition contains transcendence-claims (Mohist Heaven, certain Buddhist schools, neo-Confucian heaven-pattern); the Western tradition contains immanence-claims (Stoicism, Spinoza, Deleuze). Each tradition is plural enough that the supposed contrast can be made to disappear by counter-selection." },
         { label: "Local rather than civilizational (Schwartz, Anne Cheng)", thinkers: ["schwartz", "anne-cheng"], concepts: ["axial-age"], claim: "The contrast is real for specific authors and periods but not as a master civilizational difference. The axial-age framework allows comparability without the over-reach of programmatic East–West contrast." }
+      ]
+    },
+    {
+      id: "graded-vs-impartial-love",
+      name: "Graded love vs. impartial care (Mencius vs. Mozi)",
+      summary: "Should moral concern be calibrated to relation — family first, then outward — or extended impartially to all? The classical tradition's founding dispute about the scope of ethics.",
+      stake: "Whether the relational ethics that became the Chinese mainstream was an argument or a victory. If Mencius answered Mozi, graded concern is a considered position; if the Confucians merely outlasted the Mohists, the impartialist premise the West is now thought to import has a native lineage that was suppressed, not refuted. The modern EA debate over impartiality replays the same dispute with a calculus added.",
+      positions: [
+        { label: "Impartial care (Mozi)", thinkers: ["mozi"], concepts: ["jian-ai", "li-benefit"], claim: "Partial concern is the cause of aggression between families and states. Regard others' parents as your own and the disorder stops. The standard is benefit to all under heaven, and graded love fails it." },
+        { label: "Graded love (Mencius)", thinkers: ["mencius"], concepts: ["ren", "xing"], claim: "Impartial care denies the father: it asks for a concern that no human nature produces and would dissolve the relations in which humaneness is actually cultivated. Ren extends outward from the near by degrees; that extension is the moral life, not a bias in it." },
+        { label: "Ritual as the mediation (Xunzi)", thinkers: ["xunzi"], concepts: ["li_ritual", "wei-artifice"], claim: "Neither nature nor impartial principle settles the scope of concern; ritual does, as a constructed order that allocates regard by role. The question is one of design, not of endowment or of calculation." }
+      ]
+    },
+    {
+      id: "xing-debate",
+      name: "Is human nature good? (Mencius vs. Xunzi)",
+      summary: "Does human xing tend spontaneously toward goodness, needing only cultivation to grow, or toward disorder, needing artifice to correct it?",
+      stake: "The dispute fixes what cultivation is for: releasing an endowment or constructing a second nature. It determines whether ritual is expressive or corrective, whether the sage is gardener or artificer — and it is the classical form of the question every project that wants to build a good agent has to answer: is the good already in the material, to be extrapolated, or must it be put there?",
+      positions: [
+        { label: "Nature is good (Mencius)", thinkers: ["mencius", "mou-zongsan", "tu-weiming"], concepts: ["xing", "xin", "ren"], claim: "The four sprouts — compassion, shame, deference, the sense of right — are native to the heart-mind and mature into the virtues unless stunted. Anyone who sees a child about to fall into a well feels alarm before any calculation. Cultivation is the removal of what stunts." },
+        { label: "Nature is bad; goodness is artifice (Xunzi)", thinkers: ["xunzi"], concepts: ["wei-artifice", "li_ritual"], claim: "Left to itself, xing is desire and it produces strife. Whatever is good in people was made — by the sages who invented ritual and by each learner's deliberate effort. To call the good natural is to mistake the finished vessel for the clay." },
+        { label: "The dispute is about 'nature', not about people (later readings)", thinkers: ["anne-cheng"], concepts: ["xing"], claim: "Mencius describes the endowment's direction; Xunzi its raw state. Read carefully the two are less contradictory than the tradition made them, and the Song canonization of Mencius was a choice about orthodoxy rather than a verdict on the argument." }
       ]
     }
   ],
@@ -950,7 +1009,30 @@ window.ATLAS_DATA = {
     // ── Thinker ↔ thinker for new thinkers ──
     { source: "sun-zi", target: "han-fei", kind: "tt", type: "influence", note: "Han Feizi adopts and adapts the Sunzi shi-and-jisuan apparatus" },
     { source: "confucius", target: "han-fei", kind: "tt", type: "critique", note: "Han Feizi argues Confucian virtue-reliance is impractical for governance" },
-    { source: "nagarjuna", target: "nishida", kind: "tt", type: "influence", note: "Madhyamaka emptiness as a deep source for Kyoto School absolute nothingness" }
+    { source: "nagarjuna", target: "nishida", kind: "tt", type: "influence", note: "Madhyamaka emptiness as a deep source for Kyoto School absolute nothingness" },
+
+    // ── Mohist and Xunzi additions ──
+    { source: "mozi", target: "jian-ai", kind: "tc", type: "coined" },
+    { source: "mozi", target: "li-benefit", kind: "tc", type: "central" },
+    { source: "mozi", target: "fa", kind: "tc", type: "advanced", note: "Mohist 法 (standards, models) precedes and feeds the Legalist use" },
+    { source: "mencius", target: "jian-ai", kind: "tc", type: "critiqued" },
+    { source: "mencius", target: "li-benefit", kind: "tc", type: "critiqued" },
+    { source: "xunzi", target: "wei-artifice", kind: "tc", type: "coined" },
+    { source: "xunzi", target: "xing", kind: "tc", type: "critiqued" },
+    { source: "xunzi", target: "li_ritual", kind: "tc", type: "central" },
+    { source: "jian-ai", target: "ren", kind: "cc", type: "ecart", note: "impartial care vs. graded humaneness — the classical tradition's own scope dispute" },
+    { source: "jian-ai", target: "li_ritual", kind: "cc", type: "ecart", note: "Mohists attack ritual expense; ritual allocates concern by role" },
+    { source: "li-benefit", target: "ren", kind: "cc", type: "ecart", note: "benefit as public criterion vs. humaneness as cultivated motive" },
+    { source: "jian-ai", target: "li-benefit", kind: "cc", type: "pair", note: "Mohist principle and Mohist criterion" },
+    { source: "wei-artifice", target: "xing", kind: "cc", type: "ecart", note: "Xunzi: what is made vs. what is given" },
+    { source: "wei-artifice", target: "li_ritual", kind: "cc", type: "pair", note: "ritual is the paradigm of artifice" },
+    { source: "wei-artifice", target: "ziran", kind: "cc", type: "ecart", note: "artifice vs. so-of-itself" },
+    { source: "wei-artifice", target: "fa", kind: "cc", type: "lineage", note: "Xunzi's constructed ritual becomes Han Feizi's constructed law" },
+    { source: "confucius", target: "mozi", kind: "tt", type: "critique", note: "Mozi attacks Confucian graded love, ritual expense, and fatalism" },
+    { source: "mozi", target: "mencius", kind: "tt", type: "critique", note: "Mencius: impartial care 'denies the father'" },
+    { source: "mencius", target: "xunzi", kind: "tt", type: "critique", note: "Xunzi rejects the goodness of human nature" },
+    { source: "confucius", target: "xunzi", kind: "tt", type: "influence" },
+    { source: "xunzi", target: "han-fei", kind: "tt", type: "influence", note: "Han Feizi studied under Xunzi" }
   ]
 };
 
