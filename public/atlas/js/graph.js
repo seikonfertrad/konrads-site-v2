@@ -47,7 +47,8 @@
   // SVG setup
   const svg = d3.select("#graph");
   const root = svg.append("g");
-  svg.call(d3.zoom().scaleExtent([0.3, 3]).on("zoom", e => root.attr("transform", e.transform)));
+  const zoom = d3.zoom().scaleExtent([0.3, 3]).on("zoom", e => root.attr("transform", e.transform));
+  svg.call(zoom);
 
   // Force simulation
   const sim = d3.forceSimulation(nodes)
@@ -160,6 +161,26 @@
   }
   window.addEventListener("resize", resize);
   resize();
+  // The layout spreads ~700px wide; on a phone start zoomed out so the whole graph is in view
+  if (viewport().w < 700) svg.call(zoom.transform, d3.zoomIdentity.scale(0.55));
+
+  // ─── Small-screen chrome: collapsible overlays and a bottom-sheet panel ─────
+  // The toggles always exist; CSS shows them only under the mobile breakpoint.
+  function addToggle(el, label) {
+    if (!el) return;
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "overlay-toggle";
+    btn.textContent = label;
+    btn.setAttribute("aria-expanded", "false");
+    btn.addEventListener("click", () => {
+      const open = el.classList.toggle("open");
+      btn.setAttribute("aria-expanded", String(open));
+    });
+    el.prepend(btn);
+  }
+  addToggle(document.querySelector(".controls"), "Filters");
+  addToggle(document.querySelector(".legend"), "Key");
 
   // ─── Filter state ────────────────────────────────────────────
   const state = {
@@ -252,10 +273,26 @@
   svg.on("click", () => {
     nodeSel.style("opacity", 1);
     linkSel.style("opacity", null);
+    panel.classList.remove("open");
   });
 
   // ─── Side panel ──────────────────────────────────────────────
   const panel = document.getElementById("panel");
+
+  // Bottom-sheet handle for small screens: re-mounted after every panel render
+  function mountSheet(label, open) {
+    let handle = panel.querySelector(".sheet-handle");
+    if (!handle) {
+      handle = document.createElement("div");
+      handle.className = "sheet-handle";
+      handle.innerHTML = `<span class="sheet-label"></span><span class="sheet-chevron">▲</span>`;
+      handle.addEventListener("click", () => panel.classList.toggle("open"));
+    }
+    handle.querySelector(".sheet-label").textContent = label;
+    panel.prepend(handle);
+    if (open) { panel.classList.add("open"); panel.scrollTop = 0; }
+  }
+  mountSheet("Tap a node to read about it", false);
 
   function tradLabel(id) { return (traditionById[id] && traditionById[id].name) || id; }
   function disputeHref(id) { return `disputes.html${window.GRAPH_MAP_ID === "lightcone" ? "?map=lightcone" : ""}#${id}`; }
@@ -331,6 +368,7 @@
       <a class="openpage" href="concepts/concept.html?map=${c._originMap || window.GRAPH_MAP_ID || "atlas"}&id=${c.id}">Open concept page →</a>
     `;
     wirePanelLinks();
+    mountSheet(`${c.term} · ${c.english || c.transliteration || ""}`, true);
   }
 
   function showThinker(t) {
@@ -384,6 +422,7 @@
       <a class="openpage" href="thinker.html?map=${t._originMap || window.GRAPH_MAP_ID || "atlas"}&id=${t.id}">Open thinker page →</a>
     `;
     wirePanelLinks();
+    mountSheet(t.name.split(" (")[0], true);
   }
 
   function wirePanelLinks() {
