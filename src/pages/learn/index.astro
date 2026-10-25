@@ -1,0 +1,284 @@
+---
+/* konrads.link/learn — a private, encrypted, self-paced copy of the Fractal Bootcamp curriculum.
+   This page is only the shell: the lessons arrive as an encrypted bundle (tools/learn/build.mjs)
+   and the app (src/learn/app.js) decrypts them in the browser once you enter the passphrase.
+   No analytics or third-party scripts run here. */
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' blob: data: https:; connect-src 'self' https://*.workers.dev http://localhost:8787 http://127.0.0.1:8787; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>learn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="lock">
+    <div class="lock-box">
+      <p class="eyebrow">konrads.link</p>
+      <h1>learn</h1>
+      <form id="lock-form" autocomplete="on">
+        <input type="text" name="username" value="learn" autocomplete="username" hidden>
+        <label for="pass">Passphrase</label>
+        <input id="pass" type="password" autocomplete="current-password" required>
+        <label class="check"><input id="remember" type="checkbox"> Remember this device</label>
+        <button id="unlock-btn" class="btn">Unlock</button>
+        <p id="lock-msg" role="status"></p>
+      </form>
+      <form id="lock-migrate" hidden>
+        <p>The passphrase changed. Enter the <b>old</b> passphrase once to carry your progress over.</p>
+        <input id="old-pass" type="password" autocomplete="off" required aria-label="Old passphrase">
+        <button class="btn">Carry over</button>
+        <button id="migrate-fresh" type="button" class="link-btn small">Start fresh instead</button>
+        <p id="migrate-msg" class="bad" role="status"></p>
+      </form>
+      <div id="lock-missing" hidden>
+        <p>This isn't set up yet: there's no encrypted bundle on the site.</p>
+        <p class="muted small">Add a <code>LEARN_PASSPHRASE</code> secret to the GitHub repo (Settings → Secrets and variables → Actions) and redeploy. See <code>tools/learn/README.md</code>.</p>
+      </div>
+      <div id="lock-offline" hidden>
+        <p>Couldn't load the course. Check your connection and reload.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="app" hidden>
+    <header class="top">
+      <a class="brand" href="#/">learn</a>
+      <nav id="nav">
+        <a href="#/" data-view="today">Today</a>
+        <a href="#/path" data-view="path">Path</a>
+        <a href="#/practice" data-view="practice">Practice</a>
+        <a href="#/journal" data-view="journal">Journal</a>
+        <a href="#/settings" data-view="settings">Settings</a>
+      </nav>
+      <div class="top-right">
+        <button id="timer-pill" class="pill" hidden></button>
+        <span id="sync-dot" data-state="off" title="Sync is off"></span>
+        <button id="lock-btn" class="link-btn" title="Lock">Lock</button>
+      </div>
+    </header>
+    <main id="view"></main>
+  </div>
+
+  <dialog id="stop-dialog">
+    <form id="stop-form">
+      <h2>End session</h2>
+      <p class="muted" id="stop-lesson"></p>
+      <label class="field">Minutes <input id="stop-min" type="number" min="1" max="1440"></label>
+      <p id="stop-long" class="muted small" hidden>That's a long one. If you forgot to stop the timer, fix the minutes.</p>
+      <label class="field">What did you do? <textarea id="stop-note" rows="3" placeholder="One line is plenty"></textarea></label>
+      <div class="row">
+        <button class="btn" value="save">Save</button>
+        <button class="btn ghost" value="cancel" formnovalidate>Keep going</button>
+        <button class="link-btn small" value="discard" formnovalidate>Discard</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" role="status" hidden></div>
+
+  <script>
+    import "../../learn/app.js";
+  </script>
+</body>
+</html>
+
+<style is:global>
+  :root {
+    --bg: #FAF8F5;
+    --card: #FFFFFF;
+    --text: #262220;
+    --text-secondary: #6B6560;
+    --muted: #847D78;
+    --accent: #C75B3A;
+    --accent-light: rgba(199, 91, 58, 0.08);
+    --ok: #4F7A4A;
+    --border: #E0DAD0;
+    --font-sans: 'Inter', -apple-system, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.65 var(--font-sans); -webkit-font-smoothing: antialiased; }
+  [hidden] { display: none !important; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  h1, h2, h3 { line-height: 1.25; letter-spacing: -0.01em; }
+  code, pre { font-family: var(--font-mono); font-size: 0.88em; }
+  .muted { color: var(--text-secondary); }
+  .small { font-size: 0.85rem; }
+  .eyebrow { margin: 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  .bad { color: #A33; }
+
+  .btn { font: 500 0.9rem var(--font-sans); padding: 0.5em 1em; border-radius: 6px; border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer; display: inline-block; }
+  .btn:hover { filter: brightness(0.95); }
+  .btn:disabled { opacity: 0.6; cursor: wait; }
+  .btn.ghost { background: transparent; color: var(--accent); }
+  .btn.stop { background: var(--text); border-color: var(--text); }
+  .btn.warn { background: #A33; border-color: #A33; }
+  .link-btn { background: none; border: 0; padding: 0; color: var(--text-secondary); cursor: pointer; font: inherit; text-decoration: underline; }
+  input[type=text], input[type=url], input[type=password], input[type=number], input[type=date], select, textarea {
+    font: inherit; font-size: 0.95rem; width: 100%; padding: 0.5em 0.65em; border: 1px solid var(--border); border-radius: 6px; background: #fff; color: var(--text);
+  }
+  textarea { resize: vertical; }
+  input:focus, select:focus, textarea:focus, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .row { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+  .field { display: block; margin: 0.6rem 0; font-size: 0.9rem; color: var(--text-secondary); }
+  .field input, .field select, .field textarea { margin-top: 0.25rem; }
+
+  /* lock */
+  #lock { min-height: 100vh; display: grid; place-items: center; padding: 16px; }
+  .lock-box { width: 100%; max-width: 360px; }
+  .lock-box h1 { font-size: 2.6rem; margin: 0 0 1.5rem; }
+  .lock-box label { display: block; font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.3rem; }
+  .lock-box .check { display: flex; gap: 0.5rem; align-items: center; margin: 0.8rem 0 1rem; }
+  .lock-box .btn { width: 100%; padding: 0.7em; }
+  .lock-box form > * + * { margin-top: 0.5rem; }
+  #lock-msg { min-height: 1.5em; font-size: 0.9rem; color: var(--text-secondary); }
+  #lock-msg.bad { color: #A33; }
+
+  /* chrome */
+  .top { position: sticky; top: 0; z-index: 5; background: rgba(250, 248, 245, 0.94); backdrop-filter: blur(6px); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 1rem; padding: 0.6rem 16px; flex-wrap: wrap; }
+  .brand { font-weight: 700; color: var(--text); font-size: 1.1rem; }
+  #nav { display: flex; gap: 0.2rem; overflow-x: auto; flex: 1; }
+  #nav a { color: var(--text-secondary); padding: 0.25rem 0.6rem; border-radius: 6px; white-space: nowrap; font-size: 0.95rem; }
+  #nav a.active { color: var(--text); background: var(--accent-light); }
+  #nav a:hover { text-decoration: none; color: var(--text); }
+  .top-right { display: flex; align-items: center; gap: 0.8rem; margin-left: auto; }
+  .pill { font: 500 0.8rem var(--font-mono); background: var(--text); color: #fff; border: 0; border-radius: 99px; padding: 0.3em 0.8em; cursor: pointer; white-space: pre; }
+  #sync-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--border); }
+  #sync-dot[data-state=ok] { background: var(--ok); }
+  #sync-dot[data-state=syncing] { background: #D9A441; }
+  #sync-dot[data-state=error] { background: #A33; }
+  @media (max-width: 640px) {
+    .top { gap: 0.4rem 1rem; }
+    #nav { order: 3; flex-basis: 100%; margin: 0 -0.6rem; }
+  }
+
+  main { max-width: 1120px; margin: 0 auto; padding: 1.5rem 16px 5rem; }
+  .page-title { font-size: 1.9rem; margin: 0.5rem 0 0.25rem; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem 1.25rem; margin: 1rem 0; display: block; }
+  .card h2 { font-size: 1.15rem; margin: 0 0 0.5rem; }
+  .bar { height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; margin: 0.6rem 0; }
+  .bar.big { height: 10px; }
+  .bar span { display: block; height: 100%; background: var(--accent); border-radius: 99px; transition: width 0.3s; }
+
+  /* today */
+  .hero { max-width: 720px; }
+  .hero h1 { font-size: 2rem; margin: 0.2rem 0 0.4rem; }
+  .stats { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 1rem; }
+  .stats b { display: block; font-size: 1.4rem; }
+  .stats span { font-size: 0.8rem; color: var(--muted); }
+  a.card.continue { color: var(--text); border-left: 4px solid var(--accent); }
+  a.card.continue:hover { text-decoration: none; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); }
+  a.card.continue h2 { margin: 0.2rem 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.4rem 0 0.8rem; }
+  .chip { font: inherit; font-size: 0.9rem; padding: 0.3em 0.9em; border-radius: 99px; border: 1px solid var(--border); background: #fff; cursor: pointer; color: var(--text); }
+  .chip.on { background: var(--text); color: #fff; border-color: var(--text); }
+  .suggest { list-style: none; padding: 0; margin: 0; }
+  .suggest li + li { border-top: 1px solid var(--border); }
+  .suggest a { display: block; padding: 0.6rem 0; color: var(--text); }
+  .suggest a:hover { text-decoration: none; }
+  .suggest a:hover b { color: var(--accent); }
+  .suggest b { display: block; font-weight: 600; }
+  .suggest span { font-size: 0.85rem; }
+
+  /* path */
+  details.unit > summary { list-style: none; cursor: pointer; }
+  details.unit > summary::-webkit-details-marker { display: none; }
+  .unit-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+  .unit-head h2 { margin: 0; }
+  .unit-head span { white-space: nowrap; }
+  details.unit > summary p { margin: 0; }
+  .solo { background: var(--accent-light); padding: 0.7rem 0.9rem; border-radius: 8px; font-size: 0.92rem; margin: 0.9rem 0 0.3rem; }
+  .lessons { list-style: none; padding: 0; margin: 0.6rem 0 0; }
+  .lessons a { display: flex; gap: 0.7rem; align-items: baseline; padding: 0.45rem 0; color: var(--text); border-top: 1px solid var(--border); }
+  .lessons a:hover { text-decoration: none; color: var(--accent); }
+  .lessons .lt { flex: 1; }
+  .lessons .dot { width: 11px; height: 11px; border-radius: 50%; border: 2px solid var(--border); flex: none; transform: translateY(1px); }
+  .lessons .doing .dot { border-color: var(--accent); background: linear-gradient(90deg, var(--accent) 50%, transparent 50%); }
+  .lessons .done .dot { border-color: var(--ok); background: var(--ok); }
+  .lessons .done .lt { color: var(--text-secondary); }
+  .lessons .optional .lt { color: var(--text-secondary); }
+  .tag { font-style: normal; font-size: 0.72rem; border: 1px solid var(--border); border-radius: 4px; padding: 0 0.35em; color: var(--muted); }
+
+  /* lesson */
+  .crumbs { font-size: 0.9rem; }
+  .lesson-head h1 { font-size: 1.9rem; margin: 0.3rem 0 0.6rem; }
+  .lesson-meta { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; }
+  .lesson-meta select { width: auto; }
+  .lesson-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 2.5rem; margin-top: 1rem; }
+  .lesson-side .card { position: sticky; top: 4.5rem; margin-top: 0; }
+  .lesson-side h3 { font-size: 0.95rem; margin: 0.4rem 0; }
+  .lesson-side h3 + * { margin-bottom: 0.8rem; }
+  @media (max-width: 900px) {
+    .lesson-layout { grid-template-columns: minmax(0, 1fr); }
+    .lesson-side .card { position: static; }
+  }
+  .pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.92rem; }
+
+  .prose { max-width: 720px; overflow-wrap: break-word; }
+  .prose h1 { font-size: 1.6rem; margin: 1.5rem 0 0.5rem; }
+  .prose h2 { font-size: 1.3rem; margin: 2.2rem 0 0.6rem; padding-top: 0.6rem; }
+  .prose h3 { font-size: 1.1rem; margin: 1.6rem 0 0.4rem; }
+  .prose h2, .prose h3 { scroll-margin-top: 5rem; }
+  .prose p, .prose ul, .prose ol, .prose pre, .prose table, .prose blockquote { margin: 0.7rem 0; }
+  .prose ul, .prose ol { padding-left: 1.4rem; }
+  .prose li { margin: 0.25rem 0; }
+  .prose img { max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; background: #fff; }
+  .prose code { background: rgba(0, 0, 0, 0.045); padding: 0.1em 0.3em; border-radius: 4px; }
+  .prose pre { background: #F6F4F0; border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1rem; overflow-x: auto; line-height: 1.5; }
+  .prose pre code { background: none; padding: 0; }
+  .prose pre.shiki { background-color: #fff !important; }
+  .prose blockquote { border-left: 3px solid var(--border); padding-left: 1rem; color: var(--text-secondary); }
+  .prose table { border-collapse: collapse; display: block; overflow-x: auto; font-size: 0.92rem; }
+  .prose th, .prose td { border: 1px solid var(--border); padding: 0.35rem 0.6rem; text-align: left; vertical-align: top; }
+  .prose hr { border: 0; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+  .prose li.chk { list-style: none; position: relative; }
+  .prose .chk-box { position: absolute; left: -1.45rem; top: 0.32em; width: 1rem; height: 1rem; accent-color: var(--ok); cursor: pointer; margin: 0; }
+  .prose li.chk.checked > :not(ul):not(ol):not(input) { opacity: 0.55; }
+  .prose li.chk.checked { color: var(--text-secondary); }
+  .prose li.flash { animation: flash 2s; }
+  @keyframes flash { from { background: rgba(199, 91, 58, 0.18); } to { background: transparent; } }
+
+  .sec-toggle { font: 500 0.75rem var(--font-sans); vertical-align: middle; margin-right: 0.6rem; border: 1px solid var(--border); background: #fff; color: var(--muted);
+    border-radius: 99px; padding: 0.15em 0.6em; cursor: pointer; transform: translateY(-2px); }
+  .sec-toggle:hover { border-color: var(--ok); color: var(--ok); }
+  .sec-toggle[aria-pressed=true] { background: var(--ok); border-color: var(--ok); color: #fff; }
+  .sec-peek { display: none; font: 0.75rem var(--font-sans); margin-left: 0.6rem; border: 0; background: none; color: var(--muted); text-decoration: underline; cursor: pointer; vertical-align: middle; }
+  .sec-done { color: var(--text-secondary); }
+  .sec-done .sec-peek { display: inline; }
+  .sec-body.done { display: none; }
+  .sec-body.done.show { display: block; opacity: 0.75; }
+
+  /* journal & settings */
+  .manual .row { margin-bottom: 0.6rem; }
+  .manual .row select { flex: 1 1 260px; width: auto; min-width: 0; max-width: 100%; }
+  .manual .row input[type=date] { width: auto; }
+  .manual .row input[type=number] { width: 6rem; }
+  .manual > input { margin-bottom: 0.6rem; }
+  .day h2 { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
+  .eod { white-space: pre-wrap; background: var(--accent-light); padding: 0.6rem 0.8rem; border-radius: 8px; margin: 0.4rem 0; }
+  .sessions { list-style: none; padding: 0; margin: 0; }
+  .sessions li { padding: 0.45rem 0; border-top: 1px solid var(--border); }
+  .sessions li > span { margin-left: 0.5rem; }
+  .sessions .link-btn { margin-left: 0.5rem; }
+  .danger { border-color: #E5C2C2; }
+  .about { margin-top: 2rem; }
+
+  dialog { border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1.4rem; max-width: 420px; width: calc(100% - 32px); color: var(--text); }
+  dialog::backdrop { background: rgba(38, 34, 32, 0.35); }
+  dialog h2 { margin: 0; }
+  #toast { position: fixed; left: 50%; bottom: 1.5rem; transform: translateX(-50%); background: var(--text); color: #fff; padding: 0.6rem 1.1rem; border-radius: 8px; font-size: 0.92rem; z-index: 20; max-width: calc(100% - 32px); box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15); }
+  #toast.bad { background: #A33; }
+</style>

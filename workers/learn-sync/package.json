@@ -1,0 +1,16 @@
+{
+  "name": "learn-sync",
+  "version": "1.0.0",
+  "description": "Encrypted progress sync for konrads.link/learn",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "node --test test/endpoints.test.mjs"
+  },
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "wrangler": "^4.131.1"
+  },
+  "private": true
+}

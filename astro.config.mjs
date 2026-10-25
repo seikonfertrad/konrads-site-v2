@@ -5,7 +5,7 @@ export default defineConfig({
   site: 'https://konrads.link',
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/swiss/') && !page.includes('/admin/'),
+      filter: (page) => !page.includes('/swiss/') && !page.includes('/admin/') && !page.includes('/learn/'),
     }),
   ],
 });

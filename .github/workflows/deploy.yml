@@ -24,6 +24,14 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # Encrypts the curriculum for /learn with the LEARN_PASSPHRASE secret. Without the secret it
+      # writes nothing and /learn says it isn't set up. A failure here must not block the rest of
+      # the site, and the script writes nothing unless it fully succeeds, so plaintext can't leak.
+      - name: Build encrypted /learn bundle
+        run: npm run learn:build
+        continue-on-error: true
+        env:
+          LEARN_PASSPHRASE: ${{ secrets.LEARN_PASSPHRASE }}
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
