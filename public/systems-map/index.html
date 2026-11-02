@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>How frontier AI coordination works — and why it doesn't</title>
+<style>
+  :root{
+    color-scheme: light;
+    --plane:#f9f9f7; --surface:#fcfcfb; --surface-2:#ffffff;
+    --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
+    --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,0.10);
+    --blue:#2a78d6; --blue-strong:#1c5cab; --blue-100:#cde2fb; --blue-200:#9ec5f4;
+    --aqua:#1baf7a; --aqua-100:#c7ede0; --amber:#eda100; --amber-100:#fbeccb; --orange:#eb6834;
+    --violet:#4a3aa7; --violet-100:#ded9f4; --violet-200:#bcb1ea;
+    --teal:#0b7f8f; --teal-100:#d3edf1;
+    --red:#d03b3b; --green:#0ca30c; --good:#006300;
+    --grey:#8f9aa6; --edge:#c8c7bf; --edgein:#b7b6ad;
+    --shadow:0 1px 2px rgba(11,11,11,.05),0 8px 24px rgba(11,11,11,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --plane:#0d0d0d; --surface:#1a1a19; --surface-2:#211f1e;
+      --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+      --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,0.10);
+      --blue:#3987e5; --blue-strong:#5598e7; --blue-100:#173254; --blue-200:#1c4a80;
+      --aqua:#199e70; --aqua-100:#0e3a2b; --amber:#c98500; --amber-100:#3a2a06; --orange:#d95926;
+      --violet:#9085e9; --violet-100:#241d47; --violet-200:#33296b;
+      --teal:#2aa0b0; --teal-100:#0c3239;
+      --red:#e34948; --green:#0ca30c; --good:#0ca30c;
+      --grey:#9aa4b0; --edge:#3d3d3a; --edgein:#4a4a45;
+      --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --plane:#0d0d0d; --surface:#1a1a19; --surface-2:#211f1e;
+    --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,0.10);
+    --blue:#3987e5; --blue-strong:#5598e7; --blue-100:#173254; --blue-200:#1c4a80;
+    --aqua:#199e70; --aqua-100:#0e3a2b; --amber:#c98500; --amber-100:#3a2a06; --orange:#d95926;
+    --violet:#9085e9; --violet-100:#241d47; --violet-200:#33296b;
+    --teal:#2aa0b0; --teal-100:#0c3239;
+    --red:#e34948; --green:#0ca30c; --good:#0ca30c;
+    --grey:#9aa4b0; --edge:#3d3d3a; --edgein:#4a4a45;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--plane);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1200px;margin:0 auto;padding:32px 24px 80px}
+  header.top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:8px}
+  h1{font-size:26px;line-height:1.2;margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance}
+  .sub{color:var(--ink-2);font-size:15px;max-width:740px;margin:0}
+  .pill{display:inline-block;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--blue-100);color:var(--blue-strong);border:1px solid var(--border);white-space:nowrap}
+  .toggle{cursor:pointer;font-size:13px;font-weight:600;padding:7px 12px;border-radius:8px;background:var(--surface);color:var(--ink-2);border:1px solid var(--border)}
+  .toggle:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  .prov{font-size:13px;color:var(--muted);margin:14px 0 0;padding:12px 14px;border-left:3px solid var(--axis);background:var(--surface);border-radius:0 8px 8px 0}
+  .principle{margin-top:16px;padding:16px 18px;border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;background:var(--surface);box-shadow:var(--shadow)}
+  .principle b{color:var(--ink)}
+  .principle p{margin:0;font-size:14px;color:var(--ink-2)}
+  .principle p + p{margin-top:8px}
+  section{margin-top:44px}
+  h2{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 4px;padding-bottom:8px;border-bottom:1px solid var(--grid)}
+  .lead{font-size:19px;font-weight:600;letter-spacing:-.01em;margin:10px 0 4px;text-wrap:balance}
+  .say{color:var(--ink-2);font-size:15px;margin:6px 0 14px;max-width:880px}
+  .new{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--aqua);border:1px solid var(--aqua);border-radius:4px;padding:1px 5px;margin-left:6px;vertical-align:2px}
+  .rev{color:var(--amber);border-color:var(--amber)}
+
+  /* HERO waterline */
+  .berg{margin-top:16px;display:grid;grid-template-columns:44px 1fr;gap:0}
+  .axis{position:relative;border-right:1px dashed var(--axis)}
+  .axis .cap{position:absolute;left:-4px;writing-mode:vertical-rl;transform:rotate(180deg);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .axis .cap.top{top:6px} .axis .cap.bot{bottom:6px}
+  .axis .arw{position:absolute;left:50%;transform:translateX(-50%);top:44%;font-size:15px;color:var(--muted)}
+  .tiers{display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+  .tier{padding:16px 18px}
+  .tier.structural{background:linear-gradient(180deg,rgba(42,120,214,.10),rgba(42,120,214,.06))}
+  .tier.relational{background:linear-gradient(180deg,rgba(27,175,122,.12),rgba(27,175,122,.07))}
+  .tier.transformative{background:linear-gradient(180deg,rgba(74,58,167,.14),rgba(74,58,167,.09))}
+  :root[data-theme="dark"] .tier.structural{background:linear-gradient(180deg,rgba(57,135,229,.16),rgba(57,135,229,.09))}
+  :root[data-theme="dark"] .tier.relational{background:linear-gradient(180deg,rgba(25,158,112,.18),rgba(25,158,112,.10))}
+  :root[data-theme="dark"] .tier.transformative{background:linear-gradient(180deg,rgba(144,133,233,.20),rgba(144,133,233,.12))}
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]) .tier.structural{background:linear-gradient(180deg,rgba(57,135,229,.16),rgba(57,135,229,.09))}
+    :root:not([data-theme="light"]) .tier.relational{background:linear-gradient(180deg,rgba(25,158,112,.18),rgba(25,158,112,.10))}
+    :root:not([data-theme="light"]) .tier.transformative{background:linear-gradient(180deg,rgba(144,133,233,.20),rgba(144,133,233,.12))}
+  }
+  .tierhdr{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+  .tierhdr .lvl{font-size:14px;font-weight:800;letter-spacing:-.01em;color:var(--ink)}
+  .tierhdr .exp{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+  .exp.s{color:var(--blue-strong)} .exp.r{color:var(--aqua)} .exp.t{color:var(--violet)}
+  .tierhdr .cnt{margin-left:auto;font-size:11.5px;color:var(--muted)}
+  .chips{display:grid;gap:10px}
+  .chips.c3{grid-template-columns:repeat(3,1fr)} .chips.c2{grid-template-columns:repeat(2,1fr)} .chips.c1{grid-template-columns:1fr}
+  .chip{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px 13px;box-shadow:var(--shadow)}
+  .chip .cn{font-size:13.5px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:7px}
+  .chip .cn .no{font-size:10px;font-weight:800;color:#fff;width:17px;height:17px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;flex:none}
+  .chip .cd{font-size:12px;color:var(--ink-2);margin:5px 0 0}
+  .no.s{background:var(--blue)} .no.r{background:var(--aqua)} .no.t{background:var(--violet)}
+  .waterline{display:flex;align-items:center;gap:10px;padding:7px 18px;background:var(--surface-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .waterline .ln{flex:1;height:0;border-top:2px dashed var(--blue-200)}
+  .waterline .wl{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+
+  /* CONDITION CARDS */
+  .levhdr{display:flex;align-items:center;gap:12px;margin:30px 0 2px;flex-wrap:wrap}
+  .levhdr .bar{width:4px;height:26px;border-radius:3px;flex:none}
+  .levhdr.s .bar{background:var(--blue)} .levhdr.r .bar{background:var(--aqua)} .levhdr.t .bar{background:var(--violet)}
+  .levhdr h3{margin:0;font-size:17px}
+  .levhdr .tag{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 9px;border-radius:999px}
+  .tag.s{background:var(--blue-100);color:var(--blue-strong)}
+  .tag.r{background:var(--aqua-100);color:var(--aqua)}
+  .tag.t{background:var(--violet-100);color:var(--violet)}
+  .levsay{font-size:13px;color:var(--muted);margin:6px 0 0}
+  .cards{display:grid;gap:14px;margin-top:14px}
+  .cards.two{grid-template-columns:repeat(2,1fr)}
+  .cond{background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;border-top:3px solid var(--axis)}
+  .cond.s{border-top-color:var(--blue)} .cond.r{border-top-color:var(--aqua)} .cond.t{border-top-color:var(--violet)}
+  .condhdr{padding:14px 18px 10px}
+  .condhdr .k{display:flex;align-items:center;gap:9px}
+  .condhdr .no{font-size:11px;font-weight:800;color:#fff;width:20px;height:20px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;flex:none}
+  .condhdr h4{margin:0;font-size:16.5px;letter-spacing:-.01em}
+  .condhdr .def{font-size:12.5px;color:var(--muted);margin:6px 0 0}
+  .condbody{padding:2px 18px 16px}
+  .blk{padding:11px 0;border-top:1px dashed var(--grid)}
+  .blk .lb{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:0 0 5px}
+  .blk .lb.si{color:var(--blue-strong)}
+  .blk .lb.shift{color:var(--aqua)}
+  .blk .lb.hold{color:var(--red)}
+  .blk ul{margin:0;padding-left:16px}
+  .blk li{font-size:13px;color:var(--ink-2);margin:3px 0}
+  .blk li b{color:var(--ink)}
+  .blk p{margin:0;font-size:13px;color:var(--ink-2)}
+  .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
+  .mini{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid var(--border)}
+  .m-active{background:rgba(27,175,122,.16);color:var(--aqua)}
+  .m-nogo{background:rgba(208,59,59,.14);color:var(--red)}
+  .m-soft{background:var(--blue-100);color:var(--blue-strong)}
+  .m-watch{background:rgba(237,161,0,.16);color:var(--amber)}
+  .m-gap{background:rgba(208,59,59,.14);color:var(--red)}
+  .m-new{background:var(--teal-100);color:var(--teal)}
+  .m-rigid{background:rgba(208,59,59,.14);color:var(--red)}
+  .m-move{background:rgba(27,175,122,.16);color:var(--aqua)}
+
+  /* SYNTHESIS */
+  .synth{margin-top:16px;display:grid;grid-template-columns:1.15fr 1fr;gap:16px}
+  .panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;box-shadow:var(--shadow)}
+  .panel h4{margin:0 0 8px;font-size:15px}
+  .panel p{margin:0 0 8px;font-size:13.5px;color:var(--ink-2)}
+  .heatrow{display:flex;align-items:center;gap:10px;margin:9px 0}
+  .heatrow .nm{font-size:12.5px;width:150px;flex:none;color:var(--ink)}
+  .heat{flex:1;height:12px;border-radius:6px;background:var(--grid);overflow:hidden}
+  .heat span{display:block;height:100%;border-radius:6px}
+  .heatrow .lv{font-size:11px;color:var(--muted);width:64px;text-align:right;flex:none}
+  .bridge{margin-top:16px;padding:16px 18px;border:1px solid var(--border);border-left:4px solid var(--violet);border-radius:0 10px 10px 0;background:var(--surface);box-shadow:var(--shadow)}
+  .bridge .tag{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--violet)}
+  .bridge h4{margin:5px 0 6px;font-size:15px}
+  .bridge p{margin:0;font-size:13.5px;color:var(--ink-2)}
+
+  /* LEVEL 2 CAUSAL MAP */
+  .outcome{margin-top:18px;padding:22px 26px;border-radius:14px;background:var(--blue-strong);box-shadow:var(--shadow)}
+  .outcome .eb{font-size:11px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:rgba(255,255,255,.72);margin:0 0 9px}
+  .outcome p{margin:0;font-size:16.5px;line-height:1.55;color:#fff;max-width:none}
+  .outcome .src{margin-top:11px;font-size:12.5px;color:rgba(255,255,255,.72)}
+  .howto{margin-top:16px;padding:14px 18px;border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;background:var(--surface);box-shadow:var(--shadow);font-size:13.5px;color:var(--ink-2)}
+  .howto b{color:var(--ink)}
+  .stage{margin-top:20px;position:relative;border:1px solid var(--border);border-radius:16px;background:radial-gradient(120% 120% at 50% 42%, var(--surface-2), var(--surface));box-shadow:var(--shadow);overflow:hidden}
+  svg#net{width:100%;min-width:1160px;height:auto;display:block;touch-action:none}
+  .stage>div.netscroll{overflow-x:auto}
+  .edge{fill:none;stroke:var(--edge);stroke-width:1.1;opacity:.72;transition:opacity .12s,stroke-width .12s}
+  .edge.inv{stroke:var(--edgein);stroke-dasharray:4 4}
+  .ahead{fill:var(--edge);opacity:.72;transition:opacity .12s,fill .12s}
+  .ahead.inv{fill:var(--edgein)}
+  .node{cursor:pointer}
+  .node circle{stroke:var(--surface);stroke-width:1.5;transition:opacity .12s}
+  .node.master circle{stroke-width:2.4;stroke-dasharray:2.5 2.5}
+  .nlab{font-size:10px;font-weight:600;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-width:2.6px;stroke-linejoin:round;pointer-events:none}
+  .node.big .nlab{font-size:11px;font-weight:800}
+  .goalbox{fill:var(--blue-strong);stroke:var(--surface);stroke-width:3}
+  .goaleyebrow{fill:rgba(255,255,255,.72);font-size:11px;font-weight:800;letter-spacing:.11em}
+  .goaltext{fill:#fff;font-size:16px;font-weight:600}
+  .node.hub .nlab{font-weight:800}
+  .looplab{font-size:17px;font-weight:800;letter-spacing:.01em;opacity:.42;pointer-events:none}
+  .loopsub{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.6;pointer-events:none}
+  .dim{opacity:.08 !important}
+  .dimlab{opacity:.12 !important}
+  .hl-d{stroke:var(--good) !important;stroke-width:2.4 !important;opacity:1 !important}
+  .hl-i{stroke:var(--red) !important;stroke-width:2.2 !important;opacity:1 !important}
+  .ahead.hl-d{fill:var(--good) !important;opacity:1 !important;stroke:none}
+  .ahead.hl-i{fill:var(--red) !important;opacity:1 !important;stroke:none}
+  .focus circle{stroke:var(--ink) !important;stroke-width:3 !important;stroke-dasharray:none !important}
+  .readout{position:absolute;top:14px;left:14px;max-width:320px;background:var(--surface-2);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:14px 16px;font-size:13px;opacity:0;transform:translateY(-4px);transition:opacity .14s,transform .14s;pointer-events:none}
+  .readout.on{opacity:1;transform:none}
+  .readout h4{margin:0 0 3px;font-size:14.5px;line-height:1.25}
+  .readout .rc{font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:9px}
+  .readout .rl{margin:6px 0 0;padding-top:7px;border-top:1px dashed var(--grid)}
+  .readout .rl .h{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+  .readout .lk{display:flex;gap:7px;align-items:flex-start;font-size:12px;color:var(--ink-2);margin:3px 0}
+  .readout .lk .ar{font-weight:800;flex:none;width:32px}
+  .readout .lk.d .ar{color:var(--good)} .readout .lk.i .ar{color:var(--red)}
+  .hint{position:absolute;bottom:12px;right:16px;font-size:11.5px;color:var(--muted);pointer-events:none}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px 22px;margin-top:20px}
+  .legcol h5{margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .lg{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--ink-2);margin:5px 0;cursor:default}
+  .lg.clk{cursor:pointer;border-radius:6px;padding:2px 4px;margin-left:-4px}
+  .lg.clk:hover{background:var(--surface)}
+  .swatch{width:13px;height:13px;border-radius:50%;flex:none;border:1px solid var(--border)}
+  .lgline{width:26px;height:0;flex:none}
+  .lgline.d{border-top:2px solid var(--muted)}
+  .lgline.i{border-top:2px dashed var(--muted)}
+  .lgdot{width:12px;height:12px;border-radius:50%;border:2px dashed var(--muted);flex:none}
+
+  /* DIAGNOSTIC */
+  .diagbar{margin-top:16px;padding:16px 18px;border:1px dashed var(--axis);border-left:4px solid var(--amber);border-radius:0 10px 10px 0;background:var(--surface);box-shadow:var(--shadow)}
+  .diagbar p{margin:0;font-size:13.5px;color:var(--ink-2)}
+  .diagbar b{color:var(--ink)}
+  .dcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:14px;margin-top:16px}
+  .dcard{background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+  .dcard .dh{padding:13px 17px 10px;border-bottom:1px solid var(--grid);display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .dcard .dh .no{font-size:11px;font-weight:800;color:#fff;width:20px;height:20px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;flex:none}
+  .dcard .dh h4{margin:0;font-size:15.5px}
+  .verdict{margin-left:auto;font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px;white-space:nowrap}
+  .v-lever{background:rgba(27,175,122,.18);color:var(--aqua)}
+  .v-part{background:rgba(237,161,0,.18);color:var(--amber)}
+  .v-pass{background:rgba(208,59,59,.14);color:var(--red)}
+  .dbody{padding:4px 17px 15px;display:flex;flex-direction:column;gap:0}
+  .dblk{padding:11px 0;border-top:1px dashed var(--grid)}
+  .dblk:first-child{border-top:none}
+  .dblk .lb{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:0 0 5px}
+  .dblk .lb.hold{color:var(--red)} .dblk .lb.mv{color:var(--good)}
+  .dblk p{margin:0;font-size:13px;color:var(--ink-2)}
+  .dblk p b{color:var(--ink)}
+  .scatterwrap{margin-top:16px;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:16px;overflow-x:auto}
+  .scatterwrap svg{width:100%;min-width:560px;max-width:820px;height:auto;display:block;margin:0 auto}
+  .qfill-a{fill:rgba(27,175,122,.07)} .qfill-b{fill:rgba(208,59,59,.05)}
+  .axline{stroke:var(--axis);stroke-width:1}
+  .axgrid{stroke:var(--grid);stroke-width:1;stroke-dasharray:3 4}
+  .axlab{fill:var(--muted);font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+  .qlab{fill:var(--muted);font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;opacity:.75}
+  .pt{stroke:var(--surface);stroke-width:2}
+  .ptlab{fill:var(--ink);font-size:11.5px;font-weight:700;paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
+  .ptsub{fill:var(--ink-2);font-size:10px;font-weight:600;paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
+  footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--grid);font-size:12px;color:var(--muted)}
+  @media(max-width:720px){.chips.c3,.chips.c2,.cards.two,.synth{grid-template-columns:1fr}.berg{grid-template-columns:28px 1fr}}
+  @media(max-width:640px){.readout{position:static;max-width:none;opacity:1;transform:none;margin:12px}}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <h1>How frontier AI coordination works &mdash; and why it doesn't</h1>
+      <p class="sub">A structured description of the system that governs cooperation on advanced artificial intelligence between the world's two leading AI powers. It has two layers: a causal map of how the forces in the system drive one another, shown first, and below it the six conditions that hold the situation in place. Written for readers coming to the subject fresh &mdash; every term is explained where it first appears, and no familiarity with AI policy is assumed.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-end">
+      <span class="pill">Descriptive overview</span>
+      <button class="toggle" onclick="tog()">&#9680; Theme</button>
+    </div>
+  </header>
+
+  <!-- LEVEL 2 -->
+  <section id="detail">
+    <h2>The mechanism &mdash; how the conditions drive one another</h2>
+    <p class="lead">Sixty-five factors, six feedback loops, one outcome. Hover anything to trace it.</p>
+  <div class="howto">
+    <b>How to read it.</b> Each circle is a factor; its colour is the feedback loop it sits in. An arrow means "a change here causes a change there": a <b>solid</b> arrow is a <b>direct</b> relationship (more&nbsp;→&nbsp;more), a <b>dashed</b> arrow is an <b>inverse</b> one (more&nbsp;→&nbsp;less). The box at the centre is the outcome; the two nodes with dashed rings are <b>external drivers</b> &mdash; forces that act on this system but that nothing within it can move. Loops that feed themselves are <b>reinforcing</b> (they accelerate); loops that push back are <b>balancing</b>. Hover a factor — or a loop in the legend — to isolate its chains.
+  </div>
+
+  <div class="stage">
+    <div class="netscroll">
+    <svg id="net" viewBox="0 0 1860 1560" role="img" aria-label="Interactive causal map of the frontier-AI coordination system, grouped into six feedback dynamics with direct and inverse links between factors, centred on the outcome statement."></svg>
+    </div>
+    <div class="readout" id="readout"></div>
+    <div class="hint">Hover a factor to trace its links · click empty space to reset</div>
+  </div>
+
+  <div class="legend">
+    <div class="legcol">
+      <h5>Feedback dynamics (loop colour)</h5>
+      <div class="lg clk" data-cl="race"><span class="swatch" style="background:var(--red)"></span>Competition without coordination · <span style="color:var(--muted)">reinforcing</span></div>
+      <div class="lg clk" data-cl="capability"><span class="swatch" style="background:var(--violet)"></span>Capability outruns oversight · <span style="color:var(--muted)">reinforcing</span></div>
+      <div class="lg clk" data-cl="epistemic"><span class="swatch" style="background:var(--grey)"></span>Belief formation &amp; information · <span style="color:var(--muted)">reinforcing</span></div>
+      <div class="lg clk" data-cl="intermed"><span class="swatch" style="background:var(--orange)"></span>Comprehension &amp; trust · <span style="color:var(--muted)">balancing</span></div>
+      <div class="lg clk" data-cl="legit"><span class="swatch" style="background:var(--amber)"></span>Governance architecture · <span style="color:var(--muted)">balancing</span></div>
+      <div class="lg clk" data-cl="access"><span class="swatch" style="background:var(--aqua)"></span>Barriers to exchange · <span style="color:var(--muted)">balancing</span></div>
+    </div>
+    <div class="legcol">
+      <h5>Links &amp; nodes</h5>
+      <div class="lg"><span class="lgline d"></span>Direct relationship (more → more)</div>
+      <div class="lg"><span class="lgline i"></span>Inverse relationship (more → less)</div>
+      <div class="lg"><span class="swatch" style="background:var(--blue-strong);width:16px;height:16px"></span>The outcome (centre)</div>
+      <div class="lg"><span class="lgdot"></span>External driver (nothing here moves it)</div>
+      <div class="lg" style="color:var(--muted)">Larger circle = hub factor (many links)</div>
+    </div>
+  </div>
+
+  </section>
+
+  <!-- ABOUT THE MAP -->
+  <section>
+    <h2>Reading the map</h2>
+    <p class="say">The six conditions described further down set out <em>what</em> holds the situation in place. On their own they do not show how the parts interact &mdash; and most of the difficulty in this system comes from interaction rather than from any single condition. The diagram above breaks the six conditions into 65 individual factors and draws the causal relationships between them.</p>
+
+    <p class="say"><b>What a diagram like this is for.</b> It is a causal loop diagram, a standard tool for describing systems that resist change. Its purpose is not to predict, but to make visible the circuits through which a situation sustains itself &mdash; so that the difference between a symptom and a cause becomes arguable rather than assumed. Reading it should take a few minutes; hovering over any factor isolates the chains it belongs to.</p>
+
+    <p class="say"><b>Reinforcing and balancing loops.</b> Some chains of cause and effect feed back into themselves and accelerate: more of one thing produces more of another, which produces more of the first. These are <em>reinforcing</em> loops, and they are why some problems get worse on their own. Others push back against change and hold a situation at equilibrium; these are <em>balancing</em> loops, and they are why some problems resist solution even when everyone involved wants them solved. This system contains three of each — and, as the map shows, they are not evenly matched.</p>
+
+    <div class="principle">
+      <p><b>A note on the statement at the centre.</b> A causal diagram needs a reference point: the factors have to point at something for the arrows to mean anything. The statement below describes what this system would look like if it were working &mdash; not a policy proposal or a route to get there, but a stipulated description of a functioning state, used so that each factor can be read as either moving the system toward it or holding the system away from it.</p>
+    </div>
+    <div class="outcome">
+      <p class="eb">The outcome this system bears on</p>
+      <p>Frontier AI develops within a system where leading companies and governments have the relationships, incentives, and governance infrastructure needed to cooperate effectively, manage shared risks, and build mutual confidence. Strategic competition is balanced by mechanisms for transparency, coordination, and accountability, enabling powerful AI capabilities to develop responsibly without reinforcing avoidable risks or excessive concentrations of power.</p>
+      <p class="src">Read as a description of a functioning state rather than a proposal. It names <b>companies and governments</b> as the actors, which is why the capability loop carries as much weight in the map as the state-rivalry one. It asks for <b>relationships, incentives and governance infrastructure</b> &mdash; three distinct things, of which the map shows infrastructure as the thinnest. And it treats strategic competition as a given to be <em>balanced</em> rather than removed: a system that competes safely, which is a narrower and more achievable thing than one that cooperates.</p>
+    </div>
+
+  <div class="principle" style="margin-top:24px">
+    <p><b>What the loop structure shows.</b> Three of the six dynamics are <b>reinforcing</b> and three are <b>balancing</b>, but they are not evenly matched. The reinforcing loops — competition without coordination, capability outrunning oversight, and the way beliefs get formed — run on their own momentum and contain no internal brake. The balancing loops all depend on something being <em>supplied</em>: an architecture that must be built, trust that must be established, exchange that someone must pay the cost of. Nothing supplies them automatically, which is why the balance does not hold by default.</p>
+    <p><b>Three places the structure concentrates.</b> <b>The pacing problem</b> is the "bottom" the competitive dynamic runs toward — not a race to be less safe deliberately, but one in which nobody can afford to wait for the safety work to catch up. <b>Accuracy of the governance worldview</b> sits underneath almost everything: not how much is known, but whether the people doing the thinking have it roughly right, which more participants alone does not fix. And <b>independent evaluators</b> is the clearest hole on the oversight side — the function barely exists, and will not appear without liability, insurance or a regulator to pay for it.</p><p><b>Comprehension and trust are separated deliberately.</b> They are routinely run together, and they are not the same problem. Misreading the other side's behaviour is a comprehension failure; not believing a signal you have understood correctly is a trust failure. They respond to different interventions, and one may be considerably more tractable than the other — which is only visible if the map keeps them apart.</p>
+  </div>
+
+  </section>
+
+  <!-- ORIENTATION -->
+  <section>
+    <h2>Start here</h2>
+    <p class="lead">The problem in one paragraph.</p>
+    <p class="say">The most capable AI systems in the world are built by a small number of companies, almost all of them in the United States and China. These systems are advancing quickly, and some of the risks they create &mdash; misuse in biology or cyberattacks, accidents in systems nobody fully understands, sudden concentrations of economic and military power &mdash; do not stop at national borders. Managing risks of that kind normally requires countries to cooperate: to share information, agree standards, verify each other's claims, and maintain channels that keep working during a crisis. Very little of that machinery currently exists for AI, and the two countries that would need to build it are strategic rivals. This document describes the conditions that hold that situation in place.</p>
+
+    <div class="principle">
+      <p><b>A note on what this is and is not.</b> This is a description, not a proposal. It sets out what the system looks like and which way each part of it appears to be moving. It does not argue for a particular policy, and it does not assess any organisation working in the field.</p>
+      <p>It is also a qualitative account. The readings here are informed judgements drawn from practitioners working directly in this area, not measurements. They are offered as a structured starting point for discussion, and reasonable people working in the field disagree about several of them.</p>
+    </div>
+  </section>
+
+  <!-- VOCABULARY -->
+  <section>
+    <h2>The vocabulary, briefly</h2>
+    <p class="say">Six terms do most of the work in what follows. The rest are explained as they arise.</p>
+    <div class="cards two">
+      <div class="cond s">
+        <div class="condbody" style="padding-top:18px">
+          <div class="blk">
+            <ul>
+              <li><b>Frontier AI</b> &mdash; the most capable AI systems in existence at any given moment, built by a handful of well-resourced companies often called <em>frontier labs</em>. The frontier moves; what counts as frontier today will be ordinary in a few years.</li>
+              <li><b>Compute</b> &mdash; the specialised computer chips and data centres needed to build and run these systems. Compute is expensive, physically concentrated, and traceable, which makes it unusually visible compared with software.</li>
+              <li><b>Open-source models</b> &mdash; AI systems whose underlying components are published for anyone to download and run. Once released they cannot be recalled, and safety controls applied by the original developer no longer apply.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="cond s">
+        <div class="condbody" style="padding-top:18px">
+          <div class="blk">
+            <ul>
+              <li><b>Evaluations, or "evals"</b> &mdash; structured tests of what an AI system can do and where it fails, particularly on dangerous capabilities. <b>Assurance</b> is the broader practice of establishing, and being able to demonstrate, that a system is safe enough to deploy.</li>
+              <li><b>Track 1 and Track 2</b> &mdash; terms from diplomacy. <em>Track 1</em> is official government-to-government negotiation. <em>Track 2</em> is unofficial dialogue between academics, researchers and former officials, which can explore ideas that governments cannot yet discuss formally. <em>Track 1.5</em> sits between the two, mixing serving officials with unofficial participants.</li>
+              <li><b>Export controls</b> &mdash; national laws restricting which technologies may be sold abroad and to whom. Since 2022 the United States has used them extensively to limit China's access to advanced AI chips.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FRAMEWORK -->
+  <section>
+    <h2>The framework used here</h2>
+    <p class="lead">Six conditions, at three depths.</p>
+    <p class="say">The description below is organised using a framework from the study of systems change, known as the <b>Six Conditions of Systems Change</b> (Kania, Kramer and Senge, 2018). Its argument is that any persistent situation is held in place by six kinds of condition, operating at three levels of visibility &mdash; and that the least visible ones are the hardest to change but matter most.</p>
+    <p class="say"><b>Structural conditions</b> are explicit and can be read off the public record: the <em>policies</em> that formally govern the field, the <em>practices</em> institutions actually follow day to day, and the <em>resource flows</em> of money, people and knowledge. <b>Relational conditions</b> are semi-explicit &mdash; the <em>relationships</em> between actors, and the <em>power dynamics</em> that determine whose decisions count. The <b>transformative condition</b> is <em>mental models</em>: the assumptions people hold without examining them, which quietly shape everything above.</p>
+    <p class="say">The practical value of the framework is that it separates things that are usually run together. A shortage of agreements is a policy problem; not knowing who to negotiate with is a relationship problem; believing the other side cannot be trusted is a mental model. They look similar from a distance and respond to entirely different interventions.</p>
+  </section>
+
+  <!-- AT A GLANCE -->
+  <section>
+    <h2>The six conditions at a glance</h2>
+    <div class="berg">
+      <div class="axis">
+        <span class="cap top">Explicit &middot; visible</span>
+        <span class="arw">&#8595;</span>
+        <span class="cap bot">Implicit &middot; deep leverage</span>
+      </div>
+      <div class="tiers">
+
+        <div class="tier structural">
+          <div class="tierhdr"><span class="lvl">Structural</span><span class="exp s">Explicit &mdash; above the surface</span><span class="cnt">3 conditions</span></div>
+          <div class="chips c3">
+            <div class="chip"><div class="cn"><span class="no s">1</span>Policies</div><div class="cd">Rules are multiplying without joining up. The deeper obstacle is not resistance but uncertainty: neither government is confident what the right rule would be, and AI competes with everything else for scarce attention.</div></div>
+            <div class="chip"><div class="cn"><span class="no s">2</span>Practices</div><div class="cd">Official dialogue is fragile and unofficial dialogue is short of participants. Voluntary company practice is becoming law &mdash; while the tools needed to carry that law out do not yet exist.</div></div>
+            <div class="chip"><div class="cn"><span class="no s">3</span>Resource Flows</div><div class="cd">Computing power, money, talent and expertise are concentrating in the same small group of organisations, and each concentration makes the others stronger.</div></div>
+          </div>
+        </div>
+
+        <div class="tier relational">
+          <div class="tierhdr"><span class="lvl">Relational</span><span class="exp r">Semi-explicit &mdash; at the waterline</span><span class="cnt">2 conditions</span></div>
+          <div class="chips c2">
+            <div class="chip"><div class="cn"><span class="no r">4</span>Relationships &amp; Connections</div><div class="cd">Links across the divide are thin, and are obstructed by practical barriers as much as by distrust. On neither side is it clear who actually holds the authority to decide.</div></div>
+            <div class="chip"><div class="cn"><span class="no r">5</span>Power Dynamics</div><div class="cd">Power divides by subject: how AI gets built is decided by a few company leaders; the terms under which it is governed are still set by states.</div></div>
+          </div>
+        </div>
+
+        <div class="tier transformative">
+          <div class="tierhdr"><span class="lvl">Transformative</span><span class="exp t">Implicit &mdash; below the surface</span><span class="cnt">1 condition</span></div>
+          <div class="chips c1">
+            <div class="chip"><div class="cn"><span class="no t">6</span>Mental Models</div><div class="cd">A belief on each side that the other cannot be trusted; an assumption that the old rules of international security no longer apply; and a view of AI's significance that is held far more strongly in the United States than anywhere else.</div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- STRUCTURAL -->
+  <section>
+    <div class="levhdr s"><span class="bar"></span><h3>Structural conditions</h3><span class="tag s">Explicit</span></div>
+    <p class="levsay">The visible architecture: formal rules, the everyday working practices of institutions, and how money, people and knowledge move.</p>
+
+    <div class="cards two">
+
+      <div class="cond s">
+        <div class="condhdr">
+          <div class="k"><span class="no s">1</span><h4>Policies</h4></div>
+          <p class="def">The formal laws, regulations and rules that govern the field.</p>
+        </div>
+        <div class="condbody">
+          <div class="blk">
+            <p class="lb">What this condition contains</p>
+            <ul>
+              <li><b>There is no binding international agreement on frontier AI safety</b>, and no mechanism to enforce one if it existed. This is the single most consequential feature of the landscape. Comparable technologies &mdash; nuclear materials, chemical weapons, aviation &mdash; acquired international rules and inspection regimes over decades; AI has neither.</li>
+              <li><b>Attention is the scarce input.</b> Most government attention in both countries is occupied by other things. Policy tends to move only when concentrated attention lands on one problem and one credible solution at the same moment, and such moments are rare.</li>
+              <li><b>The deeper obstacle is uncertainty rather than unwillingness.</b> Where the technology is heading is genuinely unclear, and it is not obvious what a good rule would say. Both governments treat AI as economically consequential enough that they would rather move slowly than badly &mdash; a different problem from one where the answer is known and blocked.</li>
+              <li><b>Rules are multiplying without joining up.</b> National regimes are diverging, and competing international bodies are being established rather than converging ones, with pressure on third countries to align with one side or the other.</li>
+              <li><b>The European Union's AI Act is the leading binding regime</b> and reaches beyond Europe: companies elsewhere adjust their practices to retain access to the European market. Whether its penalties will be enforced in practice, and with what diplomatic consequences, is untested.</li>
+              <li><b>Export controls restrict by confusion as well as by design.</b> The rules are long and highly technical, most affected organisations never read them closely, and behaviour ends up governed by cautious guesswork. Self-imposed restriction routinely goes further than the law requires.</li>
+              <li><b>China regulates AI, but chiefly to encourage its deployment</b> rather than to manage risks from the most advanced systems. Where national security is involved, the tendency is toward less public disclosure, so activity that does occur may not be visible from outside.</li>
+              <li><b>Neither state has settled institutional machinery for this.</b> Governance capacity is thin on both sides, not only in China &mdash; though China has notably fewer specialists in AI safety specifically.</li>
+              <li><b>Technical standards are the most genuinely international layer.</b> Standards bodies are slow, but they are a working venue where actors from different countries negotiate detail, and industry participates actively.</li>
+            </ul>
+          </div>
+          <div class="blk">
+            <p class="lb shift">Which way it is moving</p>
+            <p>Toward more rules and less coherence, but slowly, and for a reason easily misread. The volume of AI policy is rising while the connections between regimes thin out. The brake is not opposition so much as rationed attention and genuine doubt about what to require. Two counter-currents run the other way: the European regime is changing behaviour in companies never subject to it, and the international standards track continues to function.</p>
+            <div class="tags"><span class="mini m-rigid">Fragmenting</span><span class="mini m-rigid">Attention-rationed</span><span class="mini m-move">Spillover from EU rules</span><span class="mini m-move">Standards internationalising</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cond s">
+        <div class="condhdr">
+          <div class="k"><span class="no s">2</span><h4>Practices</h4></div>
+          <p class="def">The shared activities and ways of working of institutions, professionals and coalitions.</p>
+        </div>
+        <div class="condbody">
+          <div class="blk">
+            <p class="lb">What this condition contains</p>
+            <ul>
+              <li><b>Voluntary company practice is becoming law.</b> Commitments that leading developers first adopted by choice have been written into legislation in some jurisdictions &mdash; evidence that the informal-to-formal pathway does work, given time.</li>
+              <li><b>But legal requirements have outrun the ability to meet them.</b> Frameworks increasingly specify oversight that nobody yet knows how to perform. The clearest example concerns AI systems that act autonomously and in groups: reviewing their records does not reliably reveal what they did, because there is no way to confirm the records are complete, and no established method for monitoring several such systems operating together. Much of what current rules ask for cannot presently be delivered.</li>
+              <li><b>Official dialogue is fragile.</b> The government-to-government channel exists and matters, but the relationship has worsened, and its agenda covers many subjects beyond AI &mdash; so AI discussions are shaped by considerations that have nothing to do with AI. It produces bursts of attention that arrive and disappear.</li>
+              <li><b>Unofficial dialogue is short of participants, not oversupplied.</b> It can appear crowded because several organisations convene overlapping groups, but the underlying constraint is a shortage of people taking part in exchange at all. The formats closest to government are the thinnest.</li>
+              <li><b>Nobody is confident who the key decision-makers are</b> &mdash; and neither government is certain for itself. Responsibilities are new, contested between departments, and frequently reassigned. A great deal of what looks like ineffective dialogue follows from this.</li>
+              <li><b>Meetings often depend on having a pretext.</b> Participants who want to attend will do the work to get there, but travel frequently requires an official occasion to justify it. Established international meetings function partly as permission to travel. This has been stable for some time.</li>
+              <li><b>Seniority and substance trade off against each other.</b> High-level formats carry weight but often lack technical experts; junior formats can be convened more easily and allow ideas to be passed upward over time, but carry less authority. Long-running senior dialogues largely date from a period when they were easier to establish.</li>
+              <li><b>Large international summits shape expectations.</b> A handful of conferences have had an outsized effect on what participants believe about where the field is going, though they tend to register shifts in the political mood rather than create them.</li>
+              <li><b>Inside the companies, safety practice is self-defined</b>, and internal use of new systems tends to run ahead of any oversight of that use.</li>
+              <li><b>The companies are not yet behaving like international actors.</b> They are investing more in engagement abroad, but without the standing relationships or crisis-communication channels the role implies, and with coarse working models of how other countries' systems operate.</li>
+              <li><b>Practices carry the marks of their origin.</b> Almost all originate in the United States or China, which affects how readily they are adopted elsewhere.</li>
+              <li><b>Independent researchers supply much of the thinking.</b> Proposals for what good practice should look like come disproportionately from research institutes, independent analysts and public writers rather than from governments. Whether states adopt them is a separate question.</li>
+              <li><b>Testing and assurance are becoming a governance frontier</b>, with independent evaluators and capability trackers maturing. Sharing evaluation results across borders remains rare, and Chinese government capacity to assess frontier risks is thin.</li>
+              <li><b>Verification and trusted-intermediary arrangements are emerging but marginal.</b> Proposals exist for independently verifying claims about AI systems, and for neutral facilities where sensitive material could be examined without either party taking possession. These are live design questions held by a small number of specialists rather than mainstream activity.</li>
+            </ul>
+          </div>
+          <div class="blk">
+            <p class="lb shift">Which way it is moving</p>
+            <p>Practice is being invented faster than it can be carried out. The gap between voluntary norms and law is narrowing; the gap between what rules require and what anyone knows how to do is widening. Meanwhile the formats that carry cross-border exchange depend on pretexts and on individual conveners, so the field tends to rebuild its containers rather than accumulate them.</p>
+            <div class="tags"><span class="mini m-move">Voluntary becoming law</span><span class="mini m-rigid">Tools missing</span><span class="mini m-rigid">Too few participants</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="cards" style="margin-top:20px">
+      <div class="cond s">
+        <div class="condhdr">
+          <div class="k"><span class="no s">3</span><h4>Resource Flows</h4></div>
+          <p class="def">How money, people, knowledge and information are allocated across the field.</p>
+        </div>
+        <div class="condbody">
+          <div class="blk">
+            <p class="lb">What this condition contains</p>
+            <ul>
+              <li><b>Computing power is concentrated, and is the most governable point in the system.</b> Building frontier systems requires enormous quantities of specialised chips, held by a small number of organisations. Because compute is physical, expensive and traceable, most serious proposals for verifying what AI developers are doing end up focusing on hardware.</li>
+              <li><b>Open-source release is an emerging complication that returns to the same point.</b> Freely available models can carry real risk and cannot be withdrawn once published. But the practical control point remains compute: overseeing how systems are actually used means knowing who is running them, which means knowing where the hardware is &mdash; which draws in data centres and energy suppliers.</li>
+              <li><b>Funding for AI safety and governance work comes from a narrow base</b>, weighted heavily toward philanthropy in the United States, with few funders and little comparable money elsewhere.</li>
+              <li><b>That funding is tied to the industry it examines.</b> Much of the money supporting governance work ultimately derives from the commercial success of AI companies. This shapes which ideas attract resources, independently of their merit.</li>
+              <li><b>Technical talent is being absorbed into the companies</b>, and with it the expertise required to assess them. The pool of independent technical depth available to governments, researchers and civil society is shrinking.</li>
+              <li><b>Knowledge is becoming private.</b> Confidentiality agreements and hiring have quieted researchers who previously published openly, so detailed understanding of the most advanced systems increasingly exists only inside the organisations building them.</li>
+              <li><b>The pool of people able to work across borders is growing slowly, and is far outpaced by demand.</b> It remains small and shared, with the same individuals invited by multiple organisations, and travel between the two countries is difficult in both directions.</li>
+              <li><b>The underlying economics are uncertain.</b> Supply-chain constraints and an unresolved question about whether current investment levels are sustainable both bear on how the technology develops.</li>
+            </ul>
+          </div>
+          <div class="blk">
+            <p class="lb shift">Which way it is moving</p>
+            <p>Every flow is concentrating, and the concentrations reinforce one another: compute attracts capital, capital attracts talent, talent carries knowledge inside, and knowledge held inside makes external assessment harder &mdash; which raises the value of being inside. Nothing in the system currently works against this, and the organisations that could are the ones it benefits.</p>
+            <div class="tags"><span class="mini m-rigid">Self-reinforcing concentration</span><span class="mini m-rigid">Assessment capacity thinning</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RELATIONAL -->
+  <section>
+    <div class="levhdr r"><span class="bar"></span><h3>Relational conditions</h3><span class="tag r">Semi-explicit</span></div>
+    <p class="levsay">The quality of connection between actors, and how influence is distributed among them &mdash; felt more often than documented.</p>
+
+    <div class="cards two">
+
+      <div class="cond r">
+        <div class="condhdr">
+          <div class="k"><span class="no r">4</span><h4>Relationships &amp; Connections</h4></div>
+          <p class="def">The quality and reach of connection and communication between actors, especially across boundaries.</p>
+        </div>
+        <div class="condbody">
+          <div class="blk">
+            <p class="lb">What this condition contains</p>
+            <ul>
+              <li><b>It is unclear who holds the authority to decide</b> &mdash; on both sides, and more fundamentally than it first appears. Many of the relevant roles did not exist a few years ago. In some cases the authority genuinely has not been assigned; in others it exists but is unknown outside, has been moved between departments, or is actively contested. It can change over short periods.</li>
+              <li><b>Access runs through trusted intermediaries rather than through relevance alone.</b> Getting an idea in front of Chinese policymakers generally requires routing it through an institution the government already trusts; having a pertinent point is not sufficient. Access in the United States works differently again, depending heavily on demonstrating immediate usefulness. In both cases personal trust carries further than formal channels.</li>
+              <li><b>Distrust is not the only barrier, and may not be the main one.</b> Practical obstacles operate independently: different national priorities, language, and counterparts whose roles simply do not correspond to one another. These would remain even if political relations improved.</li>
+              <li><b>There is a comprehension gap that a thaw would not close.</b> Each side struggles to read the other accurately &mdash; including, on the Chinese side, difficulty tracking developments in both the American government and its technology industry, which operate on different logics. Because this gap is not caused by the political temperature, better relations would not resolve it.</li>
+              <li><b>Companies and governments are becoming entangled, asymmetrically.</b> Both countries are drawing closer to their own AI industries, but in different ways and at different speeds, and alignment is increasingly being organised into blocs around access to hardware and software. Which alignments matter varies by subject, and older alliance structures still carry much of the actual exchange.</li>
+              <li><b>The path by which expertise reaches government is remarkably narrow.</b> On the most technical questions, officials often consult a very small number of individuals, who in turn draw on informal networks of researchers concentrated in one part of the world. An enormous amount rests on a handful of people.</li>
+              <li><b>Most thinking about frontier risk originates in one place.</b> That it comes overwhelmingly from a small community in California makes it harder for actors elsewhere to adopt &mdash; and raises the open question of how other countries develop approaches they genuinely own rather than import.</li>
+              <li><b>Decision-making networks are becoming more crowded and more specialised</b> as AI intersects with biology, cybersecurity, nuclear policy and finance, each pairing generating its own expert bodies and committees.</li>
+              <li><b>Official channels are thin and conditional</b>, and the researcher-to-researcher links that once supplemented them are fraying as publication becomes rarer.</li>
+              <li><b>Company-to-company contact does not always require governments.</b> Depending on the subject, direct engagement between firms across the divide is possible.</li>
+            </ul>
+          </div>
+          <div class="blk">
+            <p class="lb shift">Which way it is moving</p>
+            <p>Connections between states are thinning while connections between companies and their own governments thicken, and alignments are hardening around the technology itself. The net effect is that the most consequential relationships in the system increasingly have no diplomatic conventions attached to them, are held by organisations with no tradition of maintaining contact through a crisis, and often run through a small number of individuals whose position is neither formal nor stable.</p>
+            <div class="tags"><span class="mini m-rigid">Official links thinning</span><span class="mini m-rigid">Blocs hardening</span><span class="mini m-move">Company channels thickening</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cond r">
+        <div class="condhdr">
+          <div class="k"><span class="no r">5</span><h4>Power Dynamics</h4></div>
+          <p class="def">The distribution of decision-making authority, legitimacy and informal influence.</p>
+        </div>
+        <div class="condbody">
+          <div class="blk">
+            <p class="lb">What this condition contains</p>
+            <ul>
+              <li><b>Power divides by subject, and conflating the two halves causes confusion.</b> Decisions about how frontier systems are actually built and tested rest with a very small number of company leaders, and governments have little practical influence over them. But the terms on which the technology is governed are still set by states: governments define what companies must comply with, not the reverse. Voluntary disclosure regimes that every major developer treats as effectively obligatory illustrate the point.</li>
+              <li><b>The companies lack the machinery to use the influence they have.</b> Even where they hold effective power, they have no established apparatus for engaging governments, international institutions and publics &mdash; a limitation they are increasingly recognising themselves.</li>
+              <li><b>The current concentration may not last.</b> How long the frontier remains the dominant source of economic value is genuinely unclear, even though it will remain a source of risk. Widespread automation of physical work, or highly capable freely available models, would move where value accumulates and therefore where power sits. Developments worth watching include unemployment at levels that would destabilise political systems, vulnerabilities in financial and infrastructure systems if software becomes unreliable, and control over the narratives through which populations understand what is happening.</li>
+              <li><b>There is a hard limit on how far Chinese decision-making can be understood.</b> American processes are comparatively legible. Significant Chinese decisions on national security run through structures that are closed to foreign observers and to most Chinese citizens, and may never be documented publicly. This is a permanent boundary rather than a gap that effort will close.</li>
+              <li><b>Political systems churn, and officials price that in.</b> Authority shifts with electoral cycles and leadership changes on both sides. In the period before an expected reshuffle, officials become markedly more cautious, since a visible mistake carries career consequences.</li>
+              <li><b>Companies are governed by commercial incentives</b> on both sides. This is why firms with revenue in Europe attend closely to European rules while firms without it do not.</li>
+              <li><b>Both governments face public-opinion constraints</b>, differently expressed: electoral pressure in one case, and in the other the management of a national narrative about economic growth and technological progress. Either way it shapes how the trade-off between innovation and caution is struck.</li>
+              <li><b>The bilateral relationship carries far more than AI.</b> Positions on AI move for reasons rooted in trade, security and domestic politics that have nothing to do with the technology.</li>
+              <li><b>The two systems are organised differently</b>, so officials who appear equivalent often differ in authority, remit and seniority &mdash; which means convening the apparent counterparts does not reliably produce a functioning discussion.</li>
+              <li><b>Decisions are moving inside institutions.</b> As stakes rise, consequential choices are made within organisational boundaries rather than in open forums where outside actors have standing.</li>
+              <li><b>Neutral ground is scarce and contingent.</b> The venues and hosts regarded as impartial depend on those states remaining both relevant to AI and credibly non-aligned &mdash; a position that political decisions elsewhere could weaken.</li>
+              <li><b>Much of the world is absent.</b> Countries outside the United States, China and a handful of others are thinly represented in frontier AI governance, despite bearing many of the consequences.</li>
+            </ul>
+          </div>
+          <div class="blk">
+            <p class="lb shift">Which way it is moving</p>
+            <p>Toward a split that neither common account captures. Effective power over what the most advanced systems do has moved into private hands and sits with very few people. Formal power over the terms of governance has not moved, but rests with states that are slower, thinner on expertise, and drawing their technical understanding from the very organisations they would regulate. The whole distribution is contingent on a technological picture that may not hold: if the frontier ceases to be where the value is, this condition reorganises.</p>
+            <div class="tags"><span class="mini m-rigid">Building decisions privatised</span><span class="mini m-rigid">Limits on legibility</span><span class="mini m-move">Terms still set by states</span><span class="mini m-move">Concentration may be temporary</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TRANSFORMATIVE -->
+  <section>
+    <div class="levhdr t"><span class="bar"></span><h3>Transformative condition</h3><span class="tag t">Implicit</span></div>
+    <p class="levsay">The deeply held, often unspoken assumptions that shape everything above them.</p>
+
+    <div class="cards">
+      <div class="cond t">
+        <div class="condhdr">
+          <div class="k"><span class="no t">6</span><h4>Mental Models</h4></div>
+          <p class="def">Habits of thought and taken-for-granted assumptions that hold the whole system in place.</p>
+        </div>
+        <div class="condbody">
+          <div class="blk">
+            <p class="lb">The dominant assumptions</p>
+            <ul>
+              <li><b>"The other side cannot be trusted"</b> &mdash; which is a different and harder problem than believing the other side will not cooperate. Even when one party signals willingness, the other tends to doubt the signal or see no way to act on it. There is a track record behind this: both have had interests they would have preferred to resolve and did not manage to. The belief is self-confirming, because each side's resulting caution reads to the other as proof it was right.</li>
+              <li><b>AI as a zero-sum race</b> in which restraint means falling behind, and security concerns outrank safety ones.</li>
+              <li><b>An assumption that the old security order is ending.</b> International stability was long organised around nuclear deterrence; AI is widely assumed to be displacing that arrangement, without a settled account of what replaces it. The competition is also no longer understood as primarily military &mdash; economic capability is now treated as an instrument of strategic rivalry in its own right.</li>
+              <li><b>That humans are the most intelligent thing there will be.</b> Held by most senior decision-makers without examination, and consequential: if the assumption does not hold, the risk picture changes substantially, which is precisely why it limits how seriously extreme scenarios are taken.</li>
+              <li><b>A general tendency to discount extreme risks.</b> Beyond any difference between national cultures, low-probability high-severity events are systematically underweighted by individuals and institutions alike.</li>
+              <li><b>Different framings of what AI is for.</b> American discussion tends to approach AI through risk and safety; Chinese discussion primarily through economic opportunity. This shapes what each side will discuss, and with whom.</li>
+              <li><b>Competing narratives about the other's motives.</b> One holds that the United States seeks dominance while China offers a more cooperative model; another that democracies must prevail over authoritarian states. Underlying claims about fundamental value differences are widely believed &mdash; and the belief itself, whatever its accuracy, shapes behaviour.</li>
+              <li><b>Safety concerns are received as Western in origin.</b> From outside the countries where the discourse developed, the framing of AI risk can appear as an external agenda rather than a shared concern, which affects how readily it is taken up.</li>
+              <li><b>AI's significance is assessed very differently around the world.</b> The view that AI is not merely the technology of the decade but a civilisational turning point is held strongly in parts of the United States and hardly at all elsewhere. Much international discussion is conducted between parties who do not share a premise about what is at stake.</li>
+              <li><b>Safety and competitiveness as opposed</b> rather than compatible &mdash; though this is beginning to shift, partly under regulatory pressure.</li>
+              <li><b>Verification read as enforcement.</b> Technical proposals to verify claims about AI systems are frequently heard in China as export controls by another name, which shapes their reception regardless of intent.</li>
+            </ul>
+          </div>
+          <div class="blk">
+            <p class="lb">Where the disagreement is</p>
+            <ul>
+              <li><b>Where the risk actually sits</b> &mdash; in how the most advanced systems are developed, or in how AI meets society at scale through employment, information and the concentration of economic power. The field currently weights the first far more heavily, and that is a choice rather than an established finding.</li>
+              <li><b>How soon.</b> Expectations about when highly capable systems arrive differ by an order of magnitude between serious participants, with no shared basis for settling the question.</li>
+              <li><b>Whether to extrapolate at all.</b> Whether one extends current trends forward, or treats such extrapolation as unserious, has proved consequential: those who took rapid progress seriously shaped the field &mdash; and, depending on the choices they made, also accelerated it.</li>
+              <li><b>Unresolved normative questions.</b> Whether AI displacing human work and judgement is desirable, and whether these systems could have morally relevant interests of their own, are now raised openly and without settled positions.</li>
+              <li><b>Whether coordination is even the objective.</b> Much of the system is organised around managing competition rather than solving shared problems, and many participants treat that as the realistic ceiling rather than a stage on the way to something more.</li>
+              <li><b>What can be said.</b> The range of discussable positions moves: topics that were briefly unmentionable in policy circles have become sayable again, which changes what can be proposed.</li>
+              <li><b>The inverted question.</b> Using AI to solve governance problems &mdash; strengthening defences against biological threats, for instance, rather than only restricting AI's biological capabilities &mdash; is comparatively unexplored, and may matter more if timelines are short.</li>
+            </ul>
+          </div>
+          <div class="blk">
+            <p class="lb shift">Which way it is moving</p>
+            <p>The dominant framing is not weakening, but it is becoming less total. Safety is discussable again in places where it briefly was not, regulation in one jurisdiction is changing behaviour in another, and there are individual subjects on which cooperation is unusually welcome. At the same time the framing is broadening in ways that make it harder to argue against, as the competition is redefined beyond the military and the order it supposedly replaces is assumed to be finished. These are cracks in an assumption rather than a replacement for it: no alternative account currently has comparable reach.</p>
+            <div class="tags"><span class="mini m-rigid">Distrust self-confirming</span><span class="mini m-rigid">Premise not widely shared</span><span class="mini m-move">Cracks appearing</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <!-- SYNTHESIS -->
+  <section>
+    <h2>What the pattern suggests</h2>
+    <p class="lead">The system is held hardest at its shallowest and its deepest layers.</p>
+    <p class="say">The six conditions are not equally fixed. Two of them &mdash; resource flows and mental models &mdash; are rigid for the same underlying reason: each is a self-reinforcing cycle with nothing inside it pushing the other way. Computing power attracts investment, which attracts talent, which carries expertise inside the organisations that already hold the advantage. The belief that rivalry is inevitable justifies the behaviour that confirms the belief. Neither corrects itself, and both accelerate.</p>
+    <p class="say"><b>Practices</b> is the loosest condition and the only one where genuinely new things are being invented. That looseness is real but shallow: the field is writing rules for work nobody yet knows how to do. <b>Relationships</b> is changing shape rather than simply tightening &mdash; connections between states thin while connections between companies and governments thicken, so the system's connective tissue is being rebuilt around actors with no conventions for maintaining it. <b>Power dynamics</b> reads as less fixed than it first appears once it is separated by subject: the terms of governance have not left the state, and private concentration depends on the frontier remaining where the value is.</p>
+
+    <div class="principle" style="border-left-color:var(--violet)">
+      <p><b>One caveat on the whole description.</b> Framing this as a relationship between two countries reflects where the most capable systems are currently built, and is useful for that reason. But it is a choice of lens, and it has a cost: describing a situation as fundamentally bilateral can make it more adversarial, reinforce each party's sense of itself as one side of a contest, and obscure the influence of other states, international bodies and companies that do not fit the frame. The account above should be read with that distortion in mind.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>A descriptive account of the frontier-AI coordination system, organised through the Six Conditions of Systems Change &mdash; the "Water of Systems Change," Kania, Kramer &amp; Senge (FSG, 2018). The readings here are qualitative judgements offered as a structured basis for discussion, not measurements. No organisation's capabilities, interests or position are assessed, and no factor on the causal map represents an organisation.</p>
+  </footer>
+
+</div>
+
+<script>
+function tog(){var r=document.documentElement;r.setAttribute('data-theme',r.getAttribute('data-theme')==='dark'?'light':'dark');}
+
+const CL = {
+  goal:      {c:'--blue-strong'},
+  race:      {c:'--red',    name:'Competition without coordination', sub:'reinforcing loop', ang:205},
+  capability:{c:'--violet', name:'Capability outruns oversight',     sub:'reinforcing loop', ang:265},
+  epistemic: {c:'--grey',   name:'Belief formation & information',   sub:'reinforcing loop', ang:325},
+  access:    {c:'--aqua',   name:'Barriers to exchange',             sub:'balancing loop',   ang:25},
+  intermed:  {c:'--orange', name:'Comprehension & trust',            sub:'balancing loop',   ang:85},
+  legit:     {c:'--amber',  name:'Governance architecture',          sub:'balancing loop',   ang:145}
+};
+
+const N = [
+  {id:'goal', l:'OUTCOME', cl:'goal', k:'goal', d:'The reference point the whole map bears on. Every factor here either moves the system toward it or holds the system away from it.'},
+
+  // --- competition without coordination ---
+  {id:'rivalry',   l:'US–China rivalry', cl:'race', k:'master', d:'Structural, durable strategic rivalry — the master geopolitical dynamic, and one that nothing inside this system can move.'},
+  {id:'pacing',    l:'The pacing problem goes unsolved', cl:'race', k:'hub', d:'The "bottom" the race runs toward: no mechanism keeps the rate of capability advance within what oversight can absorb. Not a race to be less safe on purpose — a race in which nobody can afford to wait for the safety work to catch up.'},
+  {id:'incentive', l:'Incentives distorted toward risk', cl:'race', k:'node', d:'Continuous competition rewards moving first over moving carefully, at national and company level alike.'},
+  {id:'distrust',  l:'US–China distrust', cl:'race', k:'hub', d:'Held as a premise rather than a testable claim, and self-confirming: each side\'s caution reads to the other as proof it was right.'},
+  {id:'armsmodel', l:'Arms-race frame', cl:'race', k:'node', d:'The zero-sum model in which cooperation reads as naïve and restraint as unilateral disadvantage.'},
+  {id:'export',    l:'Export controls', cl:'race', k:'node', d:'Restrictions on advanced chips, which shape the whole technology relationship and colour how verification proposals are received.'},
+  {id:'chilling',  l:'Over-compliance chill', cl:'race', k:'node', d:'Rules too technical to be read closely produce cautious guesswork, and self-imposed restriction well beyond what the law requires.'},
+  {id:'track1',    l:'Track-1 fragility', cl:'race', k:'node', d:'Official dialogue exists but is fragile, and carries an agenda far wider than AI — so AI items move for unrelated reasons.'},
+  {id:'govfrag',   l:'Governance fragmentation', cl:'race', k:'node', d:'National regimes diverging while competing international bodies are stood up, with pressure on third countries to pick a side.'},
+  {id:'middlepower',l:'Middle-power pressure', cl:'race', k:'node', d:'Third countries can press both sides toward restraint, and a mandatory regime adopted elsewhere first lowers the cost of the two leading states following. Currently weak, but a real lever on the dynamic.'},
+  {id:'coalition', l:'Coalition and bloc dynamics', cl:'race', k:'node', d:'Alignment forming around access to hardware and software, which widens the contest beyond two parties — and means existing alliances shape how far either can move.'},
+
+  // --- capability outruns oversight ---
+  {id:'frontier',  l:'Frontier capability', cl:'capability', k:'master', d:'The rate of advance in the most capable systems — exogenous to everything else here.'},
+  {id:'lag',       l:'Understanding lags capability', cl:'capability', k:'hub', d:'The mechanism of the whole cluster: capability advances, understanding of it lags by construction, and the response built on that understanding lags again. The size of both lags determines whether oversight is possible at all — which is why this cluster depends so heavily on the information one.'},
+  {id:'deploy',    l:'Deployment outpaces oversight', cl:'capability', k:'node', d:'Systems are put to work, internally and externally, faster than anyone establishes how to supervise them.'},
+  {id:'fewlabs',   l:'Power in a few labs', cl:'capability', k:'hub', d:'Decisions about how the most advanced systems are built and tested rest with a very small number of people.'},
+  {id:'onlooker',  l:'Limited state leverage on how AI is built', cl:'capability', k:'node', d:'Governments have little practical influence over development practice, even though they still set the terms of governance in other respects.'},
+  {id:'govdefer',  l:'Government relies on industry expertise', cl:'capability', k:'node', d:'On the most technical questions governments draw their understanding from the organisations they would regulate, which shapes which options reach them.'},
+  {id:'evaluators',l:'Independent evaluators', cl:'capability', k:'hub', d:'The main missing piece on the oversight side. A body of independent organisations able to test and certify systems barely exists — and will not appear without something to pay for it: liability rules, insurance requirements, or a regulator that mandates assessment and so creates the market.'},
+  {id:'commercial',l:'Commercial override', cl:'capability', k:'node', d:'Where caution and commercial advantage conflict inside a company, commercial considerations tend to win.'},
+  {id:'trainrun',  l:'How capability steps get decided', cl:'capability', k:'node', d:'The point at which a company commits to a new capability step, and the model it holds of how that will affect everyone else.'},
+  {id:'devrisk',   l:'Belief that risk sits in development', cl:'capability', k:'node', d:'The prevailing view that danger lies in how systems are built rather than in how widely they spread. A contested assumption, not an established finding — and if freely available capable models arrive, the weighting may be wrong.'},
+  {id:'societal',  l:'Societal-resilience layer', cl:'capability', k:'node', d:'The other place risk can materialise: employment, information, infrastructure and the concentration of economic power. Thinly attended relative to the development layer.'},
+  {id:'incident',  l:'Incident pathways', cl:'capability', k:'node', d:'Biological, cyber, financial, infrastructure and autonomy failures — the routes by which the abstract becomes concrete, and the main thing that opens policy windows.'},
+
+  // --- belief formation and information pathways ---
+  {id:'beliefs',   l:'Beliefs about the trajectory', cl:'epistemic', k:'hub', d:'What key actors believe about where the technology is going, what governance could achieve, and what is or is not possible. These beliefs drive the other clusters more directly than any fact does.'},
+  {id:'accuracy',  l:'Accuracy of the governance worldview', cl:'epistemic', k:'hub', d:'Not how much is known, but whether those doing governance thinking have it roughly right. Arguably the real bottleneck — more people working on the problem does not help if the shared picture is wrong.'},
+  {id:'usinfo',    l:'How the US government gets informed', cl:'epistemic', k:'node', d:'On frontier questions, a very short path: officials consult a handful of individuals connected to informal expert networks. On others, the established intelligence apparatus rather than the AI community.'},
+  {id:'cninfo',    l:'How the Chinese government gets informed', cl:'epistemic', k:'node', d:'A different set of information authorities and advisory routes. The two pathways are not symmetrical, and understanding each separately matters more than treating information supply as one thing.'},
+  {id:'gated',     l:'Gated, tacit expert networks', cl:'epistemic', k:'node', d:'Much of the relevant understanding is held implicitly inside a trust-based community and shared informally. Decoding it requires having been inside the network for some time.'},
+  {id:'informal',  l:'Informal publishing channels', cl:'epistemic', k:'node', d:'Newsletters, social platforms and independent writers now carry a large share of governance thinking, with wide variation in quality. Where the next reader happens to look substantially determines what they come to believe.'},
+  {id:'epicapture',l:'Understanding held inside the labs', cl:'epistemic', k:'hub', d:'Detailed knowledge of the most advanced systems concentrating inside the organisations being governed, which makes independent assessment structurally harder.'},
+  {id:'talent',    l:'Talent absorbed into industry', cl:'epistemic', k:'node', d:'The people able to assess frontier systems are recruited by the organisations that build them, thinning the independent technical depth available to everyone else.'},
+  {id:'dispersion',l:'Epistemic dispersion', cl:'epistemic', k:'node', d:'The counter-force, and a real one: awareness has widened enormously compared with a decade ago, individuals move between organisations spreading understanding, and the concentration story is not the whole picture.'},
+  {id:'institutes',l:'State capacity-building', cl:'epistemic', k:'node', d:'Governments founding their own AI institutes and evaluation bodies. Slow, prone to losing staff to industry, and uneven — but generating new knowledge and new institutions rather than only losing them.'},
+  {id:'assurance', l:'Assurance and evaluation practice', cl:'epistemic', k:'node', d:'A maturing body of technique for testing what systems can do. Still closer to an intellectual programme than an institutional reality, which is why it sits here rather than among established practices — but with enough momentum and enough organisations forming that it is no longer only an idea.'},
+
+  // --- governance architecture ---
+  {id:'existfora', l:'Existing fora where both states sit', cl:'legit', k:'hub', d:'The bilateral track, UN bodies, the biological weapons regime, and routine meetings through the year. Slow, or without teeth, or not trusted — but already in existence, which is not nothing.'},
+  {id:'standardsb',l:'Standards bodies', cl:'legit', k:'node', d:'International standards organisations are discussing assurance and testing. Slow, but genuinely international and actively used by industry.'},
+  {id:'domainfora',l:'Domain-specific fora', cl:'legit', k:'node', d:'Where AI touches an existing regime — military systems, biological and chemical weapons — conversations go better, because officials already have counterparts and a shared vocabulary.'},
+  {id:'armscontrol',l:'Arms-control inheritance', cl:'legit', k:'node', d:'Much of the available infrastructure is nominally arms control, and is where China located AI governance inside its foreign ministry. Whether the framing actually fits the problem is unresolved.'},
+  {id:'framework', l:'Framework proliferation', cl:'legit', k:'node', d:'Very many published governance frameworks, most not addressing the load-bearing problems, and the few that do drawing the same participants repeatedly. Nothing currently resolves the confusion, which is itself a barrier.'},
+  {id:'fewactors', l:'Few actors both willing and powerful', cl:'legit', k:'hub', d:'Institutions get built by a small number of actors taking agency. The set that is both highly capable and highly motivated is very small, treaty-making is hard even for them, and industry is largely outside the venues where design happens.'},
+  {id:'template',  l:'Front-runner template pathway', cl:'legit', k:'node', d:'A group of concerned states builds a governance model domestically and internationally, which others opt into later. Does not require every party at the outset — but does require at least one of the two leading states.'},
+  {id:'incwindow', l:'Incident-opened windows', cl:'legit', k:'node', d:'A serious enough incident could make an existing template adoptable quickly. Uncertain whether it happens, and uncertain it would be sufficient if it did.'},
+  {id:'integtime', l:'Fragmentation and integration timing', cl:'legit', k:'node', d:'International systems cycle between fragmenting and integrating. The open question is whether integration returns in time to steer this particular transformation — the central tension of the cluster.'},
+  {id:'confidence',l:'Confidence-building infrastructure', cl:'legit', k:'node', d:'The concrete mechanisms — hardware verification, shared evidence, neutral facilities where sensitive material can be examined without either party taking possession. Early, and held by few actors.'},
+  {id:'neutralgnd',l:'Neutral ground availability', cl:'legit', k:'node', d:'Venues and hosts credible to both sides. Contingent on those hosts remaining relevant on AI and credibly non-aligned, which political decisions elsewhere could end.'},
+  {id:'verifenf',  l:'Verification reads as enforcement', cl:'legit', k:'node', d:'Technical verification proposals are frequently heard as export controls by another name, which shapes their reception regardless of intent.'},
+  {id:'representn',l:'Uneven representation in neutral venues', cl:'legit', k:'node', d:'Participation in the venues that could host this conversation is lopsided — thin permanent presence from one of the two principals, and much of the wider world represented only indirectly.'},
+
+  // --- comprehension and trust ---
+  {id:'comprehension',l:'Mutual comprehension gap', cl:'intermed', k:'hub', d:'Each side struggles to read the other accurately. A real obstacle — but not the same obstacle as distrust, and worth separating, because they are worked on in different ways and one may be more tractable than the other.'},
+  {id:'trustmech', l:'Trust in mechanisms', cl:'intermed', k:'hub', d:'Even without full mutual understanding, progress is possible where both parties trust a procedure. This is the other half of the problem, and may be the more addressable half.'},
+  {id:'misread',   l:'Capacity misread as obstruction', cl:'intermed', k:'node', d:'Where one side lacks the internal capacity to respond, the other may read the silence as deliberate stonewalling. The two readings lead to entirely different next moves — and a more constructive available interpretation can matter more than an accurate one.'},
+  {id:'ambiguity', l:'Strategic ambiguity', cl:'intermed', k:'node', d:'A party that believes itself behind has reasons to withhold clarity about its position, which reads as concealment from the other side and deepens the gap.'},
+  {id:'enemyuse',  l:'Domestic utility of an adversary', cl:'intermed', k:'node', d:'Where an adversary is politically useful at home, better information changes nothing — the incentive is not to understand. This sits outside the bilateral relationship and is very hard to shift from within it.'},
+  {id:'transnat',  l:'Shared exposure to transnational risk', cl:'intermed', k:'node', d:'The counter-force: some risks fall on both parties regardless of the rivalry, which creates rational reasons to talk even where the politics are hostile.'},
+  {id:'demand',    l:'Demand for intermediation', cl:'intermed', k:'node', d:'Both sides recognising that they need a route through someone else. Real — though recognising the need is not the same as being able to act on the dynamic.'},
+  {id:'supply',    l:'Supply of intermediation', cl:'intermed', k:'node', d:'The small set of organisations doing bridge-building. Sized to demand rather than to the problem, and on its own too weak to shift the competitive dynamic.'},
+  {id:'counterpart',l:'Counterpart mismatch', cl:'intermed', k:'node', d:'The two states are organised so differently that apparent equivalents differ in authority and remit — and neither side is certain who holds the decision in any case.'},
+  {id:'participants',l:'Participant scarcity', cl:'intermed', k:'node', d:'Too few people taking part in cross-border exchange at all. Growing slowly, but far outpaced by what the system needs — a shortage, not a crowding.'},
+
+  // --- barriers to exchange ---
+  {id:'costs',     l:'The cost of exchange', cl:'access', k:'hub', d:'Travel, clearance, language, time and personal risk. Exchange happens only where someone is willing to bear these costs, and they are not falling.'},
+  {id:'travel',    l:'Travel restrictions', cl:'access', k:'node', d:'Movement between the two countries is difficult in both directions, and official occasions often supply the only workable justification for it.'},
+  {id:'cnlegal',   l:'Legal constraints on presence', cl:'access', k:'node', d:'Laws governing foreign organisations, and laws on information handling, limit what can be established and what can be shared.'},
+  {id:'language',  l:'Language barriers', cl:'access', k:'node', d:'A persistent structural constraint that gets consistently underrated: many researchers on one side do not work comfortably in the other\'s language. Lifting travel restrictions would not resolve it.'},
+  {id:'exchincent',l:'Incentives against exchange', cl:'access', k:'node', d:'At individual and organisational level the incentives point away from cross-border contact. This is the strongest link between this cluster and the competitive dynamic, and the reason costs alone do not explain the shortfall.'},
+  {id:'reducers',  l:'Actors who reduce the cost', cl:'access', k:'hub', d:'Very few organisations exist whose function is to lower the cost of exchange for everyone else. The scarcity of cost-reducers, rather than the height of the costs, is the binding constraint.'},
+  {id:'crossborder',l:'Cross-border evaluation sharing', cl:'access', k:'node', d:'Sharing what testing has found across the divide. Technically possible and almost entirely unpractised.'},
+  {id:'standards', l:'Standards internationalisation', cl:'access', k:'node', d:'An enabler: the standards track is one of the few places where detail actually gets negotiated across the divide.'},
+  {id:'euact',     l:'Extraterritorial regulation', cl:'access', k:'node', d:'An enabler rather than a barrier. Market-access rules reach companies in jurisdictions that never adopted them, giving firms on both sides a shared reference point they did not have to agree on.'}
+];
+
+const L = [
+  // --- competition without coordination (reinforcing) ---
+  ['rivalry','distrust','d','Rivalry hardens into distrust as a standing premise'],
+  ['distrust','armsmodel','d','Distrust entrenches the zero-sum frame'],
+  ['armsmodel','incentive','d','A zero-sum frame makes moving first rational'],
+  ['incentive','pacing','d','Distorted incentives are what produce the pacing problem'],
+  ['pacing','rivalry','d','An unmanaged race feeds the rivalry that drives it — this closes the loop'],
+  ['rivalry','export','d','Rivalry produces export controls'],
+  ['export','distrust','d','Controls read as containment, hardening distrust'],
+  ['export','chilling','d','Technical, unread rules produce risk-averse self-restriction'],
+  ['rivalry','track1','d','Rivalry destabilises the official channel'],
+  ['track1','pacing','i','A working official track would be the obvious route to managing pace'],
+  ['rivalry','govfrag','d','Rivalry fragments the governance landscape'],
+  ['govfrag','pacing','d','Fragmented rules leave the pace ungoverned'],
+  ['coalition','govfrag','d','Bloc formation multiplies competing regimes'],
+  ['rivalry','coalition','d','Rivalry pulls third countries into alignment'],
+  ['middlepower','pacing','i','Third-country pressure and first-mover regulation can slow the race from outside'],
+  ['middlepower','demand','d','External pressure raises the value of a route between the two'],
+  ['coalition','middlepower','i','Hardening blocs reduce the room third countries have to press'],
+
+  // --- capability outruns oversight (reinforcing) ---
+  ['frontier','lag','d','Faster advance widens the gap between capability and understanding'],
+  ['lag','deploy','d','Where understanding lags, deployment proceeds without oversight'],
+  ['deploy','frontier','d','Deployment funds and accelerates the next step — closing the loop'],
+  ['frontier','fewlabs','d','Advance concentrates in the organisations that can afford it'],
+  ['fewlabs','onlooker','d','Concentration leaves states with little leverage over practice'],
+  ['fewlabs','govdefer','d','Expertise concentration makes government reliant on industry'],
+  ['govdefer','onlooker','d','Reliance narrows the options states can consider'],
+  ['onlooker','deploy','d','Weak external constraint lets deployment run ahead'],
+  ['commercial','trainrun','d','Commercial pressure shapes when a capability step is taken'],
+  ['trainrun','frontier','d','Those decisions are what move the frontier'],
+  ['fewlabs','commercial','d','Concentration removes external checks on commercial judgement'],
+  ['evaluators','lag','i','Independent assessment is the main way to close the understanding gap'],
+  ['evaluators','onlooker','i','A functioning evaluator ecosystem gives states something to act on'],
+  ['assurance','evaluators','d','Maturing technique is a precondition for an evaluator market'],
+  ['devrisk','societal','i','Locating risk in development draws attention away from the diffusion layer'],
+  ['incident','societal','d','Concrete failures surface the resilience layer'],
+  ['deploy','incident','d','Wider deployment multiplies the routes to a visible failure'],
+  ['incident','incwindow','d','Incidents are what open windows in the architecture'],
+
+  // --- belief formation and information (reinforcing) ---
+  ['epicapture','accuracy','i','Understanding held privately degrades the shared picture'],
+  ['talent','epicapture','d','Recruitment moves expertise inside the organisations being governed'],
+  ['frontier','talent','d','Advance raises what industry will pay for the people who understand it'],
+  ['epicapture','gated','d','Privately held understanding circulates through closed networks'],
+  ['gated','accuracy','i','Knowledge that requires network membership to decode reaches few people accurately'],
+  ['informal','beliefs','d','Where a reader happens to look largely determines what they come to believe'],
+  ['gated','informal','d','Closed networks leak into public channels selectively and unevenly'],
+  ['accuracy','beliefs','d','An accurate shared picture is what beliefs would otherwise be built on'],
+  ['beliefs','usinfo','d','Prevailing beliefs shape which advisers governments treat as authoritative'],
+  ['beliefs','cninfo','d','The same, through a different and non-symmetrical set of authorities'],
+  ['usinfo','accuracy','i','A very short advisory path makes the official picture fragile'],
+  ['cninfo','accuracy','i','Different pathways produce different pictures, neither necessarily accurate'],
+  ['dispersion','accuracy','d','Wider participation improves the shared picture — the main counter-force here'],
+  ['institutes','dispersion','d','State capacity-building creates knowledge outside the labs'],
+  ['talent','institutes','i','Recruitment strips the institutes of the people they need'],
+  ['dispersion','epicapture','i','Dispersion works directly against concentration'],
+  ['institutes','assurance','d','Public evaluation bodies build the technique'],
+
+  // --- information drives the other clusters ---
+  ['beliefs','armsmodel','d','Beliefs about the trajectory sustain the race frame'],
+  ['beliefs','devrisk','d','Beliefs determine where risk is thought to sit'],
+  ['accuracy','pacing','i','An accurate shared picture is a precondition for managing pace'],
+  ['lag','accuracy','i','The understanding gap is the information problem seen from the capability side'],
+  ['accuracy','lag','i','Better collective understanding is what would close it'],
+  ['framework','accuracy','i','Framework proliferation adds noise rather than signal'],
+  ['beliefs','template','d','What front-runners believe determines what they would build'],
+  ['cninfo','comprehension','d','Asymmetric information pathways widen the comprehension gap'],
+  ['usinfo','comprehension','d','And do so from the other direction'],
+
+  // --- governance architecture (balancing) ---
+  ['pacing','fewactors','d','The unmanaged race is what creates demand for an architecture'],
+  ['fewactors','template','d','Progress comes from the few actors willing to take agency'],
+  ['template','confidence','d','A front-runner model is how concrete mechanisms first get built'],
+  ['confidence','trustmech','d','Working mechanisms are what trust in procedure is built on'],
+  ['existfora','confidence','d','Existing venues are where mechanisms can be lodged'],
+  ['standardsb','existfora','d','Standards bodies are among the few functioning venues'],
+  ['domainfora','existfora','d','Domain-specific regimes carry conversations the general ones cannot'],
+  ['armscontrol','domainfora','d','The inherited arms-control infrastructure is where many of those regimes sit'],
+  ['framework','fewactors','i','Noise makes it harder for willing actors to converge on anything'],
+  ['fewactors','existfora','i','Few willing actors means existing venues stay underused'],
+  ['incwindow','template','d','A window is what lets a prepared template be adopted'],
+  ['integtime','template','i','If integration returns too slowly, the template arrives too late to matter'],
+  ['neutralgnd','existfora','d','Credible neutral hosts are what make venues usable'],
+  ['representn','neutralgnd','i','Lopsided participation undermines a venue\'s claim to be neutral ground'],
+  ['verifenf','confidence','i','Verification heard as enforcement blocks the mechanisms that would build confidence'],
+  ['export','verifenf','d','Controls are why verification is heard that way'],
+  ['govfrag','integtime','d','Fragmentation is what the timing question is about'],
+  ['confidence','pacing','i','Working confidence mechanisms are what would let the race be managed'],
+  ['fewlabs','fewactors','d','Industry holds much of the agency, and sits largely outside the design venues'],
+  ['govdefer','framework','d','Reliance on industry shapes which frameworks get taken seriously'],
+
+  // --- comprehension and trust (balancing) ---
+  ['distrust','comprehension','d','Distrust and misreading reinforce one another without being the same thing'],
+  ['comprehension','misread','d','The gap shows up as specific misreadings with concrete consequences'],
+  ['misread','distrust','d','A hostile reading of ambiguous behaviour hardens the premise'],
+  ['ambiguity','comprehension','d','Deliberate opacity widens the gap'],
+  ['ambiguity','misread','d','Withheld clarity invites the least charitable reading'],
+  ['enemyuse','comprehension','d','Where an adversary is useful, the incentive is not to understand'],
+  ['enemyuse','trustmech','i','Political utility of an enemy blocks trust-building directly'],
+  ['transnat','demand','d','Shared exposure creates rational reasons to seek a route through'],
+  ['transnat','trustmech','d','Common exposure is what procedural trust can be built on'],
+  ['demand','supply','d','Recognised need draws in bridge-builders'],
+  ['supply','comprehension','i','Intermediation narrows the gap where it operates'],
+  ['supply','pacing','i','But bridge-building alone is too weak to shift the competitive dynamic'],
+  ['counterpart','comprehension','d','Mismatched counterparts make accurate reading harder'],
+  ['participants','supply','i','Too few participants limits what intermediation can carry'],
+  ['trustmech','confidence','d','Trust in procedure is what makes mechanisms adoptable'],
+  ['comprehension','trustmech','i','A persistent gap makes it hard to learn to trust'],
+
+  // --- barriers to exchange (balancing) ---
+  ['travel','costs','d','Restricted movement raises the cost of any exchange'],
+  ['cnlegal','costs','d','Legal constraints raise it further'],
+  ['language','costs','d','Language is a persistent cost that no political thaw removes'],
+  ['exchincent','costs','d','Where incentives point away from contact, the effective cost rises again'],
+  ['incentive','exchincent','d','Competitive incentives are what turn individuals against exchange'],
+  ['costs','participants','i','High costs keep the participant pool small'],
+  ['reducers','costs','i','Actors whose function is to lower costs are the direct counter-force'],
+  ['participants','reducers','i','Too few participants means too few actors reducing costs for others'],
+  ['crossborder','reducers','d','Shared evaluation results are one concrete cost-reducer'],
+  ['standards','reducers','d','The standards track lowers the cost of negotiating detail'],
+  ['euact','crossborder','d','Extraterritorial rules give both sides a shared reference point'],
+  ['euact','assurance','d','Market-access requirements pull assurance practice into use'],
+  ['costs','comprehension','d','Less exchange means less accurate reading of the other side'],
+  ['chilling','crossborder','i','Over-compliance closes exchanges the law never barred'],
+
+  // --- into the outcome ---
+  ['pacing','goal','i','An unmanaged race is the central obstacle'],
+  ['lag','goal','i','Oversight that cannot keep up undermines the whole objective'],
+  ['accuracy','goal','d','An accurate shared picture is a precondition for everything else'],
+  ['confidence','goal','d','Confidence-building infrastructure is the mechanism the outcome names'],
+  ['trustmech','goal','d','Mutual confidence is what the outcome asks for'],
+  ['fewactors','goal','d','Whether willing actors can build is what determines if it happens'],
+  ['reducers','goal','d','Lowering the cost of exchange is what makes coordination affordable'],
+  ['evaluators','goal','d','Independent assessment is the missing accountability mechanism'],
+  ['integtime','goal','i','If integration comes too late, the outcome is out of reach'],
+  ['societal','goal','d','Resilience is the half of the risk picture the outcome also bears on']
+];
+
+/* ---------------- LAYOUT ---------------- */
+const W=1860, H=1560, CX=W/2, CY=H/2+4;
+const R_CL=545;
+const nodes={}, order=[];
+N.forEach((n,i)=>{ nodes[n.id]=Object.assign({},n,{i}); order.push(n.id); });
+function anchor(cl){ if(cl==='goal') return {x:CX,y:CY}; const a=CL[cl].ang*Math.PI/180; return {x:CX+R_CL*Math.cos(a), y:CY+R_CL*Math.sin(a)}; }
+const perCl={}; order.forEach(id=>{const c=nodes[id].cl; (perCl[c]=perCl[c]||[]).push(id);});
+order.forEach(id=>{
+  const n=nodes[id]; if(n.cl==='goal'){n.x=CX;n.y=CY;n.fx=true;return;}
+  const arr=perCl[n.cl]; const k=arr.indexOf(id); const a=anchor(n.cl);
+  const ta=(k/arr.length)*Math.PI*2; const rr=62+30*(k%3)+(arr.length>10?16:0);
+  n.x=a.x+rr*Math.cos(ta); n.y=a.y+rr*Math.sin(ta);
+});
+const OUTCOME = 'Frontier AI develops within a system where leading companies and governments have the relationships, incentives, and governance infrastructure needed to cooperate effectively, manage shared risks, and build mutual confidence. Strategic competition is balanced by mechanisms for transparency, coordination, and accountability, enabling powerful AI capabilities to develop responsibly without reinforcing avoidable risks or excessive concentrations of power.';
+const GOALW=536, GOALH=344;   // the outcome statement box at the centre
+function radius(n){ return n.k==='goal'?Math.max(GOALW,GOALH)/2 : n.k==='hub'?25 : n.k==='master'?23 : 17; }
+// distance from a node's centre to its boundary along a unit direction
+function bOff(n,ux,uy){
+  if(n.k!=='goal') return radius(n);
+  const hw=GOALW/2+8, hh=GOALH/2+8;
+  const tx=Math.abs(ux)<1e-6?Infinity:hw/Math.abs(ux);
+  const ty=Math.abs(uy)<1e-6?Infinity:hh/Math.abs(uy);
+  return Math.min(tx,ty);
+}
+const adj={}; order.forEach(id=>adj[id]=[]);
+L.forEach(([s,t,p,m])=>{ adj[s].push({o:t,p,m,dir:'out'}); adj[t].push({o:s,p,m,dir:'in'}); });
+const linkLen=(a,b)=> (a.k==='goal'||b.k==='goal')?400 : ((a.k==='hub'||b.k==='hub')?132:108);
+for(let it=0; it<640; it++){
+  const cool=1-it/700;
+  for(let i=0;i<order.length;i++){ for(let j=i+1;j<order.length;j++){
+    const a=nodes[order[i]], b=nodes[order[j]];
+    let dx=a.x-b.x, dy=a.y-b.y; let d2=dx*dx+dy*dy; if(d2<1)d2=1; const d=Math.sqrt(d2);
+    const rep=(a.k==='goal'||b.k==='goal'?46000:5000)/d2; const fx=dx/d*rep, fy=dy/d*rep;
+    if(!a.fx){a.x+=fx*cool;a.y+=fy*cool;} if(!b.fx){b.x-=fx*cool;b.y-=fy*cool;}
+  }}
+  L.forEach(([s,t])=>{ const a=nodes[s], b=nodes[t]; let dx=b.x-a.x, dy=b.y-a.y; const d=Math.sqrt(dx*dx+dy*dy)||1;
+    const tl=linkLen(a,b); const f=(d-tl)*0.05*cool; const fx=dx/d*f, fy=dy/d*f;
+    if(!a.fx){a.x+=fx;a.y+=fy;} if(!b.fx){b.x-=fx;b.y-=fy;}
+  });
+  order.forEach(id=>{ const n=nodes[id]; if(n.fx)return; const a=anchor(n.cl);
+    n.x+=(a.x-n.x)*0.017*cool; n.y+=(a.y-n.y)*0.017*cool;
+    n.x+=(CX-n.x)*0.003*cool; n.y+=(CY-n.y)*0.003*cool;
+  });
+}
+for(let it=0; it<190; it++){
+  for(let i=0;i<order.length;i++){ for(let j=i+1;j<order.length;j++){
+    const a=nodes[order[i]], b=nodes[order[j]];
+    const min=(a.k==='goal'?GOALW/2+40:radius(a))+(b.k==='goal'?GOALW/2+40:radius(b))+50; let dx=a.x-b.x, dy=a.y-b.y; let d=Math.sqrt(dx*dx+dy*dy)||1;
+    if(d<min){ const push=(min-d)/2; const ux=dx/d, uy=dy/d;
+      if(!a.fx){a.x+=ux*push;a.y+=uy*push;} if(!b.fx){b.x-=ux*push;b.y-=uy*push;} }
+  }}
+}
+
+/* --- label-aware rectangular relaxation --- */
+function wrapPre(str,max){ const w=str.split(' '); const lines=[]; let cur='';
+  w.forEach(word=>{ if((cur+' '+word).trim().length>max){ if(cur)lines.push(cur); cur=word; } else cur=(cur+' '+word).trim(); });
+  if(cur)lines.push(cur); return lines; }
+const FOOT={};
+order.forEach(id=>{ const n=nodes[id]; const r=radius(n);
+  if(n.k==='goal'){ FOOT[id]={hw:GOALW/2+16, top:GOALH/2+16, bot:GOALH/2+16}; return; }
+  const lines=wrapPre(n.l,14).slice(0,3);
+  const labW=Math.max(...lines.map(l=>l.length))*5.75;
+  const labH=lines.length*11;
+  FOOT[id]={hw:Math.max(r, labW/2)+11, top:r+6, bot:r+12+labH+7};
+});
+for(let it=0; it<620; it++){
+  const relax=1-it/760;
+  for(let i=0;i<order.length;i++){ for(let j=i+1;j<order.length;j++){
+    const A=nodes[order[i]], B=nodes[order[j]], fa=FOOT[order[i]], fb=FOOT[order[j]];
+    const axc=A.x, ayc=A.y+(fa.bot-fa.top)/2, ahh=(fa.bot+fa.top)/2;
+    const bxc=B.x, byc=B.y+(fb.bot-fb.top)/2, bhh=(fb.bot+fb.top)/2;
+    const dx=axc-bxc, dy=ayc-byc;
+    const ox=(fa.hw+fb.hw)-Math.abs(dx), oy=(ahh+bhh)-Math.abs(dy);
+    if(ox>0 && oy>0){
+      if(ox<oy){ const p=ox/2*relax*(dx<0?-1:1);
+        if(!A.fx)A.x+=p; if(!B.fx)B.x-=p;
+      } else { const p=oy/2*relax*(dy<0?-1:1);
+        if(!A.fx)A.y+=p; if(!B.fx)B.y-=p; }
+    }
+  }}
+  order.forEach(id=>{ const n=nodes[id]; if(n.fx)return; const a=anchor(n.cl);
+    n.x+=(a.x-n.x)*0.006; n.y+=(a.y-n.y)*0.006; });
+}
+order.forEach(id=>{const n=nodes[id]; const f=FOOT[id];
+  n.x=Math.max(f.hw+14,Math.min(W-f.hw-14,n.x));
+  n.y=Math.max(f.top+42,Math.min(H-f.bot-14,n.y));});
+
+/* ---------------- RENDER ---------------- */
+const svg=document.getElementById('net');
+const SVGNS='http://www.w3.org/2000/svg';
+function el(t,a){const e=document.createElementNS(SVGNS,t); for(const k in a)e.setAttribute(k,a[k]); return e;}
+function cvar(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+function edgePoint(a,b){
+  let dx=b.x-a.x, dy=b.y-a.y; const d=Math.sqrt(dx*dx+dy*dy)||1; const ux=dx/d, uy=dy/d;
+  const sx=a.x+ux*(bOff(a,ux,uy)+2), sy=a.y+uy*(bOff(a,ux,uy)+2);
+  const tx=b.x-ux*(bOff(b,-ux,-uy)+7), ty=b.y-uy*(bOff(b,-ux,-uy)+7);
+  const mx=(sx+tx)/2, my=(sy+ty)/2; const nx=-uy, ny=ux; const curv=d*0.12;
+  return {sx,sy,tx,ty,cx:mx+nx*curv,cy:my+ny*curv};
+}
+const gLoop=el('g',{}), gEdge=el('g',{}), gHead=el('g',{}), gNode=el('g',{});
+svg.appendChild(gLoop); svg.appendChild(gEdge); svg.appendChild(gHead); svg.appendChild(gNode);
+const loopBoxes=[];
+// place each loop label just beyond the real extent of its own cluster,
+// along the direction from the centre to that cluster's centroid
+Object.keys(CL).forEach(cl=>{ if(cl==='goal')return; const info=CL[cl];
+  const ids=perCl[cl]; if(!ids||!ids.length)return;
+  let cxs=0, cys=0;
+  ids.forEach(id=>{cxs+=nodes[id].x; cys+=nodes[id].y;});
+  cxs/=ids.length; cys/=ids.length;
+  let vx=cxs-CX, vy=cys-CY; const vl=Math.sqrt(vx*vx+vy*vy)||1; vx/=vl; vy/=vl;
+  let reach=0;
+  ids.forEach(id=>{ const n=nodes[id], f=FOOT[id];
+    [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(([sx,sy])=>{
+      const px=n.x+sx*f.hw, py=n.y+(sy<0?-f.top:f.bot);
+      reach=Math.max(reach,(px-CX)*vx+(py-CY)*vy);
+    });
+  });
+  const lx=CX+vx*(reach+46), ly=CY+vy*(reach+46);
+  const hw=info.name.length*4.7+12;
+  const t1=el('text',{x:lx.toFixed(1),y:ly.toFixed(1),'text-anchor':'middle',class:'looplab',fill:cvar(info.c)}); t1.textContent=info.name;
+  const t2=el('text',{x:lx.toFixed(1),y:(ly+17).toFixed(1),'text-anchor':'middle',class:'loopsub',fill:cvar(info.c)}); t2.textContent=info.sub;
+  gLoop.appendChild(t1); gLoop.appendChild(t2);
+  loopBoxes.push({x0:lx-hw,x1:lx+hw,y0:ly-17,y1:ly+23});
+});
+const edgeEls=[];
+L.forEach(([s,t,p,m])=>{ const a=nodes[s], b=nodes[t]; const g=edgePoint(a,b);
+  const path=el('path',{d:`M${g.sx.toFixed(1)},${g.sy.toFixed(1)} Q${g.cx.toFixed(1)},${g.cy.toFixed(1)} ${g.tx.toFixed(1)},${g.ty.toFixed(1)}`, class:'edge'+(p==='i'?' inv':'')});
+  gEdge.appendChild(path);
+  let adx=g.tx-g.cx, ady=g.ty-g.cy; const ad=Math.sqrt(adx*adx+ady*ady)||1; adx/=ad; ady/=ad;
+  const perpx=-ady, perpy=adx; const size=6.6;
+  const p2x=g.tx-adx*size+perpx*size*0.6, p2y=g.ty-ady*size+perpy*size*0.6;
+  const p3x=g.tx-adx*size-perpx*size*0.6, p3y=g.ty-ady*size-perpy*size*0.6;
+  const head=el('polygon',{points:`${g.tx.toFixed(1)},${g.ty.toFixed(1)} ${p2x.toFixed(1)},${p2y.toFixed(1)} ${p3x.toFixed(1)},${p3y.toFixed(1)}`, class:'ahead'+(p==='i'?' inv':'')});
+  gHead.appendChild(head);
+  edgeEls.push({s,t,p,m,path,head});
+});
+const nodeEls={};
+function wrap(str,max){ const w=str.split(' '); const lines=[]; let cur='';
+  w.forEach(word=>{ if((cur+' '+word).trim().length>max){ if(cur)lines.push(cur); cur=word; } else cur=(cur+' '+word).trim(); });
+  if(cur)lines.push(cur); return lines; }
+order.forEach(id=>{ const n=nodes[id]; const r=radius(n); const col=cvar(CL[n.cl].c);
+  const g=el('g',{class:'node '+(n.k==='goal'?'goal ':'')+(n.k==='hub'?'hub big ':'')+(n.k==='master'?'master big ':''), 'data-id':id});
+  const c=el('circle',{cx:n.x.toFixed(1),cy:n.y.toFixed(1),r:r,fill:col});
+  if(n.k==='node') c.setAttribute('fill-opacity','0.9');
+  g.appendChild(c);
+  if(n.k==='goal'){
+    g.removeChild(c);
+    g.appendChild(el('rect',{x:(n.x-GOALW/2).toFixed(1),y:(n.y-GOALH/2).toFixed(1),width:GOALW,height:GOALH,rx:22,class:'goalbox'}));
+    const eb=el('text',{x:n.x.toFixed(1),y:(n.y-GOALH/2+38).toFixed(1),'text-anchor':'middle',class:'goaleyebrow'});
+    eb.textContent='THE OUTCOME THIS SYSTEM BEARS ON'; g.appendChild(eb);
+    const ol=wrap(OUTCOME,54);
+    const startY=n.y-GOALH/2+72;
+    ol.forEach((ln,k)=>{ const tx=el('text',{x:n.x.toFixed(1),y:(startY+k*20).toFixed(1),'text-anchor':'middle',class:'goaltext'}); tx.textContent=ln; g.appendChild(tx); });
+    gNode.appendChild(g); nodeEls[id]={g,c}; return;
+  }
+  let lines = wrap(n.l, 14);
+  {
+    const startY=n.y+r+12;
+    lines.slice(0,3).forEach((ln,k)=>{ const tx=el('text',{x:n.x.toFixed(1),y:(startY+k*11).toFixed(1),'text-anchor':'middle',class:'nlab'}); tx.textContent=ln; g.appendChild(tx); });
+  }
+  gNode.appendChild(g); nodeEls[id]={g,c};
+});
+
+/* ---------------- INTERACTION ---------------- */
+const readout=document.getElementById('readout');
+function resetNet(){
+  edgeEls.forEach(e=>{ e.path.classList.remove('dim','hl-d','hl-i'); e.head.classList.remove('dim','hl-d','hl-i'); });
+  order.forEach(id=>{ nodeEls[id].g.classList.remove('dim','focus'); [...nodeEls[id].g.querySelectorAll('text')].forEach(t=>t.classList.remove('dimlab')); });
+  readout.classList.remove('on');
+}
+function focusNode(id){
+  const nbr=new Set([id]); adj[id].forEach(x=>nbr.add(x.o));
+  edgeEls.forEach(e=>{ const on=(e.s===id||e.t===id); if(on){ e.path.classList.remove('dim'); e.head.classList.remove('dim');
+      const cls=e.p==='i'?'hl-i':'hl-d'; e.path.classList.add(cls); e.head.classList.add(cls);
+    } else { e.path.classList.add('dim'); e.head.classList.add('dim'); e.path.classList.remove('hl-d','hl-i'); e.head.classList.remove('hl-d','hl-i'); } });
+  order.forEach(x=>{ const g=nodeEls[x].g; if(nbr.has(x)){ g.classList.remove('dim'); [...g.querySelectorAll('text')].forEach(t=>t.classList.remove('dimlab')); }
+    else { g.classList.add('dim'); [...g.querySelectorAll('text')].forEach(t=>t.classList.add('dimlab')); } });
+  nodeEls[id].g.classList.add('focus'); nodeEls[id].g.classList.remove('dim');
+  buildReadout(id);
+}
+function buildReadout(id){
+  const n=nodes[id]; const outs=adj[id].filter(x=>x.dir==='out'), ins=adj[id].filter(x=>x.dir==='in');
+  let html=`<div class="rc" style="color:${cvar(CL[n.cl].c)}">${n.cl==='goal'?'System goal':(CL[n.cl].name)}${n.k==='master'?' · master variable':''}</div>`;
+  html+=`<h4>${n.l}</h4><div style="font-size:12.5px;color:var(--ink-2)">${n.d}</div>`;
+  if(outs.length){ html+=`<div class="rl"><div class="h">Drives →</div>`; outs.forEach(x=>{ html+=`<div class="lk ${x.p==='i'?'i':'d'}"><span class="ar">${x.p==='i'?'– –▸':'——▸'}</span><span><b>${nodes[x.o].l}</b> — ${x.m}</span></div>`; }); html+=`</div>`; }
+  if(ins.length){ html+=`<div class="rl"><div class="h">Driven by ←</div>`; ins.forEach(x=>{ html+=`<div class="lk ${x.p==='i'?'i':'d'}"><span class="ar">${x.p==='i'?'– –▸':'——▸'}</span><span><b>${nodes[x.o].l}</b> — ${x.m}</span></div>`; }); html+=`</div>`; }
+  readout.innerHTML=html; readout.classList.add('on');
+}
+order.forEach(id=>{ const g=nodeEls[id].g;
+  g.addEventListener('mouseenter',()=>focusNode(id));
+  g.addEventListener('click',(e)=>{e.stopPropagation(); focusNode(id);});
+});
+svg.addEventListener('mouseleave',resetNet);
+svg.addEventListener('click',resetNet);
+document.querySelectorAll('.lg.clk').forEach(lg=>{ const cl=lg.getAttribute('data-cl');
+  lg.addEventListener('mouseenter',()=>{ const set=new Set(perCl[cl]);
+    edgeEls.forEach(e=>{ const on=set.has(e.s)&&set.has(e.t); if(on){e.path.classList.remove('dim');e.head.classList.remove('dim');const c=e.p==='i'?'hl-i':'hl-d';e.path.classList.add(c);e.head.classList.add(c);} else {e.path.classList.add('dim');e.head.classList.add('dim');} });
+    order.forEach(x=>{ const g=nodeEls[x].g; if(set.has(x)){g.classList.remove('dim');[...g.querySelectorAll('text')].forEach(t=>t.classList.remove('dimlab'));} else {g.classList.add('dim');[...g.querySelectorAll('text')].forEach(t=>t.classList.add('dimlab'));} });
+  });
+  lg.addEventListener('mouseleave',resetNet);
+});
+
+/* --- fit the viewBox to actual content so there is no dead space --- */
+(function fitView(){
+  let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+  order.forEach(id=>{ const n=nodes[id], f=FOOT[id];
+    x0=Math.min(x0,n.x-f.hw); x1=Math.max(x1,n.x+f.hw);
+    y0=Math.min(y0,n.y-f.top); y1=Math.max(y1,n.y+f.bot); });
+  loopBoxes.forEach(b=>{ x0=Math.min(x0,b.x0); x1=Math.max(x1,b.x1); y0=Math.min(y0,b.y0); y1=Math.max(y1,b.y1); });
+  const pad=26;
+  svg.setAttribute('viewBox', `${(x0-pad).toFixed(0)} ${(y0-pad).toFixed(0)} ${(x1-x0+2*pad).toFixed(0)} ${(y1-y0+2*pad).toFixed(0)}`);
+})();
+
+
+</script>
+</body>
+</html>
